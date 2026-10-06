@@ -1,0 +1,16 @@
+@layer components {
+    /* The wax seal: Hereby's single loud brand moment. Use once per view. */
+    .seal {
+        @apply inline-grid aspect-square place-items-center rounded-full bg-seal font-display text-seal-foreground italic shadow-[inset_0_-3px_0_rgb(0_0_0/0.18),0_10px_30px_-12px_var(--seal)];
+    }
+
+    /* Underline that is drawn like a pen stroke on hover. */
+    .link-ink {
+        @apply bg-[linear-gradient(currentColor,currentColor)] bg-[length:0%_1px] bg-left-bottom bg-no-repeat pb-0.5 transition-[background-size] duration-300 ease-out hover:bg-[length:100%_1px];
+    }
+
+    /* Subtle paper grain for large surfaces (marketing, auth). */
+    .paper-grain {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .055 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+}

@@ -1,0 +1,63 @@
+/*
+ * Type system. Fraunces (display) carries the "declaration" voice; its SOFT
+ * and WONK axes give it character at large sizes. Schibsted Grotesk (body)
+ * comes from newspaper typesetting. Martian Mono labels the fine print.
+ */
+@layer base {
+    h1,
+    h2,
+    h3 {
+        @apply font-display tracking-tight text-balance;
+        font-variation-settings:
+            'SOFT' 30,
+            'WONK' 0;
+    }
+
+    p {
+        @apply text-pretty;
+    }
+
+    code,
+    kbd,
+    samp {
+        @apply font-mono text-[0.85em];
+    }
+}
+
+@layer components {
+    .display-xl {
+        @apply font-display text-5xl leading-[0.95] font-light tracking-[-0.035em] sm:text-7xl lg:text-8xl;
+        font-variation-settings:
+            'opsz' 144,
+            'SOFT' 100,
+            'WONK' 1;
+    }
+
+    .display-lg {
+        @apply font-display text-4xl leading-[1.02] font-light tracking-[-0.03em] sm:text-5xl lg:text-6xl;
+        font-variation-settings:
+            'opsz' 144,
+            'SOFT' 60,
+            'WONK' 0;
+    }
+
+    .display-italic {
+        @apply font-display italic;
+        font-variation-settings:
+            'opsz' 144,
+            'SOFT' 100,
+            'WONK' 1;
+    }
+
+    .lede {
+        @apply max-w-xl text-lg leading-relaxed text-muted-foreground sm:text-xl;
+    }
+
+    .eyebrow {
+        @apply font-mono text-[0.6875rem] font-medium tracking-[0.18em] text-muted-foreground uppercase;
+    }
+
+    .fine-print {
+        @apply font-mono text-xs leading-relaxed text-muted-foreground;
+    }
+}

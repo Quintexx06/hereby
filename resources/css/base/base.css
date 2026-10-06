@@ -1,0 +1,23 @@
+@layer base {
+    * {
+        @apply border-border outline-ring/50;
+    }
+
+    html {
+        @apply scroll-smooth;
+        text-rendering: optimizeLegibility;
+    }
+
+    body {
+        @apply bg-background font-sans text-foreground antialiased;
+        font-feature-settings: 'ss01', 'cv11';
+    }
+
+    ::selection {
+        @apply bg-seal text-seal-foreground;
+    }
+
+    :focus-visible {
+        @apply outline-2 outline-offset-2 outline-ring;
+    }
+}
