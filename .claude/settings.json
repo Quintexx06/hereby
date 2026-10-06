@@ -1,0 +1,35 @@
+{
+    "$schema": "https://json.schemastore.org/claude-code-settings.json",
+    "permissions": {
+        "allow": [
+            "Bash(php artisan:*)",
+            "Bash(composer ci:check)",
+            "Bash(composer test)",
+            "Bash(composer lint)",
+            "Bash(vendor/bin/pint:*)",
+            "Bash(vendor/bin/phpstan:*)",
+            "Bash(npm run:*)",
+            "Bash(npx vp:*)",
+            "Bash(git status)",
+            "Bash(git diff:*)",
+            "Bash(git log:*)",
+            "mcp__laravel-boost",
+            "mcp__shadcn-vue",
+            "mcp__context7"
+        ],
+        "deny": [
+            "Read(./.env)",
+            "Read(./.env.production)",
+            "Read(./.env.backup)",
+            "Bash(php artisan migrate:fresh:*)",
+            "Bash(php artisan db:wipe:*)"
+        ]
+    },
+    "enableAllProjectMcpServers": false,
+    "enabledMcpjsonServers": [
+        "laravel-boost",
+        "shadcn-vue",
+        "context7",
+        "playwright"
+    ]
+}

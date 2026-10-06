@@ -38,6 +38,7 @@ export default defineConfig({
     },
     lint: {
         ignorePatterns: [
+            '.claude/**',
             'vendor/**',
             'node_modules/**',
             'public/**',
