@@ -3,9 +3,13 @@
 namespace App\Providers;
 
 use Carbon\CarbonImmutable;
+use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
 
@@ -25,6 +29,15 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->configureDefaults();
+        $this->configureRateLimiting();
+    }
+
+    /**
+     * Rate limits for public, token-protected routes.
+     */
+    protected function configureRateLimiting(): void
+    {
+        RateLimiter::for('invitations', fn (Request $request): Limit => Limit::perMinute(60)->by($request->ip()));
     }
 
     /**
@@ -38,6 +51,9 @@ class AppServiceProvider extends ServiceProvider
         // missing attributes outside production.
         Model::shouldBeStrict(! app()->isProduction());
         Model::automaticallyEagerLoadRelationships();
+
+        // Inertia props are plain objects, not `{ data: … }` API envelopes.
+        JsonResource::withoutWrapping();
 
         DB::prohibitDestructiveCommands(
             app()->isProduction(),

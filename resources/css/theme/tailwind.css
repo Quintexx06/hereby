@@ -1,11 +1,8 @@
 /* Maps semantic tokens + type families onto Tailwind utilities. */
 @theme inline {
-    --font-sans:
-        'Schibsted Grotesk Variable', ui-sans-serif, system-ui, sans-serif,
-        'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji';
-    --font-display: 'Fraunces Variable', ui-serif, Georgia, serif;
-    --font-mono:
-        'Martian Mono Variable', ui-monospace, SFMono-Regular, monospace;
+    --font-sans: var(--type-sans);
+    --font-display: var(--type-display);
+    --font-mono: var(--type-mono);
 
     --radius-lg: var(--radius);
     --radius-md: calc(var(--radius) - 2px);

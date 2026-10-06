@@ -1,8 +1,20 @@
 # Hereby — agent guide
 
-Hereby is a Laravel 13 + Inertia v3 + Vue 3 app (shadcn-vue, Tailwind v4).
-Its brand idea is the formal act of declaring something: **"I hereby…"**:
-ink, paper and a wax seal. Read this file first, then follow the links.
+Hereby is a **premium wedding website platform for Switzerland**: art-directed
+sites, a personal link per guest household, and the venue built in. It's a
+Laravel 13 + Inertia v3 + Vue 3 app (shadcn-vue, Tailwind v4). The brand is
+the language of vows: **"We hereby…"**, told in ink, paper and a wax seal.
+Read this file first, then follow the links.
+
+## The five product rules (from docs/product/vision.md)
+
+Every spec, PR and review checks these:
+
+1. A guest answers in **under 60 seconds on a phone**, with no account and no app.
+2. Every guest page loads in **under 2 seconds on mobile data**.
+3. Guests **never see ads or vendor offers** (one venue credit line at most).
+4. Guest data stays **in Switzerland** and is **deleted on schedule** (ADR 0007).
+5. **Fewer features, all finished.** A feature with a known bug is switched off, not shipped.
 
 @AGENTS.md
 
@@ -10,6 +22,7 @@ ink, paper and a wax seal. Read this file first, then follow the links.
 
 | Need                         | Read                                                       |
 | ---------------------------- | ---------------------------------------------------------- |
+| Product vision & features    | [docs/product/](docs/product/vision.md)                    |
 | What we're building and when | [docs/roadmap/ROADMAP.md](docs/roadmap/ROADMAP.md)         |
 | How to work (AI workflow)    | [docs/ai/workflow.md](docs/ai/workflow.md)                 |
 | Which skill / MCP to use     | [docs/ai/skills.md](docs/ai/skills.md), [docs/ai/mcp.md](docs/ai/mcp.md) |
@@ -39,7 +52,12 @@ ink, paper and a wax seal. Read this file first, then follow the links.
 7. **Motion with intent.** Follow the `emil-design-eng` skill: enter with
    ease-out, keep UI motion under 300ms, never start from `scale(0)`, and
    respect reduced motion. Import GSAP only from `@/lib/gsap`.
-8. **Verify before claiming done:** `composer ci:check` (runs `vp check`,
+8. **Two surfaces, two looks.** Platform pages use the Hereby brand. Guest pages
+   (`pages/invitation/*`) render inside `WeddingThemeScope` with the couple's
+   theme (ADR 0004), and every string goes through `t()` (ADR 0006).
+9. **Guest data is sensitive.** Expose it to guests only through `InvitationResource`.
+   Never send `dietary_notes` to the frontend, and never log guest data.
+10. **Verify before claiming done:** `composer ci:check` (runs `vp check`,
    `vue-tsc`, Pint, PHPStan and PHPUnit).
 
 ## Commands
@@ -47,6 +65,7 @@ ink, paper and a wax seal. Read this file first, then follow the links.
 ```bash
 composer dev          # server + queue + logs + vite
 composer ci:check     # everything CI runs
+php artisan db:seed   # demo wedding; prints personal links for 4 households
 php artisan test --compact --filter=Name
 npm run check:fix     # format + lint frontend
 vendor/bin/pint --dirty

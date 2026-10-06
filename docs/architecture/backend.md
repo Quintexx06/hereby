@@ -36,15 +36,26 @@ Route → FormRequest (validate + authorize) → Controller (thin) → Action �
 - Code style: Pint (`vendor/bin/pint --dirty`). Static analysis: Larastan (`phpstan.neon`).
 - Laravel docs: use the Boost MCP `search-docs` tool, not memory.
 
-## Example: adding "sign a declaration"
+## Domain map
 
 ```
-app/Enums/DeclarationStatus.php
-app/Models/Declaration.php
-app/Policies/DeclarationPolicy.php
-app/Actions/Declarations/SignDeclaration.php
-app/Http/Requests/Declarations/SignDeclarationRequest.php
-app/Http/Controllers/Declarations/DeclarationSignatureController.php   (store)
-app/Http/Resources/DeclarationResource.php
-tests/Feature/Declarations/SignDeclarationTest.php
+User ─ owns ─ Wedding ─┬─ Event (civil ceremony, dinner…)
+                       └─ Household (locale, token) ─ Guest ─ EventResponse ─ Event
+                               └── n:m event_household: who is invited to what
+```
+
+- Guest-facing routes live in `routes/invitations.php`. They're public, with the
+  token as the credential; throttled and `noindex` (ADR 0005).
+- Enums in `app/Enums`: `Locale`, `EventType`, `ResponseStatus`, `WeddingTheme`.
+- Translations: `lang/{de_CH,fr,it,en}/*.php`, shared via `App\Support\FrontendTranslations` (ADR 0006).
+- Retention: `Wedding` is `MassPrunable` (`config/hereby.php`), scheduled in `routes/console.php` (ADR 0007).
+
+## Example: the Phase 1 RSVP
+
+```
+app/Actions/Invitations/SubmitRsvp.php             upserts EventResponses in one transaction
+app/Http/Requests/Invitations/SubmitRsvpRequest.php only events this household is invited to
+app/Http/Controllers/Invitations/RsvpController.php (store, update until the deadline)
+resources/js/components/invitation/rsvp/*.vue       one step per question, under 60s total
+tests/Feature/Invitations/SubmitRsvpTest.php
 ```

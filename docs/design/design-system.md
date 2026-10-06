@@ -51,6 +51,21 @@ Durations: fast 160ms, base 220ms, slow 320ms; hero choreography ≤ 1.5s total.
 - Every animation has a reduced-motion fallback that shows the final state.
 - Before shipping motion, run the `review-animations` skill.
 
+## Wedding themes (guest sites)
+
+Guest pages don't use the Hereby palette directly. They render inside
+`WeddingThemeScope`, which applies a couple's theme by re-declaring the same
+semantic tokens (ADR 0004). Build guest UI with semantic tokens only, and it
+will follow every theme.
+
+| Theme   | Mood                              | Accent (`seal`) |
+| ------- | --------------------------------- | --------------- |
+| Ivory   | Hereby house style: paper and ink | Vermilion       |
+| Alpine  | Glacier white, slate              | Pine            |
+| Riviera | Limestone, espresso               | Terracotta      |
+
+These are starter themes until the designer's collection lands (roadmap Phase 0/1).
+
 ## Inspiration sources
 
 - **21st.dev** (Magic MCP) for component ideas; restyle them to our tokens

@@ -12,12 +12,13 @@ Vue 3 `<script setup lang="ts">` + Inertia v3 + Tailwind v4 + shadcn-vue.
 | `components/brand/`       | Logo, wordmark, wax seal, signature: brand atoms.                    |
 | `components/marketing/`   | Landing-page sections.                                               |
 | `components/header/`      | App header parts.                                                    |
+| `components/invitation/`  | Guest-site parts (`WeddingThemeScope`, hero, events…). Translated, themed and light. |
 | `components/<domain>/`    | Feature components (e.g. `components/declarations/StatusBadge.vue`). |
 | `composables/`            | Reusable stateful logic (`useX`). Motion helpers live in `composables/motion/`. |
 | `directives/`             | Global directives (`v-focus`, `v-reveal`), registered in `directives/index.ts`. |
 | `config/`                 | Static app config, e.g. `navigation.ts`, the one place nav items are defined. |
 | `content/`                | Marketing copy kept out of components.                               |
-| `lib/`                    | Pure helpers (`utils.ts`, `motion.ts`, `gsap.ts`).                   |
+| `lib/`                    | Pure helpers (`utils.ts`, `motion.ts`, `gsap.ts`, `format.ts` for dates in venue time). |
 | `types/`                  | Shared TypeScript types.                                             |
 | `actions/`, `routes/`, `wayfinder/` | **Generated** by Wayfinder. Never edit; never hardcode URLs. |
 
@@ -31,6 +32,10 @@ Vue 3 `<script setup lang="ts">` + Inertia v3 + Tailwind v4 + shadcn-vue.
 - **Forms:** use Inertia `<Form>` with Wayfinder `.form()` variants; show
   errors with `InputError`.
 - **Icons:** `@lucide/vue`.
+- **Copy on guest pages** always goes through `useTrans().t()`. Format dates with `lib/format.ts`.
+- **Prop types** for server data live in `types/wedding.ts` and mirror the PHP resources.
+- **Performance (rule 2):** guest pages must not import GSAP or heavy libraries
+  unless the feature needs them. Check the chunk sizes in `npm run build`.
 
 ## Styling rules
 

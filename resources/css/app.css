@@ -22,6 +22,9 @@
 @import './components/layout.css';
 @import './components/brand.css';
 @import './components/marketing.css';
+@import './components/invitation.css';
+
+@import './themes/wedding.css';
 
 @import './utilities.css';
 

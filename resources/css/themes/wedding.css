@@ -1,0 +1,82 @@
+/*
+ * Guest-site themes (ADR 0004). A theme re-declares semantic tokens on its
+ * scope element (`WeddingThemeScope`), so everything inside a wedding site,
+ * shadcn components included, takes the couple's look. Guest sites are always
+ * light: the couple's design is the design, whatever the visitor's OS setting.
+ *
+ * These three are starter themes. The designer's collection replaces them
+ * (roadmap Phase 0/1). Each theme must keep text contrast at WCAG AA or better.
+ * Themes may also override --type-display / --type-sans for their own pairing.
+ */
+@layer base {
+    [data-theme] {
+        @apply bg-background font-sans text-foreground;
+        color-scheme: light;
+    }
+
+    /* Ivory: the Hereby house style. Paper, ink and a vermilion seal. */
+    [data-theme='ivory'] {
+        --background: var(--color-paper-100);
+        --foreground: var(--color-ink-900);
+        --card: var(--color-paper-50);
+        --card-foreground: var(--color-ink-900);
+        --popover: var(--color-paper-50);
+        --popover-foreground: var(--color-ink-900);
+        --primary: var(--color-ink-900);
+        --primary-foreground: var(--color-paper-50);
+        --muted: var(--color-paper-200);
+        --muted-foreground: var(--color-ink-500);
+        --accent: var(--color-paper-200);
+        --accent-foreground: var(--color-ink-900);
+        --border: var(--color-paper-300);
+        --input: var(--color-paper-300);
+        --ring: var(--color-seal-500);
+        --seal: var(--color-seal-600);
+        --seal-foreground: var(--color-paper-50);
+        --rule: color-mix(in oklch, var(--color-ink-900) 12%, transparent);
+    }
+
+    /* Alpine: glacier white, slate and pine. For mountain and lake venues. */
+    [data-theme='alpine'] {
+        --background: oklch(0.975 0.006 230);
+        --foreground: oklch(0.25 0.03 240);
+        --card: oklch(0.99 0.004 230);
+        --card-foreground: oklch(0.25 0.03 240);
+        --popover: oklch(0.99 0.004 230);
+        --popover-foreground: oklch(0.25 0.03 240);
+        --primary: oklch(0.38 0.06 170);
+        --primary-foreground: oklch(0.99 0.004 230);
+        --muted: oklch(0.94 0.01 230);
+        --muted-foreground: oklch(0.48 0.03 240);
+        --accent: oklch(0.94 0.01 230);
+        --accent-foreground: oklch(0.25 0.03 240);
+        --border: oklch(0.9 0.012 230);
+        --input: oklch(0.9 0.012 230);
+        --ring: oklch(0.55 0.08 225);
+        --seal: oklch(0.42 0.07 168);
+        --seal-foreground: oklch(0.99 0.004 230);
+        --rule: color-mix(in oklch, oklch(0.25 0.03 240) 12%, transparent);
+    }
+
+    /* Riviera: limestone, terracotta and olive. Ticino and the lakeside south. */
+    [data-theme='riviera'] {
+        --background: oklch(0.965 0.02 75);
+        --foreground: oklch(0.28 0.035 45);
+        --card: oklch(0.985 0.012 75);
+        --card-foreground: oklch(0.28 0.035 45);
+        --popover: oklch(0.985 0.012 75);
+        --popover-foreground: oklch(0.28 0.035 45);
+        --primary: oklch(0.28 0.035 45);
+        --primary-foreground: oklch(0.985 0.012 75);
+        --muted: oklch(0.93 0.025 75);
+        --muted-foreground: oklch(0.5 0.04 50);
+        --accent: oklch(0.93 0.025 75);
+        --accent-foreground: oklch(0.28 0.035 45);
+        --border: oklch(0.88 0.03 70);
+        --input: oklch(0.88 0.03 70);
+        --ring: oklch(0.58 0.13 42);
+        --seal: oklch(0.55 0.13 40);
+        --seal-foreground: oklch(0.985 0.012 75);
+        --rule: color-mix(in oklch, oklch(0.28 0.035 45) 14%, transparent);
+    }
+}

@@ -3,6 +3,14 @@
  * Light = "paper", dark = "midnight ink". Components only use these.
  */
 :root {
+    /* Type families are tokens so wedding themes can swap pairings. */
+    --type-sans:
+        'Schibsted Grotesk Variable', ui-sans-serif, system-ui, sans-serif,
+        'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji';
+    --type-display: 'Fraunces Variable', ui-serif, Georgia, serif;
+    --type-mono:
+        'Martian Mono Variable', ui-monospace, SFMono-Regular, monospace;
+
     --background: var(--color-paper-100);
     --foreground: var(--color-ink-900);
     --card: var(--color-paper-50);

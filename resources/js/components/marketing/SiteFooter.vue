@@ -7,7 +7,7 @@ const year = new Date().getFullYear();
         <hr class="rule mb-6" />
         <div class="fine-print flex flex-col justify-between gap-2 sm:flex-row">
             <p>© {{ year }} Hereby. All rights reserved.</p>
-            <p>Signed, sealed &amp; delivered.</p>
+            <p>Made in Switzerland.</p>
         </div>
     </footer>
 </template>

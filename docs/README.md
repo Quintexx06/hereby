@@ -2,6 +2,7 @@
 
 | Folder                         | Contents                                                       |
 | ------------------------------ | -------------------------------------------------------------- |
+| [product/](product/vision.md)  | Vision, feature catalogue, pricing and risks                   |
 | [roadmap/](roadmap/ROADMAP.md) | What we build, in which order, and its status                  |
 | [specs/](specs/)               | Design specs written by the `brainstorming` skill (what & why) |
 | [plans/](plans/)               | Implementation plans written by the `writing-plans` skill (how) |

@@ -73,7 +73,7 @@ useGsap(root, ({ reduced }) => {
             <div class="relative w-full max-w-sm shrink-0 text-foreground">
                 <SignatureStroke class="w-full" />
                 <hr class="rule mt-1" />
-                <p class="fine-print mt-2">Signature of declarant</p>
+                <p class="fine-print mt-2">{{ hero.signatureCaption }}</p>
                 <WaxSeal data-hero-seal class="absolute -top-6 right-0" />
             </div>
         </div>

@@ -1,38 +1,39 @@
 /**
  * Landing page copy. Kept out of components so marketing text can change
- * without touching markup (and later move to the backend / CMS).
- * TODO(roadmap): replace placeholder positioning once the product brief is final.
+ * without touching markup (and later move to lang/ for the German launch).
+ * Positioning: docs/product/vision.md.
  */
 export const hero = {
-    eyebrow: 'No. 001 — Declarations, kept',
-    titleLead: 'Put it',
-    titleAccent: 'in writing.',
-    lede: 'Hereby turns intentions into clear, signed declarations — and keeps everyone honest about them.',
-    primaryCta: 'Start a declaration',
+    eyebrow: 'Wedding websites · Made in Switzerland',
+    titleLead: 'We, hereby,',
+    titleAccent: 'invite you.',
+    lede: 'Art-directed wedding sites with a personal link for every household, and your venue built in. Set up for you within 48 hours.',
+    primaryCta: 'Request a demo',
     secondaryCta: 'Sign in',
+    signatureCaption: 'Signature of the couple',
 } as const;
 
 export const principles = {
-    eyebrow: 'Articles',
-    title: 'Three clauses we never break.',
+    eyebrow: 'Why Hereby',
+    title: 'Three promises, kept.',
     items: [
         {
-            title: 'Plain language',
-            body: 'Every declaration reads like a sentence, not a contract. If it needs a lawyer to parse, it gets rewritten.',
+            title: 'Design is the product',
+            body: 'Every site is art-directed: typography, motion and photos graded to one look. Nothing ships with a visible bug.',
         },
         {
-            title: 'Witnessed',
-            body: 'Signatures, timestamps and an immutable history make each commitment verifiable after the fact.',
+            title: 'A personal site for every guest',
+            body: 'One private link per household. Their names, their events, their language. Answering takes under a minute on a phone.',
         },
         {
-            title: 'Kept, not filed',
-            body: 'Reminders, check-ins and a clear status turn a promise on paper into one that gets honoured.',
+            title: 'The venue is built in',
+            body: 'Floor plans, menus, rooms and transport come preloaded, and the venue receives final numbers without a single email.',
         },
     ],
 } as const;
 
 export const closing = {
-    title: 'I, the undersigned, hereby…',
-    lede: 'Finish the sentence. It takes a minute.',
-    cta: 'Create your account',
+    title: 'Planning a summer 2027 wedding?',
+    lede: 'Twenty minutes with us, and your site is ready within 48 hours.',
+    cta: 'Request a demo',
 } as const;
