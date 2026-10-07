@@ -15,8 +15,9 @@ import PasskeyVerify from '@/components/PasskeyVerify.vue';
 
 defineOptions({
     layout: {
-        title: 'Log in to your account',
-        description: 'Enter your email and password below to log in',
+        title: 'Willkommen zurück',
+        description:
+            'Meldet euch mit eurer E-Mail-Adresse und eurem Passwort an.',
     },
 });
 
@@ -27,7 +28,7 @@ defineProps<{
 </script>
 
 <template>
-    <Head title="Log in" />
+    <Head title="Anmelden" />
 
     <div
         v-if="status"
@@ -46,7 +47,7 @@ defineProps<{
     >
         <div class="grid gap-6">
             <div class="grid gap-2">
-                <Label for="email">Email address</Label>
+                <Label for="email">E-Mail-Adresse</Label>
                 <Input
                     id="email"
                     type="email"
@@ -55,21 +56,21 @@ defineProps<{
                     v-focus
                     :tabindex="1"
                     autocomplete="email"
-                    placeholder="email@example.com"
+                    placeholder="ihr@beispiel.ch"
                 />
                 <InputError :message="errors.email" />
             </div>
 
             <div class="grid gap-2">
                 <div class="flex items-center justify-between">
-                    <Label for="password">Password</Label>
+                    <Label for="password">Passwort</Label>
                     <TextLink
                         v-if="canResetPassword"
                         :href="request()"
                         class="text-sm"
                         :tabindex="5"
                     >
-                        Forgot your password?
+                        Passwort vergessen?
                     </TextLink>
                 </div>
                 <PasswordInput
@@ -78,7 +79,7 @@ defineProps<{
                     required
                     :tabindex="2"
                     autocomplete="current-password"
-                    placeholder="Password"
+                    placeholder="Passwort"
                 />
                 <InputError :message="errors.password" />
             </div>
@@ -86,7 +87,7 @@ defineProps<{
             <div class="flex items-center justify-between">
                 <Label for="remember" class="flex items-center space-x-3">
                     <Checkbox id="remember" name="remember" :tabindex="3" />
-                    <span>Remember me</span>
+                    <span>Angemeldet bleiben</span>
                 </Label>
             </div>
 
@@ -98,13 +99,13 @@ defineProps<{
                 data-test="login-button"
             >
                 <Spinner v-if="processing" />
-                Log in
+                Anmelden
             </Button>
         </div>
 
         <div class="text-center text-sm text-muted-foreground">
-            Don't have an account?
-            <TextLink :href="register()" :tabindex="5">Sign up</TextLink>
+            Noch kein Konto?
+            <TextLink :href="register()" :tabindex="5">Registrieren</TextLink>
         </div>
     </Form>
 </template>

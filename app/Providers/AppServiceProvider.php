@@ -38,6 +38,7 @@ class AppServiceProvider extends ServiceProvider
     protected function configureRateLimiting(): void
     {
         RateLimiter::for('invitations', fn (Request $request): Limit => Limit::perMinute(60)->by($request->ip()));
+        RateLimiter::for('inquiries', fn (Request $request): Limit => Limit::perHour(5)->by($request->ip()));
     }
 
     /**

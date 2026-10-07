@@ -14,26 +14,50 @@
         color-scheme: light;
     }
 
-    /* Ivory: the Hereby house style. Paper, ink and a vermilion seal. */
+    /* Ivory: the Hereby house style. Porcelain, night ink, blush. */
     [data-theme='ivory'] {
-        --background: var(--color-paper-100);
-        --foreground: var(--color-ink-900);
-        --card: var(--color-paper-50);
-        --card-foreground: var(--color-ink-900);
-        --popover: var(--color-paper-50);
-        --popover-foreground: var(--color-ink-900);
-        --primary: var(--color-ink-900);
-        --primary-foreground: var(--color-paper-50);
-        --muted: var(--color-paper-200);
-        --muted-foreground: var(--color-ink-500);
-        --accent: var(--color-paper-200);
-        --accent-foreground: var(--color-ink-900);
-        --border: var(--color-paper-300);
-        --input: var(--color-paper-300);
-        --ring: var(--color-seal-500);
-        --seal: var(--color-seal-600);
-        --seal-foreground: var(--color-paper-50);
-        --rule: color-mix(in oklch, var(--color-ink-900) 12%, transparent);
+        --background: var(--color-porcelain-100);
+        --foreground: var(--color-night-900);
+        --card: var(--color-porcelain-50);
+        --card-foreground: var(--color-night-900);
+        --popover: var(--color-porcelain-50);
+        --popover-foreground: var(--color-night-900);
+        --primary: var(--color-night-900);
+        --primary-foreground: var(--color-porcelain-50);
+        --muted: var(--color-sand-100);
+        --muted-foreground: var(--color-sand-600);
+        --accent: var(--color-sand-100);
+        --accent-foreground: var(--color-night-900);
+        --border: var(--color-sand-200);
+        --input: var(--color-sand-300);
+        --ring: var(--color-blush-600);
+        --brand: var(--color-blush-700);
+        --brand-foreground: var(--color-porcelain-50);
+        --brand-muted: var(--color-blush-200);
+        --rule: color-mix(in oklch, var(--color-night-900) 14%, transparent);
+    }
+
+    /* Rosé: blush paper, burgundy ink, a dusty-rose accent. For garden weddings. */
+    [data-theme='rose'] {
+        --background: oklch(0.962 0.02 12);
+        --foreground: oklch(0.29 0.06 8);
+        --card: oklch(0.984 0.01 12);
+        --card-foreground: oklch(0.29 0.06 8);
+        --popover: oklch(0.984 0.01 12);
+        --popover-foreground: oklch(0.29 0.06 8);
+        --primary: oklch(0.36 0.09 6);
+        --primary-foreground: oklch(0.984 0.01 12);
+        --muted: oklch(0.93 0.026 12);
+        --muted-foreground: oklch(0.48 0.06 8);
+        --accent: oklch(0.93 0.026 12);
+        --accent-foreground: oklch(0.29 0.06 8);
+        --border: oklch(0.88 0.035 12);
+        --input: oklch(0.86 0.04 12);
+        --ring: oklch(0.6 0.12 6);
+        --brand: oklch(0.55 0.13 5);
+        --brand-foreground: oklch(0.984 0.01 12);
+        --brand-muted: oklch(0.9 0.045 10);
+        --rule: color-mix(in oklch, oklch(0.29 0.06 8) 14%, transparent);
     }
 
     /* Alpine: glacier white, slate and pine. For mountain and lake venues. */
@@ -53,8 +77,9 @@
         --border: oklch(0.9 0.012 230);
         --input: oklch(0.9 0.012 230);
         --ring: oklch(0.55 0.08 225);
-        --seal: oklch(0.42 0.07 168);
-        --seal-foreground: oklch(0.99 0.004 230);
+        --brand: oklch(0.42 0.07 168);
+        --brand-foreground: oklch(0.99 0.004 230);
+        --brand-muted: oklch(0.88 0.04 168);
         --rule: color-mix(in oklch, oklch(0.25 0.03 240) 12%, transparent);
     }
 
@@ -75,8 +100,32 @@
         --border: oklch(0.88 0.03 70);
         --input: oklch(0.88 0.03 70);
         --ring: oklch(0.58 0.13 42);
-        --seal: oklch(0.55 0.13 40);
-        --seal-foreground: oklch(0.985 0.012 75);
+        --brand: oklch(0.55 0.13 40);
+        --brand-foreground: oklch(0.985 0.012 75);
+        --brand-muted: oklch(0.88 0.06 45);
         --rule: color-mix(in oklch, oklch(0.28 0.035 45) 14%, transparent);
+    }
+
+    /* Lavanda: lilac paper, aubergine ink. For summer meadows and the Valais. */
+    [data-theme='lavanda'] {
+        --background: oklch(0.965 0.015 300);
+        --foreground: oklch(0.28 0.06 305);
+        --card: oklch(0.985 0.008 300);
+        --card-foreground: oklch(0.28 0.06 305);
+        --popover: oklch(0.985 0.008 300);
+        --popover-foreground: oklch(0.28 0.06 305);
+        --primary: oklch(0.33 0.08 305);
+        --primary-foreground: oklch(0.985 0.008 300);
+        --muted: oklch(0.93 0.02 300);
+        --muted-foreground: oklch(0.48 0.05 305);
+        --accent: oklch(0.93 0.02 300);
+        --accent-foreground: oklch(0.28 0.06 305);
+        --border: oklch(0.88 0.03 300);
+        --input: oklch(0.86 0.035 300);
+        --ring: oklch(0.58 0.11 300);
+        --brand: oklch(0.52 0.12 300);
+        --brand-foreground: oklch(0.985 0.008 300);
+        --brand-muted: oklch(0.9 0.04 300);
+        --rule: color-mix(in oklch, oklch(0.28 0.06 305) 14%, transparent);
     }
 }

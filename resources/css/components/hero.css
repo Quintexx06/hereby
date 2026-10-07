@@ -1,0 +1,161 @@
+/*
+ * The hero stage: photo underneath, the veil (WebGL canvas, or the CSS
+ * fallback panels) on top, a scrim for legibility, then the copy.
+ * States come from useVeilCurtain via data-curtain, data-webgl, data-revealed.
+ */
+@layer components {
+    .hero {
+        @apply relative isolate flex min-h-svh flex-col overflow-hidden;
+    }
+
+    .hero-photo {
+        @apply absolute inset-0 -z-20 h-full w-full object-cover object-[50%_30%];
+    }
+
+    .hero-canvas {
+        @apply pointer-events-none absolute inset-0 -z-10 h-full w-full opacity-0 transition-opacity duration-200 ease-out;
+    }
+
+    [data-webgl='true'] .hero-canvas {
+        @apply opacity-100;
+    }
+
+    /* Two sheer panels drawn in CSS: the first paint, and the fallback. */
+    .veil-panel {
+        @apply pointer-events-none absolute inset-y-0 -z-10 w-[53%];
+        /* Two fold rhythms of different widths, so it never reads as stripes. */
+        background:
+            repeating-linear-gradient(
+                90deg,
+                oklch(0.98 0.008 80 / 0.5) 0,
+                oklch(0.99 0.006 80 / 0.34) 1.9%,
+                oklch(0.86 0.018 70 / 0.56) 3.3%,
+                oklch(0.98 0.008 80 / 0.48) 5.2%
+            ),
+            repeating-linear-gradient(
+                90deg,
+                transparent 0 6.5%,
+                oklch(0.4 0.02 60 / 0.07) 9%,
+                transparent 12.3%
+            );
+        backdrop-filter: blur(2px) saturate(0.9);
+        transition: transform 1.6s var(--ease-in-out);
+    }
+
+    .veil-panel-left {
+        @apply left-0;
+    }
+
+    .veil-panel-right {
+        @apply right-0;
+    }
+
+    [data-webgl='true'] .veil-panel {
+        @apply opacity-0;
+    }
+
+    [data-curtain='open'] .veil-panel-left {
+        transform: translateX(-102%);
+    }
+
+    [data-curtain='open'] .veil-panel-right {
+        transform: translateX(102%);
+    }
+
+    /* Darkens only where the copy sits; the photo stays luminous above. */
+    .hero-scrim {
+        @apply pointer-events-none absolute inset-0 -z-[5];
+        background:
+            linear-gradient(
+                to top,
+                oklch(0.145 0.01 20 / 0.92) 0%,
+                oklch(0.145 0.01 20 / 0.55) 32%,
+                transparent 62%
+            ),
+            linear-gradient(
+                to bottom,
+                oklch(0.145 0.01 20 / 0.55) 0%,
+                transparent 18%
+            );
+
+        @media (max-width: 767px) {
+            background:
+                linear-gradient(
+                    to top,
+                    oklch(0.145 0.01 20 / 0.95) 0%,
+                    oklch(0.145 0.01 20 / 0.78) 48%,
+                    transparent 78%
+                ),
+                linear-gradient(
+                    to bottom,
+                    oklch(0.145 0.01 20 / 0.5) 0%,
+                    transparent 16%
+                );
+        }
+    }
+
+    .hero-content {
+        @apply flex flex-1 flex-col justify-end gap-7 pt-36 pb-12 sm:pb-16 lg:pb-20;
+    }
+
+    /* Copy rises in once the veil parts; visible by default without JS. */
+    .hero-reveal {
+        transition:
+            opacity 900ms var(--ease-out),
+            transform 1100ms var(--ease-out);
+        transition-delay: var(--delay, 0ms);
+    }
+
+    [data-revealed='false'] .hero-reveal {
+        @apply translate-y-6 opacity-0;
+    }
+
+    .hero-statement {
+        @apply max-w-[30ch] font-display text-[clamp(1.3rem,2.1vw,1.85rem)] leading-[1.2] font-medium tracking-[-0.02em] text-foreground;
+    }
+
+    .hero-skip {
+        @apply absolute bottom-6 left-1/2 z-10 -translate-x-1/2 rounded-full px-4 py-2 text-sm font-medium text-foreground/80 transition-opacity duration-300 ease-out hover:text-foreground;
+    }
+
+    [data-revealed='true'] .hero-skip {
+        @apply pointer-events-none opacity-0;
+    }
+
+    /* "Ja." with two hand-drawn blush swooshes, written after the reveal. */
+    .hero-yes {
+        @apply relative inline-block;
+    }
+
+    .hero-swoosh {
+        @apply pointer-events-none absolute top-[82%] left-[-12%] h-[0.32em] w-[135%] overflow-visible;
+    }
+
+    .hero-swoosh path {
+        stroke: currentColor;
+        stroke-width: 5;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-dasharray: 1;
+        stroke-dashoffset: 1;
+        transition: stroke-dashoffset 900ms cubic-bezier(0.65, 0, 0.35, 1)
+            1000ms;
+    }
+
+    .hero-swoosh path + path {
+        stroke-width: 3.5;
+        opacity: 0.75;
+        transition-delay: 1650ms;
+        transition-duration: 650ms;
+    }
+
+    [data-revealed='true'] .hero-swoosh path {
+        stroke-dashoffset: 0;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .hero-swoosh path {
+            stroke-dashoffset: 0;
+        }
+    }
+}

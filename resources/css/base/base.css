@@ -10,14 +10,28 @@
 
     body {
         @apply bg-background font-sans text-foreground antialiased;
-        font-feature-settings: 'ss01', 'cv11';
+        font-optical-sizing: auto;
     }
 
     ::selection {
-        @apply bg-seal text-seal-foreground;
+        @apply bg-brand text-brand-foreground;
     }
 
     :focus-visible {
         @apply outline-2 outline-offset-2 outline-ring;
+    }
+
+    a {
+        text-underline-offset: 0.2em;
+    }
+
+    html {
+        accent-color: var(--brand);
+        caret-color: var(--brand);
+    }
+
+    /* Anchor jumps land below the floating pill nav, not under it. */
+    [id] {
+        scroll-margin-top: 5.5rem;
     }
 }

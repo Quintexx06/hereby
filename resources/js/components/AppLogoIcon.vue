@@ -12,22 +12,27 @@ type Props = {
 defineProps<Props>();
 </script>
 
-<!-- Hereby mark: a seal ring around a single signature stroke. -->
+<!-- Hereby mark: the "h." of the wordmark, heavy grotesk, square full stop. -->
 <template>
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 40 40"
+        viewBox="10 9 44 46"
         fill="none"
-        stroke="currentColor"
-        stroke-width="2.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
         :class="className"
         v-bind="$attrs"
     >
-        <circle cx="20" cy="20" r="17" />
         <path
-            d="M10.5 25c3-9.5 6.5-13 8-10.5S15 27.5 17.5 26.5s4-9 6-8.5-1 7 1.5 7 3.5-3 5-4.5"
+            d="M17 12v40M17 33c0-6.4 4.6-10.6 10.6-10.6S38.2 26.6 38.2 33v19"
+            stroke="currentColor"
+            stroke-width="7.5"
+        />
+        <rect
+            x="43.5"
+            y="44.5"
+            width="7.5"
+            height="7.5"
+            fill="currentColor"
+            class="text-brand"
         />
     </svg>
 </template>

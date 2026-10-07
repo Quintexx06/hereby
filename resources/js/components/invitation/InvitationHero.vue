@@ -21,11 +21,11 @@ const guestNames = computed(() =>
 
 <template>
     <header class="flex flex-col gap-6 pb-12 text-center">
-        <p class="eyebrow">{{ t('invitation.for') }} {{ guestNames }}</p>
-        <h1 class="display-lg">
+        <p class="caption">{{ t('invitation.for') }} {{ guestNames }}</p>
+        <h1 class="headline">
             {{ t('invitation.title', { couple: wedding.coupleNames }) }}
         </h1>
-        <p class="font-display text-xl italic">
+        <p class="text-xl font-medium text-brand tabular-nums">
             {{ formatDate(wedding.date, localeTag()) }}
         </p>
     </header>

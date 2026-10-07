@@ -13,7 +13,7 @@ void createInertiaApp({
     title: (title) => (title ? `${title} - ${appName}` : appName),
     layout: (name) => {
         switch (true) {
-            case name === 'Welcome':
+            case name === 'Welcome' || name.startsWith('legal/'):
                 return MarketingLayout;
             case name.startsWith('invitation/'):
                 return null;
@@ -27,7 +27,7 @@ void createInertiaApp({
     },
     withApp: (app) => registerDirectives(app),
     progress: {
-        color: 'oklch(0.59 0.19 31)',
+        color: 'oklch(0.8 0.09 7)',
     },
 });
 

@@ -1,16 +1,14 @@
 /*
- * Type system. Fraunces (display) carries the "declaration" voice; its SOFT
- * and WONK axes give it character at large sizes. Schibsted Grotesk (body)
- * comes from newspaper typesetting. Martian Mono labels the fine print.
+ * Type system (ADR 0009, amended 2026-10-07): one family, Archivo Variable,
+ * set like a poster. Hierarchy comes from size, weight and width (the `wdth`
+ * axis): display lines are heavy and slightly widened, body text is plain.
+ * The accent voice is Archivo italic in blush (`.accent`), once per section.
  */
 @layer base {
     h1,
     h2,
     h3 {
-        @apply font-display tracking-tight text-balance;
-        font-variation-settings:
-            'SOFT' 30,
-            'WONK' 0;
+        @apply font-display font-semibold tracking-[-0.025em] text-balance;
     }
 
     p {
@@ -25,39 +23,50 @@
 }
 
 @layer components {
-    .display-xl {
-        @apply font-display text-5xl leading-[0.95] font-light tracking-[-0.035em] sm:text-7xl lg:text-8xl;
-        font-variation-settings:
-            'opsz' 144,
-            'SOFT' 100,
-            'WONK' 1;
+    /* The hero line. Poster scale: as big as the viewport allows. */
+    .display-hero {
+        @apply font-display text-[clamp(3.25rem,8.6vw,8.25rem)] leading-[0.92] font-semibold tracking-[-0.045em];
+        font-stretch: 110%;
     }
 
-    .display-lg {
-        @apply font-display text-4xl leading-[1.02] font-light tracking-[-0.03em] sm:text-5xl lg:text-6xl;
-        font-variation-settings:
-            'opsz' 144,
-            'SOFT' 60,
-            'WONK' 0;
+    /* Closing and statement lines. */
+    .display {
+        @apply font-display text-[clamp(2.5rem,6vw,5.5rem)] leading-[0.96] font-semibold tracking-[-0.04em];
+        font-stretch: 106%;
     }
 
-    .display-italic {
-        @apply font-display italic;
-        font-variation-settings:
-            'opsz' 144,
-            'SOFT' 100,
-            'WONK' 1;
+    /* Section headings. */
+    .headline {
+        @apply font-display text-[clamp(2.1rem,4.2vw,4rem)] leading-[1] font-semibold tracking-[-0.035em];
+        font-stretch: 104%;
+    }
+
+    /* Row and card titles. */
+    .title {
+        @apply font-display text-xl leading-tight font-semibold tracking-[-0.02em] sm:text-2xl;
+    }
+
+    /* Big numerals that carry information (20 Min., 48 Std., 60 Sek.). */
+    .figure {
+        @apply font-display text-[clamp(5rem,11vw,9.5rem)] leading-[0.82] font-semibold tracking-[-0.06em] tabular-nums;
+        font-stretch: 112%;
+    }
+
+    /* The one accent voice: Archivo italic in blush. */
+    .accent {
+        @apply font-display font-medium text-brand italic;
     }
 
     .lede {
-        @apply max-w-xl text-lg leading-relaxed text-muted-foreground sm:text-xl;
+        @apply max-w-[42ch] text-lg leading-[1.5] text-muted-foreground sm:text-[1.3125rem];
     }
 
-    .eyebrow {
-        @apply font-mono text-[0.6875rem] font-medium tracking-[0.18em] text-muted-foreground uppercase;
+    .body-copy {
+        @apply max-w-[58ch] text-base leading-[1.65] text-muted-foreground sm:text-[1.0625rem];
     }
 
-    .fine-print {
-        @apply font-mono text-xs leading-relaxed text-muted-foreground;
+    /* Small meta text: dates, credits, captions. Tabular for numbers. */
+    .caption {
+        @apply text-sm leading-normal text-muted-foreground tabular-nums;
     }
 }

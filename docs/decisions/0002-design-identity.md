@@ -1,6 +1,6 @@
 # 0002 — Design identity: ink, paper & seal
 
-**Status:** Accepted (2026-10-06)
+**Status:** Superseded by [0008](0008-something-blue.md), then [0009](0009-vorhang-auf.md) (2026-10-07)
 
 ## Context
 "Hereby" is the language of declarations: *I hereby…* The UI should feel like

@@ -3,10 +3,8 @@
  * Order matters: fonts → Tailwind → theme tokens → base → components → utilities.
  * Never add rules here; put them in the matching partial.
  */
-@import '@fontsource-variable/fraunces/full.css';
-@import '@fontsource-variable/fraunces/full-italic.css';
-@import '@fontsource-variable/schibsted-grotesk';
-@import '@fontsource-variable/martian-mono';
+@import '@fontsource-variable/archivo/standard.css';
+@import '@fontsource-variable/archivo/standard-italic.css';
 
 @import 'tailwindcss';
 @import 'tw-animate-css';
@@ -22,6 +20,10 @@
 @import './components/layout.css';
 @import './components/brand.css';
 @import './components/marketing.css';
+@import './components/hero.css';
+@import './components/landing.css';
+@import './components/footer.css';
+@import './components/auth.css';
 @import './components/invitation.css';
 
 @import './themes/wedding.css';

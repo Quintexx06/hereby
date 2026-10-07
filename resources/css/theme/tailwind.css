@@ -2,7 +2,6 @@
 @theme inline {
     --font-sans: var(--type-sans);
     --font-display: var(--type-display);
-    --font-mono: var(--type-mono);
 
     --radius-lg: var(--radius);
     --radius-md: calc(var(--radius) - 2px);
@@ -28,9 +27,9 @@
     --color-input: var(--input);
     --color-ring: var(--ring);
 
-    --color-seal: var(--seal);
-    --color-seal-foreground: var(--seal-foreground);
-    --color-highlight: var(--highlight);
+    --color-brand: var(--brand);
+    --color-brand-foreground: var(--brand-foreground);
+    --color-brand-muted: var(--brand-muted);
     --color-success: var(--success);
     --color-rule: var(--rule);
 

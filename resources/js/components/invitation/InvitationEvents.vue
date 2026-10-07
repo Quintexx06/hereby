@@ -12,7 +12,11 @@ const { t } = useTrans();
 
 <template>
     <section class="flex flex-col gap-4">
-        <h2 class="eyebrow">{{ t('invitation.events_heading') }}</h2>
+        <h2
+            class="font-sans text-sm font-semibold tracking-normal text-muted-foreground"
+        >
+            {{ t('invitation.events_heading') }}
+        </h2>
         <ol>
             <InvitationEventCard
                 v-for="event in events"

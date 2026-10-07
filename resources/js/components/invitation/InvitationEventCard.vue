@@ -13,7 +13,7 @@ const { t, localeTag } = useTrans();
 <template>
     <li class="event-card">
         <time :datetime="event.startsAt" class="flex flex-col">
-            <span class="fine-print">{{
+            <span class="caption">{{
                 formatDay(event.startsAt, localeTag())
             }}</span>
             <span class="event-time">{{
@@ -21,7 +21,7 @@ const { t, localeTag } = useTrans();
             }}</span>
         </time>
         <div class="flex flex-col gap-1">
-            <h3 class="text-2xl">
+            <h3 class="title">
                 {{ event.name ?? t(`invitation.event_types.${event.type}`) }}
             </h3>
             <p v-if="event.locationName" class="font-medium">

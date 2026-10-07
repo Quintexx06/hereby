@@ -9,6 +9,8 @@ namespace App\Enums;
 enum WeddingTheme: string
 {
     case Ivory = 'ivory';
+    case Rose = 'rose';
     case Alpine = 'alpine';
     case Riviera = 'riviera';
+    case Lavanda = 'lavanda';
 }

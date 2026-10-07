@@ -14,4 +14,16 @@ return [
 
     'retention_months' => (int) env('HEREBY_RETENTION_MONTHS', 12),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Team inbox
+    |--------------------------------------------------------------------------
+    |
+    | Questions from the landing page ("Fragt uns") are mailed here. Leave it
+    | empty to only store them in the `inquiries` table.
+    |
+    */
+
+    'inbox' => env('HEREBY_INBOX'),
+
 ];

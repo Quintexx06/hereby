@@ -9,7 +9,7 @@ Vue 3 `<script setup lang="ts">` + Inertia v3 + Tailwind v4 + shadcn-vue.
 | `pages/`                  | Inertia pages. **Compose** sections/components and hold no big markup. Mirror the controller domain (`pages/declarations/Show.vue`). |
 | `layouts/`                | Page shells (`AppLayout`, `AuthLayout`, `MarketingLayout`), chosen in `app.ts`. |
 | `components/ui/`          | shadcn-vue primitives. Restyle them through tokens; edit only if needed. |
-| `components/brand/`       | Logo, wordmark, wax seal, signature: brand atoms.                    |
+| `components/brand/`       | Logo mark and wordmark: brand atoms.                                 |
 | `components/marketing/`   | Landing-page sections.                                               |
 | `components/header/`      | App header parts.                                                    |
 | `components/invitation/`  | Guest-site parts (`WeddingThemeScope`, hero, events…). Translated, themed and light. |
@@ -40,20 +40,23 @@ Vue 3 `<script setup lang="ts">` + Inertia v3 + Tailwind v4 + shadcn-vue.
 ## Styling rules
 
 1. Use semantic tokens (`bg-card`, `text-muted-foreground`, `border-rule`,
-   `text-seal`), never `neutral-*`, `black`/`white` or hex values.
+   `text-brand`, `bg-brand`), never `neutral-*`, `black`/`white` or hex values.
 2. Keep utilities in the template when they're short and used once.
 3. When a utility group repeats or passes ~8 classes, add a named class with
    `@apply` in `resources/css/components/<area>.css` (`@layer components`).
    If it needs variants (`hover:`, `md:`), use `@utility` in `utilities.css`.
-4. Typography classes: `display-xl`, `display-lg`, `display-italic`, `lede`,
-   `eyebrow` and `fine-print` (in `base/typography.css`).
+4. Typography classes: `display-hero`, `display`, `headline`, `title`,
+   `figure`, `accent`, `lede`, `body-copy`, `caption` (in `base/typography.css`).
+   Brand: `wordmark`, `link-underline`; dark sections: `.stage`. See `DESIGN.md`.
+6. Landing sections live in `components/marketing/`, copy in `content/landing.ts`,
+   photos in `content/landing-photos.ts`, 3D in `lib/three/` (dynamic import only).
 5. Layout classes: `page-container`, `section`, `rule` and `surface`.
 
 ## CSS map (`resources/css`)
 
 ```
 app.css               entry, imports only
-theme/palette.css     raw brand palette (ink, paper, seal, brass, sage)
+theme/palette.css     raw brand palette (porcelain, night, sand, blush, moss, ember)
 theme/semantic.css    light/dark semantic tokens (the shadcn contract + extras)
 theme/tailwind.css    @theme inline mapping, font families, radii
 theme/motion.css      easing tokens, keyframes, reduced motion

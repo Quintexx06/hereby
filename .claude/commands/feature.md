@@ -12,7 +12,7 @@ Work on this roadmap item: **$ARGUMENTS**
 3. Use `writing-plans` to write `docs/plans/<date>-<feature>.md` and link spec + plan from the roadmap item.
 4. Use `executing-plans` with `test-driven-development` for each step. Use Boost
    `search-docs` before using any Laravel/Inertia API you're unsure of.
-   For UI, follow `frontend-design`, `emil-design-eng` and `docs/design/design-system.md`.
+   For UI, follow `DESIGN.md`, then `impeccable` (craft floor) and `emil-design-eng` for motion.
 5. Use `verification-before-completion`: run `composer ci:check` and screenshot
    any UI change with the playwright MCP.
 6. Mark the item `[x]`, add a changelog row, and summarise what changed and what's next.

@@ -23,12 +23,24 @@ Project skills live in `.claude/skills/` and load automatically in Claude Code.
 `finishing-a-development-branch`.
 Adapted: specs go to `docs/specs/`, plans to `docs/plans/`, and the `superpowers:` prefix is removed.
 
-## Design: Anthropic ([anthropics/skills](https://github.com/anthropics/skills), Apache-2.0)
+## Design
 
-| Skill             | Use when                                                     |
-| ----------------- | ------------------------------------------------------------ |
-| `frontend-design` | Any new page or component. Avoids generic "AI-slop" UI.      |
-| `webapp-testing`  | Driving the app in Playwright to verify UI                   |
+Read `DESIGN.md` and `PRODUCT.md` (project root) first; every design skill
+below loads them. Order for UI work: **direction → build → review**.
+
+| Skill | Source | Use when |
+| ----- | ------ | -------- |
+| `impeccable` | [pbakaus/impeccable](https://github.com/pbakaus/impeccable), Apache-2.0 | The main design skill. `critique`, `audit`, `polish`, `typeset`, `layout`, `harden`, `distill`… Read its `reference/craft-floor.md` before any UI edit. |
+| `frontend-design` | [anthropics/skills](https://github.com/anthropics/skills), Apache-2.0 | Any new page or component: commit to a direction before code. |
+| `design-taste-frontend` | [Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill), MIT | Landing and marketing pages: brief inference and the anti-default pre-flight. |
+| `redesign-existing-projects` | [Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill), MIT | Upgrading an existing screen: scan → diagnose → fix. |
+| `ui-ux-pro-max` | [nextlevelbuilder/ui-ux-pro-max-skill](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill), MIT | A searchable reference (UX rules, a11y, charts, stack notes). **Not a style picker**: its wedding palette (pink + glass) contradicts DESIGN.md, which always wins. Run: `python .claude/skills/ui-ux-pro-max/scripts/search.py "<query>" --domain ux`. |
+| `web-design-guidelines` | [vercel-labs/agent-skills](https://github.com/vercel-labs/agent-skills), MIT | Final a11y/UX audit against Vercel's Web Interface Guidelines (fetched live). |
+| `webapp-testing` | anthropics/skills | Driving the app in Playwright to verify UI. |
+
+Impeccable's launcher (`scripts/impeccable`) downloads its engine binary from
+the project's GitHub releases on first run, and you'll be asked to approve it.
+Without it the skill still works: it reads `PRODUCT.md` and `DESIGN.md` directly.
 
 ## Motion: Emil Kowalski ([emilkowalski/skills](https://github.com/emilkowalski/skills), MIT)
 
@@ -47,5 +59,8 @@ transitions or GSAP (`@/lib/gsap`, `useGsap`); the principles are the same.
 ## Updating vendored skills
 
 Vendored at: anthropics/skills `683bc88`, emilkowalski/skills `e8a175d`,
-obra/superpowers `8ca22db`. To update, re-copy the folders, then re-apply the
+obra/superpowers `8ca22db`, pbakaus/impeccable `d98b0be` (v4.5.0),
+Leonxlnx/taste-skill `b482f7a`, nextlevelbuilder/ui-ux-pro-max-skill `477bcb2`,
+vercel-labs/agent-skills (web-design-guidelines 1.0.0). Changes: ui-ux-pro-max's
+script path points at `.claude/skills/…` and its `scripts/tests` are dropped. To update, re-copy the folders, then re-apply the
 path changes listed above. Each folder keeps its upstream `LICENSE`.

@@ -3,7 +3,8 @@
 Hereby is a **premium wedding website platform for Switzerland**: art-directed
 sites, a personal link per guest household, and the venue built in. It's a
 Laravel 13 + Inertia v3 + Vue 3 app (shadcn-vue, Tailwind v4). The brand is
-the language of vows: **"We hereby…"**, told in ink, paper and a wax seal.
+the language of vows, **"We hereby…"**, staged like a wedding evening:
+night and porcelain, one heavy grotesk, real photography, and a veil that parts.
 Read this file first, then follow the links.
 
 ## The five product rules (from docs/product/vision.md)
@@ -28,7 +29,9 @@ Every spec, PR and review checks these:
 | Which skill / MCP to use     | [docs/ai/skills.md](docs/ai/skills.md), [docs/ai/mcp.md](docs/ai/mcp.md) |
 | Backend structure            | [docs/architecture/backend.md](docs/architecture/backend.md) |
 | Frontend structure           | [docs/architecture/frontend.md](docs/architecture/frontend.md) |
-| Colours, type, motion        | [docs/design/design-system.md](docs/design/design-system.md) |
+| Colours, type, motion        | [DESIGN.md](DESIGN.md) ("Vorhang auf", ADR 0009)             |
+| Landing copy, SEO, UX        | [docs/marketing/landing-page.md](docs/marketing/landing-page.md) |
+| Product truth for designers  | [PRODUCT.md](PRODUCT.md)                                    |
 | Why a decision was made      | [docs/decisions/](docs/decisions/)                         |
 
 ## Non-negotiables
@@ -42,13 +45,15 @@ Every spec, PR and review checks these:
    Split by responsibility before you reach that size.
 4. **Reuse before you write.** Check `components/ui`, `components/brand`,
    `composables/`, `app/Actions` and the CSS component classes first.
-5. **Tailwind discipline.** Use semantic tokens (`bg-background`, `text-seal`),
+5. **Tailwind discipline.** Use semantic tokens (`bg-background`, `text-brand`),
    never raw hex/neutral values. If the same group of utilities appears more
    than twice, or a class list gets longer than ~8 utilities, move it into a
    named class with `@apply` in `resources/css/components/*.css`.
-6. **Brand fonts and colours only.** Use `font-display`, `font-sans` and
-   `font-mono` with the ink/paper/seal tokens. Don't add a font or palette
-   without writing an ADR.
+6. **Brand fonts and colours only.** Archivo only (`font-display` and
+   `font-sans`, no serif); colour from the semantic tokens in `DESIGN.md`, dark sections
+   via `.stage`. Italic only through `.accent`. No eyebrow labels or monospace
+   as decoration. Don't add a font or palette without writing an ADR.
+   3D lives in `resources/js/lib/three/` and is always lazy-loaded.
 7. **Motion with intent.** Follow the `emil-design-eng` skill: enter with
    ease-out, keep UI motion under 300ms, never start from `scale(0)`, and
    respect reduced motion. Import GSAP only from `@/lib/gsap`.

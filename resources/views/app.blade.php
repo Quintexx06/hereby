@@ -22,11 +22,11 @@
         {{-- Inline style to set the HTML background color based on our theme in app.css --}}
         <style>
             html {
-                background-color: oklch(0.97 0.014 85);
+                background-color: oklch(0.977 0.009 22);
             }
 
             html.dark {
-                background-color: oklch(0.16 0.025 265);
+                background-color: oklch(0.145 0.01 20);
             }
         </style>
 
@@ -34,12 +34,16 @@
         <link rel="icon" href="/favicon.svg" type="image/svg+xml">
         <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
-        <meta name="theme-color" content="#f7f2e8" media="(prefers-color-scheme: light)">
-        <meta name="theme-color" content="#14161f" media="(prefers-color-scheme: dark)">
+        <meta name="theme-color" content="#faf3f2" media="(prefers-color-scheme: light)">
+        <meta name="theme-color" content="#100b0b" media="(prefers-color-scheme: dark)">
+
+        @if (($page['component'] ?? null) === 'Welcome')
+            @include('partials.landing-seo', ['seo' => $page['props']['seo'], 'faq' => $page['props']['faq']])
+        @endif
 
         @vite(['resources/css/app.css', 'resources/js/app.ts', "resources/js/pages/{$page['component']}.vue"])
         <x-inertia::head>
-            <title>{{ config('app.name', 'Laravel') }}</title>
+            <title>{{ isset($page['props']['seo']['title']) ? $page['props']['seo']['title'].' - '.config('app.name') : config('app.name', 'Laravel') }}</title>
         </x-inertia::head>
     </head>
     <body>

@@ -1,81 +1,98 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
 import { ref } from 'vue';
-import SignatureStroke from '@/components/brand/SignatureStroke.vue';
-import WaxSeal from '@/components/brand/WaxSeal.vue';
+import ResponsivePhoto from '@/components/marketing/ResponsivePhoto.vue';
+import SiteHeader from '@/components/marketing/SiteHeader.vue';
 import { Button } from '@/components/ui/button';
-import { useGsap } from '@/composables/motion/useGsap';
+import { useVeilCurtain } from '@/composables/motion/useVeilCurtain';
 import { hero } from '@/content/landing';
-import { duration, stagger } from '@/lib/motion';
-import { gsap, SplitText } from '@/lib/gsap';
-import { login, register } from '@/routes';
+import { register } from '@/routes';
 
-const root = ref<HTMLElement | null>(null);
-
-useGsap(root, ({ reduced }) => {
-    if (reduced) {
-        return;
-    }
-
-    const words = SplitText.create('[data-hero-title]', {
-        type: 'words',
-        mask: 'words',
-    });
-
-    gsap.timeline()
-        .from(words.words, {
-            yPercent: 110,
-            duration: duration.hero,
-            stagger: stagger.base,
-        })
-        .from(
-            '[data-hero-fade]',
-            { autoAlpha: 0, y: 12, stagger: stagger.loose },
-            '-=0.6',
-        )
-        .from(
-            '[data-signature]',
-            { drawSVG: '0%', duration: 1.4, ease: 'hereby.inOut' },
-            '-=0.4',
-        )
-        .from(
-            '[data-hero-seal]',
-            { autoAlpha: 0, scale: 1.15, rotate: -14, duration: 0.42 },
-            '-=0.5',
-        );
-});
+const canvas = ref<HTMLCanvasElement | null>(null);
+const photo = ref<HTMLImageElement | null>(null);
+const { state, revealed, usesWebgl, skip } = useVeilCurtain(canvas, photo);
 </script>
 
+<!--
+    Signature moment: a sheer veil parts and reveals the couple.
+    The photo is a plain <img> (LCP, alt text); the veil is decoration.
+-->
 <template>
-    <section ref="root" class="page-container section relative">
-        <p data-hero-fade class="eyebrow mb-8">{{ hero.eyebrow }}</p>
+    <section
+        class="hero stage"
+        :data-curtain="state"
+        :data-webgl="usesWebgl"
+        :data-revealed="revealed"
+        @click="skip"
+    >
+        <SiteHeader />
 
-        <h1 data-hero-title class="display-xl max-w-4xl">
-            {{ hero.titleLead }}
-            <em class="display-italic text-seal">{{ hero.titleAccent }}</em>
-        </h1>
+        <ResponsivePhoto
+            v-model:image="photo"
+            :photo="hero.photo"
+            eager
+            class="hero-photo"
+        />
+        <canvas ref="canvas" class="hero-canvas" aria-hidden="true" />
+        <div class="veil-panel veil-panel-left" aria-hidden="true" />
+        <div class="veil-panel veil-panel-right" aria-hidden="true" />
+        <div class="hero-scrim" aria-hidden="true" />
 
-        <div
-            class="mt-10 flex flex-col gap-10 md:flex-row md:items-end md:justify-between"
-        >
-            <div class="flex flex-col gap-8">
-                <p data-hero-fade class="lede">{{ hero.lede }}</p>
-                <div data-hero-fade class="flex flex-wrap items-center gap-3">
-                    <Button size="lg" as-child>
+        <div class="page-container hero-content">
+            <h1 class="flex flex-col gap-8">
+                <span class="display-hero hero-reveal">
+                    {{ hero.titleLead }}<br />
+                    <span class="text-brand">{{ hero.titleTail }}&nbsp;</span>
+                    <span class="hero-yes text-brand"
+                        >{{ hero.titleYes }}
+                        <svg
+                            class="hero-swoosh"
+                            viewBox="0 0 220 44"
+                            fill="none"
+                            aria-hidden="true"
+                        >
+                            <path
+                                pathLength="1"
+                                d="M6 26 C 48 13, 118 9, 196 15 C 211 16.5, 210 25, 197 25.5 C 186 26, 184 19.5, 196 18"
+                            />
+                            <path
+                                pathLength="1"
+                                d="M22 36 C 70 29, 132 27, 184 31"
+                            /></svg
+                    ></span>
+                </span>
+                <span class="hero-statement hero-reveal" style="--delay: 160ms">
+                    {{ hero.statement }}
+                </span>
+            </h1>
+
+            <div
+                class="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between"
+            >
+                <p class="lede hero-reveal" style="--delay: 300ms">
+                    {{ hero.lede }}
+                </p>
+                <div
+                    class="hero-reveal flex flex-wrap items-center gap-3"
+                    style="--delay: 420ms"
+                >
+                    <Button as-child size="pill">
                         <Link :href="register()">{{ hero.primaryCta }}</Link>
                     </Button>
-                    <Link :href="login()" class="link-ink text-sm font-medium">
-                        {{ hero.secondaryCta }}
-                    </Link>
+                    <Button
+                        as-child
+                        variant="outline"
+                        size="pill"
+                        class="border-[1.5px] border-foreground bg-transparent text-foreground hover:bg-foreground hover:text-background dark:border-foreground dark:bg-transparent dark:hover:bg-foreground"
+                    >
+                        <a href="#ablauf">{{ hero.secondaryCta }}</a>
+                    </Button>
                 </div>
             </div>
-
-            <div class="relative w-full max-w-sm shrink-0 text-foreground">
-                <SignatureStroke class="w-full" />
-                <hr class="rule mt-1" />
-                <p class="fine-print mt-2">{{ hero.signatureCaption }}</p>
-                <WaxSeal data-hero-seal class="absolute -top-6 right-0" />
-            </div>
         </div>
+
+        <button type="button" class="hero-skip" @click.stop="skip">
+            {{ hero.skip }}
+        </button>
     </section>
 </template>

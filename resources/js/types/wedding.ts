@@ -2,7 +2,7 @@
 
 export type Locale = 'de_CH' | 'fr' | 'it' | 'en';
 
-export type WeddingTheme = 'ivory' | 'alpine' | 'riviera';
+export type WeddingTheme = 'ivory' | 'rose' | 'alpine' | 'riviera' | 'lavanda';
 
 export type EventType =
     | 'civil_ceremony'

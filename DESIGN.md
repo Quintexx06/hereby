@@ -1,0 +1,276 @@
+---
+name: Hereby
+description: Vorhang auf. The wedding evening as a stage — night and porcelain, one heavy grotesk, photography, a veil that parts.
+colors:
+    porcelain: 'oklch(0.977 0.009 22)'
+    porcelain-bright: 'oklch(0.992 0.003 80)'
+    night: 'oklch(0.185 0.012 50)'
+    night-deep: 'oklch(0.145 0.01 50)'
+    sand-quiet: 'oklch(0.93 0.012 75)'
+    sand-line: 'oklch(0.885 0.016 72)'
+    sand-text: 'oklch(0.46 0.02 55)'
+    blush: 'oklch(0.8 0.09 7)'
+    blush-ink: 'oklch(0.51 0.13 4)'
+    moss: 'oklch(0.5 0.11 152)'
+    ember: 'oklch(0.53 0.2 27)'
+typography:
+    display-hero:
+        fontFamily: 'Archivo Variable, system-ui, sans-serif'
+        fontSize: 'clamp(3.25rem, 8.6vw, 8.25rem)'
+        fontWeight: 600
+        lineHeight: 0.92
+        letterSpacing: '-0.045em'
+    display:
+        fontFamily: 'Archivo Variable'
+        fontSize: 'clamp(2.5rem, 6vw, 5.5rem)'
+        fontWeight: 600
+        lineHeight: 0.96
+        letterSpacing: '-0.04em'
+    headline:
+        fontFamily: 'Archivo Variable'
+        fontSize: 'clamp(2.1rem, 4.2vw, 4rem)'
+        fontWeight: 600
+        lineHeight: 1
+        letterSpacing: '-0.035em'
+    title:
+        fontFamily: 'Archivo Variable'
+        fontSize: '1.25rem → 1.5rem'
+        fontWeight: 600
+    body:
+        fontFamily: 'Archivo Variable, system-ui, sans-serif'
+        fontSize: '1rem → 1.0625rem'
+        fontWeight: 400
+        lineHeight: 1.65
+    lede:
+        fontFamily: 'Archivo Variable'
+        fontSize: '1.125rem → 1.3125rem'
+        lineHeight: 1.5
+rounded:
+    sm: '2px'
+    md: '4px'
+    lg: '6px'
+    pill: '9999px'
+    device: '2.6rem'
+spacing:
+    gutter: '20px / 32px / 48px'
+    section: '96px / 128px / 160px'
+components:
+    button-primary:
+        backgroundColor: '{colors.night}'
+        textColor: '{colors.porcelain-bright}'
+        rounded: '{rounded.pill}'
+        height: '48px → 52px'
+    button-on-stage:
+        backgroundColor: '{colors.porcelain}'
+        textColor: '{colors.night-deep}'
+        rounded: '{rounded.pill}'
+    stage:
+        backgroundColor: '{colors.night-deep}'
+        textColor: '{colors.porcelain}'
+---
+
+# Design System: Hereby
+
+Values live in code: `resources/css/theme/palette.css` (raw), `semantic.css`
+(tokens), `tailwind.css` (utilities). This file explains how to use them.
+Decision record: [ADR 0009](docs/decisions/0009-vorhang-auf.md).
+
+## Overview
+
+**Vorhang auf.** The wedding evening as a stage. A sheer veil parts and
+reveals the couple; the page alternates between candlelit **night** sections
+and **porcelain** daylight, set in one heavy, slightly widened grotesk
+(Archivo). Colour comes from photography; the interface itself stays black, white
+and a whisper of blush. Big type, real photos, generous space: it should
+feel like the opening pages of a bridal magazine, not a SaaS template.
+
+Two surfaces, two looks (ADR 0004):
+
+- **Platform** (marketing, auth, dashboard): this system. Marketing is light by
+  default (`.surface-light`) with `.stage` night sections; the app follows the
+  OS and uses night as its dark theme.
+- **Guest sites** (`pages/invitation/*`): the couple's theme re-declares the
+  semantic tokens inside `WeddingThemeScope`. Ivory is the house theme.
+
+## Colors
+
+Strategy: **photography first, monochrome UI, one metallic accent.**
+
+- **Porcelain** (`background`, `card`): warm white, never yellow or cream.
+- **Night** (`foreground`, `primary`, and the whole `.stage`): a warm black.
+- **Sand** (`muted`, `muted-foreground`, `border`): secondary text and hairlines.
+- **Blush** (`brand`): the accent. `blush-ink` on porcelain (AA), bright
+  `blush` on night. Used for the italic accent line, numerals' units, the
+  wordmark's full stop, icons in the FAQ, focus rings.
+- **Moss / ember**: success and danger only.
+
+### Named Rules
+
+**The Stage Rule.** Dark sections use `.stage`, which re-declares the tokens,
+so everything inside (buttons, rules, muted text) turns to night with no
+`dark:` variants.
+
+**The Candle Rule.** Blush is candlelight: thin and rare. Never a fill,
+a gradient, a glow, a button background or a card border.
+
+**The Token Rule.** Components use semantic tokens only. Raw scales
+(`night-900`) live in `resources/css/` only; the after-edit hook flags them.
+
+## Typography
+
+**One family:** Archivo Variable (`wght` 100–900, `wdth` 62–125%, italic),
+self-hosted. Hierarchy comes from size, weight and width; display lines are
+semibold and widened (`font-stretch` 104–118%), body text is plain.
+
+### Hierarchy
+
+- **Display hero** (`.display-hero`): the first line only, up to 132px.
+- **Display** (`.display`): statements, the closing line, "Hiermit gestrichen.", the footer declaration.
+- **Headline** (`.headline`): section headings.
+- **Title** (`.title`): rows and steps.
+- **Step figure** (`.step-figure`): numerals that _are_ the information (20 Min., 48 Std.), counted up.
+- **Accent** (`.accent`): Archivo italic in blush. One phrase per section at most.
+- **Wordmark** (`.wordmark`): bold, `wdth` 118%, blush full stop.
+- **Lede / body-copy / caption**: measure 42–58ch.
+
+### Named Rules
+
+**One family.** No serif anywhere (the founder chose the modern grotesk over
+Bodoni on 2026-10-07). Contrast comes from scale, weight, width and italic.
+
+**No labels.** No eyebrows, kickers or tracked uppercase labels above
+headings, no monospace as decoration. The heading carries itself.
+
+## Layout
+
+- `page-container` (max 80rem, gutters 20/32/48px) and `section` (96/128/160px).
+- Compositions are **asymmetric splits** (5:6, 7:5), full-bleed photo bands
+  and rows divided by hairlines. Never a grid of equal cards.
+- More space above a heading than below it. Sections alternate light and night.
+- Guest pages remain a single mobile column (`invitation-page`).
+
+## Elevation & Depth
+
+Flat. Depth comes from photography, scrims and the night/porcelain rhythm.
+The only shadows belong to real objects: the phone
+(`0 50px 90px -30px rgb(20 14 10 / 0.55)`) and the rings' soft floor shadow.
+Scrims (`.hero-scrim`, `.venue-band-scrim`, `.closing-scrim`) are functional
+gradients for legibility and live in CSS, never in templates.
+
+## Shapes
+
+Photos are square-cornered (2px). Buttons are pills. The phone frame is the
+only large radius. Hairlines (`border-rule`) are the only line weight.
+
+## Components
+
+### Buttons
+
+- `Button size="pill"`: 48–52px tall, rounded-full. Default variant is night on
+  porcelain; inside `.stage` it inverts automatically.
+- Secondary action: `variant="ghost"` pill, or `link-underline` text.
+
+### Hero veil (signature)
+
+`HeroSection` + `useVeilCurtain` + `lib/three/veil-curtain.ts`. The photo is a
+plain eager `<img>` (LCP, preloaded in `landing-seo.blade.php`). Over it, two
+sheer cloth panels drawn by a shader gather to the sides like curtains tied
+back, then keep breathing in a slow wind and bulge gently around the pointer.
+
+- States: `closed` (CSS veil) → `webgl` → `open`. Copy rises at ~1.1s.
+- A click, tap or "Vorhang öffnen" skips to the end (700ms).
+- Reduced motion: no veil at all. No WebGL or slow network (>1.6s): the CSS
+  veil slides away instead.
+
+### Rings (3D)
+
+`RingsCanvas` + `useWeddingRings` + `lib/three/wedding-rings.ts`: blush gold
+and platinum bands, studio-lit, following pointer and scroll. Mounted only when
+near the viewport, paused off screen, one still frame under reduced motion.
+
+### Invitation preview
+
+`PreviewPhone` + `InvitationPreview`: the demo wedding re-addressed across four
+households and languages (`useAutoCycle`), with DE/FR/IT/EN tabs.
+
+### Signature sections (second half of the landing page)
+
+Each one is a motion pattern with a product reason, not decoration:
+
+- **Steps** (`StepsSection`, `StepItem`): numerals count up (`useCountUp`), a
+  blush thread is drawn through them by scroll.
+- **Ein Tag in fünf Akten** (`ActsSection`, `ActCard`): the wedding day as a
+  play. Pinned on desktop, scroll moves exactly one act per step; photos
+  parallax inside their frames; counter and progress bar. A swipe carousel
+  below `lg`. Shows the product's core idea: each household sees its acts.
+- **Marquee** (`MarqueeBand`): Hochzeit · Mariage · Matrimonio · Wedding,
+  solid and outlined; scroll speeds it up and reverses it.
+- **Theme studio** (`StudioSection`, `StudioCard`): five printed invitations
+  (Ivory, Rosé, Alpine, Riviera, Lavanda) fanned from a pivot below the deck,
+  rounded with a letterpress inner frame; the front card carries a blush
+  light orbiting its border and tilts to the pointer. Carousel arrows flank the
+  theme name and slide in when the deck is on screen; cards also respond to
+  click and arrow keys. The whole section wears the front card's theme.
+- **Hiermit gestrichen.** (`StruckSection`, `StruckRow`): what we leave out
+  (Passwörter, Vorlagen, Werbung…), struck through by a blush line as each
+  row scrolls in. A custom icon pops out of the struck word (spring, never from
+  scale 0) and jumps bigger on hover; the answer fades in beside it.
+- **Closing** (`ClosingSection`, `useClosingVeil`): the hero's veil drifts back
+  in over the last photo, driven by scroll. The page opens and closes on the curtain.
+- **Floating nav** (`FloatingNav`, `useActiveSection`): once the hero is behind
+  you, a pill slides in at the top; a soft highlight glides to the chapter you
+  are reading. On phones: logo, current chapter, CTA.
+- **Hero line**: "Vorhang auf" in porcelain, "für euer Ja." in blush (same
+  face, upright), with two hand-drawn swooshes under "Ja." written after the reveal.
+- **Footer** (`SiteFooter`, `useFooterReveal`): everything on the left (tagline,
+  lede, CTA, links), then the giant centred "hereby.". GSAP brings the tagline
+  in word by word, the items one by one, then the wordmark letter by letter and
+  the full stop with a bounce; masks are removed afterwards so nothing is
+  clipped. Legal links: Datenschutz, Impressum (`pages/legal/*`).
+- **Auth** (`layouts/auth/AuthStageLayout`): the stage beside the form. The
+  photo settles, the veil draws open, "Vorhang auf für euer Ja." rises word by
+  word; the logo, title and each form field arrive in turn.
+
+### Icons (`components/brand/HerebyIcon.vue`)
+
+Hereby's own set, never stock: 32px grid, 1.5px stroke, round caps, one
+blush detail per icon. Strokes draw themselves when revealed (`.draw`).
+Names: link, events, clock, key, template, language, calendar, megaphone,
+forever, glass, dinner, music.
+
+### Rows and FAQ
+
+`point-row` (with an icon column), `faq-item` (native `<details>`, smooth height
+via `::details-content` where supported) and `AskQuestionForm` beside the FAQ:
+questions are stored (`inquiries`) and mailed to `HEREBY_INBOX`.
+
+## Motion
+
+Tokens: `--ease-out`, `--ease-in-out`, `--ease-drawer`; durations 100–320ms
+for UI. The hero choreography is the one long moment (≈3s, skippable).
+Scroll reveals: `v-reveal` + `reveal`. Scroll-linked values come from
+`useScrollProgress` (modes `through`, `pinned`, `enter`; rAF-throttled, no
+scroll-jacking). Every animation has a reduced-motion path. three.js is
+imported dynamically and only from `lib/three/` (hero veil, rings, closing veil).
+
+## Wedding themes
+
+| Theme   | Mood                              | `brand`    |
+| ------- | --------------------------------- | ---------- |
+| Ivory   | House style: porcelain, night ink | Blush ink  |
+| Rosé    | Blush paper, burgundy ink         | Dusty rose |
+| Lavanda | Lilac paper, aubergine ink        | Lilac      |
+| Alpine  | Glacier white, slate              | Pine       |
+| Riviera | Limestone, espresso               | Terracotta |
+
+Starter themes until the designer's collection lands (roadmap 0.6).
+
+## Do's and Don'ts
+
+- **Do** lead with real photography. **Don't** use icon tiles, blobs or stock illustrations.
+- **Do** set type big and heavy, widened for display. **Don't** add a serif or a second family.
+- **Do** keep blush for one accent per section. **Don't** fill anything with it.
+- **Do** make claims the product can keep today. **Don't** invent customers, numbers or features.
+- **Do** credit every photo (footer + `public/images/landing/CREDITS.md`).
+- **Don't** reintroduce blue fields, cream paper, wax seals, eyebrows or section numbers.
+- **Don't** use the Swiss cross or official emblems as decoration (protected by law).

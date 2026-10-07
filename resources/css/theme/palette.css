@@ -1,58 +1,43 @@
 /*
- * Raw brand palette — "ink, paper & seal".
- * Generates utilities (bg-ink-900, text-seal-500 …) but components should
- * prefer the semantic tokens in semantic.css. Reach for the raw palette only
- * for brand moments (seal, illustrations, marketing).
+ * Raw brand palette: "Vorhang auf" (ADR 0009).
+ * Generates utilities (bg-night-900 …), but components use the semantic
+ * tokens in semantic.css. Reach for the raw palette only in resources/css.
  *
- *  ink   — iron-gall ink, a cold blue-black.        Text & primary surfaces.
- *  paper — archival rag paper, warm and unbleached. Backgrounds & rules.
- *  seal  — vermilion sealing wax.                   The one loud accent.
- *  brass — notary stamp & fountain-pen nib.         Sparing highlights.
- *  sage  — pressed-leaf green.                      Success / kept promises.
+ *  porcelain — the light ground. Warm white with a breath of blush.
+ *  night     — the stage. A warm black for dark sections and type.
+ *  sand      — rosy neutrals for secondary text, hairlines, quiet fields.
+ *  blush     — the one accent: rosé, like a peony petal. Thin, precise, rare.
+ *  moss      — success only.  ember — danger only. Never decoration.
+ *
+ * Colour comes from photography first; the UI stays night, porcelain and blush.
  */
 @theme {
-    --color-ink-50: oklch(0.965 0.006 265);
-    --color-ink-100: oklch(0.925 0.01 265);
-    --color-ink-200: oklch(0.86 0.015 265);
-    --color-ink-300: oklch(0.76 0.02 265);
-    --color-ink-400: oklch(0.62 0.025 265);
-    --color-ink-500: oklch(0.5 0.03 265);
-    --color-ink-600: oklch(0.41 0.035 265);
-    --color-ink-700: oklch(0.33 0.035 265);
-    --color-ink-800: oklch(0.26 0.032 265);
-    --color-ink-900: oklch(0.21 0.03 265);
-    --color-ink-950: oklch(0.16 0.025 265);
+    --color-porcelain-50: oklch(0.992 0.004 25);
+    --color-porcelain-100: oklch(0.977 0.009 22);
+    --color-porcelain-200: oklch(0.953 0.014 20);
 
-    --color-paper-50: oklch(0.987 0.007 85);
-    --color-paper-100: oklch(0.97 0.014 85);
-    --color-paper-200: oklch(0.942 0.02 82);
-    --color-paper-300: oklch(0.895 0.028 80);
-    --color-paper-400: oklch(0.8 0.03 78);
-    --color-paper-500: oklch(0.68 0.03 75);
-    --color-paper-600: oklch(0.56 0.028 72);
-    --color-paper-700: oklch(0.45 0.024 70);
-    --color-paper-800: oklch(0.34 0.018 68);
-    --color-paper-900: oklch(0.25 0.012 65);
+    --color-sand-100: oklch(0.93 0.016 20);
+    --color-sand-200: oklch(0.885 0.02 18);
+    --color-sand-300: oklch(0.8 0.024 16);
+    --color-sand-400: oklch(0.68 0.026 15);
+    --color-sand-500: oklch(0.56 0.026 14);
+    --color-sand-600: oklch(0.46 0.024 14);
+    --color-sand-700: oklch(0.37 0.02 14);
 
-    --color-seal-50: oklch(0.97 0.02 35);
-    --color-seal-100: oklch(0.93 0.045 35);
-    --color-seal-200: oklch(0.87 0.08 34);
-    --color-seal-300: oklch(0.78 0.12 33);
-    --color-seal-400: oklch(0.68 0.16 32);
-    --color-seal-500: oklch(0.59 0.19 31);
-    --color-seal-600: oklch(0.52 0.18 30);
-    --color-seal-700: oklch(0.45 0.16 29);
-    --color-seal-800: oklch(0.38 0.13 28);
-    --color-seal-900: oklch(0.31 0.1 27);
-    --color-seal-950: oklch(0.22 0.07 27);
+    --color-night-700: oklch(0.3 0.016 20);
+    --color-night-800: oklch(0.235 0.014 20);
+    --color-night-900: oklch(0.185 0.012 20);
+    --color-night-950: oklch(0.145 0.01 20);
 
-    --color-brass-300: oklch(0.86 0.09 88);
-    --color-brass-400: oklch(0.8 0.11 85);
-    --color-brass-500: oklch(0.73 0.12 80);
-    --color-brass-600: oklch(0.63 0.11 75);
-    --color-brass-700: oklch(0.52 0.09 72);
+    --color-blush-200: oklch(0.92 0.045 8);
+    --color-blush-300: oklch(0.86 0.07 8);
+    --color-blush-400: oklch(0.8 0.09 7);
+    --color-blush-600: oklch(0.6 0.13 5);
+    --color-blush-700: oklch(0.51 0.13 4);
 
-    --color-sage-400: oklch(0.7 0.08 150);
-    --color-sage-500: oklch(0.6 0.09 152);
-    --color-sage-600: oklch(0.5 0.08 155);
+    --color-moss-400: oklch(0.72 0.12 150);
+    --color-moss-600: oklch(0.5 0.11 152);
+
+    --color-ember-400: oklch(0.68 0.17 28);
+    --color-ember-600: oklch(0.53 0.2 27);
 }

@@ -41,7 +41,7 @@ const { isCurrentUrl, whenCurrentUrl } = useCurrentUrl();
                 </Link>
                 <div
                     v-if="isCurrentUrl(item.href)"
-                    class="absolute bottom-0 left-0 h-0.5 w-full translate-y-px bg-seal"
+                    class="absolute bottom-0 left-0 h-0.5 w-full translate-y-px bg-brand"
                 />
             </NavigationMenuItem>
         </NavigationMenuList>

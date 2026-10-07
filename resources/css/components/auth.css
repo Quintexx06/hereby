@@ -1,0 +1,111 @@
+/* Sign in / sign up: the stage beside the form (layouts/auth/AuthStageLayout). */
+@layer components {
+    .auth {
+        @apply grid min-h-svh bg-background text-foreground lg:grid-cols-[minmax(0,6fr)_minmax(0,5fr)];
+    }
+
+    .auth-stage {
+        @apply relative isolate hidden flex-col justify-between overflow-hidden p-10 lg:flex xl:p-14;
+    }
+
+    /* The <picture> wrapper must not take a slot in the flex column. */
+    .auth-stage > picture {
+        @apply absolute inset-0 -z-20;
+    }
+
+    .auth-photo {
+        @apply absolute inset-0 -z-20 h-full w-full object-cover;
+        animation: auth-settle 14s var(--ease-out) both;
+    }
+
+    .auth-veil {
+        animation: auth-veil-left 1.8s var(--ease-in-out) 300ms both;
+    }
+
+    .auth-veil.veil-panel-right {
+        animation-name: auth-veil-right;
+    }
+
+    .auth-scrim {
+        @apply absolute inset-0 -z-[5];
+        background:
+            linear-gradient(
+                to top,
+                oklch(0.145 0.01 20 / 0.9),
+                transparent 55%
+            ),
+            linear-gradient(
+                to bottom,
+                oklch(0.145 0.01 20 / 0.5),
+                transparent 25%
+            );
+    }
+
+    .auth-line {
+        @apply relative z-10 flex max-w-[11ch] flex-wrap gap-x-[0.25em] font-display text-[clamp(3rem,5.2vw,5.25rem)] leading-[0.95] font-semibold tracking-[-0.045em];
+        font-stretch: 110%;
+    }
+
+    .auth-word {
+        @apply inline-block;
+        animation: auth-rise 900ms var(--ease-out) both;
+        animation-delay: calc(900ms + var(--i) * 90ms);
+    }
+
+    .auth-panel {
+        @apply flex items-center justify-center px-6 py-14 sm:px-12;
+    }
+
+    .auth-column {
+        @apply flex w-full max-w-sm flex-col gap-8;
+    }
+
+    /* Header pieces and every direct child of the form arrive one by one. */
+    .auth-rise,
+    .auth-fields form > * {
+        animation: auth-rise 700ms var(--ease-out) both;
+        animation-delay: calc(150ms + var(--i, 2) * 80ms);
+    }
+
+    .auth-fields form > :nth-child(1) {
+        --i: 2;
+    }
+    .auth-fields form > :nth-child(2) {
+        --i: 3;
+    }
+    .auth-fields form > :nth-child(3) {
+        --i: 4;
+    }
+    .auth-fields form > :nth-child(4) {
+        --i: 5;
+    }
+    .auth-fields form > :nth-child(n + 5) {
+        --i: 6;
+    }
+
+    @keyframes auth-rise {
+        from {
+            opacity: 0;
+            transform: translateY(18px);
+            filter: blur(4px);
+        }
+    }
+
+    @keyframes auth-settle {
+        from {
+            transform: scale(1.12);
+        }
+    }
+
+    @keyframes auth-veil-left {
+        to {
+            transform: translateX(-102%);
+        }
+    }
+
+    @keyframes auth-veil-right {
+        to {
+            transform: translateX(102%);
+        }
+    }
+}

@@ -11,7 +11,7 @@ const { t, localeTag } = useTrans();
 
 <template>
     <footer class="mt-auto flex flex-col items-center gap-6 pt-16 text-center">
-        <p v-if="rsvpDeadline" class="font-display text-lg italic">
+        <p v-if="rsvpDeadline" class="text-lg font-semibold">
             {{
                 t('invitation.reply_by', {
                     date: formatDate(rsvpDeadline, localeTag()),
@@ -22,6 +22,6 @@ const { t, localeTag } = useTrans();
             {{ t('invitation.replies_open_soon') }}
         </p>
         <hr class="rule" />
-        <p class="fine-print">{{ t('common.credit') }}</p>
+        <p class="caption">{{ t('common.credit') }}</p>
     </footer>
 </template>

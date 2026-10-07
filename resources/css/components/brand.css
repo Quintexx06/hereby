@@ -1,16 +1,40 @@
 @layer components {
-    /* The wax seal: Hereby's single loud brand moment. Use once per view. */
-    .seal {
-        @apply inline-grid aspect-square place-items-center rounded-full bg-seal font-display text-seal-foreground italic shadow-[inset_0_-3px_0_rgb(0_0_0/0.18),0_10px_30px_-12px_var(--seal)];
+    /* The wordmark "hereby." in wide, heavy Archivo, the full stop in blush. */
+    .wordmark {
+        @apply font-display text-[1.75rem] leading-none font-bold tracking-[-0.05em];
+        font-stretch: 118%;
     }
 
-    /* Underline that is drawn like a pen stroke on hover. */
-    .link-ink {
-        @apply bg-[linear-gradient(currentColor,currentColor)] bg-[length:0%_1px] bg-left-bottom bg-no-repeat pb-0.5 transition-[background-size] duration-300 ease-out hover:bg-[length:100%_1px];
+    .wordmark-stop {
+        @apply text-brand;
     }
 
-    /* Subtle paper grain for large surfaces (marketing, auth). */
-    .paper-grain {
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .055 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    /* Underline that grows from the left on hover. */
+    .link-underline {
+        @apply bg-[linear-gradient(currentColor,currentColor)] bg-[length:0%_1px] bg-left-bottom bg-no-repeat pb-0.5 transition-[background-size] duration-200 ease-out hover:bg-[length:100%_1px];
+    }
+
+    /* Hereby icons: 1.5px line, blush detail, drawn in when revealed. */
+    .hereby-icon {
+        @apply size-8 shrink-0 text-foreground;
+    }
+
+    .hereby-icon-accent {
+        @apply stroke-brand;
+    }
+
+    .hereby-icon-dot {
+        @apply fill-brand stroke-none;
+    }
+
+    .reveal .hereby-icon .draw {
+        stroke-dasharray: 1;
+        stroke-dashoffset: 1;
+        transition: stroke-dashoffset 900ms var(--ease-out)
+            calc(var(--reveal-delay, 0ms) + 150ms);
+    }
+
+    .reveal[data-revealed] .hereby-icon .draw {
+        stroke-dashoffset: 0;
     }
 }

@@ -1,0 +1,34 @@
+/* Footer: copy and actions stacked on the left, then the giant wordmark. */
+@layer components {
+    .footer-column {
+        @apply flex flex-col items-start gap-6;
+    }
+
+    .footer-tagline {
+        @apply max-w-[16ch] font-display text-[clamp(2.25rem,5vw,4.5rem)] leading-[1] font-semibold tracking-[-0.045em];
+        font-stretch: 110%;
+    }
+
+    footer[data-pending='true'] :is([data-tagline], [data-item], .footer-mark) {
+        @apply invisible;
+    }
+
+    /* The giant wordmark, centred, with room for the descender of the "y". */
+    .footer-mark {
+        @apply mt-16 flex justify-center overflow-hidden px-4 pb-[3vw] sm:mt-24;
+    }
+
+    .footer-mark-word {
+        @apply block font-display text-[19vw] leading-[1.08] font-bold tracking-[-0.065em] whitespace-nowrap;
+        font-stretch: 118%;
+    }
+
+    .footer-letter,
+    .footer-mark-stop {
+        @apply inline-block;
+    }
+
+    .footer-mark-stop {
+        @apply text-brand;
+    }
+}

@@ -1,0 +1,538 @@
+/* Landing sections below the hero, in page order. */
+@layer components {
+    /* Intro: the statement beside the 3D rings. */
+    .intro-grid {
+        @apply grid items-center gap-12 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:gap-16;
+    }
+
+    .rings-stage {
+        @apply relative mx-auto aspect-square w-full max-w-[30rem];
+    }
+
+    .rings-shadow {
+        @apply absolute inset-x-[18%] bottom-[8%] h-[8%] rounded-[50%] bg-foreground/10 blur-2xl;
+    }
+
+    /* Guests: copy beside a tall photo with the phone laid over it. */
+    .guests-grid {
+        @apply grid items-center gap-16 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] lg:gap-20;
+    }
+
+    .guests-visual {
+        @apply relative flex justify-center sm:block lg:pl-16;
+    }
+
+    .guests-photo {
+        @apply hidden aspect-[4/5] w-full rounded-sm object-cover sm:ml-auto sm:block sm:w-[78%];
+    }
+
+    .guests-phone {
+        @apply flex flex-col items-center gap-4 sm:absolute sm:bottom-10 sm:left-0;
+    }
+
+    .point-row {
+        @apply grid grid-cols-[2.5rem_minmax(0,1fr)] gap-x-3 gap-y-1 border-t border-rule py-5 sm:grid-cols-[2.5rem_minmax(0,2fr)_minmax(0,3fr)] sm:gap-x-6;
+    }
+
+    /* Steps: a spark travels the thread; each step lights up as it arrives. */
+    .steps-thread {
+        @apply absolute inset-x-0 top-[5px] hidden h-px bg-rule md:block;
+    }
+
+    .steps-thread-fill {
+        @apply block h-full origin-left bg-linear-to-r from-brand/30 to-brand;
+        transform: scaleX(var(--travel, 0));
+    }
+
+    .steps-spark {
+        @apply absolute top-1/2 size-[7px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand;
+        left: calc(var(--travel, 0) * 100%);
+        box-shadow:
+            0 0 0 4px color-mix(in oklch, var(--brand) 18%, transparent),
+            0 0 24px 6px color-mix(in oklch, var(--brand) 45%, transparent);
+        opacity: clamp(0, calc((1 - var(--travel, 0)) * 12), 1);
+    }
+
+    .step {
+        @apply relative flex flex-col gap-4 border-t border-rule pt-8 md:border-t-0 md:pt-10;
+    }
+
+    .step > :not(.step-dot) {
+        transition:
+            opacity 700ms var(--ease-out),
+            transform 700ms var(--ease-out),
+            color 700ms var(--ease-out);
+    }
+
+    .step > :nth-child(3) {
+        transition-delay: 90ms;
+    }
+
+    .step > :nth-child(4) {
+        transition-delay: 180ms;
+    }
+
+    .step[data-active='false'] > :not(.step-dot) {
+        @apply translate-y-4 opacity-20;
+    }
+
+    .step-dot {
+        @apply absolute top-0 left-0 hidden size-[11px] rounded-full border border-rule bg-background transition-colors duration-500 ease-out md:block;
+    }
+
+    .step[data-active='true'] .step-dot {
+        @apply border-brand bg-brand;
+    }
+
+    .step[data-active='true'] .step-dot::after {
+        @apply absolute -inset-[1px] rounded-full border border-brand content-[''];
+        animation: step-pulse 1.4s var(--ease-out) both;
+    }
+
+    @keyframes step-pulse {
+        from {
+            opacity: 0.9;
+            transform: scale(1);
+        }
+        to {
+            opacity: 0;
+            transform: scale(3.2);
+        }
+    }
+
+    .step-figure {
+        @apply font-display text-[clamp(3.75rem,6.5vw,6rem)] leading-[0.85] font-semibold tracking-[-0.055em] tabular-nums;
+        font-stretch: 112%;
+    }
+
+    .step-unit {
+        @apply ml-2 font-display text-[0.36em] font-medium tracking-[-0.02em] text-brand italic;
+    }
+
+    /* Acts: pinned horizontal track on desktop, swipe carousel below lg. */
+    .acts {
+        @apply relative;
+    }
+
+    .acts-sticky {
+        @apply flex flex-col gap-10 py-24 sm:py-32;
+    }
+
+    .acts-head {
+        @apply flex flex-col justify-between gap-8 lg:flex-row lg:items-end;
+    }
+
+    .acts-meter {
+        @apply flex w-full max-w-xs flex-col gap-3 lg:items-end;
+    }
+
+    .acts-counter {
+        @apply font-display text-2xl font-semibold tracking-[-0.03em] text-muted-foreground tabular-nums;
+    }
+
+    .acts-bar {
+        @apply block h-px w-full bg-rule;
+    }
+
+    .acts-bar-fill {
+        @apply block h-full origin-left bg-brand;
+    }
+
+    .acts-track {
+        @apply flex snap-x snap-mandatory gap-5 overflow-x-auto px-5 pb-4 sm:gap-8 sm:px-8;
+        scrollbar-width: none;
+    }
+
+    @media (min-width: 1024px) {
+        .acts {
+            height: calc(var(--acts) * 75svh + 100svh);
+        }
+
+        .acts-sticky {
+            @apply sticky top-0 h-svh justify-center overflow-hidden py-0;
+        }
+
+        .acts-track {
+            @apply snap-none overflow-visible will-change-transform;
+            padding-left: max(3rem, calc((100vw - 80rem) / 2 + 3rem));
+            padding-right: 30vw;
+        }
+    }
+
+    .act-card {
+        @apply grid w-[85vw] shrink-0 snap-center gap-6 transition-opacity duration-500 ease-out sm:w-[70vw] lg:w-[min(62rem,72vw)] lg:grid-cols-[auto_minmax(0,1fr)] lg:items-end lg:gap-12;
+    }
+
+    @media (min-width: 1024px) {
+        .act-card[data-focus='false'] {
+            @apply opacity-45;
+        }
+    }
+
+    .act-photo-frame {
+        @apply relative aspect-[4/3] overflow-hidden rounded-sm lg:aspect-[5/6] lg:h-[54svh] lg:w-auto;
+    }
+
+    .act-photo {
+        @apply absolute inset-0 h-full w-full object-cover;
+    }
+
+    .act-numeral {
+        @apply absolute bottom-2 left-4 font-display text-[clamp(4rem,9vw,8rem)] leading-none font-bold tracking-[-0.06em] text-foreground/90;
+        font-stretch: 118%;
+    }
+
+    .act-body {
+        @apply flex flex-col gap-3 lg:pb-6;
+    }
+
+    .act-name {
+        @apply font-display text-[clamp(2.25rem,4.4vw,4rem)] leading-[0.95] font-semibold tracking-[-0.04em];
+        font-stretch: 108%;
+    }
+
+    .act-guests {
+        @apply text-lg font-medium text-brand italic;
+    }
+
+    /* Marquee: "wedding" in four languages, drifting with the scroll. */
+    .marquee {
+        @apply overflow-hidden border-y border-rule bg-background py-6 sm:py-8;
+    }
+
+    .marquee-band {
+        @apply flex w-max gap-10 whitespace-nowrap sm:gap-16;
+        animation: marquee 48s linear infinite;
+    }
+
+    .marquee-word {
+        @apply font-display text-[clamp(3rem,8vw,7.5rem)] leading-none font-semibold tracking-[-0.05em];
+        font-stretch: 115%;
+    }
+
+    .marquee-word:nth-child(even) {
+        @apply font-medium text-transparent italic;
+        -webkit-text-stroke: 1.5px var(--foreground);
+    }
+
+    .marquee-dot {
+        @apply text-brand;
+        -webkit-text-stroke: 0;
+    }
+
+    @keyframes marquee {
+        to {
+            transform: translateX(-50%);
+        }
+    }
+
+    /* Studio: a fanned deck of themed invitations; the section wears the front one. */
+    .studio {
+        @apply overflow-hidden;
+        transition:
+            background-color 700ms var(--ease-out),
+            color 700ms var(--ease-out);
+    }
+
+    .deck {
+        @apply relative grid h-[34rem] w-full place-items-center sm:h-[40rem];
+    }
+
+    /* Cards fan out from a pivot below the deck, like cards held in a hand. */
+    .deck-card {
+        @apply absolute cursor-pointer bg-transparent text-left focus-visible:outline-none;
+        transform-origin: 50% 135%;
+        transform: translateX(calc(var(--pos) * clamp(3.5rem, 13vw, 12.5rem)))
+            rotate(calc(var(--pos) * 11deg))
+            scale(calc(1 - var(--depth) * 0.06));
+        transition:
+            transform 950ms cubic-bezier(0.22, 1, 0.36, 1),
+            z-index 0ms linear 260ms;
+    }
+
+    .deck-card-paper {
+        @apply relative flex aspect-[5/7] w-[15.5rem] flex-col rounded-[1.75rem] bg-card p-7 text-card-foreground sm:w-[19rem] sm:p-9;
+        border: 1.5px solid transparent;
+        background:
+            linear-gradient(var(--card), var(--card)) padding-box,
+            linear-gradient(
+                    160deg,
+                    color-mix(in oklch, var(--brand) 45%, transparent),
+                    var(--rule) 40%,
+                    color-mix(in oklch, var(--brand) 30%, transparent)
+                )
+                border-box;
+        box-shadow:
+            0 2px 0 color-mix(in oklch, var(--foreground) 5%, transparent),
+            0 40px 70px -34px rgb(30 14 10 / 0.5);
+        transition:
+            transform 500ms var(--ease-out),
+            filter 700ms var(--ease-out),
+            box-shadow 700ms var(--ease-out);
+    }
+
+    /* A fine inner frame, as on letterpress stationery. */
+    .deck-card-paper::before {
+        @apply pointer-events-none absolute inset-2.5 rounded-[1.25rem] border border-brand/25 content-[''];
+    }
+
+    /* The front card: a slow blush light travels around its border. */
+    .deck-card[data-front='true'] .deck-card-paper {
+        background:
+            linear-gradient(var(--card), var(--card)) padding-box,
+            conic-gradient(
+                    from var(--border-angle),
+                    transparent 0deg,
+                    var(--brand) 40deg,
+                    transparent 110deg,
+                    transparent 250deg,
+                    color-mix(in oklch, var(--brand) 60%, transparent) 300deg,
+                    transparent 360deg
+                )
+                border-box;
+        box-shadow:
+            0 2px 0 color-mix(in oklch, var(--foreground) 5%, transparent),
+            0 50px 90px -36px rgb(30 14 10 / 0.6);
+        animation: border-orbit 6s linear infinite;
+    }
+
+    .deck-card[data-front='false'] .deck-card-paper {
+        filter: saturate(0.85) brightness(0.97);
+    }
+
+    .deck-card[data-front='false']:hover .deck-card-paper {
+        transform: translateY(-0.75rem);
+    }
+
+    .deck-card:focus-visible .deck-card-paper {
+        @apply ring-2 ring-ring ring-offset-4 ring-offset-background;
+    }
+
+    /* Carousel controls: arrows flank the theme name and slide in on arrival. */
+    .deck-controls {
+        @apply -mt-4 flex items-center justify-center gap-6 sm:gap-10;
+    }
+
+    .deck-arrow {
+        @apply grid size-13 shrink-0 cursor-pointer place-items-center rounded-full border border-rule bg-card text-foreground opacity-0 shadow-[0_14px_30px_-16px_rgb(30_14_10/0.45)] transition-[opacity,translate,background-color,scale] duration-700 ease-out hover:scale-105 hover:bg-background active:scale-95;
+    }
+
+    .deck-arrow-prev {
+        @apply translate-x-8;
+    }
+
+    .deck-arrow-next {
+        @apply -translate-x-8;
+    }
+
+    .deck-controls[data-in-view='true'] .deck-arrow {
+        @apply translate-x-0 opacity-100;
+    }
+
+    .deck-card-event {
+        @apply flex items-center gap-3 border-t border-rule py-3 text-[0.8125rem];
+    }
+
+    .deck-card-names {
+        @apply mt-5 block font-display text-[clamp(2.4rem,4.4vw,3.25rem)] leading-[0.9] font-bold tracking-[-0.05em];
+        font-stretch: 112%;
+    }
+
+    .deck-card-label {
+        @apply mt-3 text-center text-sm text-muted-foreground;
+    }
+
+    .studio-active-name {
+        @apply font-display text-[clamp(2.25rem,4.6vw,4rem)] leading-none font-semibold tracking-[-0.045em];
+        font-stretch: 110%;
+    }
+
+    .studio-flip-enter-active,
+    .studio-flip-leave-active {
+        transition:
+            opacity 260ms var(--ease-out),
+            transform 260ms var(--ease-out);
+    }
+
+    .studio-flip-enter-from {
+        @apply translate-y-3 opacity-0;
+    }
+
+    .studio-flip-leave-to {
+        @apply -translate-y-2 opacity-0;
+    }
+
+    /* Struck: words crossed out by a blush line as they scroll in. */
+    .struck-row {
+        @apply grid items-center gap-3 border-t border-rule py-6 md:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] md:gap-12 md:py-8;
+    }
+
+    .struck-word {
+        @apply font-display text-[clamp(2.4rem,6vw,5.25rem)] leading-none font-semibold tracking-[-0.045em] transition-colors duration-500 ease-out;
+        font-stretch: 110%;
+    }
+
+    .struck-row[data-struck='true'] .struck-word {
+        @apply text-muted-foreground/70;
+    }
+
+    /* A hand-drawn strike: each row has its own angle, height and curve. */
+    .struck-line {
+        @apply pointer-events-none absolute left-[-0.08em] h-[0.42em] w-[calc(100%+0.16em)] overflow-visible text-brand;
+        top: var(--strike-top, 52%);
+        transform: translateY(-50%) rotate(var(--strike-tilt, -2deg));
+        /* Drawn left to right by revealing it, which every browser renders the same. */
+        clip-path: inset(-50% calc((1 - var(--strike, 0)) * 100%) -50% -2%);
+    }
+
+    /* The icon that pops out of a struck word (springy, never from scale 0). */
+    .struck-badge {
+        @apply pointer-events-none absolute -top-[0.35em] left-full ml-3 grid size-[clamp(3.25rem,5vw,4.5rem)] place-items-center rounded-full bg-brand-muted text-brand opacity-0;
+        transform: translateY(0.4em) scale(0.45) rotate(-18deg);
+        transition:
+            opacity 300ms var(--ease-out),
+            transform 650ms cubic-bezier(0.34, 1.6, 0.64, 1);
+    }
+
+    .struck-badge .hereby-icon {
+        @apply size-[55%] text-brand;
+    }
+
+    .struck-row[data-struck='true'] .struck-badge {
+        @apply opacity-100;
+        transform: translateY(0) scale(1) rotate(-6deg);
+    }
+
+    .struck-badge .draw {
+        stroke-dasharray: 1;
+        stroke-dashoffset: 1;
+        transition: stroke-dashoffset 800ms var(--ease-out) 200ms;
+    }
+
+    .struck-row[data-struck='true'] .struck-badge .draw,
+    .struck-row:hover .struck-badge .draw {
+        stroke-dashoffset: 0;
+    }
+
+    .struck-row:hover .struck-badge {
+        @apply opacity-100;
+        transform: translateY(-0.15em) scale(1.25) rotate(4deg);
+    }
+
+    .struck-instead {
+        @apply text-lg text-muted-foreground transition-[opacity,translate] duration-500 ease-out sm:text-xl;
+    }
+
+    .struck-row[data-struck='false'] .struck-instead {
+        @apply translate-y-2 opacity-0;
+    }
+
+    /* Legal pages: night header band, then a calm reading column. */
+    .legal-band {
+        @apply relative;
+    }
+
+    .legal-body {
+        @apply flex max-w-4xl flex-col gap-12 py-20 sm:py-28;
+    }
+
+    .legal-draft {
+        @apply rounded-2xl border border-brand/30 bg-brand-muted/40 px-5 py-4 text-sm text-foreground;
+    }
+
+    .legal-section {
+        @apply grid gap-4 border-t border-rule pt-8 md:grid-cols-[minmax(0,2fr)_minmax(0,5fr)] md:gap-10;
+    }
+
+    /* FAQ: heading sized to its column (no overflow), and the "Fragt uns" form. */
+    .faq-heading {
+        @apply font-display text-[clamp(2rem,3.2vw,3rem)] leading-[1.02] font-semibold tracking-[-0.035em] [overflow-wrap:anywhere] hyphens-auto;
+    }
+
+    /* One card holds the heading and the question form, filling its column. */
+    .faq-card {
+        @apply flex flex-col gap-12 rounded-[1.75rem] border border-rule bg-card p-7 sm:p-10 lg:min-h-full;
+    }
+
+    .ask-form {
+        @apply flex flex-col gap-3 border-t border-rule pt-8;
+    }
+
+    .ask-field {
+        @apply w-full rounded-2xl border border-input bg-background px-5 py-3.5 text-base text-foreground transition-[border-color,box-shadow] duration-150 ease-out placeholder:text-muted-foreground focus:border-ring/60 focus:ring-2 focus:ring-ring/10 focus:outline-none focus-visible:outline-none;
+    }
+
+    input.ask-field {
+        @apply h-12 rounded-full py-0 sm:h-13;
+    }
+
+    .ask-honeypot {
+        @apply pointer-events-none absolute -left-[9999px] size-px opacity-0;
+    }
+
+    /* FAQ: native details/summary; answers open smoothly where supported. */
+    .faq-item {
+        @apply border-t border-rule;
+        interpolate-size: allow-keywords;
+    }
+
+    .faq-item::details-content {
+        block-size: 0;
+        overflow: clip;
+        transition:
+            block-size 320ms var(--ease-out),
+            content-visibility 320ms allow-discrete;
+    }
+
+    .faq-item[open]::details-content {
+        block-size: auto;
+    }
+
+    .faq-question {
+        @apply flex cursor-pointer list-none items-center justify-between gap-6 py-6 font-display text-lg leading-snug font-semibold tracking-[-0.015em] transition-colors duration-150 ease-out hover:text-brand sm:text-xl [&::-webkit-details-marker]:hidden;
+    }
+
+    .faq-icon {
+        @apply size-5 shrink-0 text-brand transition-transform duration-200 ease-out;
+    }
+
+    .faq-item[open] .faq-icon {
+        @apply rotate-45;
+    }
+
+    /* Closing: the celebration photo, and the veil drifting back in. */
+    .closing {
+        @apply relative isolate flex min-h-[100svh] items-end overflow-hidden;
+    }
+
+    .closing-photo {
+        @apply absolute inset-0 -z-20 h-full w-full object-cover;
+    }
+
+    .closing-canvas {
+        @apply pointer-events-none absolute inset-0 -z-10 h-full w-full opacity-0 transition-opacity duration-500 ease-out;
+    }
+
+    .closing-scrim {
+        @apply pointer-events-none absolute inset-0 -z-[5];
+        background: linear-gradient(
+            to top,
+            oklch(0.145 0.01 20 / 0.94) 10%,
+            oklch(0.145 0.01 20 / 0.35) 60%,
+            oklch(0.145 0.01 20 / 0.15)
+        );
+    }
+
+    @keyframes border-orbit {
+        to {
+            --border-angle: 360deg;
+        }
+    }
+}
+
+/* Registered so the conic border light can animate its angle. */
+@property --border-angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+}

@@ -17,7 +17,7 @@ composer ci:check  # lint, types, Pint, PHPStan, tests
 - [Roadmap](docs/roadmap/ROADMAP.md): what we're building and its status
 - [AI workflow](docs/ai/workflow.md): how we build with Claude (skills, MCP, slash commands)
 - [Backend](docs/architecture/backend.md) and [frontend](docs/architecture/frontend.md) architecture
-- [Design system](docs/design/design-system.md): ink, paper & seal
+- [Design system](DESIGN.md): "Vorhang auf"
 - [Decisions](docs/decisions/)
 
 Working with an AI agent? Start with [`CLAUDE.md`](CLAUDE.md).

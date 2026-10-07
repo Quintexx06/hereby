@@ -14,10 +14,13 @@ ROADMAP item
 3. executing-plans        → test-driven-development per step
                             + Boost MCP (docs, schema, tinker)
                             + domain skills (inertia-vue, wayfinder, tailwind, fortify)
-4. UI work                → frontend-design + emil-design-eng / animate
-                            + shadcn-vue MCP, 21st.dev Magic / MotionSites for ideas
+4. UI work                → DESIGN.md + impeccable (craft floor) + frontend-design
+                            + emil-design-eng / animate for motion
+                            + shadcn-vue MCP, MotionSites for ideas
+                            (the after-edit hook flags design-rule violations)
 5. verification-before-completion → composer ci:check, screenshot via playwright MCP
-6. requesting-code-review → /code-review, review-animations for motion
+6. requesting-code-review → /code-review, /design-review (impeccable critique +
+                            web-design-guidelines), review-animations for motion
 7. Tick the roadmap item + changelog row, then /ship
 ```
 
