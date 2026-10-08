@@ -9,18 +9,19 @@ import { home } from '@/routes';
 defineProps<{
     title?: string;
     description?: string;
+    mirrored?: boolean;
 }>();
 
 const words = ['Vorhang', 'auf', 'für', 'euer', 'Ja.'];
 </script>
 
 <!--
-    Sign in / sign up: the landing page's stage on the left (the veil draws
+    Sign in / sign up: the landing page's stage on one side (the veil draws
     open over a slowly settling photo, the line rises word by word), the
-    form on the right with each field arriving in turn.
+    form on the other with each field arriving in turn. Sign-up is mirrored.
 -->
 <template>
-    <div class="auth surface-light">
+    <div class="auth surface-light" :data-mirrored="mirrored">
         <aside class="auth-stage stage" aria-hidden="true">
             <ResponsivePhoto
                 :photo="landingPhotos.veilKiss"

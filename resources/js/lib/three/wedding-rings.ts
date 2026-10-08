@@ -1,23 +1,6 @@
-import {
-    ACESFilmicToneMapping,
-    Group,
-    Mesh,
-    MeshPhysicalMaterial,
-    PerspectiveCamera,
-    PMREMGenerator,
-    Scene,
-    Timer,
-    TorusGeometry,
-    WebGLRenderer,
-} from 'three';
-import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
-
-export type WeddingRings = {
-    setPointer: (x: number, y: number) => void;
-    setScroll: (progress: number) => void;
-    setActive: (active: boolean) => void;
-    destroy: () => void;
-};
+import { Group, Mesh, MeshPhysicalMaterial, TorusGeometry } from 'three';
+import { createLoop, createStudio } from '@/lib/three/studio';
+import type { ThreeScene } from '@/lib/three/studio';
 
 /**
  * Two interlinked bands, rose gold and platinum, lit by a studio
@@ -26,22 +9,8 @@ export type WeddingRings = {
 export function createWeddingRings(
     canvas: HTMLCanvasElement,
     animate: boolean,
-): WeddingRings {
-    const renderer = new WebGLRenderer({
-        canvas,
-        alpha: true,
-        antialias: true,
-    });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.toneMapping = ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.05;
-
-    const scene = new Scene();
-    const pmrem = new PMREMGenerator(renderer);
-    const environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
-    scene.environment = environment;
-
-    const camera = new PerspectiveCamera(30, 1, 0.1, 50);
+): ThreeScene {
+    const { renderer, scene, camera, dispose } = createStudio(canvas);
     camera.position.set(0, 0.4, 7.2);
     // Aim at the rings so they sit in the centre of the canvas. The target is a
     // little below the origin because the tilted bands hang low.
@@ -75,25 +44,10 @@ export function createWeddingRings(
     stage.rotation.set(0.35, -0.5, 0.2);
     scene.add(stage);
 
-    const resize = () => {
-        const { clientWidth: width, clientHeight: height } = canvas;
-        renderer.setSize(width, height, false);
-        camera.aspect = width / Math.max(height, 1);
-        camera.updateProjectionMatrix();
-    };
-    const observer = new ResizeObserver(resize);
-    observer.observe(canvas);
-    resize();
-
     const pointer = { x: 0, y: 0 };
     let scroll = 0;
-    let frame = 0;
-    let active = true;
-    const timer = new Timer();
 
-    const render = () => {
-        timer.update();
-        const time = timer.getElapsed();
+    const loop = createLoop((time) => {
         stage.rotation.y +=
             (pointer.x * 0.35 -
                 0.5 +
@@ -108,18 +62,7 @@ export function createWeddingRings(
                 stage.rotation.x) *
             0.05;
         renderer.render(scene, camera);
-    };
-
-    const tick = () => {
-        frame = requestAnimationFrame(tick);
-        render();
-    };
-
-    if (animate) {
-        tick();
-    } else {
-        render();
-    }
+    }, animate);
 
     return {
         setPointer: (x, y) => {
@@ -129,26 +72,13 @@ export function createWeddingRings(
         setScroll: (progress) => {
             scroll = progress;
         },
-        setActive: (next) => {
-            if (!animate || next === active) {
-                return;
-            }
-            active = next;
-            if (active) {
-                tick();
-            } else {
-                cancelAnimationFrame(frame);
-            }
-        },
+        setActive: loop.setActive,
         destroy: () => {
-            cancelAnimationFrame(frame);
-            observer.disconnect();
+            loop.stop();
             band.dispose();
             gold.dispose();
             platinum.dispose();
-            environment.dispose();
-            pmrem.dispose();
-            renderer.dispose();
+            dispose();
         },
     };
 }

@@ -5,17 +5,16 @@ import { useThreeScene } from '@/composables/motion/useThreeScene';
 const stage = ref<HTMLElement | null>(null);
 const canvas = ref<HTMLCanvasElement | null>(null);
 const { isReady } = useThreeScene(canvas, stage, () =>
-    import('@/lib/three/wedding-rings').then((m) => m.createWeddingRings),
+    import('@/lib/three/roses').then((m) => m.createRoses),
 );
 </script>
 
-<!-- Decorative: two interlinked bands, rendered with three.js on demand. -->
+<!-- Decorative: three slowly turning roses, rendered with three.js on demand. -->
 <template>
-    <div ref="stage" class="rings-stage" aria-hidden="true">
-        <div class="rings-shadow" />
+    <div ref="stage" class="roses-stage" aria-hidden="true">
         <canvas
             ref="canvas"
-            class="relative h-full w-full transition-opacity duration-700 ease-out"
+            class="h-full w-full transition-opacity duration-700 ease-out"
             :class="isReady ? 'opacity-100' : 'opacity-0'"
         />
     </div>
