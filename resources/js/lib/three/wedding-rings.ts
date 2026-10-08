@@ -43,6 +43,9 @@ export function createWeddingRings(
 
     const camera = new PerspectiveCamera(30, 1, 0.1, 50);
     camera.position.set(0, 0.4, 7.2);
+    // Aim at the rings so they sit in the centre of the canvas. The target is a
+    // little below the origin because the tilted bands hang low.
+    camera.lookAt(0, -0.25, 0);
 
     const band = new TorusGeometry(1, 0.13, 48, 160);
     const gold = new MeshPhysicalMaterial({

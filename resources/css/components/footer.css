@@ -1,5 +1,10 @@
 /* Footer: copy and actions stacked on the left, then the giant wordmark. */
 @layer components {
+    /* Bottom row: copyright left, legal links right. */
+    .footer-legal {
+        @apply flex flex-col gap-3 border-t border-rule py-6 sm:flex-row sm:items-center sm:justify-between;
+    }
+
     .footer-column {
         @apply flex flex-col items-start gap-6;
     }

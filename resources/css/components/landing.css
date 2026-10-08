@@ -10,7 +10,7 @@
     }
 
     .rings-shadow {
-        @apply absolute inset-x-[18%] bottom-[8%] h-[8%] rounded-[50%] bg-foreground/10 blur-2xl;
+        @apply absolute inset-x-[22%] bottom-[17%] h-[7%] rounded-[50%] bg-foreground/10 blur-2xl;
     }
 
     /* Guests: copy beside a tall photo with the phone laid over it. */
