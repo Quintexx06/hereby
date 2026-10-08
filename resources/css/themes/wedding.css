@@ -4,8 +4,10 @@
  * shadcn components included, takes the couple's look. Guest sites are always
  * light: the couple's design is the design, whatever the visitor's OS setting.
  *
- * These three are starter themes. The designer's collection replaces them
- * (roadmap Phase 0/1). Each theme must keep text contrast at WCAG AA or better.
+ * Starter themes until the designer's collection replaces them (roadmap
+ * Phase 0/1). Grounds are saturated, real stationery stock, not tinted white:
+ * near-white pastels all read alike and look generated. Every text, accent and
+ * button pairing must keep WCAG AA (4.5:1) or better.
  * Themes may also override --type-display / --type-sans for their own pairing.
  */
 @layer base {
@@ -37,95 +39,98 @@
         --rule: color-mix(in oklch, var(--color-night-900) 14%, transparent);
     }
 
-    /* Rosé: blush paper, burgundy ink, a dusty-rose accent. For garden weddings. */
+    /* Rosé: oxblood paper, blush ink. For garden weddings and candlelit dinners. */
     [data-theme='rose'] {
-        --background: oklch(0.962 0.02 12);
-        --foreground: oklch(0.29 0.06 8);
-        --card: oklch(0.984 0.01 12);
-        --card-foreground: oklch(0.29 0.06 8);
-        --popover: oklch(0.984 0.01 12);
-        --popover-foreground: oklch(0.29 0.06 8);
-        --primary: oklch(0.36 0.09 6);
-        --primary-foreground: oklch(0.984 0.01 12);
-        --muted: oklch(0.93 0.026 12);
-        --muted-foreground: oklch(0.48 0.06 8);
-        --accent: oklch(0.93 0.026 12);
-        --accent-foreground: oklch(0.29 0.06 8);
-        --border: oklch(0.88 0.035 12);
-        --input: oklch(0.86 0.04 12);
-        --ring: oklch(0.6 0.12 6);
-        --brand: oklch(0.55 0.13 5);
-        --brand-foreground: oklch(0.984 0.01 12);
-        --brand-muted: oklch(0.9 0.045 10);
-        --rule: color-mix(in oklch, oklch(0.29 0.06 8) 14%, transparent);
+        color-scheme: dark;
+        --background: oklch(0.31 0.1 10);
+        --foreground: oklch(0.95 0.025 15);
+        --card: oklch(0.34 0.11 10);
+        --card-foreground: oklch(0.95 0.025 15);
+        --popover: oklch(0.34 0.11 10);
+        --popover-foreground: oklch(0.95 0.025 15);
+        --primary: oklch(0.84 0.09 8);
+        --primary-foreground: oklch(0.27 0.09 10);
+        --muted: oklch(0.39 0.11 10);
+        --muted-foreground: oklch(0.83 0.05 12);
+        --accent: oklch(0.39 0.11 10);
+        --accent-foreground: oklch(0.95 0.025 15);
+        --border: oklch(0.46 0.11 10);
+        --input: oklch(0.46 0.11 10);
+        --ring: oklch(0.82 0.1 8);
+        --brand: oklch(0.82 0.1 8);
+        --brand-foreground: oklch(0.27 0.09 10);
+        --brand-muted: oklch(0.45 0.12 10);
+        --rule: color-mix(in oklch, oklch(0.95 0.025 15) 20%, transparent);
     }
 
-    /* Alpine: glacier white, slate and pine. For mountain and lake venues. */
+    /* Alpine: pine-green paper, glacier ink. For mountain and lake venues. */
     [data-theme='alpine'] {
-        --background: oklch(0.975 0.006 230);
-        --foreground: oklch(0.25 0.03 240);
-        --card: oklch(0.99 0.004 230);
-        --card-foreground: oklch(0.25 0.03 240);
-        --popover: oklch(0.99 0.004 230);
-        --popover-foreground: oklch(0.25 0.03 240);
-        --primary: oklch(0.38 0.06 170);
-        --primary-foreground: oklch(0.99 0.004 230);
-        --muted: oklch(0.94 0.01 230);
-        --muted-foreground: oklch(0.48 0.03 240);
-        --accent: oklch(0.94 0.01 230);
-        --accent-foreground: oklch(0.25 0.03 240);
-        --border: oklch(0.9 0.012 230);
-        --input: oklch(0.9 0.012 230);
-        --ring: oklch(0.55 0.08 225);
-        --brand: oklch(0.42 0.07 168);
-        --brand-foreground: oklch(0.99 0.004 230);
-        --brand-muted: oklch(0.88 0.04 168);
-        --rule: color-mix(in oklch, oklch(0.25 0.03 240) 12%, transparent);
+        color-scheme: dark;
+        --background: oklch(0.32 0.06 168);
+        --foreground: oklch(0.96 0.015 190);
+        --card: oklch(0.35 0.065 168);
+        --card-foreground: oklch(0.96 0.015 190);
+        --popover: oklch(0.35 0.065 168);
+        --popover-foreground: oklch(0.96 0.015 190);
+        --primary: oklch(0.88 0.06 205);
+        --primary-foreground: oklch(0.25 0.05 190);
+        --muted: oklch(0.4 0.065 168);
+        --muted-foreground: oklch(0.84 0.035 185);
+        --accent: oklch(0.4 0.065 168);
+        --accent-foreground: oklch(0.96 0.015 190);
+        --border: oklch(0.47 0.06 168);
+        --input: oklch(0.47 0.06 168);
+        --ring: oklch(0.86 0.08 205);
+        --brand: oklch(0.86 0.08 205);
+        --brand-foreground: oklch(0.25 0.05 190);
+        --brand-muted: oklch(0.46 0.07 175);
+        --rule: color-mix(in oklch, oklch(0.96 0.015 190) 20%, transparent);
     }
 
-    /* Riviera: limestone, terracotta and olive. Ticino and the lakeside south. */
+    /* Riviera: terracotta paper, limestone ink, a butter accent. Ticino and the south. */
     [data-theme='riviera'] {
-        --background: oklch(0.965 0.02 75);
-        --foreground: oklch(0.28 0.035 45);
-        --card: oklch(0.985 0.012 75);
-        --card-foreground: oklch(0.28 0.035 45);
-        --popover: oklch(0.985 0.012 75);
-        --popover-foreground: oklch(0.28 0.035 45);
-        --primary: oklch(0.28 0.035 45);
-        --primary-foreground: oklch(0.985 0.012 75);
-        --muted: oklch(0.93 0.025 75);
-        --muted-foreground: oklch(0.5 0.04 50);
-        --accent: oklch(0.93 0.025 75);
-        --accent-foreground: oklch(0.28 0.035 45);
-        --border: oklch(0.88 0.03 70);
-        --input: oklch(0.88 0.03 70);
-        --ring: oklch(0.58 0.13 42);
-        --brand: oklch(0.55 0.13 40);
-        --brand-foreground: oklch(0.985 0.012 75);
-        --brand-muted: oklch(0.88 0.06 45);
-        --rule: color-mix(in oklch, oklch(0.28 0.035 45) 14%, transparent);
+        color-scheme: dark;
+        --background: oklch(0.47 0.14 37);
+        --foreground: oklch(0.985 0.018 80);
+        --card: oklch(0.5 0.145 37);
+        --card-foreground: oklch(0.985 0.018 80);
+        --popover: oklch(0.5 0.145 37);
+        --popover-foreground: oklch(0.985 0.018 80);
+        --primary: oklch(0.27 0.05 40);
+        --primary-foreground: oklch(0.97 0.02 80);
+        --muted: oklch(0.55 0.14 38);
+        --muted-foreground: oklch(0.95 0.04 75);
+        --accent: oklch(0.55 0.14 38);
+        --accent-foreground: oklch(0.985 0.018 80);
+        --border: oklch(0.6 0.12 40);
+        --input: oklch(0.6 0.12 40);
+        --ring: oklch(0.92 0.12 92);
+        --brand: oklch(0.92 0.12 92);
+        --brand-foreground: oklch(0.27 0.05 40);
+        --brand-muted: oklch(0.58 0.13 40);
+        --rule: color-mix(in oklch, oklch(0.985 0.018 80) 20%, transparent);
     }
 
-    /* Lavanda: lilac paper, aubergine ink. For summer meadows and the Valais. */
+    /* Lavanda: saturated lilac paper, aubergine ink. Summer meadows and the Valais. */
     [data-theme='lavanda'] {
-        --background: oklch(0.965 0.015 300);
-        --foreground: oklch(0.28 0.06 305);
-        --card: oklch(0.985 0.008 300);
-        --card-foreground: oklch(0.28 0.06 305);
-        --popover: oklch(0.985 0.008 300);
-        --popover-foreground: oklch(0.28 0.06 305);
-        --primary: oklch(0.33 0.08 305);
-        --primary-foreground: oklch(0.985 0.008 300);
-        --muted: oklch(0.93 0.02 300);
-        --muted-foreground: oklch(0.48 0.05 305);
-        --accent: oklch(0.93 0.02 300);
-        --accent-foreground: oklch(0.28 0.06 305);
-        --border: oklch(0.88 0.03 300);
-        --input: oklch(0.86 0.035 300);
-        --ring: oklch(0.58 0.11 300);
-        --brand: oklch(0.52 0.12 300);
-        --brand-foreground: oklch(0.985 0.008 300);
-        --brand-muted: oklch(0.9 0.04 300);
-        --rule: color-mix(in oklch, oklch(0.28 0.06 305) 14%, transparent);
+        --background: oklch(0.76 0.11 300);
+        --foreground: oklch(0.24 0.08 300);
+        --card: oklch(0.79 0.11 300);
+        --card-foreground: oklch(0.24 0.08 300);
+        --popover: oklch(0.79 0.11 300);
+        --popover-foreground: oklch(0.24 0.08 300);
+        --primary: oklch(0.3 0.12 300);
+        --primary-foreground: oklch(0.96 0.03 300);
+        --muted: oklch(0.72 0.12 300);
+        --muted-foreground: oklch(0.34 0.09 300);
+        --accent: oklch(0.72 0.12 300);
+        --accent-foreground: oklch(0.24 0.08 300);
+        --border: oklch(0.66 0.12 300);
+        --input: oklch(0.66 0.12 300);
+        --ring: oklch(0.38 0.18 300);
+        --brand: oklch(0.38 0.18 300);
+        --brand-foreground: oklch(0.96 0.03 300);
+        --brand-muted: oklch(0.7 0.13 300);
+        --rule: color-mix(in oklch, oklch(0.24 0.08 300) 20%, transparent);
     }
 }

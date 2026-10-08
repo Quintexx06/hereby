@@ -19,6 +19,7 @@ defineOptions({
         title: 'Konto erstellen',
         description:
             'Ein paar Angaben, und euer Hochzeitsprojekt kann beginnen.',
+        mirrored: true,
     },
 });
 </script>

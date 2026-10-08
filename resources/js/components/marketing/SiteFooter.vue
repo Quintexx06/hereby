@@ -51,16 +51,18 @@ const { isPending } = useFooterReveal(root);
             >
         </div>
 
-        <div
-            class="page-container caption flex flex-col gap-3 border-t border-rule py-6 sm:flex-row sm:gap-8"
-        >
-            <p>© {{ year }} Hereby. Gemacht in der Schweiz.</p>
-            <Link :href="privacy()" class="link-underline">{{
-                footer.privacy
-            }}</Link>
-            <Link :href="imprint()" class="link-underline">{{
-                footer.imprint
-            }}</Link>
+        <div class="page-container">
+            <div class="caption footer-legal">
+                <p>© {{ year }} Hereby. Gemacht in der Schweiz.</p>
+                <nav aria-label="Rechtliches" class="flex gap-8">
+                    <Link :href="privacy()" class="link-underline">{{
+                        footer.privacy
+                    }}</Link>
+                    <Link :href="imprint()" class="link-underline">{{
+                        footer.imprint
+                    }}</Link>
+                </nav>
+            </div>
         </div>
     </footer>
 </template>

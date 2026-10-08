@@ -1,25 +1,27 @@
 import type { Ref } from 'vue';
 import { onBeforeUnmount, onMounted, ref } from 'vue';
-import type { WeddingRings } from '@/lib/three/wedding-rings';
-import { supportsWebGL } from '@/lib/three/support';
 import { prefersReducedMotion } from '@/lib/motion';
+import type { SceneFactory, ThreeScene } from '@/lib/three/studio';
+import { supportsWebGL } from '@/lib/three/support';
 
 /**
- * Mounts the 3D rings only when their section nears the viewport, follows
- * the pointer and the section's scroll progress, and pauses off screen.
- * Under reduced motion the rings render one still frame.
+ * Mounts a decorative 3D scene only when its section nears the viewport
+ * (three.js is downloaded then, not before), follows the pointer and the
+ * section's scroll progress, and pauses off screen. Under reduced motion
+ * the scene renders one still frame.
  */
-export function useWeddingRings(
+export function useThreeScene(
     canvas: Ref<HTMLCanvasElement | null>,
     section: Ref<HTMLElement | null>,
+    load: () => Promise<SceneFactory>,
 ) {
     const isReady = ref(false);
-    let rings: WeddingRings | null = null;
+    let instance: ThreeScene | null = null;
     let nearby: IntersectionObserver | undefined;
     let cancelled = false;
 
     const onPointer = (event: PointerEvent) =>
-        rings?.setPointer(
+        instance?.setPointer(
             event.clientX / window.innerWidth - 0.5,
             event.clientY / window.innerHeight - 0.5,
         );
@@ -27,7 +29,7 @@ export function useWeddingRings(
     const onScroll = () => {
         const rect = section.value?.getBoundingClientRect();
         if (rect) {
-            rings?.setScroll(
+            instance?.setScroll(
                 1 -
                     (rect.top + rect.height) /
                         (window.innerHeight + rect.height),
@@ -36,13 +38,12 @@ export function useWeddingRings(
     };
 
     const mount = async () => {
-        const { createWeddingRings } =
-            await import('@/lib/three/wedding-rings');
+        const create = await load();
         if (cancelled || !canvas.value) {
             return;
         }
 
-        rings = createWeddingRings(canvas.value, !prefersReducedMotion());
+        instance = create(canvas.value, !prefersReducedMotion());
         isReady.value = true;
         window.addEventListener('pointermove', onPointer, { passive: true });
         window.addEventListener('scroll', onScroll, { passive: true });
@@ -57,10 +58,10 @@ export function useWeddingRings(
         nearby = new IntersectionObserver(
             ([entry]) => {
                 const visible = Boolean(entry?.isIntersecting);
-                if (visible && !rings) {
+                if (visible && !instance) {
                     void mount();
                 }
-                rings?.setActive(visible);
+                instance?.setActive(visible);
             },
             { rootMargin: '300px 0px' },
         );
@@ -72,7 +73,7 @@ export function useWeddingRings(
         nearby?.disconnect();
         window.removeEventListener('pointermove', onPointer);
         window.removeEventListener('scroll', onScroll);
-        rings?.destroy();
+        instance?.destroy();
     });
 
     return { isReady };

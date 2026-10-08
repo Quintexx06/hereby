@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Plus } from '@lucide/vue';
 import AskQuestionForm from '@/components/marketing/AskQuestionForm.vue';
+import RosesCanvas from '@/components/marketing/RosesCanvas.vue';
 import { faq } from '@/content/landing';
 import type { FaqItem } from '@/types/landing';
 
@@ -17,6 +18,7 @@ defineProps<{
     >
         <div class="faq-card">
             <h2 v-reveal class="faq-heading reveal">{{ faq.title }}</h2>
+            <RosesCanvas />
             <AskQuestionForm class="mt-auto" />
         </div>
         <div class="border-b border-rule">

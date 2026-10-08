@@ -10,7 +10,7 @@
     }
 
     .rings-shadow {
-        @apply absolute inset-x-[18%] bottom-[8%] h-[8%] rounded-[50%] bg-foreground/10 blur-2xl;
+        @apply absolute inset-x-[22%] bottom-[17%] h-[7%] rounded-[50%] bg-foreground/10 blur-2xl;
     }
 
     /* Guests: copy beside a tall photo with the phone laid over it. */
@@ -378,8 +378,8 @@
 
     /* A hand-drawn strike: each row has its own angle, height and curve. */
     .struck-line {
-        @apply pointer-events-none absolute left-[-0.08em] h-[0.42em] w-[calc(100%+0.16em)] overflow-visible text-brand;
-        top: var(--strike-top, 52%);
+        @apply pointer-events-none absolute h-[0.42em] overflow-visible text-brand;
+        /* left, top and width come from the measured line (StruckRow.vue). */
         transform: translateY(-50%) rotate(var(--strike-tilt, -2deg));
         /* Drawn left to right by revealing it, which every browser renders the same. */
         clip-path: inset(-50% calc((1 - var(--strike, 0)) * 100%) -50% -2%);
@@ -387,7 +387,7 @@
 
     /* The icon that pops out of a struck word (springy, never from scale 0). */
     .struck-badge {
-        @apply pointer-events-none absolute -top-[0.35em] left-full ml-3 grid size-[clamp(3.25rem,5vw,4.5rem)] place-items-center rounded-full bg-brand-muted text-brand opacity-0;
+        @apply pointer-events-none absolute -mt-[0.35em] ml-3 grid size-[clamp(3.25rem,5vw,4.5rem)] place-items-center rounded-full bg-brand-muted text-brand opacity-0;
         transform: translateY(0.4em) scale(0.45) rotate(-18deg);
         transition:
             opacity 300ms var(--ease-out),
@@ -454,16 +454,21 @@
         @apply flex flex-col gap-12 rounded-[1.75rem] border border-rule bg-card p-7 sm:p-10 lg:min-h-full;
     }
 
+    /* Roses fill the card's open space between the heading and the form. */
+    .roses-stage {
+        @apply relative -my-4 h-56 w-full sm:h-72;
+    }
+
     .ask-form {
         @apply flex flex-col gap-3 border-t border-rule pt-8;
     }
 
     .ask-field {
-        @apply w-full rounded-2xl border border-input bg-background px-5 py-3.5 text-base text-foreground transition-[border-color,box-shadow] duration-150 ease-out placeholder:text-muted-foreground focus:border-ring/60 focus:ring-2 focus:ring-ring/10 focus:outline-none focus-visible:outline-none;
+        @apply w-full rounded-lg border border-input bg-background px-4 py-3.5 text-base text-foreground transition-[border-color] duration-150 ease-out placeholder:text-muted-foreground focus:border-ring focus:outline-none focus-visible:outline-none;
     }
 
     input.ask-field {
-        @apply h-12 rounded-full py-0 sm:h-13;
+        @apply h-12 py-0 sm:h-13;
     }
 
     .ask-honeypot {

@@ -4,6 +4,15 @@
         @apply grid min-h-svh bg-background text-foreground lg:grid-cols-[minmax(0,6fr)_minmax(0,5fr)];
     }
 
+    /* Sign-up: form left, photo right. */
+    .auth[data-mirrored='true'] {
+        @apply lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)];
+    }
+
+    .auth[data-mirrored='true'] .auth-stage {
+        @apply lg:order-last;
+    }
+
     .auth-stage {
         @apply relative isolate hidden flex-col justify-between overflow-hidden p-10 lg:flex xl:p-14;
     }
