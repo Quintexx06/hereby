@@ -464,7 +464,7 @@
     }
 
     .ask-field {
-        @apply w-full rounded-lg border border-input bg-background px-4 py-3.5 text-base text-foreground transition-[border-color,box-shadow] duration-150 ease-out placeholder:text-muted-foreground focus:border-ring/60 focus:ring-2 focus:ring-ring/10 focus:outline-none focus-visible:outline-none;
+        @apply w-full rounded-lg border border-input bg-background px-4 py-3.5 text-base text-foreground transition-[border-color] duration-150 ease-out placeholder:text-muted-foreground focus:border-ring focus:outline-none focus-visible:outline-none;
     }
 
     input.ask-field {

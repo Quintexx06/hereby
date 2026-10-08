@@ -13,6 +13,18 @@
         font-optical-sizing: auto;
     }
 
+    /* Tailwind v4 dropped the pointer on buttons; everything clickable gets it. */
+    :is(button, [role='button'], summary, select, label[for]):not(
+        :disabled,
+        [aria-disabled='true']
+    ) {
+        cursor: pointer;
+    }
+
+    :is(button, [role='button']):is(:disabled, [aria-disabled='true']) {
+        cursor: not-allowed;
+    }
+
     ::selection {
         @apply bg-brand text-brand-foreground;
     }
