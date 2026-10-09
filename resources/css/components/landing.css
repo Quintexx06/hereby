@@ -444,35 +444,19 @@
         @apply grid gap-4 border-t border-rule pt-8 md:grid-cols-[minmax(0,2fr)_minmax(0,5fr)] md:gap-10;
     }
 
-    /* FAQ: heading sized to its column (no overflow), and the "Fragt uns" form. */
+    /* FAQ: heading sized to its column (no overflow). */
     .faq-heading {
         @apply font-display text-[clamp(2rem,3.2vw,3rem)] leading-[1.02] font-semibold tracking-[-0.035em] [overflow-wrap:anywhere] hyphens-auto;
     }
 
-    /* One card holds the heading and the question form, filling its column. */
+    /* One card holds the heading and the roses, filling its column. */
     .faq-card {
         @apply flex flex-col gap-12 rounded-[1.75rem] border border-rule bg-card p-7 sm:p-10 lg:min-h-full;
     }
 
-    /* Roses fill the card's open space between the heading and the form. */
+    /* Roses fill the card's open space below the heading. */
     .roses-stage {
         @apply relative -my-4 h-56 w-full sm:h-72;
-    }
-
-    .ask-form {
-        @apply flex flex-col gap-3 border-t border-rule pt-8;
-    }
-
-    .ask-field {
-        @apply w-full rounded-lg border border-input bg-background px-4 py-3.5 text-base text-foreground transition-[border-color] duration-150 ease-out placeholder:text-muted-foreground focus:border-ring focus:outline-none focus-visible:outline-none;
-    }
-
-    input.ask-field {
-        @apply h-12 py-0 sm:h-13;
-    }
-
-    .ask-honeypot {
-        @apply pointer-events-none absolute -left-[9999px] size-px opacity-0;
     }
 
     /* FAQ: native details/summary; answers open smoothly where supported. */

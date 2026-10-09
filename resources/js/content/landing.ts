@@ -211,12 +211,6 @@ export const struck = {
 
 export const faq = {
     title: 'Häufige Fragen zur Hochzeitswebsite',
-    askTitle: 'Eure Frage ist nicht dabei?',
-    askLede: 'Schreibt uns. Wir antworten persönlich, meist am selben Tag.',
-    askQuestion: 'Eure Frage',
-    askEmail: 'Eure E-Mail-Adresse',
-    askSubmit: 'Frage senden',
-    askThanks: 'Danke! Wir melden uns per E-Mail.',
 } as const;
 
 export const closing = {
@@ -231,4 +225,5 @@ export const footer = {
     lede: 'Für Paare, die ihre Gäste persönlich einladen möchten. Von Hand gestaltet, in 48 Stunden bereit.',
     privacy: 'Datenschutz',
     imprint: 'Impressum',
+    email: 'info@hereby.ch',
 } as const;

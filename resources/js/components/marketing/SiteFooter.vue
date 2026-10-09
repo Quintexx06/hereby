@@ -37,6 +37,12 @@ const { isPending } = useFooterReveal(root);
                 </a>
                 <Link :href="login()" class="nav-link pl-0">Anmelden</Link>
             </nav>
+            <a
+                data-item
+                :href="`mailto:${footer.email}`"
+                class="link-underline lede"
+                >{{ footer.email }}</a
+            >
         </div>
 
         <div class="footer-mark" aria-hidden="true">
