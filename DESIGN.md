@@ -236,12 +236,27 @@ Each one is a motion pattern with a product reason, not decoration:
 Operate mode: calm, familiar, fast. The brand lives in type, the night
 panel and the live invitation, never in decoration.
 
+- **Sidebar** (`AppSidebar`, `sidebar/SidebarWedding`): a `.stage` night
+  column framing the porcelain workspace (inset variant). The wordmark, then the
+  couple's names in display type with the date and a blush countdown (the
+  one blush moment in the app), then the nav with plain counts as badges. No
+  group labels. On phones the same night sheet slides in.
 - **Setup** (`pages/setup/Step`, `components/setup/*`, `setup.css`): one
   question per screen, seven progress segments (reached steps link back), a
   sticky footer with "Zurück" and "Weiter", and on `lg` the **live
   invitation** on a `.stage` panel: the phone re-renders from the form as the
   couple types, in the chosen theme. Choices are native radios and checkboxes
   styled as `.choice` (large option) and `.chip` (short toggle).
+    - **Scenes** (`lib/setupScenes.ts`): every step has its own landing photo
+      behind the phone (couple, veil, lake jetty, candlelit table, sparklers,
+      bouquet). It cross-fades (700ms opacity, a slow 1.04 settle) when the step
+      changes, and the next one is preloaded. Under the phone, one **story
+      line** retells the answers so far ("Der Ort folgt. Alles andere kann schon
+      beginnen."). On phones the scene becomes a 128px band under the progress.
+    - The step body fades over (≤260ms); after each save a quiet moss
+      "Gespeichert" appears for ~2.5s. The first step reassures: "Rund zehn
+      Minuten. Jeder Schritt wird gespeichert."
+
 - **Dashboard** (`components/dashboard/*`, `dashboard.css`): couple names as the
   title; "Heute für euch" (at most three computed actions as hairline rows);
   replies as **one bar and three rows** (never a donut or a hero metric);
@@ -250,8 +265,16 @@ panel and the live invitation, never in decoration.
   hairline row per household with a copy-link pill. The import panel opens
   inline (never a modal): paste, file or one by one, then a preview with
   duplicates flagged before anything is saved.
+- **Household editor** (`components/guests/editor/*`): clicking a household
+  opens a right sheet (full width on phones, 300ms in). Name, people (labels on
+  the first row only), email, language, +1, the parts of the day as bordered
+  checkbox rows with day and time, then the personal link. Renewing the link
+  and removing the household are quiet text actions that ask once, inline
+  ("Ja" / "Abbrechen"), never a second modal. The save button sits in a fixed
+  footer.
 - Reply status colours: never opened `muted-foreground/35`, opened
-  `foreground/60`, answered `success`. Blush stays out of the app UI except focus.
+  `foreground/60`, answered `success`. Blush stays out of the app UI except
+  focus and the sidebar countdown.
 
 ### Icons (`components/brand/HerebyIcon.vue`)
 

@@ -11,6 +11,8 @@ export type NavItem = {
     href: NonNullable<InertiaLinkProps['href']>;
     icon?: LucideIcon;
     isActive?: boolean;
+    /** A count shown at the end of the row (e.g. households). */
+    badge?: number;
 };
 
 /** The signed-in couple's current wedding, shared on every page. */
@@ -18,4 +20,7 @@ export type SharedWedding = {
     id: number;
     status: 'draft' | 'active';
     couple_names: string;
+    date: string | null;
+    households: number;
+    setup_step: string | null;
 };

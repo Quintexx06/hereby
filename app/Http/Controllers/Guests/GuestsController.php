@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Guests;
 
 use App\Actions\Weddings\BuildWeddingOverview;
 use App\Http\Controllers\Controller;
+use App\Models\Event;
 use App\Models\Guest;
 use App\Models\Household;
 use App\Models\Wedding;
@@ -21,7 +22,7 @@ class GuestsController extends Controller
     {
         Gate::authorize('view', $wedding);
 
-        $households = $overview->households($wedding)->load('guests:id,household_id,first_name,last_name,is_child');
+        $households = $overview->households($wedding)->load(['guests:id,household_id,first_name,last_name,is_child', 'events:id']);
 
         return Inertia::render('guests/Index', [
             'wedding' => [
@@ -38,11 +39,20 @@ class GuestsController extends Controller
                 'plus_one_allowed' => $household->plus_one_allowed,
                 'reply_status' => $household->replyStatus(),
                 'link' => route('invitation.show', $household),
+                'event_ids' => $household->events->modelKeys(),
                 'guests' => $household->guests->map(fn (Guest $guest): array => [
                     'id' => $guest->id,
                     'name' => trim($guest->first_name.' '.$guest->last_name),
+                    'first_name' => $guest->first_name,
+                    'last_name' => $guest->last_name,
                     'is_child' => $guest->is_child,
                 ]),
+            ]),
+            'events' => $wedding->events()->get(['id', 'type', 'name', 'starts_at'])->map(fn (Event $event): array => [
+                'id' => $event->id,
+                'type' => $event->type,
+                'name' => $event->name,
+                'starts_at' => $event->starts_at->toIso8601String(),
             ]),
         ]);
     }

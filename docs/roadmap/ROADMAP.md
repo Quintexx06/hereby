@@ -148,6 +148,7 @@ needs an approved spec with its own acceptance criteria before work starts.
 
 | Date       | Change |
 | ---------- | ------ |
+| 2026-10-09 | Sidebar as a night stage with the couple's names and countdown; setup scenes that change per step with a story line; household editor (people, language, +1, invited parts, renew link, remove) |
 | 2026-10-09 | 1.9, 1.11 done; 1.1 in progress (couples own weddings and set them up in a 7-step guided setup with a live invitation preview; internal admin still open). Swiss address search (ADR 0010), guest import by paste, Excel, CSV and contacts with a preview ([spec](../specs/2026-10-09-couple-setup-and-dashboard-design.md)) |
 | 2026-10-06 | Engineering foundation; roadmap replaced with the wedding-platform plan |
 | 2026-10-07 | Landing round 4: floating pill nav, theme deck with arrows and Lavanda, hand-drawn strikes and "Ja." swoosh, left-aligned GSAP footer, German sign-in/up (incl. validation), draft Datenschutz and Impressum |

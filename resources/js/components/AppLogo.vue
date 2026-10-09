@@ -1,17 +1,9 @@
-<script setup lang="ts">
-import { usePage } from '@inertiajs/vue3';
-import AppLogoIcon from '@/components/AppLogoIcon.vue';
-
-const name = usePage().props.name;
-</script>
-
+<!-- The wordmark in the sidebar; collapsed to its first letter and full stop. -->
 <template>
-    <div
-        class="flex aspect-square size-8 items-center justify-center rounded-md bg-sidebar-primary text-sidebar-primary-foreground"
-    >
-        <AppLogoIcon class="size-5" />
-    </div>
-    <div class="ml-1 grid flex-1 text-left text-sm">
-        <span class="wordmark mb-0.5 truncate text-lg">{{ name }}</span>
-    </div>
+    <span class="wordmark text-[1.6rem] group-data-[collapsible=icon]:hidden">
+        hereby<span class="wordmark-stop">.</span>
+    </span>
+    <span class="wordmark hidden text-xl group-data-[collapsible=icon]:inline">
+        h<span class="wordmark-stop">.</span>
+    </span>
 </template>

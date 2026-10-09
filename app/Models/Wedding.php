@@ -46,6 +46,7 @@ use Illuminate\Support\Collection;
  * @property string|null $venue_lat
  * @property string|null $venue_lng
  * @property string|null $venue_reference Building address id in the federal register.
+ * @property int|null $households_count Loaded with withCount().
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  */

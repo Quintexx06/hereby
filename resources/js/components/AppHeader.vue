@@ -24,7 +24,7 @@ const navItems = computed(() => mainNavItems(page.props.currentWedding));
 
 <template>
     <div>
-        <div class="border-b border-sidebar-border/80">
+        <div class="border-b border-border">
             <div class="mx-auto flex h-16 items-center px-4 md:max-w-7xl">
                 <div class="lg:hidden">
                     <HeaderMobileNav
@@ -57,7 +57,7 @@ const navItems = computed(() => mainNavItems(page.props.currentWedding));
 
         <div
             v-if="breadcrumbs.length > 1"
-            class="flex w-full border-b border-sidebar-border/70"
+            class="flex w-full border-b border-border"
         >
             <div
                 class="mx-auto flex h-12 w-full items-center justify-start px-4 text-muted-foreground md:max-w-7xl"

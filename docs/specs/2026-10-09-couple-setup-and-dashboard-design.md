@@ -115,6 +115,11 @@ Limits: 2 MB, 1,000 rows.
   - Counts: households, guests, then never opened / opened, not answered / answered (1.11).
   - The Gäste page: search, segment filters, the personal link per household
     (copy button), and adding or importing households.
+  - **Editing a household** (click its name): name, people (add, rename,
+    remove; a removed person's answers go with them), email, language, +1,
+    and which parts of the day it is invited to (at least one). "Neuen Link
+    erstellen" replaces the token, so a link sent to the wrong person stops
+    working at once. Removing a household deletes its people and answers.
 
 ## Acceptance criteria (tests)
 
@@ -125,3 +130,5 @@ Limits: 2 MB, 1,000 rows.
 - [x] All four import formats parse to the same structure; duplicates are flagged; a 120-row Excel list imports
 - [x] Import creates households and guests and attaches all events
 - [x] The dashboard shows the right state for none / draft / active
+- [x] Editing syncs people and events, rejects another wedding's events and
+      households (404), renewing a link kills the old one, removing deletes guests

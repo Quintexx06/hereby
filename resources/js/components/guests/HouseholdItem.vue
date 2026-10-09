@@ -1,17 +1,25 @@
 <script setup lang="ts">
 import CopyLinkButton from '@/components/guests/CopyLinkButton.vue';
 import { replyStatus } from '@/content/dashboard';
-import { guestsPage } from '@/content/guests';
+import { editCopy, guestsPage } from '@/content/guests';
 import { languages } from '@/content/setup';
 import type { HouseholdRow } from '@/types';
 
 defineProps<{ household: HouseholdRow }>();
+defineEmits<{ edit: [] }>();
 </script>
 
 <template>
     <li class="household-row">
         <div class="min-w-0">
-            <p class="truncate font-semibold">{{ household.name }}</p>
+            <button
+                type="button"
+                class="household-name max-w-full"
+                :aria-label="editCopy.edit(household.name)"
+                @click="$emit('edit')"
+            >
+                {{ household.name }}
+            </button>
             <p class="truncate text-sm text-muted-foreground sm:hidden">
                 {{ household.guests.map((guest) => guest.name).join(', ') }}
             </p>
@@ -44,6 +52,10 @@ defineProps<{ household: HouseholdRow }>();
             {{ replyStatus[household.reply_status].label }}
             <span class="text-xs">{{ languages[household.locale] }}</span>
         </p>
-        <CopyLinkButton :link="household.link" :household="household.name" />
+        <CopyLinkButton
+            class="relative z-10"
+            :link="household.link"
+            :household="household.name"
+        />
     </li>
 </template>

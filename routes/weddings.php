@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AddressSearchController;
 use App\Http\Controllers\Guests\GuestsController;
+use App\Http\Controllers\Guests\HouseholdController;
 use App\Http\Controllers\Guests\PreviewGuestImportController;
 use App\Http\Controllers\Guests\StoreHouseholdsController;
 use App\Http\Controllers\Weddings\CompleteWeddingSetupController;
@@ -29,6 +30,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('hochzeit/{wedding}/gaeste/vorschau', PreviewGuestImportController::class)
             ->middleware('throttle:30,1')
             ->name('weddings.guests.preview');
+
+        Route::scopeBindings()->group(function () {
+            Route::put('hochzeit/{wedding}/haushalte/{household:id}', [HouseholdController::class, 'update'])
+                ->name('weddings.households.update');
+            Route::delete('hochzeit/{wedding}/haushalte/{household:id}', [HouseholdController::class, 'destroy'])
+                ->name('weddings.households.destroy');
+            Route::post('hochzeit/{wedding}/haushalte/{household:id}/link', [HouseholdController::class, 'renewLink'])
+                ->name('weddings.households.renew-link');
+        });
     });
 
     Route::get('adressen', AddressSearchController::class)

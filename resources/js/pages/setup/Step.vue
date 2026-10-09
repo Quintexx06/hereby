@@ -1,23 +1,16 @@
 <script setup lang="ts">
-import { Head, Link, useForm } from '@inertiajs/vue3';
-import { computed, watch } from 'vue';
-import HerebyWordmark from '@/components/brand/HerebyWordmark.vue';
+import { Head, useForm } from '@inertiajs/vue3';
+import { computed, ref, watch } from 'vue';
+import SetupFooter from '@/components/setup/SetupFooter.vue';
+import SetupHeader from '@/components/setup/SetupHeader.vue';
 import SetupPreview from '@/components/setup/SetupPreview.vue';
+import SetupStepBody from '@/components/setup/SetupStepBody.vue';
+import SetupSceneBand from '@/components/setup/SetupSceneBand.vue';
 import SetupProgress from '@/components/setup/SetupProgress.vue';
-import StepCouple from '@/components/setup/steps/StepCouple.vue';
-import StepDate from '@/components/setup/steps/StepDate.vue';
-import StepGuests from '@/components/setup/steps/StepGuests.vue';
-import StepLook from '@/components/setup/steps/StepLook.vue';
-import StepProgramme from '@/components/setup/steps/StepProgramme.vue';
-import StepReview from '@/components/setup/steps/StepReview.vue';
-import StepVenue from '@/components/setup/steps/StepVenue.vue';
-import { Button } from '@/components/ui/button';
-import { Spinner } from '@/components/ui/spinner';
-import { actions, steps as stepCopy } from '@/content/setup';
+import { steps as stepCopy } from '@/content/setup';
 import { provideSetupForm } from '@/composables/useSetupForm';
 import { pickStepFields } from '@/lib/setup';
-import { dashboard } from '@/routes';
-import { complete, show, update } from '@/routes/weddings/setup';
+import { complete, update } from '@/routes/weddings/setup';
 import type {
     Celebration,
     ProgrammeRow,
@@ -70,36 +63,17 @@ watch(
     },
 );
 
-const components = {
-    paar: StepCouple,
-    datum: StepDate,
-    ort: StepVenue,
-    ablauf: StepProgramme,
-    gaeste: StepGuests,
-    look: StepLook,
-    uebersicht: StepReview,
-};
-
 const position = computed(() =>
     props.steps.findIndex((item) => item.value === props.step),
 );
 const previous = computed(() => props.steps[position.value - 1]?.value);
+const next = computed(() => props.steps[position.value + 1]?.value ?? null);
+
+/* Drives the quiet "Gespeichert", so pausing never feels risky. */
+const saved = ref(false);
+let savedTimer: ReturnType<typeof setTimeout> | undefined;
 const copy = computed(() => stepCopy[props.step]);
 const isReview = computed(() => props.step === 'uebersicht');
-
-/* Each step gets only the props it declares. */
-const stepProps = computed(() => {
-    switch (props.step) {
-        case 'ablauf':
-            return { presets: props.presets };
-        case 'look':
-            return { suggestion: props.suggestion };
-        case 'uebersicht':
-            return { weddingId: id };
-        default:
-            return {};
-    }
-});
 
 function submit(): void {
     if (isReview.value) {
@@ -112,6 +86,11 @@ function submit(): void {
         update.url([id, props.step]),
         {
             preserveScroll: true,
+            onSuccess: () => {
+                saved.value = true;
+                clearTimeout(savedTimer);
+                savedTimer = setTimeout(() => (saved.value = false), 2600);
+            },
         },
     );
 }
@@ -122,58 +101,33 @@ function submit(): void {
 
     <div class="setup-shell">
         <div class="setup-main">
-            <header class="setup-header">
-                <Link :href="dashboard()" aria-label="Zum Dashboard"
-                    ><HerebyWordmark
-                /></Link>
-                <Link
-                    :href="dashboard()"
-                    class="link-underline text-sm text-muted-foreground"
-                >
-                    {{ actions.saveAndExit }}
-                </Link>
-            </header>
+            <SetupHeader />
 
             <SetupProgress :wedding-id="id" :current="step" :states="steps" />
+            <SetupSceneBand :step="step" class="mt-6" />
 
             <form
                 class="flex flex-1 flex-col"
                 novalidate
                 @submit.prevent="submit"
             >
-                <div class="setup-body">
-                    <div>
-                        <h1 class="setup-question">{{ copy.question }}</h1>
-                        <p class="setup-helper">{{ copy.helper }}</p>
-                    </div>
+                <SetupStepBody
+                    :wedding-id="id"
+                    :step="step"
+                    :presets="presets"
+                    :suggestion="suggestion"
+                />
 
-                    <component :is="components[step]" v-bind="stepProps" />
-                </div>
-
-                <div class="setup-footer">
-                    <Button
-                        v-if="previous"
-                        variant="ghost"
-                        size="pill"
-                        as-child
-                    >
-                        <Link :href="show([id, previous])">{{
-                            actions.back
-                        }}</Link>
-                    </Button>
-                    <span v-else />
-                    <Button
-                        type="submit"
-                        size="pill"
-                        :disabled="form.processing"
-                    >
-                        <Spinner v-if="form.processing" />
-                        {{ isReview ? actions.finish : actions.next }}
-                    </Button>
-                </div>
+                <SetupFooter
+                    :wedding-id="id"
+                    :previous="previous"
+                    :saved="saved"
+                    :processing="form.processing"
+                    :is-review="isReview"
+                />
             </form>
         </div>
 
-        <SetupPreview />
+        <SetupPreview :step="step" :next="next" />
     </div>
 </template>

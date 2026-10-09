@@ -44,11 +44,30 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
             ],
-            // The couple's current wedding, for navigation (null for guests and new couples).
-            'currentWedding' => fn (): ?array => ($wedding = $request->user()?->weddings()->first(['id', 'status', 'couple_names']))
-                ? ['id' => $wedding->id, 'status' => $wedding->status->value, 'couple_names' => $wedding->couple_names]
-                : null,
+            // The couple's current wedding, for navigation and the sidebar (null for guests and new couples).
+            'currentWedding' => fn (): ?array => $this->currentWedding($request),
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
+        ];
+    }
+
+    /**
+     * @return array{id: int, status: string, couple_names: string, date: string|null, households: int, setup_step: string|null}|null
+     */
+    private function currentWedding(Request $request): ?array
+    {
+        $wedding = $request->user()?->weddings()->withCount('households')->first();
+
+        if (! $wedding) {
+            return null;
+        }
+
+        return [
+            'id' => $wedding->id,
+            'status' => $wedding->status->value,
+            'couple_names' => $wedding->couple_names,
+            'date' => $wedding->wedding_date?->toDateString(),
+            'households' => (int) $wedding->households_count,
+            'setup_step' => $wedding->setup_step?->value,
         ];
     }
 }

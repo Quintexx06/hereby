@@ -1,6 +1,7 @@
 import { CalendarHeart, LayoutGrid, LifeBuoy, Users } from '@lucide/vue';
 import { dashboard } from '@/routes';
 import { index as guests } from '@/routes/weddings/guests';
+import { show as setup } from '@/routes/weddings/setup';
 import type { NavItem, SharedWedding } from '@/types';
 
 /**
@@ -14,13 +15,18 @@ export function mainNavItems(wedding: SharedWedding | null): NavItem[] {
     ];
 
     if (wedding?.status === 'active') {
-        items.push({ title: 'Gäste', href: guests(wedding.id), icon: Users });
+        items.push({
+            title: 'Gäste',
+            href: guests(wedding.id),
+            icon: Users,
+            badge: wedding.households || undefined,
+        });
     }
 
     if (wedding?.status === 'draft') {
         items.push({
             title: 'Einrichten',
-            href: dashboard(),
+            href: setup([wedding.id, wedding.setup_step ?? 'paar']),
             icon: CalendarHeart,
         });
     }

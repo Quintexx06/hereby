@@ -1,6 +1,6 @@
 /** Mirrors GuestsController and the import preview. */
 import type { ReplyStatusKey } from '@/types/dashboard';
-import type { Locale } from '@/types/wedding';
+import type { EventType, Locale } from '@/types/wedding';
 
 export type HouseholdRow = {
     id: number;
@@ -10,7 +10,29 @@ export type HouseholdRow = {
     plus_one_allowed: boolean;
     reply_status: ReplyStatusKey;
     link: string;
-    guests: { id: number; name: string; is_child: boolean }[];
+    event_ids: number[];
+    guests: {
+        id: number;
+        name: string;
+        first_name: string;
+        last_name: string | null;
+        is_child: boolean;
+    }[];
+};
+
+/** A person as edited in a form; `id` is set for people already saved. */
+export type EditableGuest = {
+    id?: number;
+    first_name: string;
+    last_name: string | null;
+    is_child: boolean;
+};
+
+export type GuestEvent = {
+    id: number;
+    type: EventType;
+    name: string | null;
+    starts_at: string;
 };
 
 export type ImportGuest = {

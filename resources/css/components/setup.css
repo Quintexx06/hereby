@@ -132,3 +132,75 @@
         @apply grid grid-cols-[8rem_minmax(0,1fr)_auto] items-baseline gap-4 border-t py-4 text-sm sm:text-base;
     }
 }
+
+/* Scenes: one photograph per step behind the live invitation. */
+@layer components {
+    .setup-scene {
+        @apply absolute inset-0 size-full object-cover;
+    }
+
+    /* Night over the photo: the phone and the story stay readable. */
+    .setup-scene-scrim {
+        @apply absolute inset-0;
+        background:
+            radial-gradient(
+                ellipse at 50% 45%,
+                oklch(0.145 0.01 50 / 0.35),
+                oklch(0.145 0.01 50 / 0.8) 70%
+            ),
+            linear-gradient(to top, oklch(0.145 0.01 50 / 0.9), transparent 45%);
+    }
+
+    .setup-story {
+        @apply relative max-w-[30ch] text-center text-[0.95rem] leading-snug font-medium text-balance;
+    }
+
+    .setup-band {
+        @apply relative -mx-5 flex h-32 items-end overflow-hidden px-5 pb-4 sm:-mx-10 sm:px-10 lg:hidden;
+    }
+
+    /* A slow dissolve: photographs change like lights in a room, not slides. */
+    .scene-enter-active {
+        transition:
+            opacity 700ms var(--ease-out),
+            scale 1400ms var(--ease-out);
+    }
+
+    .scene-leave-active {
+        transition: opacity 700ms var(--ease-out);
+    }
+
+    .scene-enter-from {
+        opacity: 0;
+        scale: 1.04;
+    }
+
+    .scene-leave-to {
+        opacity: 0;
+    }
+
+    .story-enter-active,
+    .story-leave-active,
+    .step-enter-active,
+    .step-leave-active {
+        transition:
+            opacity 220ms var(--ease-out),
+            translate 260ms var(--ease-out);
+    }
+
+    .story-enter-from,
+    .step-enter-from {
+        opacity: 0;
+        translate: 0 8px;
+    }
+
+    .story-leave-to,
+    .step-leave-to {
+        opacity: 0;
+        translate: 0 -4px;
+    }
+
+    .setup-saved {
+        @apply inline-flex items-center gap-1.5 text-sm text-success;
+    }
+}

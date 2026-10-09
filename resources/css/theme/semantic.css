@@ -48,15 +48,16 @@
 
     --radius: 0.375rem;
 
-    --sidebar-background: var(--color-porcelain-50);
-    --sidebar-foreground: var(--color-night-800);
-    --sidebar-primary: var(--color-night-900);
-    --sidebar-primary-foreground: var(--color-porcelain-50);
-    --sidebar-accent: var(--color-sand-100);
-    --sidebar-accent-foreground: var(--color-night-900);
-    --sidebar-border: var(--color-sand-200);
-    --sidebar-ring: var(--color-blush-600);
-    --sidebar: var(--color-porcelain-50);
+    /* The app sidebar is always night: a stage framing the porcelain workspace. */
+    --sidebar-background: var(--color-night-950);
+    --sidebar-foreground: var(--color-sand-200);
+    --sidebar-primary: var(--color-blush-400);
+    --sidebar-primary-foreground: var(--color-night-950);
+    --sidebar-accent: var(--color-night-800);
+    --sidebar-accent-foreground: var(--color-porcelain-100);
+    --sidebar-border: var(--color-night-800);
+    --sidebar-ring: var(--color-blush-400);
+    --sidebar: var(--color-night-950);
 
     color-scheme: light;
 }

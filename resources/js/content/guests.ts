@@ -56,3 +56,22 @@ export const manualCopy = {
     plusOne: 'Darf eine Begleitung mitbringen',
     save: 'Haushalt speichern',
 };
+
+export const editCopy = {
+    edit: (name: string) => `${name} bearbeiten`,
+    title: 'Haushalt bearbeiten',
+    lede: 'Änderungen sehen eure Gäste sofort über ihren Link.',
+    name: 'Name des Haushalts',
+    events: 'Eingeladen zu',
+    eventsHint: 'Gäste sehen nur die Teile, zu denen ihr sie einladet.',
+    save: 'Änderungen speichern',
+    link: 'Persönlicher Link',
+    linkHint:
+        'Ein neuer Link macht den alten ungültig. Nützlich, wenn er an die falsche Person ging.',
+    renew: 'Neuen Link erstellen',
+    renewConfirm: 'Alten Link wirklich ungültig machen?',
+    remove: 'Haushalt entfernen',
+    removeConfirm: 'Haushalt und alle Antworten löschen?',
+    confirm: 'Ja',
+    cancel: 'Abbrechen',
+};
