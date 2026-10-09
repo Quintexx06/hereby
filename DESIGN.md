@@ -231,6 +231,28 @@ Each one is a motion pattern with a product reason, not decoration:
   photo settles, the veil draws open, "Vorhang auf für euer Ja." rises word by
   word; the logo, title and each form field arrive in turn.
 
+### App surfaces (couples)
+
+Operate mode: calm, familiar, fast. The brand lives in type, the night
+panel and the live invitation, never in decoration.
+
+- **Setup** (`pages/setup/Step`, `components/setup/*`, `setup.css`): one
+  question per screen, seven progress segments (reached steps link back), a
+  sticky footer with "Zurück" and "Weiter", and on `lg` the **live
+  invitation** on a `.stage` panel: the phone re-renders from the form as the
+  couple types, in the chosen theme. Choices are native radios and checkboxes
+  styled as `.choice` (large option) and `.chip` (short toggle).
+- **Dashboard** (`components/dashboard/*`, `dashboard.css`): couple names as the
+  title; "Heute für euch" (at most three computed actions as hairline rows);
+  replies as **one bar and three rows** (never a donut or a hero metric);
+  the programme with invited and attending counts per part.
+- **Gäste** (`pages/guests/Index`, `guests.css`): search plus reply filters, one
+  hairline row per household with a copy-link pill. The import panel opens
+  inline (never a modal): paste, file or one by one, then a preview with
+  duplicates flagged before anything is saved.
+- Reply status colours: never opened `muted-foreground/35`, opened
+  `foreground/60`, answered `success`. Blush stays out of the app UI except focus.
+
 ### Icons (`components/brand/HerebyIcon.vue`)
 
 Hereby's own set, never stock: 32px grid, 1.5px stroke, round caps, one

@@ -12,3 +12,10 @@ export type NavItem = {
     icon?: LucideIcon;
     isActive?: boolean;
 };
+
+/** The signed-in couple's current wedding, shared on every page. */
+export type SharedWedding = {
+    id: number;
+    status: 'draft' | 'active';
+    couple_names: string;
+};

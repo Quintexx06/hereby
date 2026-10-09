@@ -23,6 +23,8 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $ends_at
  * @property string|null $location_name
  * @property string|null $address
+ * @property int|null $invited Loaded with withCount() (BuildWeddingOverview).
+ * @property int|null $attending Loaded with withCount() (BuildWeddingOverview).
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  */

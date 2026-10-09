@@ -1,0 +1,40 @@
+/* Guest list and import (pages/guests/Index, components/guests/*). */
+@layer components {
+    .household-row {
+        @apply grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-4 gap-y-1 border-t py-4 sm:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)_14rem_auto];
+    }
+
+    .status-label {
+        @apply inline-flex items-center gap-2 text-sm whitespace-nowrap text-muted-foreground;
+    }
+
+    .tag {
+        @apply inline-flex h-5 items-center rounded-sm bg-muted px-1.5 text-[0.7rem] font-medium text-muted-foreground;
+    }
+
+    .import-panel {
+        @apply flex flex-col gap-6 rounded-xl border bg-card p-5 sm:p-7;
+    }
+
+    .dropzone {
+        @apply flex cursor-pointer flex-col items-center justify-center gap-2 rounded-lg border border-dashed px-6 py-10 text-center transition-[border-color,background-color] duration-150 hover:border-foreground/40 has-[:focus-visible]:border-ring data-[dragging=true]:border-foreground data-[dragging=true]:bg-accent;
+    }
+
+    .textarea {
+        @apply min-h-44 w-full resize-y rounded-lg border border-input bg-transparent px-4 py-3 text-base transition-[border-color] duration-150 placeholder:text-muted-foreground focus-visible:border-ring focus-visible:outline-none md:text-sm;
+    }
+
+    .preview-row {
+        @apply flex cursor-pointer items-start gap-3 border-t py-3 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-ring;
+    }
+}
+
+@layer components {
+    .pill-outline {
+        @apply inline-flex h-9 items-center gap-2 rounded-full border px-3.5 text-sm font-medium transition-colors duration-150 hover:border-foreground/40;
+    }
+
+    .icon-button {
+        @apply grid size-9 place-items-center rounded-full text-muted-foreground transition-colors duration-150 hover:bg-accent hover:text-foreground;
+    }
+}

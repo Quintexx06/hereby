@@ -1,0 +1,134 @@
+/*
+ * The couple's setup (layouts/SetupLayout, pages/setup/Step). Operate mode:
+ * calm, one question per screen, the live invitation on the night side.
+ */
+@layer components {
+    .setup-shell {
+        @apply grid min-h-svh bg-background text-foreground lg:grid-cols-[minmax(0,1fr)_minmax(0,30rem)] xl:grid-cols-[minmax(0,1fr)_minmax(0,36rem)];
+    }
+
+    .setup-main {
+        @apply flex min-w-0 flex-col px-5 sm:px-10 lg:px-16;
+    }
+
+    .setup-header {
+        @apply flex h-20 items-center justify-between gap-6;
+    }
+
+    /* Seven segments; the label row only shows from sm. */
+    .setup-progress {
+        @apply grid grid-cols-7 gap-1.5;
+    }
+
+    .setup-progress-step {
+        @apply flex flex-col gap-2 text-left text-xs text-muted-foreground transition-colors duration-150;
+    }
+
+    .setup-progress-step::before {
+        @apply block h-1 rounded-full bg-border transition-colors duration-200 content-[''];
+    }
+
+    .setup-progress-step[data-state='done']::before,
+    .setup-progress-step[data-state='current']::before {
+        @apply bg-foreground;
+    }
+
+    .setup-progress-step[data-state='current'] {
+        @apply font-medium text-foreground;
+    }
+
+    .setup-progress-step[data-state='done'] {
+        @apply hover:text-foreground;
+    }
+
+    .setup-body {
+        @apply flex w-full max-w-xl flex-1 flex-col gap-10 py-10 sm:py-16;
+    }
+
+    .setup-question {
+        @apply font-display text-[2rem] leading-[1.05] font-semibold tracking-[-0.035em] text-balance sm:text-[2.75rem];
+        font-stretch: 108%;
+    }
+
+    .setup-helper {
+        @apply mt-3 max-w-[52ch] text-muted-foreground;
+    }
+
+    .setup-footer {
+        @apply sticky bottom-0 -mx-5 mt-auto flex items-center justify-between gap-4 border-t bg-background px-5 py-4 sm:-mx-10 sm:px-10 lg:-mx-16 lg:px-16;
+    }
+
+    .setup-preview {
+        @apply sticky top-0 hidden h-svh flex-col items-center justify-center gap-6 overflow-hidden px-10 lg:flex;
+    }
+
+    /* Form vocabulary */
+    .field {
+        @apply flex flex-col gap-2;
+    }
+
+    .field-label {
+        @apply text-sm font-medium;
+    }
+
+    .field-hint {
+        @apply text-sm text-muted-foreground;
+    }
+
+    .input-lg {
+        @apply h-14 rounded-lg px-4 text-lg md:text-lg;
+    }
+
+    /* A large selectable option; the native radio/checkbox stays in the DOM. */
+    .choice {
+        @apply relative flex cursor-pointer items-start gap-4 rounded-lg border p-4 transition-[border-color,background-color] duration-150 hover:border-foreground/40 has-[:checked]:border-foreground has-[:checked]:bg-card has-[:focus-visible]:border-ring;
+    }
+
+    .choice-mark {
+        @apply mt-0.5 grid size-5 shrink-0 place-items-center rounded-full border border-input transition-colors duration-150;
+    }
+
+    .choice:has(:checked) .choice-mark {
+        @apply border-foreground bg-foreground text-background;
+    }
+
+    .chip {
+        @apply inline-flex h-11 cursor-pointer items-center rounded-full border px-5 text-sm font-medium transition-colors duration-150 hover:border-foreground/40 has-[:checked]:border-foreground has-[:checked]:bg-foreground has-[:checked]:text-background has-[:focus-visible]:border-ring;
+    }
+
+    /* Programme rows */
+    .programme-row {
+        @apply grid grid-cols-[minmax(0,1fr)_7.5rem] items-end gap-3 border-t py-4 sm:grid-cols-[minmax(0,1fr)_7.5rem_10rem_2.75rem];
+    }
+
+    .select-native {
+        @apply h-11 w-full rounded-md border border-input bg-transparent px-3 text-base transition-[border-color] duration-150 focus-visible:border-ring focus-visible:outline-none md:text-sm;
+    }
+
+    /* Address combobox */
+    .combobox-list {
+        @apply absolute inset-x-0 top-full z-20 mt-2 max-h-80 overflow-auto rounded-lg border bg-popover p-1 text-popover-foreground shadow-[0_18px_40px_-18px_rgb(20_14_10/0.35)];
+    }
+
+    .combobox-option {
+        @apply flex cursor-pointer flex-col rounded-md px-3 py-2.5 text-sm aria-selected:bg-accent;
+    }
+
+    .address-card {
+        @apply flex items-start justify-between gap-4 rounded-lg border bg-card p-4;
+    }
+
+    /* Look */
+    .theme-option {
+        @apply relative flex cursor-pointer flex-col gap-3 rounded-lg border p-3 transition-[border-color] duration-150 hover:border-foreground/40 has-[:checked]:border-foreground has-[:focus-visible]:border-ring;
+    }
+
+    .theme-sample {
+        @apply flex aspect-[4/3] flex-col justify-end gap-1 rounded-md bg-background p-3 text-foreground;
+    }
+
+    /* Review */
+    .review-row {
+        @apply grid grid-cols-[8rem_minmax(0,1fr)_auto] items-baseline gap-4 border-t py-4 text-sm sm:text-base;
+    }
+}

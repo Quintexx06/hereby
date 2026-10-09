@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\Locale;
+use App\Enums\ReplyStatus;
 use Database\Factories\HouseholdFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
@@ -22,14 +23,16 @@ use Illuminate\Support\Str;
  * @property int $id
  * @property int $wedding_id
  * @property string $name
+ * @property string|null $email
  * @property Locale $locale
  * @property string $token
  * @property bool $plus_one_allowed
  * @property Carbon|null $opened_at
+ * @property bool|null $has_answered Loaded with withExists() (BuildWeddingOverview).
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  */
-#[Fillable(['name', 'locale', 'plus_one_allowed'])]
+#[Fillable(['name', 'email', 'locale', 'plus_one_allowed'])]
 #[Hidden(['token'])]
 #[RouteKey('token')]
 class Household extends Model
@@ -90,6 +93,14 @@ class Household extends Model
     public function guests(): HasMany
     {
         return $this->hasMany(Guest::class);
+    }
+
+    /**
+     * Where the household stands; needs `has_answered` from withExists().
+     */
+    public function replyStatus(): ReplyStatus
+    {
+        return ReplyStatus::for($this->opened_at !== null, (bool) $this->has_answered);
     }
 
     /**

@@ -25,6 +25,9 @@
 @import './components/footer.css';
 @import './components/auth.css';
 @import './components/invitation.css';
+@import './components/setup.css';
+@import './components/dashboard.css';
+@import './components/guests.css';
 
 @import './themes/wedding.css';
 

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\StoreInquiryController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Middleware\UseSwissGerman;
@@ -14,8 +15,9 @@ Route::middleware(UseSwissGerman::class)->group(function () {
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::inertia('dashboard', 'Dashboard')->name('dashboard');
+    Route::get('dashboard', DashboardController::class)->name('dashboard');
 });
 
 require __DIR__.'/settings.php';
 require __DIR__.'/invitations.php';
+require __DIR__.'/weddings.php';

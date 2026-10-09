@@ -15,3 +15,4 @@ Template: `NNNN-title.md` with **Status**, **Context**, **Decision** and **Conse
 | [0007](0007-data-protection.md)    | Encryption, retention, Swiss hosting   |
 | [0008](0008-something-blue.md)     | ~~"Something blue"~~ (superseded by 0009) |
 | [0009](0009-vorhang-auf.md)        | "Vorhang auf": Archivo, night & blush (rosé), photography, three.js veil |
+| [0010](0010-swiss-address-search.md) | Venue addresses from the federal address register |

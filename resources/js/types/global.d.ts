@@ -1,6 +1,7 @@
 import type { Directive } from 'vue';
 import type { Auth } from '@/types/auth';
 import type { Translations } from '@/types/i18n';
+import type { SharedWedding } from '@/types/navigation';
 
 // Extend ImportMeta interface for Vite...
 declare module 'vite/client' {
@@ -21,6 +22,7 @@ declare module '@inertiajs/core' {
             name: string;
             locale: string;
             translations: Translations;
+            currentWedding: SharedWedding | null;
             auth: Auth;
             sidebarOpen: boolean;
             [key: string]: unknown;

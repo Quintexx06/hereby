@@ -2,6 +2,11 @@
 
 return [
 
+    // Swiss address search (federal building address register, ADR 0010).
+    'geoadmin' => [
+        'search_url' => env('GEOADMIN_SEARCH_URL', 'https://api3.geo.admin.ch/rest/services/api/SearchServer'),
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Third Party Services

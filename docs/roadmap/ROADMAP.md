@@ -78,7 +78,7 @@ Every `code` item, before it is ticked:
 
 | ID   | Item | Owner | Status | Done when |
 | ---- | ---- | ----- | ------ | --------- |
-| 1.1  | Couple account owns weddings; internal admin to set up sites | code | [ ] | An admin creates a wedding, events and households for a couple; the couple signs in and sees only theirs |
+| 1.1  | Couple account owns weddings; internal admin to set up sites | code | [~] | An admin creates a wedding, events and households for a couple; the couple signs in and sees only theirs |
 | 1.2  | Invitation content blocks (story, venue, dress code, FAQ) on the personal link | code | [ ] | Blocks render per household and per event access, in the household's language |
 | 1.3  | Opening sequence (skippable, reduced-motion safe) | code | [ ] | Skippable in one tap; never blocks the RSVP; static under reduced motion; still < 2s |
 | 1.4  | **60-second RSVP**: per person and event, menu, allergies, children's meal, shuttle, stay, song; asks only what applies | code | [ ] | Median completion < 60s in a timed test with 5 people on phones; no account; dietary notes encrypted |
@@ -86,9 +86,9 @@ Every `code` item, before it is ticked:
 | 1.6  | Language per guest: German and English content | code | [ ] | Every guest string in de-CH and en, native-reviewed |
 | 1.7  | Collection of **three designs** (designer-made themes) | code | [ ] | 3 themes from the designer replace Alpine/Riviera; each passes WCAG AA |
 | 1.8  | Travel and stay pages, filled in by hand | code | [ ] | Transport, parking, shuttle and room blocks per wedding, shown per event access |
-| 1.9  | Couple dashboard: today view, live counts, household list (+ Excel import) | code | [ ] | Import of a 120-row Excel works; counts match the database; "what needs me today" on top |
+| 1.9  | Couple dashboard: today view, live counts, household list (+ Excel import) | code | [x] | Import of a 120-row Excel works; counts match the database; "what needs me today" on top |
 | 1.10 | Smart reminders 14 / 7 / 2 days before the deadline (email first) | code | [ ] | Queued per household that hasn't answered; contain the personal link; opt-out respected |
-| 1.11 | "Opened but not answered" segment | code | [ ] | Dashboard separates never opened / opened, not answered / answered |
+| 1.11 | "Opened but not answered" segment | code | [x] | Dashboard separates never opened / opened, not answered / answered |
 | 1.12 | Kitchen and service sheets as an export | code | [ ] | PDF/Excel export: counts per menu, allergies per table, children |
 | 1.13 | Performance budget enforced: guest pages < 2s on mobile data | code | [ ] | CI check (Lighthouse, throttled 4G) fails the build above the budget |
 | 1.14 | Legal review of guest data before the first paid wedding | human | [ ] | Written sign-off from a Swiss data-protection lawyer |
@@ -148,6 +148,7 @@ needs an approved spec with its own acceptance criteria before work starts.
 
 | Date       | Change |
 | ---------- | ------ |
+| 2026-10-09 | 1.9, 1.11 done; 1.1 in progress (couples own weddings and set them up in a 7-step guided setup with a live invitation preview; internal admin still open). Swiss address search (ADR 0010), guest import by paste, Excel, CSV and contacts with a preview ([spec](../specs/2026-10-09-couple-setup-and-dashboard-design.md)) |
 | 2026-10-06 | Engineering foundation; roadmap replaced with the wedding-platform plan |
 | 2026-10-07 | Landing round 4: floating pill nav, theme deck with arrows and Lavanda, hand-drawn strikes and "Ja." swoosh, left-aligned GSAP footer, German sign-in/up (incl. validation), draft Datenschutz and Impressum |
 | 2026-10-07 | Landing round 3: realistic veil shader, theme deck (+ Rosé theme), pop-out icons, "Fragt uns" question form (stored + mailed), GSAP footer wordmark, animated sign-in/sign-up |

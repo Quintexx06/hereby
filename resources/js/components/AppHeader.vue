@@ -9,12 +9,17 @@ import HeaderMobileNav from '@/components/header/HeaderMobileNav.vue';
 import HeaderUserMenu from '@/components/header/HeaderUserMenu.vue';
 import { Button } from '@/components/ui/button';
 import { mainNavItems, secondaryNavItems } from '@/config/navigation';
+import { usePage } from '@inertiajs/vue3';
+import { computed } from 'vue';
 import { dashboard } from '@/routes';
 import type { BreadcrumbItem } from '@/types';
 
 const { breadcrumbs = [] } = defineProps<{
     breadcrumbs?: BreadcrumbItem[];
 }>();
+
+const page = usePage();
+const navItems = computed(() => mainNavItems(page.props.currentWedding));
 </script>
 
 <template>
@@ -23,7 +28,7 @@ const { breadcrumbs = [] } = defineProps<{
             <div class="mx-auto flex h-16 items-center px-4 md:max-w-7xl">
                 <div class="lg:hidden">
                     <HeaderMobileNav
-                        :items="mainNavItems"
+                        :items="navItems"
                         :external-items="secondaryNavItems"
                     />
                 </div>
@@ -33,7 +38,7 @@ const { breadcrumbs = [] } = defineProps<{
                 </Link>
 
                 <div class="hidden h-full lg:flex lg:flex-1">
-                    <HeaderDesktopNav :items="mainNavItems" />
+                    <HeaderDesktopNav :items="navItems" />
                 </div>
 
                 <div class="ml-auto flex items-center gap-2">

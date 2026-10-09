@@ -44,6 +44,10 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
             ],
+            // The couple's current wedding, for navigation (null for guests and new couples).
+            'currentWedding' => fn (): ?array => ($wedding = $request->user()?->weddings()->first(['id', 'status', 'couple_names']))
+                ? ['id' => $wedding->id, 'status' => $wedding->status->value, 'couple_names' => $wedding->couple_names]
+                : null,
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
         ];
     }

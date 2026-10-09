@@ -14,7 +14,12 @@ import {
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import { mainNavItems, secondaryNavItems } from '@/config/navigation';
+import { usePage } from '@inertiajs/vue3';
+import { computed } from 'vue';
 import { dashboard } from '@/routes';
+
+const page = usePage();
+const navItems = computed(() => mainNavItems(page.props.currentWedding));
 </script>
 
 <template>
@@ -32,7 +37,7 @@ import { dashboard } from '@/routes';
         </SidebarHeader>
 
         <SidebarContent>
-            <NavMain :items="mainNavItems" />
+            <NavMain :items="navItems" />
         </SidebarContent>
 
         <SidebarFooter>
