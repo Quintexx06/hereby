@@ -12,15 +12,6 @@ import type { AdminWedding } from '@/types';
 
 const props = defineProps<{ wedding: AdminWedding }>();
 
-/** "Anna & Luca" → "A&L", the couple's monogram. */
-const monogram = computed(() =>
-    props.wedding.couple_names
-        .split(/\s*(?:&|und)\s*/)
-        .map((name) => name.trim().charAt(0))
-        .filter(Boolean)
-        .join('&'),
-);
-
 const isDraft = computed(() => props.wedding.status === 'draft');
 const answeredShare = computed(() =>
     props.wedding.households === 0
@@ -29,31 +20,15 @@ const answeredShare = computed(() =>
 );
 </script>
 
+<!-- One wedding as a ledger row: who, where they stand, the way in. -->
 <template>
-    <li class="admin-card">
-        <span class="admin-monogram" aria-hidden="true">{{ monogram }}</span>
-
+    <li class="admin-row">
         <div class="flex min-w-0 flex-col gap-1">
-            <div class="flex flex-wrap items-center gap-2">
-                <p class="truncate font-semibold">{{ wedding.couple_names }}</p>
-                <span class="admin-status" :data-status="wedding.status">
-                    {{ isDraft ? copy.draftBadge : copy.active }}
-                </span>
-            </div>
+            <p class="truncate text-lg font-semibold">
+                {{ wedding.couple_names }}
+            </p>
             <p class="truncate text-sm text-muted-foreground">
                 {{ wedding.email }}
-            </p>
-            <p class="text-sm text-muted-foreground tabular-nums">
-                <template v-if="isDraft">
-                    {{ copy.draft(steps[wedding.setup_step ?? 'paar'].label) }}
-                </template>
-                <template v-else>
-                    {{ copy.households(wedding.households) }},
-                    {{ copy.answered(wedding.answered) }}
-                </template>
-                <template v-if="wedding.date">
-                    · {{ formatDate(wedding.date, 'de-CH') }}
-                </template>
             </p>
             <p v-if="wedding.look_styles.length" class="text-sm">
                 {{
@@ -62,41 +37,54 @@ const answeredShare = computed(() =>
                         .join(' · ')
                 }}
             </p>
-            <p
-                v-if="wedding.look_wishes"
-                class="admin-wish"
-                :title="wedding.look_wishes"
-            >
+            <p v-if="wedding.look_wishes" class="admin-wish">
                 «{{ wedding.look_wishes }}»
             </p>
-            <div v-if="!isDraft && wedding.households > 0" class="admin-meter">
-                <span :style="{ width: `${answeredShare}%` }" />
-            </div>
         </div>
 
-        <p class="admin-card-actions">
+        <div class="flex flex-col gap-1 text-sm">
+            <p class="admin-status" :data-status="wedding.status">
+                {{
+                    isDraft
+                        ? copy.draft(steps[wedding.setup_step ?? 'paar'].label)
+                        : copy.active
+                }}
+            </p>
+            <p v-if="wedding.date" class="text-muted-foreground">
+                {{ formatDate(wedding.date, 'de-CH') }}
+            </p>
+            <template v-if="!isDraft">
+                <p class="text-muted-foreground tabular-nums">
+                    {{ copy.households(wedding.households) }},
+                    {{ copy.answered(wedding.answered) }}
+                </p>
+                <div v-if="wedding.households > 0" class="admin-meter">
+                    <span :style="{ width: `${answeredShare}%` }" />
+                </div>
+            </template>
+        </div>
+
+        <p class="admin-row-actions">
             <Link
                 v-if="isDraft"
                 :href="setup([wedding.id, wedding.setup_step ?? 'paar'])"
-                class="link-underline hit-area"
+                class="text-action hit-area"
                 >{{ copy.open }}</Link
             >
             <template v-else>
-                <Link
-                    :href="guests(wedding.id)"
-                    class="link-underline hit-area"
-                    >{{ copy.guests }}</Link
-                >
+                <Link :href="guests(wedding.id)" class="text-action hit-area">{{
+                    copy.guests
+                }}</Link>
                 <Link
                     :href="content(wedding.id)"
-                    class="link-underline hit-area"
+                    class="text-action hit-area"
                     >{{ copy.content }}</Link
                 >
                 <a
                     :href="preview.url(wedding.id)"
                     target="_blank"
                     rel="noopener"
-                    class="link-underline hit-area"
+                    class="text-action hit-area"
                     >{{ copy.preview }}</a
                 >
             </template>

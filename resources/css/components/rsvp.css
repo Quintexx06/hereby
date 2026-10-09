@@ -99,21 +99,21 @@
         @apply grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_22rem] xl:grid-cols-[minmax(0,1fr)_24rem] xl:gap-12;
     }
 
-    /* Settings as cards: two columns on wide screens, full-width rows where noted. */
+    /* Settings as a ledger: title in the left column, everything else right. */
     .settings-cards {
-        @apply grid gap-4 md:grid-cols-2;
+        @apply flex flex-col;
     }
 
     .settings-cards > .settings-section {
-        @apply rounded-xl border bg-card p-5 sm:p-6;
+        @apply grid gap-x-10 gap-y-4 border-t border-foreground pt-6 pb-10 md:grid-cols-[12rem_minmax(0,1fr)];
     }
 
-    .settings-wide {
-        @apply md:col-span-2;
+    .settings-cards > .settings-section > :not(:first-child) {
+        @apply md:col-start-2;
     }
 
     .always-list {
-        @apply grid gap-3 text-sm text-muted-foreground sm:grid-cols-3;
+        @apply flex flex-col gap-3 text-muted-foreground;
     }
 
     .always-list > li {
@@ -121,15 +121,15 @@
     }
 
     .toggle-tiles {
-        @apply grid gap-3 sm:grid-cols-3;
+        @apply flex flex-col;
     }
 
     .toggle-tile {
-        @apply flex cursor-pointer items-start gap-3 rounded-lg border p-4 transition-[border-color,background-color] duration-150 ease-out hover:border-foreground/40 has-[:checked]:border-foreground has-[:checked]:bg-brand-muted/30;
+        @apply flex cursor-pointer items-start gap-3 border-b border-rule py-4 first:pt-0;
     }
 
     .settings-savebar {
-        @apply sticky bottom-4 z-10 flex justify-end rounded-full border bg-background/85 p-2 shadow-sm backdrop-blur-sm;
+        @apply sticky bottom-0 z-10 -mx-1 flex justify-end border-t border-foreground bg-background/90 px-1 py-4 backdrop-blur-sm;
     }
 
     .rsvp-preview-panel {

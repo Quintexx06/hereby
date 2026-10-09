@@ -5,10 +5,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Spinner } from '@/components/ui/spinner';
 import { adminCopy as copy } from '@/content/admin';
-import { landingPhotos } from '@/content/landing-photos';
 import { store } from '@/routes/admin/weddings';
 
-const photo = landingPhotos.bouquet;
 const form = useForm({ email: '', partner_one: '', partner_two: '' });
 
 function submit(): void {
@@ -20,10 +18,9 @@ function submit(): void {
 </script>
 
 <template>
-    <form class="import-panel overflow-hidden" @submit.prevent="submit">
-        <img :src="photo.src" alt="" class="admin-form-photo" loading="lazy" />
+    <form class="admin-aside-section" @submit.prevent="submit">
         <div class="flex flex-col gap-1">
-            <h2 class="app-section-title">{{ copy.newCouple }}</h2>
+            <h2 class="ledger-title">{{ copy.newCouple }}</h2>
             <p class="field-hint">{{ copy.newCoupleHint }}</p>
         </div>
         <div class="admin-form-names">

@@ -39,8 +39,8 @@ defineOptions({
             <DashboardHero :wedding="wedding" :days-left="overview.days_left" />
             <DashboardStats :overview="overview" />
 
-            <div class="dashboard-grid">
-                <div class="flex flex-col gap-14">
+            <div class="dashboard-columns">
+                <div class="flex min-w-0 flex-col">
                     <TodayList
                         :wedding-id="wedding.id"
                         :actions="overview.actions"
@@ -49,20 +49,18 @@ defineOptions({
                         :wedding-id="wedding.id"
                         :overview="overview"
                     />
-                </div>
-                <div class="flex flex-col gap-14">
-                    <InvitationPanel
-                        :wedding="wedding"
-                        :events="overview.events"
-                    />
                     <ProgrammeSummary
                         :events="overview.events"
                         :has-replies="overview.replies.answered > 0"
                     />
+                    <DashboardShortcuts :wedding-id="wedding.id" />
                 </div>
+                <InvitationPanel
+                    :wedding="wedding"
+                    :events="overview.events"
+                    class="lg:sticky lg:top-6"
+                />
             </div>
-
-            <DashboardShortcuts :wedding-id="wedding.id" />
         </template>
     </div>
 </template>

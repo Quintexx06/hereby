@@ -24,7 +24,7 @@ function toggle(): void {
 </script>
 
 <template>
-    <li class="admin-card admin-inquiry" :data-answered="inquiry.answered">
+    <li class="admin-row admin-inquiry" :data-answered="inquiry.answered">
         <div class="flex min-w-0 flex-col gap-2">
             <p class="flex flex-wrap items-baseline gap-x-3 text-sm">
                 <span class="truncate font-semibold">{{ inquiry.email }}</span>
@@ -37,11 +37,11 @@ function toggle(): void {
             </p>
         </div>
 
-        <div class="admin-card-actions">
+        <div class="admin-row-actions">
             <a
                 v-if="!inquiry.answered"
                 :href="mailto"
-                class="link-underline hit-area"
+                class="text-action hit-area"
                 >{{ copy.reply }}</a
             >
             <Button

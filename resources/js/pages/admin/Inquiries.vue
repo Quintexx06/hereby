@@ -32,17 +32,19 @@ const groups = computed(() => [
     <Head :title="copy.title" />
 
     <div class="app-page admin-page">
-        <header class="flex max-w-2xl flex-col gap-3">
-            <h1 class="app-title">{{ copy.title }}</h1>
-            <p class="text-muted-foreground">{{ copy.lede }}</p>
+        <header class="masthead">
+            <div class="max-w-2xl">
+                <h1 class="masthead-title">{{ copy.title }}</h1>
+                <p class="masthead-meta text-pretty">{{ copy.lede }}</p>
+            </div>
         </header>
 
         <section
             v-for="group in groups"
             :key="group.key"
-            class="flex flex-col gap-5"
+            class="ledger-section"
         >
-            <h2 class="app-section-title">
+            <h2 class="ledger-title">
                 {{ group.title }}
                 <span class="text-muted-foreground tabular-nums">{{
                     group.items.length
@@ -51,7 +53,7 @@ const groups = computed(() => [
             <p v-if="group.items.length === 0" class="admin-empty">
                 {{ group.empty }}
             </p>
-            <ul v-else class="flex flex-col gap-3">
+            <ul v-else class="admin-ledger">
                 <InquiryCard
                     v-for="inquiry in group.items"
                     :key="inquiry.id"

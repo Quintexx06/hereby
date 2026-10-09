@@ -17,26 +17,27 @@ const severalDays = computed(
 
 <!-- The parts of the day with who is invited and, once replies come, who said yes. -->
 <template>
-    <section aria-labelledby="programme">
-        <h2 id="programme" class="app-section-title mb-2">
+    <section aria-labelledby="programme" class="ledger-section">
+        <h2 id="programme" class="ledger-title">
             {{ active.programme }}
         </h2>
-        <ol>
+        <ol class="ledger-rows">
             <li
                 v-for="event in events"
                 :key="event.id"
-                class="app-row programme-row"
+                class="grid grid-cols-[5rem_minmax(0,1fr)] gap-4"
             >
                 <span class="flex flex-col text-sm">
-                    <span class="font-semibold tabular-nums">{{
-                        formatTime(event.starts_at, 'de-CH')
-                    }}</span>
+                    <span
+                        class="text-lg font-semibold text-brand tabular-nums"
+                        >{{ formatTime(event.starts_at, 'de-CH') }}</span
+                    >
                     <span v-if="severalDays" class="text-muted-foreground">{{
                         formatDay(event.starts_at, 'de-CH')
                     }}</span>
                 </span>
                 <span class="flex flex-col">
-                    <span class="font-medium">{{
+                    <span class="text-lg font-semibold">{{
                         event.name || eventTypes[event.type]
                     }}</span>
                     <span class="text-sm text-muted-foreground">

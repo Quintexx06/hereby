@@ -59,10 +59,10 @@ function move(index: number, direction: -1 | 1): void {
     <Head :title="copy.title" />
 
     <div class="app-page gap-10">
-        <header class="flex flex-wrap items-end justify-between gap-6">
+        <header class="masthead">
             <div class="flex max-w-2xl flex-col gap-2">
-                <h1 class="app-title">{{ copy.title }}</h1>
-                <p class="text-muted-foreground">{{ copy.lede }}</p>
+                <h1 class="masthead-title">{{ copy.title }}</h1>
+                <p class="masthead-meta">{{ copy.lede }}</p>
             </div>
             <a
                 :href="preview.url(wedding.id)"

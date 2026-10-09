@@ -22,7 +22,7 @@ const upcoming = computed(() =>
 <!-- Reminders run by themselves; the couple sees when (roadmap 1.10). -->
 <template>
     <section class="settings-section">
-        <h2 class="app-section-title">{{ copy.reminders }}</h2>
+        <h2 class="ledger-title">{{ copy.reminders }}</h2>
         <label class="check-label">
             <input v-model="enabled" type="checkbox" class="checkbox" />
             {{ copy.remindersToggle }}

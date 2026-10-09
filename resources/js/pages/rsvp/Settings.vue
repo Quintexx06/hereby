@@ -57,9 +57,11 @@ const toggles = [
     <Head :title="copy.title" />
 
     <div class="app-page gap-10">
-        <header class="flex max-w-2xl flex-col gap-2">
-            <h1 class="app-title">{{ copy.title }}</h1>
-            <p class="text-muted-foreground">{{ copy.lede }}</p>
+        <header class="masthead">
+            <div class="max-w-2xl">
+                <h1 class="masthead-title">{{ copy.title }}</h1>
+                <p class="masthead-meta text-pretty">{{ copy.lede }}</p>
+            </div>
         </header>
 
         <div class="rsvp-settings-grid">
@@ -69,8 +71,8 @@ const toggles = [
                     form.put(update.url(wedding.id), { preserveScroll: true })
                 "
             >
-                <section class="settings-section settings-wide">
-                    <h2 class="app-section-title">{{ copy.always }}</h2>
+                <section class="settings-section">
+                    <h2 class="ledger-title">{{ copy.always }}</h2>
                     <ul class="always-list">
                         <li v-for="item in copy.alwaysItems" :key="item">
                             <Check class="size-4 shrink-0 text-brand" />
@@ -91,8 +93,8 @@ const toggles = [
                     :dates="reminderDates"
                 />
 
-                <section class="settings-section settings-wide">
-                    <h2 class="app-section-title">{{ copy.household }}</h2>
+                <section class="settings-section">
+                    <h2 class="ledger-title">{{ copy.household }}</h2>
                     <div class="toggle-tiles">
                         <label
                             v-for="toggle in toggles"
@@ -116,7 +118,7 @@ const toggles = [
                     </div>
                 </section>
 
-                <div class="settings-savebar settings-wide">
+                <div class="settings-savebar">
                     <Button
                         type="submit"
                         size="pill"

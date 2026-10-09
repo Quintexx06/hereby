@@ -24,7 +24,7 @@ function removeMenu(index: number): void {
 <template>
     <section class="settings-section">
         <div class="flex flex-col gap-1">
-            <h2 class="app-section-title">{{ copy.menus }}</h2>
+            <h2 class="ledger-title">{{ copy.menus }}</h2>
             <p class="field-hint">{{ copy.menusHint }}</p>
         </div>
         <div

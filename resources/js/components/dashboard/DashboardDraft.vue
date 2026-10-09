@@ -13,7 +13,7 @@ defineProps<{ wedding: DashboardWedding }>();
 <template>
     <section class="flex max-w-2xl flex-col gap-8">
         <div class="flex flex-col gap-4">
-            <h1 class="app-title">{{ draft.title }}</h1>
+            <h1 class="masthead-title">{{ draft.title }}</h1>
             <p class="lede">
                 {{ draft.lede(steps[wedding.setup_step ?? 'paar'].label) }}
             </p>

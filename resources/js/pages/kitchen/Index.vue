@@ -32,9 +32,11 @@ defineOptions({
     <Head :title="copy.title" />
 
     <div class="app-page gap-10">
-        <header class="flex max-w-2xl flex-col gap-2">
-            <h1 class="app-title">{{ copy.title }}</h1>
-            <p class="text-muted-foreground">{{ copy.lede }}</p>
+        <header class="masthead">
+            <div class="max-w-2xl">
+                <h1 class="masthead-title">{{ copy.title }}</h1>
+                <p class="masthead-meta">{{ copy.lede }}</p>
+            </div>
         </header>
 
         <div class="grid gap-3 sm:grid-cols-2">

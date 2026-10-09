@@ -39,7 +39,7 @@ const doneCount = computed(() => steps.value.filter((s) => s.done).length);
 <template>
     <section class="admin-checklist">
         <div class="flex items-baseline justify-between gap-4">
-            <h2 class="app-section-title">{{ copy.title }}</h2>
+            <h2 class="ledger-title">{{ copy.title }}</h2>
             <button
                 type="button"
                 class="link-underline hit-area text-sm text-muted-foreground"
@@ -49,7 +49,7 @@ const doneCount = computed(() => steps.value.filter((s) => s.done).length);
             </button>
         </div>
         <div class="flex items-center gap-3">
-            <div class="admin-meter flex-1">
+            <div class="admin-meter max-w-none flex-1">
                 <span
                     :style="{ width: `${(doneCount / steps.length) * 100}%` }"
                 />

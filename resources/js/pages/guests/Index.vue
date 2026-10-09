@@ -51,16 +51,16 @@ const editing = computed(() =>
     <Head :title="guestsPage.title" />
 
     <div class="app-page gap-10">
-        <header class="flex flex-wrap items-end justify-between gap-6">
+        <header class="masthead">
             <div class="flex flex-col gap-2">
-                <h1 class="app-title">
+                <h1 class="masthead-title">
                     {{
                         households.length
                             ? guestsPage.title
                             : guestsPage.emptyTitle
                     }}
                 </h1>
-                <p class="text-muted-foreground">
+                <p class="masthead-meta">
                     {{
                         households.length
                             ? active.counts(households.length, guestCount)

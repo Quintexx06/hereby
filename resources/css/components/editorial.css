@@ -1,0 +1,79 @@
+/*
+ * Editorial app pages (dashboard, admin, settings), like a printed wedding
+ * programme: a masthead, figures set in type, and "ledger" sections with the
+ * title in a quiet left column and hairline rows on the right. No boxes, no
+ * icons in circles; ink on porcelain, blush only for progress and one highlight.
+ */
+@layer components {
+    .masthead {
+        @apply grid gap-8 border-b border-foreground pb-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end;
+    }
+
+    .masthead-title {
+        @apply font-display text-[clamp(2.75rem,6.5vw,5.75rem)] leading-[0.92] font-semibold tracking-[-0.045em] text-balance;
+        font-stretch: 112%;
+    }
+
+    .masthead-meta {
+        @apply mt-4 text-lg text-muted-foreground;
+    }
+
+    .masthead-actions {
+        @apply mt-6 flex flex-wrap gap-x-8 gap-y-3;
+    }
+
+    .masthead-aside {
+        @apply flex flex-col gap-1 lg:items-end lg:text-right;
+    }
+
+    /* Figures: numbers set large, separated by hairlines, never in tiles. */
+    .figure-row {
+        @apply grid grid-cols-2 border-b sm:grid-cols-4;
+    }
+
+    .figure {
+        @apply flex flex-col-reverse gap-1 py-5 pr-6;
+    }
+
+    .figure + .figure {
+        @apply sm:border-l sm:border-rule sm:pl-6;
+    }
+
+    .figure-value {
+        @apply font-display text-5xl leading-none font-semibold tracking-[-0.04em] tabular-nums;
+    }
+
+    .figure-label {
+        @apply text-sm text-muted-foreground;
+    }
+
+    /* Ledger: title on the left, content on the right, a firm rule above. */
+    .ledger-section {
+        @apply grid gap-x-10 gap-y-5 border-t border-foreground pt-6 pb-12 md:grid-cols-[12rem_minmax(0,1fr)] xl:grid-cols-[14rem_minmax(0,1fr)];
+    }
+
+    .ledger-title {
+        @apply font-display text-xl leading-tight font-semibold tracking-[-0.02em];
+    }
+
+    .ledger-hint {
+        @apply mt-2 text-sm text-muted-foreground;
+    }
+
+    .ledger-rows > * {
+        @apply border-b border-rule py-4 first:pt-0;
+    }
+
+    /* A whole row as a link, with an arrow that leans in on hover. */
+    .ledger-link {
+        @apply grid grid-cols-[minmax(0,1fr)_auto] items-center gap-6 border-b border-rule py-4 transition-colors duration-150 ease-out first:pt-0 hover:text-brand;
+    }
+
+    .ledger-arrow {
+        @apply size-5 text-muted-foreground transition-transform duration-200 ease-out group-hover:translate-x-1;
+    }
+
+    .text-action {
+        @apply inline-flex items-center gap-1.5 font-medium underline decoration-foreground/25 underline-offset-[0.3em] transition-[text-decoration-color] duration-150 ease-out hover:decoration-foreground;
+    }
+}

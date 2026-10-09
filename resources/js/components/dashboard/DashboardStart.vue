@@ -10,7 +10,7 @@ import { store } from '@/routes/weddings';
 <template>
     <section class="flex max-w-2xl flex-col gap-8">
         <div class="flex flex-col gap-4">
-            <h1 class="app-title">{{ start.title }}</h1>
+            <h1 class="masthead-title">{{ start.title }}</h1>
             <p class="lede">{{ start.lede }}</p>
         </div>
         <ol>

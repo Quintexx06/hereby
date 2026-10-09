@@ -44,8 +44,8 @@ onMounted(() => (tourOpen.value = !tourSeen.isSet.value));
         <AdminWelcome v-model:open="tourOpen" @finish="tourSeen.set(true)" />
 
         <div class="admin-grid">
-            <section class="flex min-w-0 flex-col gap-5">
-                <h2 class="app-section-title">{{ copy.listTitle }}</h2>
+            <section class="admin-list">
+                <h2 class="ledger-title">{{ copy.listTitle }}</h2>
 
                 <div v-if="weddings.length === 0" class="admin-empty">
                     <p class="font-semibold">{{ copy.empty }}</p>
@@ -53,7 +53,7 @@ onMounted(() => (tourOpen.value = !tourSeen.isSet.value));
                         {{ copy.emptyHint }}
                     </p>
                 </div>
-                <ul v-else class="flex flex-col gap-3">
+                <ul v-else class="admin-ledger">
                     <WeddingCard
                         v-for="wedding in weddings"
                         :key="wedding.id"

@@ -18,10 +18,10 @@ const stats = computed(() => [
 </script>
 
 <template>
-    <dl class="stat-strip">
-        <div v-for="stat in stats" :key="stat.label" class="stat-tile">
-            <dt class="text-sm text-muted-foreground">{{ stat.label }}</dt>
-            <dd class="stat-value">{{ stat.value }}</dd>
+    <dl class="figure-row">
+        <div v-for="stat in stats" :key="stat.label" class="figure">
+            <dt class="figure-label">{{ stat.label }}</dt>
+            <dd class="figure-value">{{ stat.value }}</dd>
         </div>
     </dl>
 </template>

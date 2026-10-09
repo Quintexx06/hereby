@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
+import { ArrowRight } from '@lucide/vue';
 import { active, todayActions } from '@/content/dashboard';
 import { index as guests } from '@/routes/weddings/guests';
 import { show } from '@/routes/weddings/setup';
@@ -18,23 +19,27 @@ const href = (key: string) =>
 </script>
 
 <template>
-    <section aria-labelledby="today" class="flex flex-col gap-3">
-        <h2 id="today" class="app-section-title mb-1">{{ active.today }}</h2>
-        <p v-if="actions.length === 0" class="today-card text-muted-foreground">
+    <section aria-labelledby="today" class="ledger-section">
+        <h2 id="today" class="ledger-title">{{ active.today }}</h2>
+        <p v-if="actions.length === 0" class="text-muted-foreground">
             {{ active.nothingToday }}
         </p>
-        <div v-for="item in actions" :key="item.key" class="today-card">
-            <div class="flex flex-col gap-1">
-                <p class="font-semibold">{{ todayActions[item.key].title }}</p>
-                <p class="text-muted-foreground">
-                    {{ todayActions[item.key].body(item.count) }}
-                </p>
-            </div>
+        <div v-else>
             <Link
+                v-for="item in actions"
+                :key="item.key"
                 :href="href(item.key)"
-                class="link-underline hit-area justify-self-start font-medium sm:justify-self-end"
+                class="ledger-link group"
             >
-                {{ todayActions[item.key].cta }}
+                <span class="flex flex-col gap-1">
+                    <span class="text-lg font-semibold">{{
+                        todayActions[item.key].title
+                    }}</span>
+                    <span class="text-muted-foreground">{{
+                        todayActions[item.key].body(item.count)
+                    }}</span>
+                </span>
+                <ArrowRight class="ledger-arrow" aria-hidden="true" />
             </Link>
         </div>
     </section>
