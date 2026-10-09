@@ -44,7 +44,7 @@ export type Invitation = {
     events: WeddingEvent[];
     blocks: InvitationBlock[];
     rsvpOpen: boolean;
-    links: { invitation: string; reply: string } | null;
+    links: { invitation: string; reply: string; calendar: string } | null;
     reply: { answered: boolean; attending: number; invited: number };
 };
 

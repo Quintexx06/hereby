@@ -319,6 +319,14 @@ language), "Wer sieht das?" as a native select, arrows to reorder, and the
 same inline confirm as the guest editor to remove. The **preview** is the
 real invitation with a night bar on top (`PreviewBanner`) to switch language.
 
+### Email (`resources/views/vendor/mail`)
+
+Laravel's markdown mail, re-themed: porcelain ground, night ink, a pill
+button (hex in `themes/default.css`, since mail clients ignore CSS
+variables). Mail to guests passes `brand` to `<x-mail::message>`, so the
+header shows the couple's names, never only "Hereby"; the footer is the
+localized credit line. Guest mail never carries allergy text.
+
 ### Icons (`components/brand/HerebyIcon.vue`)
 
 Hereby's own set, never stock: 32px grid, 1.5px stroke, round caps, one

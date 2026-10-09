@@ -4,6 +4,7 @@ import { ArrowLeft, Check } from '@lucide/vue';
 import { computed } from 'vue';
 import WeddingThemeScope from '@/components/invitation/WeddingThemeScope.vue';
 import ReplyAllergies from '@/components/rsvp/ReplyAllergies.vue';
+import ReplyEmail from '@/components/rsvp/ReplyEmail.vue';
 import ReplyEvent from '@/components/rsvp/ReplyEvent.vue';
 import ReplyExtras from '@/components/rsvp/ReplyExtras.vue';
 import ReplyFooter from '@/components/rsvp/ReplyFooter.vue';
@@ -88,6 +89,7 @@ const lede = computed(() =>
                 <ReplyPlusOne />
                 <ReplyAllergies />
                 <ReplyExtras />
+                <ReplyEmail />
             </form>
         </main>
         <ReplyFooter />

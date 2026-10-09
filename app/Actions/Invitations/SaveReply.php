@@ -4,11 +4,13 @@ namespace App\Actions\Invitations;
 
 use App\Enums\EventType;
 use App\Enums\ResponseStatus;
+use App\Mail\ReplyConfirmation;
 use App\Models\Event;
 use App\Models\Guest;
 use App\Models\Household;
 use App\Models\Wedding;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 /**
  * Stores one household's reply: an answer per person and event, menus at the
@@ -18,7 +20,7 @@ use Illuminate\Support\Facades\DB;
 class SaveReply
 {
     /**
-     * @param  array{answers: list<array{guest_id: int, event_id: int, status: string, menu: string|null}>, guests: list<array{id: int, dietary_notes: string|null, clear_dietary: bool}>, plus_one: array{first_name: string, menu: string|null, dietary_notes: string|null, clear_dietary: bool}|null, shuttle_seats: int|null, needs_stay: bool|null, song_wish: string|null}  $data
+     * @param  array{answers: list<array{guest_id: int, event_id: int, status: string, menu: string|null}>, guests: list<array{id: int, dietary_notes: string|null, clear_dietary: bool}>, plus_one: array{first_name: string, menu: string|null, dietary_notes: string|null, clear_dietary: bool}|null, shuttle_seats: int|null, needs_stay: bool|null, song_wish: string|null, email?: string|null}  $data
      */
     public function handle(Household $household, array $data): void
     {
@@ -36,6 +38,8 @@ class SaveReply
             $this->plusOne($household, $data, $dinners);
             $this->householdQuestions($household, $data);
         });
+
+        $this->confirm($household->refresh());
     }
 
     /**
@@ -105,7 +109,7 @@ class SaveReply
     }
 
     /**
-     * @param  array{shuttle_seats: int|null, needs_stay: bool|null, song_wish: string|null}  $data
+     * @param  array{shuttle_seats: int|null, needs_stay: bool|null, song_wish: string|null, email?: string|null}  $data
      */
     private function householdQuestions(Household $household, array $data): void
     {
@@ -115,6 +119,24 @@ class SaveReply
             'shuttle_seats' => $wedding->offers_shuttle ? $data['shuttle_seats'] : false,
             'needs_stay' => $wedding->offers_stay ? $data['needs_stay'] : false,
             'song_wish' => $wedding->asks_song ? $data['song_wish'] : false,
-        ], fn (mixed $value): bool => $value !== false) + ['responded_at' => now()])->save();
+        ], fn (mixed $value): bool => $value !== false) + ['responded_at' => now()]);
+
+        if (array_key_exists('email', $data)) {
+            $household->email = $data['email'];
+        }
+
+        $household->save();
+    }
+
+    /**
+     * Proof for the guest, in their language, with the calendar attached (1.5).
+     */
+    private function confirm(Household $household): void
+    {
+        if ($household->email) {
+            Mail::to($household->email)
+                ->locale($household->locale->value)
+                ->queue(new ReplyConfirmation($household));
+        }
     }
 }

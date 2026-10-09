@@ -32,12 +32,20 @@ const deadline = computed(() =>
                     <p v-if="deadline" class="text-sm text-muted-foreground">
                         {{ t('rsvp.change_until', { date: deadline }) }}
                     </p>
-                    <Link
-                        :href="invitation.links.reply"
-                        class="link-underline hit-area font-medium"
-                    >
-                        {{ t('rsvp.change') }}
-                    </Link>
+                    <p class="flex flex-wrap justify-center gap-x-6 gap-y-2">
+                        <Link
+                            :href="invitation.links.reply"
+                            class="link-underline hit-area font-medium"
+                        >
+                            {{ t('rsvp.change') }}
+                        </Link>
+                        <a
+                            :href="invitation.links.calendar"
+                            class="link-underline hit-area font-medium"
+                            download
+                            >{{ t('rsvp.calendar') }}</a
+                        >
+                    </p>
                 </template>
             </div>
         </template>

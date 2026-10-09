@@ -45,6 +45,7 @@ class SaveReplyRequest extends FormRequest
             'shuttle_seats' => ['nullable', 'integer', 'min:0', 'max:20'],
             'needs_stay' => ['nullable', 'boolean'],
             'song_wish' => ['nullable', 'string', 'max:160'],
+            'email' => ['nullable', 'email', 'max:191'],
         ];
     }
 
@@ -58,6 +59,7 @@ class SaveReplyRequest extends FormRequest
             'plus_one.first_name.required_with' => __('rsvp.errors.plus_one_name'),
             'guests.*.dietary_notes.max' => __('rsvp.errors.too_long'),
             'song_wish.max' => __('rsvp.errors.too_long'),
+            'email.email' => __('rsvp.errors.email'),
         ];
     }
 
@@ -85,7 +87,9 @@ class SaveReplyRequest extends FormRequest
     /**
      * The validated reply, typed for SaveReply.
      *
-     * @return array{answers: list<array{guest_id: int, event_id: int, status: string, menu: string|null}>, guests: list<array{id: int, dietary_notes: string|null, clear_dietary: bool}>, plus_one: array{first_name: string, menu: string|null, dietary_notes: string|null, clear_dietary: bool}|null, shuttle_seats: int|null, needs_stay: bool|null, song_wish: string|null}
+     * `email` is only present when the form sent it: absent keeps the couple's address.
+     *
+     * @return array{answers: list<array{guest_id: int, event_id: int, status: string, menu: string|null}>, guests: list<array{id: int, dietary_notes: string|null, clear_dietary: bool}>, plus_one: array{first_name: string, menu: string|null, dietary_notes: string|null, clear_dietary: bool}|null, shuttle_seats: int|null, needs_stay: bool|null, song_wish: string|null, email?: string|null}
      */
     public function reply(): array
     {
@@ -112,6 +116,7 @@ class SaveReplyRequest extends FormRequest
             'shuttle_seats' => $this->filled('shuttle_seats') ? $this->integer('shuttle_seats') : null,
             'needs_stay' => $this->has('needs_stay') && $this->input('needs_stay') !== null ? $this->boolean('needs_stay') : null,
             'song_wish' => $text($this->string('song_wish')->trim()->value()),
+            ...($this->has('email') ? ['email' => $text($this->string('email')->trim()->lower()->value())] : []),
         ];
     }
 

@@ -37,6 +37,7 @@ export type ReplyForm = {
         stay: boolean;
         song: boolean;
     };
+    email: string | null;
     extras: {
         shuttleSeats: number | null;
         needsStay: boolean | null;

@@ -61,6 +61,7 @@ class ReplyFormResource extends JsonResource
                 'stay' => $wedding->offers_stay,
                 'song' => $wedding->asks_song,
             ],
+            'email' => $this->email,
             'extras' => [
                 'shuttleSeats' => $this->shuttle_seats,
                 'needsStay' => $this->needs_stay,

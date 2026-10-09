@@ -40,6 +40,7 @@ class InvitationResource extends JsonResource
             'links' => $this->exists ? [
                 'invitation' => route('invitation.show', $this->resource),
                 'reply' => route('invitation.reply', $this->resource),
+                'calendar' => route('invitation.calendar', $this->resource),
             ] : null,
             'reply' => [
                 'answered' => $this->responded_at !== null,

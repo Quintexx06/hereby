@@ -21,6 +21,7 @@ type ReplyState = {
     shuttleSeats: number;
     needsStay: boolean | null;
     songWish: string;
+    email: string;
 };
 
 export type ReplyFormApi = {
@@ -80,6 +81,7 @@ export function provideReplyForm(
         shuttleSeats: reply.extras.shuttleSeats ?? 0,
         needsStay: reply.extras.needsStay,
         songWish: reply.extras.songWish ?? '',
+        email: reply.email ?? '',
     });
 
     const answer = (guestId: number, eventId: number) =>
@@ -171,6 +173,7 @@ export function provideReplyForm(
             song_wish: reply.questions.song
                 ? data.songWish.trim() || null
                 : null,
+            email: data.email.trim() || null,
         })).put(reply.links.reply, { preserveScroll: true });
     }
 
