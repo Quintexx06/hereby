@@ -25,6 +25,7 @@ class UpdateRsvpSettingsRequest extends FormRequest
             'offers_shuttle' => ['boolean'],
             'offers_stay' => ['boolean'],
             'asks_song' => ['boolean'],
+            'sends_reminders' => ['boolean'],
         ];
     }
 
@@ -42,7 +43,7 @@ class UpdateRsvpSettingsRequest extends FormRequest
     /**
      * Non-blank menu labels with the key each one had before, if any.
      *
-     * @return array{labels: list<string>, keys: list<string|null>, children_menu: bool, offers_shuttle: bool, offers_stay: bool, asks_song: bool}
+     * @return array{labels: list<string>, keys: list<string|null>, children_menu: bool, offers_shuttle: bool, offers_stay: bool, asks_song: bool, sends_reminders: bool}
      */
     public function settings(): array
     {
@@ -64,6 +65,7 @@ class UpdateRsvpSettingsRequest extends FormRequest
             'offers_shuttle' => $this->boolean('offers_shuttle'),
             'offers_stay' => $this->boolean('offers_stay'),
             'asks_song' => $this->boolean('asks_song', true),
+            'sends_reminders' => $this->boolean('sends_reminders', true),
         ];
     }
 }

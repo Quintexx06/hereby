@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Weddings;
 
+use App\Actions\Invitations\SendReminders;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Weddings\UpdateRsvpSettingsRequest;
 use App\Models\Wedding;
@@ -31,7 +32,9 @@ class RsvpSettingsController extends Controller
                 'offers_shuttle' => $wedding->offers_shuttle,
                 'offers_stay' => $wedding->offers_stay,
                 'asks_song' => $wedding->asks_song,
+                'sends_reminders' => $wedding->sends_reminders,
             ],
+            'reminderDates' => $this->reminderDates($wedding),
         ]);
     }
 
@@ -52,10 +55,30 @@ class RsvpSettingsController extends Controller
             'offers_shuttle' => $settings['offers_shuttle'],
             'offers_stay' => $settings['offers_stay'],
             'asks_song' => $settings['asks_song'],
+            'sends_reminders' => $settings['sends_reminders'],
         ]);
 
         Inertia::flash('toast', ['type' => 'success', 'message' => 'Antwortformular gespeichert.']);
 
         return back();
+    }
+
+    /**
+     * The days reminders still go out, so the couple knows what guests will get.
+     *
+     * @return list<string>
+     */
+    private function reminderDates(Wedding $wedding): array
+    {
+        if (! $wedding->rsvp_deadline) {
+            return [];
+        }
+
+        $today = now('Europe/Zurich')->toDateString();
+
+        return array_values(array_filter(
+            array_map(fn (int $days): string => $wedding->rsvp_deadline->copy()->subDays($days)->toDateString(), SendReminders::STAGES),
+            fn (string $date): bool => $date >= $today,
+        ));
     }
 }

@@ -31,6 +31,7 @@ class RsvpSettingsTest extends TestCase
                 'offers_shuttle' => true,
                 'offers_stay' => false,
                 'asks_song' => false,
+                'sends_reminders' => false,
             ])
             ->assertRedirect();
 
@@ -40,6 +41,7 @@ class RsvpSettingsTest extends TestCase
         $this->assertTrue($wedding->children_menu);
         $this->assertTrue($wedding->offers_shuttle);
         $this->assertFalse($wedding->asks_song);
+        $this->assertFalse($wedding->sends_reminders);
     }
 
     public function test_menu_keys_stay_stable_when_labels_are_edited(): void

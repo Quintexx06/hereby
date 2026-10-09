@@ -55,6 +55,15 @@ return [
         'calendar' => 'Les dates pour votre agenda sont en pièce jointe.',
         'signoff' => 'Chaleureusement, :couple',
     ],
+    'reminder' => [
+        'subject' => ':couple : merci de répondre avant le :date',
+        'heading' => 'Serez-vous des nôtres?',
+        'body' => ':couple attendent votre réponse avec joie. Elle prend moins d’une minute, merci de répondre avant le :date.',
+        'stop_hint' => 'Plus de rappels?',
+        'stop' => 'Se désabonner',
+        'stopped_title' => 'Plus de rappels',
+        'stopped_body' => 'Vous ne recevrez plus de rappels de :couple. Vous pouvez toujours répondre à tout moment.',
+    ],
     'errors' => [
         'email' => 'Cette adresse e-mail ne semble pas correcte.',
         'closed' => 'Le délai de réponse est passé.',

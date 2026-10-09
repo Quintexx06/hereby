@@ -55,6 +55,15 @@ return [
         'calendar' => 'In allegato trovate le date per il vostro calendario.',
         'signoff' => 'Con affetto, :couple',
     ],
+    'reminder' => [
+        'subject' => ':couple: rispondete entro il :date',
+        'heading' => 'Ci sarete?',
+        'body' => ':couple aspettano con gioia la vostra risposta. Ci vuole meno di un minuto, rispondete entro il :date.',
+        'stop_hint' => 'Niente più promemoria?',
+        'stop' => 'Annulla l’iscrizione',
+        'stopped_title' => 'Niente più promemoria',
+        'stopped_body' => 'Non riceverete più promemoria da :couple. Potete comunque rispondere in qualsiasi momento.',
+    ],
     'errors' => [
         'email' => 'Questo indirizzo e-mail non sembra corretto.',
         'closed' => 'Il termine per rispondere è scaduto.',

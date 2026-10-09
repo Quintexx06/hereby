@@ -23,6 +23,13 @@ export const rsvpSettings = {
     song: 'Liederwunsch',
     save: 'Speichern',
     preview: 'So sieht es für eure Gäste aus',
+    reminders: 'Erinnerungen',
+    remindersToggle: 'Erinnerungen automatisch senden',
+    remindersHint:
+        'An Haushalte mit E-Mail-Adresse, die noch nicht geantwortet haben: 14, 7 und 2 Tage vor der Frist, mit ihrem persönlichen Link und euren Namen als Absender. Abmelden geht mit einem Klick.',
+    remindersNext: (dates: string) => `Nächste Erinnerungen: ${dates}.`,
+    remindersNoDeadline:
+        'Legt in der Einrichtung eine Antwortfrist fest, dann laufen die Erinnerungen von selbst.',
 };
 
 /** The guest-side words, for the preview only (German). */

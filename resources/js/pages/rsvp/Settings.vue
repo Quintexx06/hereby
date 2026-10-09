@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Head, useForm } from '@inertiajs/vue3';
 import MenuOptionsField from '@/components/rsvp/MenuOptionsField.vue';
+import ReminderSettings from '@/components/rsvp/ReminderSettings.vue';
 import RsvpPreview from '@/components/rsvp/RsvpPreview.vue';
 import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/spinner';
@@ -19,7 +20,9 @@ const props = defineProps<{
         offers_shuttle: boolean;
         offers_stay: boolean;
         asks_song: boolean;
+        sends_reminders: boolean;
     };
+    reminderDates: string[];
 }>();
 
 defineOptions({
@@ -39,6 +42,7 @@ const form = useForm({
     offers_shuttle: props.settings.offers_shuttle,
     offers_stay: props.settings.offers_stay,
     asks_song: props.settings.asks_song,
+    sends_reminders: props.settings.sends_reminders,
 });
 
 const toggles = [
@@ -97,6 +101,11 @@ const toggles = [
                         </label>
                     </div>
                 </section>
+
+                <ReminderSettings
+                    v-model="form.sends_reminders"
+                    :dates="reminderDates"
+                />
 
                 <Button
                     type="submit"

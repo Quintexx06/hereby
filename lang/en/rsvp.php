@@ -55,6 +55,15 @@ return [
         'calendar' => 'The dates for your calendar are attached.',
         'signoff' => 'Warmly, :couple',
     ],
+    'reminder' => [
+        'subject' => ':couple: please reply by :date',
+        'heading' => 'Are you coming?',
+        'body' => ':couple are looking forward to your reply. It takes less than a minute, please reply by :date.',
+        'stop_hint' => 'No more reminders?',
+        'stop' => 'Unsubscribe here',
+        'stopped_title' => 'No more reminders',
+        'stopped_body' => 'You will not get more reminders from :couple. You can still reply at any time.',
+    ],
     'errors' => [
         'email' => 'This email address does not look right.',
         'closed' => 'Replies are closed.',

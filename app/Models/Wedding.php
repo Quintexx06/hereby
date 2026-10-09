@@ -51,6 +51,7 @@ use Illuminate\Support\Collection;
  * @property bool $offers_shuttle
  * @property bool $offers_stay
  * @property bool $asks_song
+ * @property bool $sends_reminders
  * @property int|null $households_count Loaded with withCount().
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -59,7 +60,7 @@ use Illuminate\Support\Collection;
     'slug', 'couple_names', 'partner_one', 'partner_two', 'wedding_date', 'rsvp_deadline',
     'default_locale', 'languages', 'theme', 'celebration', 'guest_estimate',
     'venue_name', 'venue_address', 'venue_postcode', 'venue_town', 'venue_lat', 'venue_lng', 'venue_reference',
-    'menu_options', 'children_menu', 'offers_shuttle', 'offers_stay', 'asks_song',
+    'menu_options', 'children_menu', 'offers_shuttle', 'offers_stay', 'asks_song', 'sends_reminders',
 ])]
 class Wedding extends Model
 {
@@ -167,6 +168,7 @@ class Wedding extends Model
             'offers_shuttle' => 'boolean',
             'offers_stay' => 'boolean',
             'asks_song' => 'boolean',
+            'sends_reminders' => 'boolean',
         ];
     }
 }

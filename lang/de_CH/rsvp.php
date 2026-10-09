@@ -55,6 +55,15 @@ return [
         'calendar' => 'Im Anhang findet ihr die Termine für euren Kalender.',
         'signoff' => 'Herzlich, :couple',
     ],
+    'reminder' => [
+        'subject' => ':couple: bitte antwortet bis :date',
+        'heading' => 'Kommt ihr?',
+        'body' => ':couple freuen sich auf eure Antwort. Sie dauert weniger als eine Minute, bitte bis :date.',
+        'stop_hint' => 'Keine Erinnerungen mehr?',
+        'stop' => 'Hier abmelden',
+        'stopped_title' => 'Keine Erinnerungen mehr',
+        'stopped_body' => 'Ihr bekommt von :couple keine Erinnerungen mehr. Antworten könnt ihr trotzdem jederzeit.',
+    ],
     'errors' => [
         'email' => 'Diese E-Mail-Adresse sieht nicht richtig aus.',
         'closed' => 'Die Antwortfrist ist vorbei.',
