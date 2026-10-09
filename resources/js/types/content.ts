@@ -4,7 +4,7 @@ import type { ContentBlockType, EventType, Locale } from '@/types/wedding';
 export type BlockText = {
     title: string | null;
     body: string | null;
-    items: { question: string; answer: string }[];
+    items: { question: string; answer: string; url?: string }[];
 };
 
 export type EditableBlock = {

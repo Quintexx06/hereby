@@ -79,4 +79,21 @@ class InvitationBlocksTest extends TestCase
                 ->where('invitation.blocks.0.venue.route', fn (string $url) => str_contains($url, urlencode('Seestrasse 80, 6354 Vitznau')))
             );
     }
+
+    public function test_stay_block_lists_hotels_with_their_links(): void
+    {
+        $wedding = Wedding::factory()->create();
+        $household = Household::factory()->for($wedding)->create();
+        ContentBlock::factory()->for($wedding)->create(['type' => ContentBlockType::Stay, 'position' => 0, 'content' => ['de_CH' => [
+            'body' => 'Wir haben Zimmer reserviert.',
+            'items' => [['question' => 'Hotel Vitznauerhof', 'answer' => 'Code ANNALUCA bis 1. Mai', 'url' => 'https://vitznauerhof.ch']],
+        ]]]);
+
+        $this->get(route('invitation.show', $household))
+            ->assertInertia(fn (Assert $page) => $page
+                ->where('invitation.blocks.0.type', 'stay')
+                ->where('invitation.blocks.0.items.0.question', 'Hotel Vitznauerhof')
+                ->where('invitation.blocks.0.items.0.url', 'https://vitznauerhof.ch')
+            );
+    }
 }

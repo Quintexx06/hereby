@@ -11,8 +11,11 @@ return [
         'venue' => 'Il luogo',
         'dress_code' => 'Dress code',
         'faq' => 'Domande e risposte',
+        'travel' => 'Come arrivare',
+        'stay' => 'Dove dormire',
     ],
     'skip' => 'Tocca per saltare',
+    'hotel_link' => 'Vai al sito',
     'route' => 'Indicazioni stradali',
     'event_types' => [
         'civil_ceremony' => 'Matrimonio civile',

@@ -11,8 +11,11 @@ return [
         'venue' => 'Ort',
         'dress_code' => 'Dresscode',
         'faq' => 'Fragen & Antworten',
+        'travel' => 'Anreise',
+        'stay' => 'Übernachten',
     ],
     'skip' => 'Tippen zum Überspringen',
+    'hotel_link' => 'Zur Website',
     'route' => 'Route planen',
     'event_types' => [
         'civil_ceremony' => 'Ziviltrauung',

@@ -11,8 +11,11 @@ return [
         'venue' => 'Venue',
         'dress_code' => 'Dress code',
         'faq' => 'Questions & answers',
+        'travel' => 'Getting there',
+        'stay' => 'Where to stay',
     ],
     'skip' => 'Tap to skip',
+    'hotel_link' => 'Visit website',
     'route' => 'Get directions',
     'event_types' => [
         'civil_ceremony' => 'Civil ceremony',

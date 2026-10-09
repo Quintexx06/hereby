@@ -14,7 +14,7 @@ class VisibleBlocks
 {
     /**
      * @param  list<int>  $eventIds
-     * @return list<array{id: int, type: string, title: string|null, body: string|null, items: list<array{question: string, answer: string}>, venue: array{name: string|null, address: string|null, route: string|null}|null}>
+     * @return list<array{id: int, type: string, title: string|null, body: string|null, items: list<array{question: string, answer: string, url?: string}>, venue: array{name: string|null, address: string|null, route: string|null}|null}>
      */
     public function handle(Wedding $wedding, array $eventIds, string $locale): array
     {

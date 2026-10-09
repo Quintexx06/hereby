@@ -55,6 +55,34 @@ export const blockTypes: Record<
         hint: 'Kinder, Geschenke, Fotos, Übernachtung: was euch oft gefragt wird.',
         placeholder: '',
     },
+    travel: {
+        label: 'Anreise',
+        hint: 'Zug, Auto, Parkplätze, Shuttle: wie man hinkommt und wieder heim.',
+        placeholder:
+            'Mit dem Zug bis Luzern, dann mit dem Schiff nach Vitznau (40 Minuten). Parkplätze gibt es beim Bootshaus.',
+    },
+    stay: {
+        label: 'Übernachten',
+        hint: 'Hotels in der Nähe, mit Zimmerkontingent oder Buchungscode.',
+        placeholder: 'Wir haben in zwei Hotels Zimmer für euch reserviert.',
+    },
+};
+
+/** Labels for list entries: FAQ questions, or hotels in the stay block. */
+export const itemLabels = {
+    faq: {
+        name: 'Frage',
+        details: 'Antwort',
+        add: 'Frage hinzufügen',
+        remove: 'Frage entfernen',
+    },
+    stay: {
+        name: 'Hotel',
+        details: 'Details: Preis, Kontingent, Code, Frist',
+        add: 'Hotel hinzufügen',
+        remove: 'Hotel entfernen',
+        url: 'Website (optional)',
+    },
 };
 
 export const previewCopy = {

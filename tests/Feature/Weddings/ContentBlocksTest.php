@@ -128,4 +128,16 @@ class ContentBlocksTest extends TestCase
         $this->assertNull($household->fresh()->opened_at);
         $this->actingAs(User::factory()->create())->get(route('weddings.preview', $wedding))->assertForbidden();
     }
+
+    public function test_hotel_links_must_be_web_addresses(): void
+    {
+        $wedding = Wedding::factory()->create();
+        $block = ContentBlock::factory()->for($wedding)->create(['type' => ContentBlockType::Stay]);
+
+        $this->actingAs($wedding->owner)
+            ->put(route('weddings.content.update', [$wedding, $block]), ['content' => ['de_CH' => [
+                'items' => [['question' => 'Hotel', 'answer' => '', 'url' => 'javascript:alert(1)']],
+            ]]])
+            ->assertSessionHasErrors('content.de_CH.items.0.url');
+    }
 }

@@ -22,6 +22,10 @@
         @apply flex max-w-prose flex-col gap-4 text-lg leading-relaxed text-pretty;
     }
 
+    .block-stay {
+        @apply flex flex-col gap-1 border-b border-rule py-4 first:border-t;
+    }
+
     .block-faq {
         @apply border-b border-rule;
     }

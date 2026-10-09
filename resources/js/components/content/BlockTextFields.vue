@@ -22,12 +22,7 @@ const text = defineModel<BlockText>({ required: true });
                 :placeholder="blockTypes[type].label"
             />
         </div>
-        <FaqItemsField
-            v-if="type === 'faq'"
-            v-model="text.items"
-            :id-prefix="idPrefix"
-        />
-        <div v-else class="field">
+        <div v-if="type !== 'faq'" class="field">
             <label :for="`${idPrefix}-body`" class="field-label">{{
                 copy.body
             }}</label>
@@ -41,5 +36,11 @@ const text = defineModel<BlockText>({ required: true });
             />
             <p class="field-hint">{{ copy.bodyHint }}</p>
         </div>
+        <FaqItemsField
+            v-if="type === 'faq' || type === 'stay'"
+            v-model="text.items"
+            :id-prefix="idPrefix"
+            :kind="type"
+        />
     </div>
 </template>

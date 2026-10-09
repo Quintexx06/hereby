@@ -11,8 +11,11 @@ return [
         'venue' => 'Le lieu',
         'dress_code' => 'Tenue',
         'faq' => 'Questions et réponses',
+        'travel' => 'Accès',
+        'stay' => 'Hébergement',
     ],
     'skip' => 'Touchez pour passer',
+    'hotel_link' => 'Voir le site',
     'route' => 'Itinéraire',
     'event_types' => [
         'civil_ceremony' => 'Mariage civil',

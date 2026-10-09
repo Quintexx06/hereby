@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import BlockText from '@/components/invitation/blocks/BlockText.vue';
 import FaqBlock from '@/components/invitation/blocks/FaqBlock.vue';
+import StayBlock from '@/components/invitation/blocks/StayBlock.vue';
 import VenueBlock from '@/components/invitation/blocks/VenueBlock.vue';
 import { useTrans } from '@/composables/useTrans';
 import type { InvitationBlock } from '@/types';
@@ -23,6 +24,7 @@ const { t } = useTrans();
             </h2>
             <VenueBlock v-if="block.type === 'venue'" :block="block" />
             <FaqBlock v-else-if="block.type === 'faq'" :block="block" />
+            <StayBlock v-else-if="block.type === 'stay'" :block="block" />
             <BlockText v-else :text="block.body" />
         </section>
     </div>

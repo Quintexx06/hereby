@@ -27,6 +27,7 @@ class UpdateContentBlockRequest extends FormRequest
             'content.*.items' => ['nullable', 'array', 'max:12'],
             'content.*.items.*.question' => ['nullable', 'string', 'max:160'],
             'content.*.items.*.answer' => ['nullable', 'string', 'max:1000'],
+            'content.*.items.*.url' => ['nullable', 'url:https,http', 'max:255'],
         ];
     }
 
@@ -39,12 +40,13 @@ class UpdateContentBlockRequest extends FormRequest
             'event_id.exists' => 'Diesen Teil gibt es in eurem Ablauf nicht.',
             'content.*.title.max' => 'Haltet den Titel kurz (bis 80 Zeichen).',
             'content.*.body.max' => 'Das ist zu lang (bis 3000 Zeichen).',
-            'content.*.items.max' => 'Höchstens zwölf Fragen.',
+            'content.*.items.max' => 'Höchstens zwölf Einträge.',
+            'content.*.items.*.url.url' => 'Bitte eine vollständige Adresse, z. B. https://hotel.ch.',
         ];
     }
 
     /**
-     * @return array<string, array{title: string|null, body: string|null, items: list<array{question: string, answer: string}>}>
+     * @return array<string, array{title: string|null, body: string|null, items: list<array{question: string, answer: string, url?: string}>}>
      */
     public function content(): array
     {
@@ -60,6 +62,7 @@ class UpdateContentBlockRequest extends FormRequest
             $items = array_values(array_filter(array_map(fn (mixed $item): array => [
                 'question' => trim((string) data_get($item, 'question', '')),
                 'answer' => trim((string) data_get($item, 'answer', '')),
+                ...(filled(data_get($item, 'url')) ? ['url' => trim((string) data_get($item, 'url'))] : []),
             ], is_array($text['items'] ?? null) ? $text['items'] : []), fn (array $item): bool => $item['question'] !== ''));
 
             $content[$locale] = [

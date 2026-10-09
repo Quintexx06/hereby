@@ -325,7 +325,8 @@ are `aria-hidden`: the page's real heading is the one that is read.
 After the programme, the couple's own words, each block under a hairline
 with a `.title`: plain paragraphs at `text-lg` (a blank line is a new
 paragraph), the venue with its official address and a plain "Route planen"
-link (no map embed), the FAQ as native `<details>` with a chevron that turns.
+link (no map embed), the FAQ as native `<details>` with a chevron that turns,
+travel as paragraphs, and stays as hairline rows (hotel, details, a quiet link).
 The couple edits them in **Inhalte** (`pages/content/Index`): one card per
 block, language tabs as a `.segmented` control (a dot marks an empty
 language), "Wer sieht das?" as a native select, arrows to reorder, and the

@@ -85,7 +85,7 @@ Every `code` item, before it is ticked:
 | 1.5  | Edit until the deadline, with an email summary and a calendar (.ics) entry | code | [x] | Answers editable until the deadline, locked after; summary email + .ics sent on every save |
 | 1.6  | Language per guest: German and English content | code | [ ] | Every guest string in de-CH and en, native-reviewed |
 | 1.7  | Collection of **three designs** (designer-made themes) | code | [ ] | 3 themes from the designer replace Alpine/Riviera; each passes WCAG AA |
-| 1.8  | Travel and stay pages, filled in by hand | code | [ ] | Transport, parking, shuttle and room blocks per wedding, shown per event access |
+| 1.8  | Travel and stay pages, filled in by hand | code | [x] | Transport, parking, shuttle and room blocks per wedding, shown per event access |
 | 1.9  | Couple dashboard: today view, live counts, household list (+ Excel import) | code | [x] | Import of a 120-row Excel works; counts match the database; "what needs me today" on top |
 | 1.10 | Smart reminders 14 / 7 / 2 days before the deadline (email first) | code | [x] | Queued per household that hasn't answered; contain the personal link; opt-out respected |
 | 1.11 | "Opened but not answered" segment | code | [x] | Dashboard separates never opened / opened, not answered / answered |
@@ -148,6 +148,7 @@ needs an approved spec with its own acceptance criteria before work starts.
 
 | Date       | Change |
 | ---------- | ------ |
+| 2026-10-09 | 1.8 done: "Anreise" and "Übernachten" blocks (hotels with details and a link), per event access and language like every content block; shuttle seats are asked in the reply (1.4) |
 | 2026-10-09 | 1.3 done: the invitation opens behind a sheer veil in the couple's theme that parts after a beat (about 1.4s, CSS only); once per link, any tap or key skips, nothing under reduced motion |
 | 2026-10-09 | 1.12 done: "Küche & Service" with counts per part, menu and children; a printable A4 sheet with allergies (server-rendered, owner only) and a CSV for Excel. No PDF library: the browser prints to PDF; per-table counts follow with seating (2.3) ([spec](../specs/2026-10-09-kitchen-sheets-design.md)) |
 | 2026-10-09 | 1.10 done: reminders 14, 7 and 2 days before the deadline to unanswered households with an address, from the couple by name, once per stage, with one-click opt-out; couples switch them off on the Antwortformular ([spec](../specs/2026-10-09-reminders-design.md)) |

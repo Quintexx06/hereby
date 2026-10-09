@@ -48,7 +48,13 @@ export type Invitation = {
     reply: { answered: boolean; attending: number; invited: number };
 };
 
-export type ContentBlockType = 'story' | 'venue' | 'dress_code' | 'faq';
+export type ContentBlockType =
+    | 'story'
+    | 'venue'
+    | 'dress_code'
+    | 'faq'
+    | 'travel'
+    | 'stay';
 
 /** One content block as a guest sees it (App\Actions\Invitations\VisibleBlocks). */
 export type InvitationBlock = {
@@ -56,7 +62,7 @@ export type InvitationBlock = {
     type: ContentBlockType;
     title: string | null;
     body: string | null;
-    items: { question: string; answer: string }[];
+    items: { question: string; answer: string; url?: string }[];
     venue: {
         name: string | null;
         address: string | null;

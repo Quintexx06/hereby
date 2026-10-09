@@ -19,9 +19,12 @@ In:
 - the couple's editor ("Inhalte"): add, edit per language, reorder, hide or remove
 - a couple-only **preview** of the invitation in any of their languages that doesn't count as "opened"
 
+Later added (1.8, same model): **Anreise** (text) and **Übernachten** (an
+intro plus hotels, each with details and an optional link; links must be
+http(s)).
+
 Out:
 - photos and galleries (2.2)
-- travel and stay (1.8)
 - free layout, custom block types, rich text: blocks are plain paragraphs. A blank line starts a new paragraph
 
 ## Decisions

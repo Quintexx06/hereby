@@ -18,7 +18,7 @@ use Illuminate\Support\Carbon;
  * @property ContentBlockType $type
  * @property int|null $event_id Null: every household sees it.
  * @property int $position
- * @property array<string, array{title?: string|null, body?: string|null, items?: list<array{question: string, answer: string}>}> $content
+ * @property array<string, array{title?: string|null, body?: string|null, items?: list<array{question: string, answer: string, url?: string}>}> $content
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  */
@@ -40,7 +40,7 @@ class ContentBlock extends Model
      * The text in one language, or in the fallback when that one is empty.
      * Null when neither has anything to show.
      *
-     * @return array{title: string|null, body: string|null, items: list<array{question: string, answer: string}>}|null
+     * @return array{title: string|null, body: string|null, items: list<array{question: string, answer: string, url?: string}>}|null
      */
     public function textIn(string $locale, string $fallback): ?array
     {
