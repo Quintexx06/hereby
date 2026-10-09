@@ -8,6 +8,7 @@ use App\Http\Controllers\Guests\GuestsController;
 use App\Http\Controllers\Guests\HouseholdController;
 use App\Http\Controllers\Guests\PreviewGuestImportController;
 use App\Http\Controllers\Guests\StoreHouseholdsController;
+use App\Http\Controllers\Kitchen\KitchenController;
 use App\Http\Controllers\Weddings\CompleteWeddingSetupController;
 use App\Http\Controllers\Weddings\RsvpSettingsController;
 use App\Http\Controllers\Weddings\StartWeddingSetupController;
@@ -44,6 +45,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('hochzeit/{wedding}/inhalte', [ContentBlockController::class, 'store'])->name('weddings.content.store');
         Route::put('hochzeit/{wedding}/inhalte/reihenfolge', ReorderContentBlocksController::class)->name('weddings.content.reorder');
         Route::get('hochzeit/{wedding}/vorschau', PreviewInvitationController::class)->name('weddings.preview');
+
+        Route::get('hochzeit/{wedding}/kueche', [KitchenController::class, 'index'])->name('weddings.kitchen.index');
+        Route::get('hochzeit/{wedding}/kueche/blatt', [KitchenController::class, 'sheet'])->name('weddings.kitchen.sheet');
+        Route::get('hochzeit/{wedding}/kueche/gaeste.csv', [KitchenController::class, 'csv'])->name('weddings.kitchen.csv');
 
         Route::scopeBindings()->group(function () {
             Route::put('hochzeit/{wedding}/inhalte/{contentBlock:id}', [ContentBlockController::class, 'update'])->name('weddings.content.update');

@@ -146,3 +146,26 @@
         @apply flex items-start gap-2 border-b pb-4;
     }
 }
+
+/* "Küche & Service": numbers first, one hairline block per part of the day. */
+@layer components {
+    .kitchen-action {
+        @apply flex min-h-16 items-start gap-3 rounded-lg border p-4 transition-colors duration-150 hover:border-foreground/40;
+    }
+
+    .kitchen-event {
+        @apply flex max-w-2xl flex-col gap-3 border-t pt-6;
+    }
+
+    .kitchen-number {
+        @apply font-display text-4xl font-semibold tracking-[-0.03em] tabular-nums;
+    }
+
+    .kitchen-menus {
+        @apply flex flex-col;
+    }
+
+    .kitchen-menus > li {
+        @apply flex items-center justify-between gap-4 border-b py-2.5 text-sm;
+    }
+}

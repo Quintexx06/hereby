@@ -8,3 +8,4 @@ export * from './setup';
 export * from './guests';
 export * from './rsvp';
 export * from './content';
+export * from './kitchen';

@@ -5,10 +5,12 @@ import {
     ListChecks,
     NotebookPen,
     Users,
+    UtensilsCrossed,
 } from '@lucide/vue';
 import { dashboard } from '@/routes';
 import { index as content } from '@/routes/weddings/content';
 import { index as guests } from '@/routes/weddings/guests';
+import { index as kitchen } from '@/routes/weddings/kitchen';
 import { edit as rsvpSettings } from '@/routes/weddings/rsvp-settings';
 import { show as setup } from '@/routes/weddings/setup';
 import type { NavItem, SharedWedding } from '@/types';
@@ -39,6 +41,11 @@ export function mainNavItems(wedding: SharedWedding | null): NavItem[] {
             title: 'Antwortformular',
             href: rsvpSettings(wedding.id),
             icon: ListChecks,
+        });
+        items.push({
+            title: 'Küche & Service',
+            href: kitchen(wedding.id),
+            icon: UtensilsCrossed,
         });
     }
 

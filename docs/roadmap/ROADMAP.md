@@ -89,7 +89,7 @@ Every `code` item, before it is ticked:
 | 1.9  | Couple dashboard: today view, live counts, household list (+ Excel import) | code | [x] | Import of a 120-row Excel works; counts match the database; "what needs me today" on top |
 | 1.10 | Smart reminders 14 / 7 / 2 days before the deadline (email first) | code | [x] | Queued per household that hasn't answered; contain the personal link; opt-out respected |
 | 1.11 | "Opened but not answered" segment | code | [x] | Dashboard separates never opened / opened, not answered / answered |
-| 1.12 | Kitchen and service sheets as an export | code | [ ] | PDF/Excel export: counts per menu, allergies per table, children |
+| 1.12 | Kitchen and service sheets as an export | code | [x] | PDF/Excel export: counts per menu, allergies per table, children |
 | 1.13 | Performance budget enforced: guest pages < 2s on mobile data | code | [ ] | CI check (Lighthouse, throttled 4G) fails the build above the budget |
 | 1.14 | Legal review of guest data before the first paid wedding | human | [ ] | Written sign-off from a Swiss data-protection lawyer |
 
@@ -148,6 +148,7 @@ needs an approved spec with its own acceptance criteria before work starts.
 
 | Date       | Change |
 | ---------- | ------ |
+| 2026-10-09 | 1.12 done: "Küche & Service" with counts per part, menu and children; a printable A4 sheet with allergies (server-rendered, owner only) and a CSV for Excel. No PDF library: the browser prints to PDF; per-table counts follow with seating (2.3) ([spec](../specs/2026-10-09-kitchen-sheets-design.md)) |
 | 2026-10-09 | 1.10 done: reminders 14, 7 and 2 days before the deadline to unanswered households with an address, from the couple by name, once per stage, with one-click opt-out; couples switch them off on the Antwortformular ([spec](../specs/2026-10-09-reminders-design.md)) |
 | 2026-10-09 | 1.5 done: replies stay editable until the deadline; every save mails a summary from the couple by name (when the guest leaves an address) with the calendar attached, and the invitation offers "In den Kalender" ([spec](../specs/2026-10-09-reply-confirmation-design.md)) |
 | 2026-10-09 | 1.2 done: story, venue (with route link), dress code and FAQ on the personal link, per event access and in the household's language with fallback; the couple's "Inhalte" editor and a preview in every language ([spec](../specs/2026-10-09-invitation-content-design.md)). Konto gets the account at a glance |

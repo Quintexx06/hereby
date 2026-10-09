@@ -287,6 +287,10 @@ panel and the live invitation, never in decoration.
 - **Antwortformular** (`pages/rsvp/Settings`): the couple's menus and
   household questions on the left; on `lg` a `.stage` panel with the guest's
   reply at phone scale, re-drawn as they tick (chips fade in, 200ms).
+- **Küche & Service** (`pages/kitchen/Index`): two quiet action cards (sheet,
+  Excel), then one hairline block per part of the day with the head count in
+  display type and menus as hairline rows. The printable sheet
+  (`views/kitchen/sheet.blade.php`) is plain A4, night on white, no brand.
 - Touch targets are 44px everywhere in the app: inputs default to `h-11`,
   `.chip`, `.pill-outline`, `.icon-button`, `.check-label`; small text links
   get `.hit-area`. Chips scroll sideways on phones (`.chip-row`).
