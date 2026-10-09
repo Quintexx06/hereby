@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
+import AccountPanel from '@/components/account/AccountPanel.vue';
 import { useCurrentUrl } from '@/composables/useCurrentUrl';
 import { account } from '@/content/account';
 import { toUrl } from '@/lib/utils';
@@ -37,8 +38,11 @@ const { isCurrentOrParentUrl } = useCurrentUrl();
             </Link>
         </nav>
 
-        <div class="flex max-w-xl flex-col gap-14">
-            <slot />
+        <div class="account-grid">
+            <div class="flex max-w-xl flex-col gap-14">
+                <slot />
+            </div>
+            <AccountPanel />
         </div>
     </div>
 </template>

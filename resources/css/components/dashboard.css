@@ -108,3 +108,30 @@
         @apply grid-cols-[4.5rem_minmax(0,1fr)] items-start py-4;
     }
 }
+
+/* Konto: forms on the left, the account at a glance on the night side. */
+@layer components {
+    .account-grid {
+        @apply grid gap-12 lg:grid-cols-[minmax(0,1fr)_19rem] lg:gap-16;
+    }
+
+    .account-panel {
+        @apply flex flex-col gap-8 self-start rounded-lg p-7 lg:sticky lg:top-8;
+    }
+
+    .account-fact {
+        @apply grid grid-cols-[2rem_minmax(0,1fr)] gap-3 text-sm font-medium;
+    }
+
+    .account-fact-hint {
+        @apply mt-0.5 block font-normal text-muted-foreground;
+    }
+
+    .account-icon {
+        @apply size-8;
+    }
+
+    .account-pill {
+        @apply inline-flex h-8 items-center rounded-full border border-border px-3 text-muted-foreground data-on:border-success/60 data-on:text-foreground;
+    }
+}

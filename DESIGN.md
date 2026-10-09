@@ -269,7 +269,10 @@ panel and the live invitation, never in decoration.
 - **Konto** (`layouts/settings`, `content/account.ts`): same page title and
   column as the other app pages; Profil, Sicherheit, Darstellung as text tabs on
   a hairline (`.settings-tab`); sections separated by hairlines; deleting the
-  account asks inline for the password, never a red box or a modal.
+  account asks inline for the password, never a red box or a modal. On the
+  right a sticky `.stage` panel (`AccountPanel`): the couple's names, what
+  happens to their data and the day it is deleted, and how sign-in is held.
+  Only claims that are true today (hosting is still open, ADR 0007).
 - **Gäste** (`pages/guests/Index`, `guests.css`): search plus reply filters, one
   hairline row per household with a copy-link pill. The import panel opens
   inline (never a modal): paste, file or one by one, then a preview with

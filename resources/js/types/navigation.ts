@@ -24,3 +24,16 @@ export type SharedWedding = {
     households: number;
     setup_step: string | null;
 };
+
+/** The account pages' side panel (App\Actions\Account\BuildAccountSummary). */
+export type AccountSummary = {
+    since: string;
+    wedding: {
+        couple_names: string;
+        date: string | null;
+        deletes_on: string | null;
+        guests: number;
+    } | null;
+    two_factor: boolean;
+    passkeys: number;
+};

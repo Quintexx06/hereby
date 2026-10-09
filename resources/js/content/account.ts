@@ -46,3 +46,30 @@ export const passwordCopy = {
     next: 'Neues Passwort',
     confirm: 'Neues Passwort wiederholen',
 };
+
+export const accountPanel = {
+    since: (date: string) => `Bei Hereby seit ${date}`,
+    data: 'Eure Daten',
+    onlyYours: 'Nur für eure Hochzeit',
+    onlyYoursHint:
+        'Keine Werbung, kein Weiterverkauf, keine Anbieterangebote an eure Gäste.',
+    deletes: (date: string) => `Gelöscht am ${date}`,
+    deletesHint:
+        'Hochzeit, Gäste und Antworten verschwinden automatisch, ohne dass ihr daran denken müsst.',
+    deletesOpen: 'Gelöscht nach der Hochzeit',
+    allergies: 'Allergien verschlüsselt',
+    allergiesHint: (guests: number) =>
+        guests === 1
+            ? 'Für euren 1 Gast nur lesbar für euch und die Küche.'
+            : `Für eure ${guests} Gäste nur lesbar für euch und die Küche.`,
+    signIn: 'Anmeldung',
+    twoFactorOn: 'Zwei-Faktor aktiv',
+    twoFactorOff: 'Zwei-Faktor aus',
+    passkeys: (count: number) =>
+        count === 0
+            ? 'Kein Passkey'
+            : count === 1
+              ? '1 Passkey'
+              : `${count} Passkeys`,
+    privacy: 'Datenschutz lesen',
+};

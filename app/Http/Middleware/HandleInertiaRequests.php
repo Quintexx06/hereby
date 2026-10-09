@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Actions\Account\BuildAccountSummary;
 use App\Support\FrontendTranslations;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
@@ -46,6 +47,10 @@ class HandleInertiaRequests extends Middleware
             ],
             // The couple's current wedding, for navigation and the sidebar (null for guests and new couples).
             'currentWedding' => fn (): ?array => $this->currentWedding($request),
+            // The account pages' side panel (layouts/settings); null everywhere else.
+            'account' => fn (): ?array => $request->user() && $request->routeIs('profile.*', 'security.*', 'appearance.*', 'user-password.*')
+                ? app(BuildAccountSummary::class)->handle($request->user())
+                : null,
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
         ];
     }
