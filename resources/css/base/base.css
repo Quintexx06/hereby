@@ -75,7 +75,13 @@
     }
 
     /* Only the page's own scrollbar; inner scroll areas keep the ink pill. */
-    html.app-shell body {
+    html.app-shell
+        :is(
+            [data-slot='sidebar-inset'],
+            [role='dialog'],
+            [role='menu'],
+            [role='listbox']
+        ) {
         --scrollbar-thumb: initial;
         --scrollbar-thumb-hover: initial;
     }
