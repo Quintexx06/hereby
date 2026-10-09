@@ -17,7 +17,7 @@
     }
 
     .admin-row {
-        @apply grid gap-4 border-b border-rule py-5 first:pt-0 sm:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)_auto] sm:items-start;
+        @apply grid gap-4 border-b border-rule py-5 first:pt-0 sm:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)_13rem] sm:items-start;
     }
 
     .admin-inquiry {

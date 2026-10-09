@@ -11,7 +11,6 @@ import type { DashboardWedding } from '@/types';
 
 const props = defineProps<{
     wedding: DashboardWedding;
-    daysLeft: number | null;
 }>();
 
 const subtitle = computed(() =>
@@ -39,14 +38,6 @@ const subtitle = computed(() =>
             <Link :href="guests(wedding.id)" class="text-action hit-area">
                 {{ copy.addGuests }} <ArrowRight class="size-4" />
             </Link>
-        </template>
-        <template v-if="daysLeft !== null" #aside>
-            <span class="figure-value text-7xl text-brand">{{
-                daysLeft >= 0 ? daysLeft : '♥'
-            }}</span>
-            <span class="figure-label">{{
-                daysLeft >= 0 ? copy.countdownLabel(daysLeft) : copy.celebrated
-            }}</span>
         </template>
     </PageMasthead>
 </template>

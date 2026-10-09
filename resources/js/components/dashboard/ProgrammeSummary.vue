@@ -21,31 +21,25 @@ const severalDays = computed(
         <h2 id="programme" class="ledger-title">
             {{ active.programme }}
         </h2>
-        <ol class="ledger-rows">
-            <li
-                v-for="event in events"
-                :key="event.id"
-                class="grid grid-cols-[5rem_minmax(0,1fr)] gap-4"
-            >
-                <span class="flex flex-col text-sm">
-                    <span
-                        class="text-lg font-semibold text-brand tabular-nums"
-                        >{{ formatTime(event.starts_at, 'de-CH') }}</span
+        <ol class="day-line">
+            <li v-for="event in events" :key="event.id" class="day-stop">
+                <span class="day-dot" aria-hidden="true" />
+                <span class="day-time">{{
+                    formatTime(event.starts_at, 'de-CH')
+                }}</span>
+                <span
+                    v-if="severalDays"
+                    class="text-sm text-muted-foreground"
+                    >{{ formatDay(event.starts_at, 'de-CH') }}</span
+                >
+                <span class="text-lg font-semibold">{{
+                    event.name || eventTypes[event.type]
+                }}</span>
+                <span class="text-sm text-muted-foreground">
+                    {{ active.invited(event.invited)
+                    }}<template v-if="hasReplies"
+                        >, {{ active.attending(event.attending) }}</template
                     >
-                    <span v-if="severalDays" class="text-muted-foreground">{{
-                        formatDay(event.starts_at, 'de-CH')
-                    }}</span>
-                </span>
-                <span class="flex flex-col">
-                    <span class="text-lg font-semibold">{{
-                        event.name || eventTypes[event.type]
-                    }}</span>
-                    <span class="text-sm text-muted-foreground">
-                        {{ active.invited(event.invited)
-                        }}<template v-if="hasReplies"
-                            >, {{ active.attending(event.attending) }}</template
-                        >
-                    </span>
                 </span>
             </li>
         </ol>

@@ -36,7 +36,7 @@ defineOptions({
         />
 
         <template v-else-if="overview">
-            <DashboardHero :wedding="wedding" :days-left="overview.days_left" />
+            <DashboardHero :wedding="wedding" />
             <DashboardStats :overview="overview" />
 
             <div class="dashboard-columns">
@@ -49,18 +49,19 @@ defineOptions({
                         :wedding-id="wedding.id"
                         :overview="overview"
                     />
-                    <ProgrammeSummary
-                        :events="overview.events"
-                        :has-replies="overview.replies.answered > 0"
-                    />
-                    <DashboardShortcuts :wedding-id="wedding.id" />
                 </div>
                 <InvitationPanel
                     :wedding="wedding"
                     :events="overview.events"
-                    class="lg:sticky lg:top-6"
+                    class="lg:sticky lg:top-20"
                 />
             </div>
+
+            <ProgrammeSummary
+                :events="overview.events"
+                :has-replies="overview.replies.answered > 0"
+            />
+            <DashboardShortcuts :wedding-id="wedding.id" />
         </template>
     </div>
 </template>

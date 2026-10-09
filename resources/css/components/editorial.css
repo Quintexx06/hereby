@@ -11,11 +11,11 @@
 
     /* With roses: room on the right, the canvas turning behind the copy. */
     .masthead[data-roses='true'] {
-        @apply min-h-64 md:min-h-72;
+        @apply md:min-h-72;
     }
 
     .masthead[data-roses='true'] .roses-stage {
-        @apply pointer-events-none absolute -top-6 right-0 -bottom-2 -z-10 m-0 hidden h-auto w-[44%] md:block lg:min-h-0;
+        @apply pointer-events-none absolute -top-10 -right-6 -bottom-6 -z-10 m-0 hidden h-auto w-1/2 md:block lg:min-h-0;
     }
 
     .masthead-copy {
@@ -44,11 +44,15 @@
         @apply grid grid-cols-2 border-b sm:grid-cols-4;
     }
 
-    .figure {
+    .figure-row[data-count='5'] {
+        @apply sm:grid-cols-3 lg:grid-cols-5;
+    }
+
+    .stat-figure {
         @apply flex flex-col-reverse gap-1 py-5 pr-6;
     }
 
-    .figure + .figure {
+    .stat-figure + .stat-figure {
         @apply sm:border-l sm:border-rule sm:pl-6;
     }
 
@@ -88,5 +92,26 @@
 
     .text-action {
         @apply inline-flex items-center gap-1.5 font-medium underline decoration-foreground/25 underline-offset-[0.3em] transition-[text-decoration-color] duration-150 ease-out hover:decoration-foreground;
+    }
+
+    /* The day as a line: one dot per part, the time set large beneath it. */
+    .day-line {
+        @apply relative grid gap-x-6 gap-y-8 pt-1 sm:auto-cols-fr sm:grid-flow-col;
+    }
+
+    .day-line::before {
+        @apply absolute top-[0.6rem] right-0 left-0 hidden h-px bg-foreground/25 content-[''] sm:block;
+    }
+
+    .day-stop {
+        @apply relative flex flex-col gap-1;
+    }
+
+    .day-dot {
+        @apply mb-3 size-3 rounded-full border-2 border-background bg-brand ring-1 ring-brand;
+    }
+
+    .day-time {
+        @apply font-display text-3xl leading-none font-semibold tracking-[-0.03em] text-brand tabular-nums;
     }
 }

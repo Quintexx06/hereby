@@ -25,7 +25,7 @@ defineEmits<{ tour: [] }>();
         </PageMasthead>
 
         <dl class="figure-row">
-            <div v-for="stat in stats" :key="stat.label" class="figure">
+            <div v-for="stat in stats" :key="stat.label" class="stat-figure">
                 <dt class="figure-label">{{ stat.label }}</dt>
                 <dd class="figure-value">{{ stat.value }}</dd>
             </div>
