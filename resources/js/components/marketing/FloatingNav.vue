@@ -45,7 +45,7 @@ watch(
             <AppLogoIcon class="size-6" />
         </Link>
 
-        <div class="relative hidden items-center md:flex">
+        <div class="relative hidden items-center gap-1.5 md:flex">
             <span
                 class="floating-nav-indicator"
                 :data-visible="indicator.visible"
@@ -68,7 +68,7 @@ watch(
 
         <span class="floating-nav-current md:hidden">{{ current?.label }}</span>
 
-        <Button as-child size="sm" class="rounded-full px-4">
+        <Button as-child size="sm" class="ml-2 rounded-full px-4">
             <Link :href="register()">{{ hero.primaryCta }}</Link>
         </Button>
     </nav>
