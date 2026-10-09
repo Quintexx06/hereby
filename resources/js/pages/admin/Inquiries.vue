@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import PageMasthead from '@/components/PageMasthead.vue';
 import { Head } from '@inertiajs/vue3';
 import { computed } from 'vue';
 import InquiryCard from '@/components/admin/InquiryCard.vue';
@@ -32,12 +33,7 @@ const groups = computed(() => [
     <Head :title="copy.title" />
 
     <div class="app-page admin-page">
-        <header class="masthead">
-            <div class="max-w-2xl">
-                <h1 class="masthead-title">{{ copy.title }}</h1>
-                <p class="masthead-meta text-pretty">{{ copy.lede }}</p>
-            </div>
-        </header>
+        <PageMasthead :title="copy.title" :lede="copy.lede" />
 
         <section
             v-for="group in groups"

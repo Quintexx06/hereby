@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import PageMasthead from '@/components/PageMasthead.vue';
 import { Head, router } from '@inertiajs/vue3';
 import { Eye, Plus } from '@lucide/vue';
 import { computed } from 'vue';
@@ -59,20 +60,18 @@ function move(index: number, direction: -1 | 1): void {
     <Head :title="copy.title" />
 
     <div class="app-page gap-10">
-        <header class="masthead">
-            <div class="flex max-w-2xl flex-col gap-2">
-                <h1 class="masthead-title">{{ copy.title }}</h1>
-                <p class="masthead-meta">{{ copy.lede }}</p>
-            </div>
-            <a
-                :href="preview.url(wedding.id)"
-                target="_blank"
-                rel="noopener"
-                class="pill-outline"
-            >
-                <Eye class="size-4" /> {{ copy.preview }}
-            </a>
-        </header>
+        <PageMasthead :title="copy.title" :lede="copy.lede">
+            <template #actions>
+                <a
+                    :href="preview.url(wedding.id)"
+                    target="_blank"
+                    rel="noopener"
+                    class="text-action hit-area"
+                >
+                    <Eye class="size-4" /> {{ copy.preview }}
+                </a>
+            </template>
+        </PageMasthead>
 
         <p v-if="blocks.length === 0" class="text-muted-foreground">
             {{ copy.empty }}

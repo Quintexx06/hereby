@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import PageMasthead from '@/components/PageMasthead.vue';
 import { Head } from '@inertiajs/vue3';
 import { UserPlus, X } from '@lucide/vue';
 import { computed, ref, toRef } from 'vue';
@@ -51,35 +52,29 @@ const editing = computed(() =>
     <Head :title="guestsPage.title" />
 
     <div class="app-page gap-10">
-        <header class="masthead">
-            <div class="flex flex-col gap-2">
-                <h1 class="masthead-title">
-                    {{
-                        households.length
-                            ? guestsPage.title
-                            : guestsPage.emptyTitle
-                    }}
-                </h1>
-                <p class="masthead-meta">
-                    {{
-                        households.length
-                            ? active.counts(households.length, guestCount)
-                            : guestsPage.emptyLede
-                    }}
-                </p>
-            </div>
-            <Button
-                v-if="households.length"
-                size="pill"
-                :variant="adding ? 'outline' : 'default'"
-                :aria-expanded="adding"
-                @click="adding = !adding"
-            >
-                <X v-if="adding" class="size-4" />
-                <UserPlus v-else class="size-4" />
-                {{ adding ? guestsPage.close : guestsPage.add }}
-            </Button>
-        </header>
+        <PageMasthead
+            :title="
+                households.length ? guestsPage.title : guestsPage.emptyTitle
+            "
+            :lede="
+                households.length
+                    ? active.counts(households.length, guestCount)
+                    : guestsPage.emptyLede
+            "
+        >
+            <template v-if="households.length" #actions>
+                <Button
+                    size="pill"
+                    :variant="adding ? 'outline' : 'default'"
+                    :aria-expanded="adding"
+                    @click="adding = !adding"
+                >
+                    <X v-if="adding" class="size-4" />
+                    <UserPlus v-else class="size-4" />
+                    {{ adding ? guestsPage.close : guestsPage.add }}
+                </Button>
+            </template>
+        </PageMasthead>
 
         <ImportPanel v-if="adding" :wedding="wedding" @done="adding = false" />
 

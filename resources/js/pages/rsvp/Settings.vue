@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import PageMasthead from '@/components/PageMasthead.vue';
 import { Head, useForm } from '@inertiajs/vue3';
 import { Check } from '@lucide/vue';
 import MenuOptionsField from '@/components/rsvp/MenuOptionsField.vue';
@@ -57,12 +58,7 @@ const toggles = [
     <Head :title="copy.title" />
 
     <div class="app-page gap-10">
-        <header class="masthead">
-            <div class="max-w-2xl">
-                <h1 class="masthead-title">{{ copy.title }}</h1>
-                <p class="masthead-meta text-pretty">{{ copy.lede }}</p>
-            </div>
-        </header>
+        <PageMasthead :title="copy.title" :lede="copy.lede" plain />
 
         <div class="rsvp-settings-grid">
             <form

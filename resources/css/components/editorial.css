@@ -6,11 +6,24 @@
  */
 @layer components {
     .masthead {
-        @apply grid gap-8 border-b border-foreground pb-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end;
+        @apply relative isolate grid gap-8 border-b border-foreground pb-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end;
+    }
+
+    /* With roses: room on the right, the canvas turning behind the copy. */
+    .masthead[data-roses='true'] {
+        @apply min-h-64 md:min-h-72;
+    }
+
+    .masthead[data-roses='true'] .roses-stage {
+        @apply pointer-events-none absolute -top-6 right-0 -bottom-2 -z-10 m-0 hidden h-auto w-[44%] md:block lg:min-h-0;
+    }
+
+    .masthead-copy {
+        @apply max-w-2xl md:max-w-[58%] lg:max-w-2xl;
     }
 
     .masthead-title {
-        @apply font-display text-[clamp(2.75rem,6.5vw,5.75rem)] leading-[0.92] font-semibold tracking-[-0.045em] text-balance;
+        @apply font-display text-[clamp(2.5rem,5.2vw,4.75rem)] leading-[0.95] font-semibold tracking-[-0.045em] text-balance;
         font-stretch: 112%;
     }
 

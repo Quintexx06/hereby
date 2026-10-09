@@ -4,15 +4,6 @@
         @apply gap-12;
     }
 
-    /* The roses sit in the masthead's right margin, on porcelain. */
-    .admin-masthead {
-        @apply relative min-h-72;
-    }
-
-    .admin-masthead .roses-stage {
-        @apply pointer-events-none absolute inset-y-0 right-0 m-0 hidden h-full w-[42%] md:block lg:min-h-0;
-    }
-
     .admin-grid {
         @apply grid items-start gap-12 lg:grid-cols-[minmax(0,1fr)_22rem] xl:grid-cols-[minmax(0,1fr)_24rem];
     }
