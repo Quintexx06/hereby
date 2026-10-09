@@ -95,4 +95,11 @@ class ReplyConfirmationTest extends TestCase
             ->assertSee('DTSTART:20270619T120000Z', false)
             ->assertDontSee('DTSTART:20270619T163000Z', false);
     }
+
+    public function test_calendar_can_be_subscribed_to_and_refreshes(): void
+    {
+        $this->get(route('invitation.calendar', $this->household))
+            ->assertSee('X-WR-CALNAME:', false)
+            ->assertSee('REFRESH-INTERVAL;VALUE=DURATION:PT12H', false);
+    }
 }

@@ -1,14 +1,83 @@
 @layer components {
     .invitation-page {
-        @apply mx-auto flex min-h-svh w-full max-w-2xl flex-col px-5 py-14 sm:px-8 sm:py-20;
+        @apply mx-auto flex min-h-svh w-full max-w-2xl flex-col gap-16 px-5 py-10 sm:px-8 sm:py-14;
+    }
+
+    /* Hero: guests, the names large and stacked, a turning seal, the countdown. */
+    .invitation-hero {
+        @apply flex min-h-[80svh] flex-col items-center justify-center gap-8 text-center;
+    }
+
+    .invitation-names {
+        @apply flex flex-col items-center font-display text-[clamp(3.25rem,13vw,6.5rem)] leading-[0.92] font-semibold tracking-[-0.045em] text-balance;
+    }
+
+    .invitation-amp {
+        @apply py-1 text-[0.55em] leading-none text-brand;
+    }
+
+    .invitation-seal {
+        @apply col-start-1 row-start-1 size-52 fill-muted-foreground text-[0.6rem] font-medium tracking-[0.18em] uppercase sm:size-60;
+        animation: seal-turn 60s linear infinite;
+    }
+
+    .invitation-date {
+        @apply col-start-1 row-start-1 flex max-w-[11rem] flex-col items-center gap-1 text-center;
+    }
+
+    .invitation-countdown {
+        @apply rounded-full border border-rule px-4 py-1.5 text-sm font-medium tabular-nums;
+    }
+
+    .invitation-ornament {
+        @apply mx-auto h-6 w-60 max-w-full text-brand;
+    }
+
+    .invitation-section {
+        @apply flex flex-col gap-6;
+    }
+
+    .invitation-heading {
+        @apply text-center font-display text-3xl font-semibold tracking-[-0.03em];
+    }
+
+    /* Programme as a timeline: a hairline, one node per part of the day. */
+    .event-timeline {
+        @apply relative flex flex-col before:absolute before:inset-y-4 before:left-5 before:w-px before:bg-rule before:content-[''];
     }
 
     .event-card {
-        @apply grid gap-1 border-t border-rule py-6 sm:grid-cols-[9rem_1fr] sm:gap-6;
+        @apply relative grid grid-cols-[2.5rem_minmax(0,1fr)] gap-x-4 gap-y-2 py-5 sm:grid-cols-[2.5rem_7rem_minmax(0,1fr)];
+    }
+
+    .event-card > time {
+        @apply col-start-2 sm:col-start-auto;
+    }
+
+    .event-card > div {
+        @apply col-start-2 sm:col-start-auto;
+    }
+
+    .event-node {
+        @apply row-span-2 grid size-10 place-items-center rounded-full border border-rule bg-background text-brand sm:row-span-1;
     }
 
     .event-time {
-        @apply text-lg font-semibold text-brand tabular-nums;
+        @apply text-2xl font-semibold text-brand tabular-nums;
+    }
+
+    .calendar-options {
+        @apply flex flex-wrap justify-center gap-2;
+    }
+
+    .calendar-option {
+        @apply inline-flex h-11 items-center gap-2 rounded-full border border-rule px-5 text-sm font-medium transition-colors duration-150 ease-out hover:border-foreground/40;
+    }
+}
+
+@keyframes seal-turn {
+    to {
+        transform: rotate(1turn);
     }
 }
 

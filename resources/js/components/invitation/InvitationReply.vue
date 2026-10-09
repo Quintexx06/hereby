@@ -17,7 +17,7 @@ const deadline = computed(() =>
 
 <!-- The way to reply, or what was answered and how to change it. -->
 <template>
-    <section class="flex flex-col items-center gap-4 pt-16 text-center">
+    <section class="flex flex-col items-center gap-4 text-center">
         <template v-if="invitation.reply.answered">
             <div class="reply-summary w-full" role="status">
                 <p v-if="replied" class="title">{{ t('rsvp.thanks') }}</p>
@@ -39,12 +39,6 @@ const deadline = computed(() =>
                         >
                             {{ t('rsvp.change') }}
                         </Link>
-                        <a
-                            :href="invitation.links.calendar"
-                            class="link-underline hit-area font-medium"
-                            download
-                            >{{ t('rsvp.calendar') }}</a
-                        >
                     </p>
                 </template>
             </div>

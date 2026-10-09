@@ -22,4 +22,17 @@
     .app-workspace {
         @apply md:border md:border-sidebar-border;
     }
+
+    /* No sidebar yet (no active wedding): a calm page with a slim top bar. */
+    .app-focus {
+        @apply flex min-h-svh flex-col bg-background text-foreground;
+    }
+
+    .app-focus-bar {
+        @apply mx-auto flex h-20 w-full max-w-5xl items-center justify-between px-5 sm:px-8;
+    }
+
+    .app-focus-user {
+        @apply flex items-center gap-2 rounded-full py-1 pr-3 pl-1 transition-colors duration-150 ease-out hover:bg-muted;
+    }
 }

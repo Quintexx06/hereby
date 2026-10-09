@@ -27,6 +27,10 @@ class WeddingCalendar
             'PRODID:-//Hereby//Wedding//DE',
             'CALSCALE:GREGORIAN',
             'METHOD:PUBLISH',
+            // Named and refreshed twice a day when subscribed (webcal://), so changes reach guests.
+            'X-WR-CALNAME:'.self::escape($wedding->couple_names),
+            'REFRESH-INTERVAL;VALUE=DURATION:PT12H',
+            'X-PUBLISHED-TTL:PT12H',
         ];
 
         foreach (self::events($household) as $event) {

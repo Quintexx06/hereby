@@ -1,12 +1,14 @@
 <script setup lang="ts">
-import { defineAsyncComponent } from 'vue';
+import { computed, defineAsyncComponent } from 'vue';
 import { Head } from '@inertiajs/vue3';
 import InvitationOpening from '@/components/invitation/InvitationOpening.vue';
 import InvitationBlocks from '@/components/invitation/InvitationBlocks.vue';
+import InvitationCalendar from '@/components/invitation/InvitationCalendar.vue';
 import InvitationEvents from '@/components/invitation/InvitationEvents.vue';
 import InvitationFooter from '@/components/invitation/InvitationFooter.vue';
 import InvitationReply from '@/components/invitation/InvitationReply.vue';
 import InvitationHero from '@/components/invitation/InvitationHero.vue';
+import InvitationOrnament from '@/components/invitation/InvitationOrnament.vue';
 import WeddingThemeScope from '@/components/invitation/WeddingThemeScope.vue';
 import { useTrans } from '@/composables/useTrans';
 import { formatDate } from '@/lib/format';
@@ -17,7 +19,7 @@ const PreviewBanner = defineAsyncComponent(
 );
 import type { Invitation } from '@/types';
 
-defineProps<{
+const props = defineProps<{
     invitation: Invitation;
     replied: boolean;
     preview: boolean;
@@ -25,6 +27,13 @@ defineProps<{
 }>();
 
 const { localeTag } = useTrans();
+
+/* Where the day happens: the first part with a place. */
+const place = computed(
+    () =>
+        props.invitation.events.find((event) => event.locationName)
+            ?.locationName ?? null,
+);
 </script>
 
 <template>
@@ -39,10 +48,14 @@ const { localeTag } = useTrans();
             <InvitationHero
                 :wedding="invitation.wedding"
                 :guests="invitation.guests"
+                :place="place"
             />
-            <InvitationEvents :events="invitation.events" />
-            <InvitationBlocks :blocks="invitation.blocks" />
             <InvitationReply :invitation="invitation" :replied="replied" />
+            <InvitationOrnament />
+            <InvitationEvents :events="invitation.events" />
+            <InvitationCalendar :invitation="invitation" />
+            <InvitationOrnament />
+            <InvitationBlocks :blocks="invitation.blocks" />
             <InvitationFooter />
         </main>
     </WeddingThemeScope>

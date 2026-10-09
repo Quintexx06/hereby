@@ -18,16 +18,12 @@ const href = (key: string) =>
 </script>
 
 <template>
-    <section aria-labelledby="today">
-        <h2 id="today" class="app-section-title mb-2">{{ active.today }}</h2>
-        <p v-if="actions.length === 0" class="app-row text-muted-foreground">
+    <section aria-labelledby="today" class="flex flex-col gap-3">
+        <h2 id="today" class="app-section-title mb-1">{{ active.today }}</h2>
+        <p v-if="actions.length === 0" class="today-card text-muted-foreground">
             {{ active.nothingToday }}
         </p>
-        <div
-            v-for="item in actions"
-            :key="item.key"
-            class="app-row grid-cols-1 sm:grid-cols-[minmax(0,1fr)_auto]"
-        >
+        <div v-for="item in actions" :key="item.key" class="today-card">
             <div class="flex flex-col gap-1">
                 <p class="font-semibold">{{ todayActions[item.key].title }}</p>
                 <p class="text-muted-foreground">

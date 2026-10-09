@@ -169,3 +169,72 @@
         @apply flex items-center justify-between gap-4 border-b py-2.5 text-sm;
     }
 }
+
+/* The couple's dashboard (pages/Dashboard): hero band, numbers, cards. */
+@layer components {
+    .dashboard-page {
+        @apply max-w-6xl gap-10;
+    }
+
+    .dashboard-hero {
+        @apply relative isolate flex min-h-80 flex-col justify-between gap-10 overflow-hidden rounded-2xl p-6 sm:flex-row sm:items-end sm:p-10;
+    }
+
+    .dashboard-hero-photo {
+        @apply absolute inset-0 -z-20 size-full object-cover object-[50%_60%] opacity-60;
+    }
+
+    .dashboard-hero-veil {
+        @apply absolute inset-0 -z-10;
+        background: linear-gradient(
+            100deg,
+            var(--background) 15%,
+            color-mix(in oklch, var(--background) 35%, transparent)
+        );
+    }
+
+    .dashboard-hero-names {
+        @apply font-display text-5xl leading-[0.95] font-semibold tracking-[-0.04em] text-balance sm:text-6xl lg:text-7xl;
+        font-stretch: 108%;
+    }
+
+    .dashboard-countdown {
+        @apply relative flex flex-col items-start rounded-xl border border-rule bg-background/60 px-5 py-4 backdrop-blur-sm sm:items-end sm:text-right;
+    }
+
+    .dashboard-countdown-number {
+        @apply font-display text-5xl leading-none font-semibold tracking-[-0.04em] text-brand tabular-nums;
+    }
+
+    .stat-strip {
+        @apply grid grid-cols-2 gap-3 sm:grid-cols-4;
+    }
+
+    .stat-tile {
+        @apply flex flex-col-reverse gap-1 rounded-xl border bg-card px-5 py-4;
+    }
+
+    .stat-value {
+        @apply font-display text-4xl font-semibold tracking-[-0.03em] tabular-nums;
+    }
+
+    .today-card {
+        @apply grid gap-3 rounded-xl border bg-card p-5 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center;
+    }
+
+    .shortcut-grid {
+        @apply grid gap-3 sm:grid-cols-2 lg:grid-cols-4;
+    }
+
+    .shortcut-card {
+        @apply relative flex flex-col gap-4 rounded-xl border bg-card p-5 transition-[border-color,box-shadow,translate] duration-200 ease-out hover:-translate-y-0.5 hover:border-foreground/20 hover:shadow-sm;
+    }
+
+    .shortcut-icon {
+        @apply grid size-10 place-items-center rounded-full bg-brand-muted text-foreground;
+    }
+
+    .shortcut-arrow {
+        @apply absolute top-5 right-5 size-4 text-muted-foreground transition-transform duration-200 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5;
+    }
+}

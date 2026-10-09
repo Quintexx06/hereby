@@ -99,3 +99,41 @@ export const sidebarWedding = {
     fallbackName: 'Eure Hochzeit',
     inSetup: (step: string) => `Einrichtung: ${step}`,
 };
+
+/** The dashboard's opening band and its numbers. */
+export const dashboardHero = {
+    countdownLabel: (days: number) =>
+        days === 1 ? 'Tag bis zum Fest' : 'Tage bis zum Fest',
+    celebrated: 'Gefeiert',
+    preview: 'Website ansehen',
+    addGuests: 'Gäste hinzufügen',
+    stats: {
+        households: 'Haushalte',
+        guests: 'Gäste',
+        answered: 'Geantwortet',
+        waiting: 'Noch offen',
+    },
+};
+
+/** Everything the couple can do, one card each. */
+export const shortcuts = {
+    title: 'Alles für eure Website',
+    items: {
+        guests: {
+            title: 'Gäste',
+            body: 'Gästeliste, persönliche Links und wer schon geantwortet hat.',
+        },
+        content: {
+            title: 'Inhalte',
+            body: 'Eure Geschichte, Anreise, Hotels, Dresscode und Fragen.',
+        },
+        rsvp: {
+            title: 'Antwortformular',
+            body: 'Menüs, Allergien, Shuttle und was ihr eure Gäste sonst fragt.',
+        },
+        kitchen: {
+            title: 'Küche & Service',
+            body: 'Menüzahlen und Allergien für Caterer und Location.',
+        },
+    },
+};

@@ -11,13 +11,11 @@ const { t } = useTrans();
 </script>
 
 <template>
-    <section class="flex flex-col gap-4">
-        <h2
-            class="font-sans text-sm font-semibold tracking-normal text-muted-foreground"
-        >
-            {{ t('invitation.events_heading') }}
+    <section class="invitation-section">
+        <h2 class="invitation-heading">
+            {{ t('invitation.programme_heading') }}
         </h2>
-        <ol>
+        <ol class="event-timeline">
             <InvitationEventCard
                 v-for="event in events"
                 :key="event.id"
