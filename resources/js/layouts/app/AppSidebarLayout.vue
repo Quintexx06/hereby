@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { usePage } from '@inertiajs/vue3';
-import { computed } from 'vue';
+import { computed, onBeforeUnmount, watchEffect } from 'vue';
 import AppContent from '@/components/AppContent.vue';
 import AppFocusBar from '@/components/AppFocusBar.vue';
 import AppShell from '@/components/AppShell.vue';
@@ -27,6 +27,13 @@ const hasSidebar = computed(
         page.props.currentWedding?.status === 'active' ||
         page.props.adminInbox !== null,
 );
+
+/* The page scrolls on the night frame then; base.css gives it a light scrollbar. */
+const shell = (on: boolean) =>
+    typeof document !== 'undefined' &&
+    document.documentElement.classList.toggle('app-shell', on);
+watchEffect(() => shell(hasSidebar.value));
+onBeforeUnmount(() => shell(false));
 </script>
 
 <template>
