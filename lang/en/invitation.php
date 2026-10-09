@@ -6,7 +6,6 @@ return [
     'title' => ':couple are getting married',
     'events_heading' => 'Your invitation',
     'reply_by' => 'Please reply by :date',
-    'replies_open_soon' => 'Replies open soon.',
     'event_types' => [
         'civil_ceremony' => 'Civil ceremony',
         'ceremony' => 'Ceremony',

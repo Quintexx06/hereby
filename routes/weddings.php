@@ -6,6 +6,7 @@ use App\Http\Controllers\Guests\HouseholdController;
 use App\Http\Controllers\Guests\PreviewGuestImportController;
 use App\Http\Controllers\Guests\StoreHouseholdsController;
 use App\Http\Controllers\Weddings\CompleteWeddingSetupController;
+use App\Http\Controllers\Weddings\RsvpSettingsController;
 use App\Http\Controllers\Weddings\StartWeddingSetupController;
 use App\Http\Controllers\Weddings\WeddingSetupController;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +31,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('hochzeit/{wedding}/gaeste/vorschau', PreviewGuestImportController::class)
             ->middleware('throttle:30,1')
             ->name('weddings.guests.preview');
+
+        Route::get('hochzeit/{wedding}/antwortformular', [RsvpSettingsController::class, 'edit'])
+            ->name('weddings.rsvp-settings.edit');
+        Route::put('hochzeit/{wedding}/antwortformular', [RsvpSettingsController::class, 'update'])
+            ->name('weddings.rsvp-settings.update');
 
         Route::scopeBindings()->group(function () {
             Route::put('hochzeit/{wedding}/haushalte/{household:id}', [HouseholdController::class, 'update'])

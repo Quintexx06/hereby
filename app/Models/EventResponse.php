@@ -22,7 +22,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  */
-#[Fillable(['status', 'menu_choice', 'responded_at'])]
+#[Fillable(['event_id', 'status', 'menu_choice', 'responded_at'])]
 class EventResponse extends Model
 {
     /** @use HasFactory<EventResponseFactory> */

@@ -6,3 +6,4 @@ export * from './wedding';
 export * from './dashboard';
 export * from './setup';
 export * from './guests';
+export * from './rsvp';

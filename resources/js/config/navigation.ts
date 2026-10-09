@@ -1,6 +1,13 @@
-import { CalendarHeart, LayoutGrid, LifeBuoy, Users } from '@lucide/vue';
+import {
+    CalendarHeart,
+    LayoutGrid,
+    LifeBuoy,
+    ListChecks,
+    Users,
+} from '@lucide/vue';
 import { dashboard } from '@/routes';
 import { index as guests } from '@/routes/weddings/guests';
+import { edit as rsvpSettings } from '@/routes/weddings/rsvp-settings';
 import { show as setup } from '@/routes/weddings/setup';
 import type { NavItem, SharedWedding } from '@/types';
 
@@ -20,6 +27,11 @@ export function mainNavItems(wedding: SharedWedding | null): NavItem[] {
             href: guests(wedding.id),
             icon: Users,
             badge: wedding.households || undefined,
+        });
+        items.push({
+            title: 'Antwortformular',
+            href: rsvpSettings(wedding.id),
+            icon: ListChecks,
         });
     }
 

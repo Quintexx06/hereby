@@ -281,12 +281,28 @@ panel and the live invitation, never in decoration.
   and removing the household are quiet text actions that ask once, inline
   ("Ja" / "Abbrechen"), never a second modal. The save button sits in a fixed
   footer.
+- **Antwortformular** (`pages/rsvp/Settings`): the couple's menus and
+  household questions on the left; on `lg` a `.stage` panel with the guest's
+  reply at phone scale, re-drawn as they tick (chips fade in, 200ms).
 - Touch targets are 44px everywhere in the app: inputs default to `h-11`,
   `.chip`, `.pill-outline`, `.icon-button`, `.check-label`; small text links
   get `.hit-area`. Chips scroll sideways on phones (`.chip-row`).
 - Reply status colours: never opened `muted-foreground/35`, opened
   `foreground/60`, answered `success`. Blush stays out of the app UI except
   focus and the sidebar countdown.
+
+### Guest reply (`pages/invitation/Reply`, `components/rsvp/*`, `rsvp.css`)
+
+Inside `WeddingThemeScope`, so theme tokens only and every string through
+`t()`. One screen, never a wizard: the couple's names, "Kommt ihr?", then
+**"Wir sind alle dabei"** (a full-width outline pill that fills when true),
+then one block per part of the day with a row per person and two `.chip`
+radios (Dabei / Leider nicht). Menus appear as chips under people who come to
+the dinner; allergies sit behind one disclosure (open when something is on
+file, write-only); the plus-one is named, never a counter; household
+questions come last. A fixed bottom bar says how many answers are open and
+holds "Antwort senden", disabled until nothing is missing. The invitation
+then shows "Danke für eure Antwort", who is coming and "Antwort ändern".
 
 ### Icons (`components/brand/HerebyIcon.vue`)
 

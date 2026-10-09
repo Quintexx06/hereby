@@ -46,6 +46,11 @@ use Illuminate\Support\Collection;
  * @property string|null $venue_lat
  * @property string|null $venue_lng
  * @property string|null $venue_reference Building address id in the federal register.
+ * @property list<array{key: string, label: string}>|null $menu_options The couple's menus, asked at the dinner.
+ * @property bool $children_menu
+ * @property bool $offers_shuttle
+ * @property bool $offers_stay
+ * @property bool $asks_song
  * @property int|null $households_count Loaded with withCount().
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -54,6 +59,7 @@ use Illuminate\Support\Collection;
     'slug', 'couple_names', 'partner_one', 'partner_two', 'wedding_date', 'rsvp_deadline',
     'default_locale', 'languages', 'theme', 'celebration', 'guest_estimate',
     'venue_name', 'venue_address', 'venue_postcode', 'venue_town', 'venue_lat', 'venue_lng', 'venue_reference',
+    'menu_options', 'children_menu', 'offers_shuttle', 'offers_stay', 'asks_song',
 ])]
 class Wedding extends Model
 {
@@ -90,6 +96,31 @@ class Wedding extends Model
     }
 
     /**
+     * Guests may answer, and change their answer, until the end of the deadline day.
+     */
+    public function acceptsReplies(): bool
+    {
+        return $this->rsvp_deadline === null || ! $this->rsvp_deadline->copy()->endOfDay()->isPast();
+    }
+
+    /**
+     * Menu keys a guest may choose; `children` only for children, if offered.
+     *
+     * @return list<string>
+     */
+    public function menuKeys(bool $forChild = false): array
+    {
+        $keys = array_column($this->menu_options ?? [], 'key');
+
+        return $forChild && $this->children_menu ? [...$keys, 'children'] : $keys;
+    }
+
+    public function asksForMenu(): bool
+    {
+        return $this->menuKeys() !== [] || $this->children_menu;
+    }
+
+    /**
      * Weddings past the retention window, and drafts abandoned for as long.
      * Deleting them cascades to every household, guest and answer at the
      * database level.
@@ -123,6 +154,11 @@ class Wedding extends Model
             'setup_completed_at' => 'datetime',
             'celebration' => Celebration::class,
             'guest_estimate' => GuestEstimate::class,
+            'menu_options' => 'array',
+            'children_menu' => 'boolean',
+            'offers_shuttle' => 'boolean',
+            'offers_stay' => 'boolean',
+            'asks_song' => 'boolean',
         ];
     }
 }

@@ -28,6 +28,10 @@ use Illuminate\Support\Str;
  * @property string $token
  * @property bool $plus_one_allowed
  * @property Carbon|null $opened_at
+ * @property int|null $shuttle_seats
+ * @property bool|null $needs_stay
+ * @property string|null $song_wish
+ * @property Carbon|null $responded_at
  * @property bool|null $has_answered Loaded with withExists() (BuildWeddingOverview).
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -122,6 +126,8 @@ class Household extends Model
             'locale' => Locale::class,
             'plus_one_allowed' => 'boolean',
             'opened_at' => 'datetime',
+            'needs_stay' => 'boolean',
+            'responded_at' => 'datetime',
         ];
     }
 }

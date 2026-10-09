@@ -1,0 +1,112 @@
+/*
+ * The guest's reply (pages/invitation/Reply, components/rsvp/*). Lives inside
+ * WeddingThemeScope, so only theme tokens: the couple's theme, not Hereby's.
+ * Phone first: 44px targets, one column, the send button always in reach.
+ */
+@layer components {
+    .reply-page {
+        @apply mx-auto flex min-h-svh w-full max-w-xl flex-col gap-10 px-5 pt-10 pb-36 sm:px-8 sm:pt-16;
+    }
+
+    .reply-all {
+        @apply inline-flex h-12 w-full items-center justify-center gap-2 rounded-full border border-foreground px-6 font-semibold transition-colors duration-150 hover:bg-foreground hover:text-background aria-pressed:bg-foreground aria-pressed:text-background sm:w-auto;
+    }
+
+    .reply-event {
+        @apply flex flex-col border-t border-rule pt-5;
+    }
+
+    .reply-person {
+        @apply flex flex-col gap-3 py-4;
+    }
+
+    .reply-person + .reply-person {
+        @apply border-t border-rule;
+    }
+
+    .choice-row {
+        @apply flex flex-wrap gap-2;
+    }
+
+    .choice-row .chip {
+        @apply min-w-[7.5rem] justify-center;
+    }
+
+    .reply-section {
+        @apply flex flex-col gap-4 border-t border-rule pt-6;
+    }
+
+    .reply-footer {
+        @apply fixed inset-x-0 bottom-0 z-20 border-t border-rule bg-background/95 px-5 py-4 backdrop-blur-sm sm:px-0;
+    }
+
+    .reply-footer-inner {
+        @apply mx-auto flex w-full max-w-xl items-center justify-between gap-4 sm:px-8;
+    }
+
+    .reply-send {
+        @apply inline-flex h-12 shrink-0 items-center justify-center gap-2 rounded-full bg-foreground px-6 font-semibold text-background transition-opacity duration-150 disabled:opacity-40;
+    }
+
+    .stepper {
+        @apply inline-flex items-center gap-1 rounded-full border border-rule p-1;
+    }
+
+    .stepper-button {
+        @apply grid size-11 place-items-center rounded-full text-lg transition-colors duration-150 hover:bg-muted disabled:opacity-30;
+    }
+
+    .reply-summary {
+        @apply flex flex-col items-center gap-3 rounded-lg border border-rule px-6 py-8 text-center;
+    }
+}
+
+@layer components {
+    .reply-input {
+        @apply h-12 w-full rounded-md border border-rule bg-transparent px-4 text-base transition-[border-color] duration-150 placeholder:text-muted-foreground focus-visible:border-foreground focus-visible:outline-none disabled:opacity-50;
+    }
+}
+
+/* The couple's "Antwortformular" and its phone preview. */
+@layer components {
+    .preview-chip {
+        @apply inline-flex h-7 items-center rounded-full border border-rule px-3 text-[0.6875rem] font-medium;
+    }
+
+    .preview-chip.is-on {
+        @apply border-foreground bg-foreground text-background;
+    }
+
+    .preview-line {
+        @apply flex items-center justify-between border-t border-rule pt-2;
+    }
+
+    .preview-send {
+        @apply mt-auto inline-flex h-10 items-center justify-center rounded-full bg-foreground text-xs font-semibold text-background;
+    }
+
+    .preview-enter-active,
+    .preview-leave-active {
+        @apply transition-[opacity,transform] duration-200 ease-out;
+    }
+
+    .preview-enter-from,
+    .preview-leave-to {
+        @apply -translate-y-1 opacity-0;
+    }
+
+    .rsvp-settings-grid {
+        @apply grid gap-12 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-16;
+    }
+
+    .rsvp-preview-panel {
+        @apply sticky top-8 hidden items-center justify-center self-start rounded-lg px-6 py-10 lg:flex;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .preview-enter-active,
+    .preview-leave-active {
+        transition: none;
+    }
+}

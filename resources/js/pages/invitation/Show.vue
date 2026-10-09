@@ -2,6 +2,7 @@
 import { Head } from '@inertiajs/vue3';
 import InvitationEvents from '@/components/invitation/InvitationEvents.vue';
 import InvitationFooter from '@/components/invitation/InvitationFooter.vue';
+import InvitationReply from '@/components/invitation/InvitationReply.vue';
 import InvitationHero from '@/components/invitation/InvitationHero.vue';
 import WeddingThemeScope from '@/components/invitation/WeddingThemeScope.vue';
 import { useTrans } from '@/composables/useTrans';
@@ -9,6 +10,7 @@ import type { Invitation } from '@/types';
 
 defineProps<{
     invitation: Invitation;
+    replied: boolean;
 }>();
 
 const { localeTag } = useTrans();
@@ -23,9 +25,8 @@ const { localeTag } = useTrans();
                 :guests="invitation.guests"
             />
             <InvitationEvents :events="invitation.events" />
-            <InvitationFooter
-                :rsvp-deadline="invitation.wedding.rsvpDeadline"
-            />
+            <InvitationReply :invitation="invitation" :replied="replied" />
+            <InvitationFooter />
         </main>
     </WeddingThemeScope>
 </template>

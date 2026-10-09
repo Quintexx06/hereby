@@ -13,7 +13,7 @@ class FrontendTranslations
     /**
      * @var list<string>
      */
-    public const array GROUPS = ['common', 'invitation'];
+    public const array GROUPS = ['common', 'invitation', 'rsvp'];
 
     /**
      * @return array<string, mixed>

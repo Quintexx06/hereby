@@ -24,7 +24,8 @@ export const active = {
     programme: 'Euer Tag',
     invited: (count: number) =>
         count === 1 ? '1 Haushalt eingeladen' : `${count} Haushalte eingeladen`,
-    attending: (count: number) => `${count} zugesagt`,
+    attending: (count: number) =>
+        count === 1 ? '1 Gast kommt' : `${count} Gäste kommen`,
     toGuests: 'Zur Gästeliste',
     noRepliesYet:
         'Noch keine Antworten. Sobald ihr die Links teilt, seht ihr hier, wer kommt.',

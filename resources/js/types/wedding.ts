@@ -42,4 +42,7 @@ export type Invitation = {
     wedding: Wedding;
     guests: Guest[];
     events: WeddingEvent[];
+    rsvpOpen: boolean;
+    links: { invitation: string; reply: string };
+    reply: { answered: boolean; attending: number; invited: number };
 };

@@ -28,6 +28,7 @@
 @import './components/setup.css';
 @import './components/dashboard.css';
 @import './components/guests.css';
+@import './components/rsvp.css';
 
 @import './themes/wedding.css';
 

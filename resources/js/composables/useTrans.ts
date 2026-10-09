@@ -34,8 +34,39 @@ export function useTrans() {
         );
     }
 
+    /**
+     * Laravel-style plurals: `{0} none|{1} one|[2,*] :count many`, or
+     * `one|many`. `:count` is replaced automatically.
+     */
+    function tc(
+        key: string,
+        count: number,
+        replacements: Replacements = {},
+    ): string {
+        const variants = t(key, { ...replacements, count }).split('|');
+        const ranged = variants.find((variant) => {
+            const match = variant.match(/^\{(\d+)\}|^\[(\d+),(\d+|\*)\]/);
+
+            if (!match) {
+                return false;
+            }
+
+            if (match[1] !== undefined) {
+                return Number(match[1]) === count;
+            }
+
+            const upper = match[3] === '*' ? Infinity : Number(match[3]);
+
+            return count >= Number(match[2]) && count <= upper;
+        });
+        const chosen =
+            ranged ?? variants[count === 1 ? 0 : variants.length - 1] ?? '';
+
+        return chosen.replace(/^(\{\d+\}|\[\d+,(\d+|\*)\])\s*/, '');
+    }
+
     /** BCP 47 tag of the current locale, e.g. `de-CH`. */
     const localeTag = (): string => page.props.locale.replace('_', '-');
 
-    return { t, localeTag };
+    return { t, tc, localeTag };
 }

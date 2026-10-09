@@ -6,7 +6,6 @@ return [
     'title' => ':couple si sposano',
     'events_heading' => 'Il vostro invito',
     'reply_by' => 'Vi preghiamo di rispondere entro il :date',
-    'replies_open_soon' => 'Le risposte apriranno a breve.',
     'event_types' => [
         'civil_ceremony' => 'Matrimonio civile',
         'ceremony' => 'Cerimonia',
