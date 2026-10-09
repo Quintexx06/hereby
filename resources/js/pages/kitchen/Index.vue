@@ -33,7 +33,7 @@ defineOptions({
     <Head :title="copy.title" />
 
     <div class="app-page gap-10">
-        <PageMasthead :title="copy.title" :lede="copy.lede" />
+        <PageMasthead :title="copy.title" :lede="copy.lede" scene="flutes" />
 
         <div class="grid gap-3 sm:grid-cols-2">
             <a

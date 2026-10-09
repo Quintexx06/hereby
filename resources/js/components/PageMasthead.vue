@@ -1,20 +1,21 @@
 <script setup lang="ts">
-import RosesCanvas from '@/components/marketing/RosesCanvas.vue';
+import MastheadScene from '@/components/MastheadScene.vue';
+import type { MastheadSceneName } from '@/types';
 
 defineProps<{
     title: string;
     lede?: string;
-    /** Turn the roses off where the page already has a night panel. */
-    plain?: boolean;
+    /** Which 3D scene turns in the margin; none where the page has its own panel. */
+    scene?: MastheadSceneName;
 }>();
 </script>
 
 <!--
     Every app page opens the same way: the title set large over a firm rule,
-    a line of context, actions as words, and three roses turning in the margin.
+    a line of context, actions as words, and the page's own scene in the margin.
 -->
 <template>
-    <header class="masthead" :data-roses="!plain">
+    <header class="masthead" :data-scene="scene ?? undefined">
         <div class="masthead-copy">
             <h1 class="masthead-title">
                 <slot name="title">{{ title }}</slot>
@@ -29,6 +30,6 @@ defineProps<{
         <div v-if="$slots.aside" class="masthead-aside">
             <slot name="aside" />
         </div>
-        <RosesCanvas v-if="!plain" />
+        <MastheadScene v-if="scene" :key="scene" :scene="scene" />
     </header>
 </template>

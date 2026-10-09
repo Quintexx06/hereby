@@ -25,7 +25,7 @@ const subtitle = computed(() =>
 
 <!-- The masthead: their names set large, the date, the days to go. -->
 <template>
-    <PageMasthead :title="wedding.couple_names" :lede="subtitle">
+    <PageMasthead :title="wedding.couple_names" :lede="subtitle" scene="roses">
         <template #actions>
             <a
                 :href="preview.url(wedding.id)"

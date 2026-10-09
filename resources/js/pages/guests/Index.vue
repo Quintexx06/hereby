@@ -53,6 +53,7 @@ const editing = computed(() =>
 
     <div class="app-page gap-10">
         <PageMasthead
+            scene="rings"
             :title="
                 households.length ? guestsPage.title : guestsPage.emptyTitle
             "

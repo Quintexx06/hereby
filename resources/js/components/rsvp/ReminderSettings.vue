@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+import SwitchRow from '@/components/rsvp/SwitchRow.vue';
 import { rsvpSettings as copy } from '@/content/rsvp';
 import { formatList } from '@/lib/format';
 
@@ -21,13 +22,12 @@ const upcoming = computed(() =>
 
 <!-- Reminders run by themselves; the couple sees when (roadmap 1.10). -->
 <template>
-    <section class="settings-section">
-        <h2 class="ledger-title">{{ copy.reminders }}</h2>
-        <label class="check-label">
-            <input v-model="enabled" type="checkbox" class="checkbox" />
-            {{ copy.remindersToggle }}
-        </label>
-        <p class="field-hint max-w-prose">{{ copy.remindersHint }}</p>
+    <div class="flex flex-col gap-3">
+        <SwitchRow
+            v-model="enabled"
+            :label="copy.remindersToggle"
+            :hint="copy.remindersHint"
+        />
         <p v-if="enabled" class="text-sm font-medium">
             {{
                 dates.length
@@ -35,5 +35,5 @@ const upcoming = computed(() =>
                     : copy.remindersNoDeadline
             }}
         </p>
-    </section>
+    </div>
 </template>

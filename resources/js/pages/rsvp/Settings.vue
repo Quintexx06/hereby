@@ -4,7 +4,9 @@ import { Head, useForm } from '@inertiajs/vue3';
 import { Check } from '@lucide/vue';
 import MenuOptionsField from '@/components/rsvp/MenuOptionsField.vue';
 import ReminderSettings from '@/components/rsvp/ReminderSettings.vue';
-import RsvpPreview from '@/components/rsvp/RsvpPreview.vue';
+import RsvpFormPreview from '@/components/rsvp/RsvpFormPreview.vue';
+import RsvpStep from '@/components/rsvp/RsvpStep.vue';
+import SwitchRow from '@/components/rsvp/SwitchRow.vue';
 import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/spinner';
 import { dashboardPage } from '@/content/dashboard';
@@ -58,61 +60,65 @@ const toggles = [
     <Head :title="copy.title" />
 
     <div class="app-page gap-10">
-        <PageMasthead :title="copy.title" :lede="copy.lede" plain />
+        <PageMasthead :title="copy.title" :lede="copy.lede" />
 
         <div class="rsvp-settings-grid">
             <form
-                class="settings-cards"
+                class="flex min-w-0 flex-col"
                 @submit.prevent="
                     form.put(update.url(wedding.id), { preserveScroll: true })
                 "
             >
-                <section class="settings-section">
-                    <h2 class="ledger-title">{{ copy.always }}</h2>
-                    <ul class="always-list">
-                        <li v-for="item in copy.alwaysItems" :key="item">
-                            <Check class="size-4 shrink-0 text-brand" />
-                            {{ item }}
-                        </li>
-                    </ul>
-                </section>
+                <ol class="rsvp-steps">
+                    <RsvpStep
+                        :number="1"
+                        :title="copy.steps.always"
+                        :hint="copy.steps.alwaysHint"
+                    >
+                        <ul class="always-list">
+                            <li v-for="item in copy.alwaysItems" :key="item">
+                                <Check class="size-4 shrink-0" />
+                                {{ item }}
+                            </li>
+                        </ul>
+                    </RsvpStep>
 
-                <MenuOptionsField
-                    v-model:menus="form.menus"
-                    v-model:keys="form.menu_keys"
-                    v-model:children-menu="form.children_menu"
-                    :error="firstError(form.errors, 'menus')"
-                />
+                    <RsvpStep
+                        :number="2"
+                        :title="copy.steps.menus"
+                        :hint="copy.menusHint"
+                    >
+                        <MenuOptionsField
+                            v-model:menus="form.menus"
+                            v-model:keys="form.menu_keys"
+                            v-model:children-menu="form.children_menu"
+                            :error="firstError(form.errors, 'menus')"
+                        />
+                    </RsvpStep>
 
-                <ReminderSettings
-                    v-model="form.sends_reminders"
-                    :dates="reminderDates"
-                />
-
-                <section class="settings-section">
-                    <h2 class="ledger-title">{{ copy.household }}</h2>
-                    <div class="toggle-tiles">
-                        <label
-                            v-for="toggle in toggles"
-                            :key="toggle.field"
-                            class="toggle-tile"
-                        >
-                            <input
+                    <RsvpStep
+                        :number="3"
+                        :title="copy.steps.extras"
+                        :hint="copy.steps.extrasHint"
+                    >
+                        <div class="flex flex-col">
+                            <SwitchRow
+                                v-for="toggle in toggles"
+                                :key="toggle.field"
                                 v-model="form[toggle.field]"
-                                type="checkbox"
-                                class="checkbox mt-0.5"
+                                :label="toggle.label"
+                                :hint="toggle.hint"
                             />
-                            <span class="flex flex-col gap-1">
-                                <span class="font-medium">{{
-                                    toggle.label
-                                }}</span>
-                                <span class="text-sm text-muted-foreground">{{
-                                    toggle.hint
-                                }}</span>
-                            </span>
-                        </label>
-                    </div>
-                </section>
+                        </div>
+                    </RsvpStep>
+
+                    <RsvpStep :number="4" :title="copy.steps.reminders">
+                        <ReminderSettings
+                            v-model="form.sends_reminders"
+                            :dates="reminderDates"
+                        />
+                    </RsvpStep>
+                </ol>
 
                 <div class="settings-savebar">
                     <Button
@@ -126,9 +132,8 @@ const toggles = [
                 </div>
             </form>
 
-            <aside class="rsvp-preview-panel stage" :aria-label="copy.preview">
-                <RsvpPreview
-                    :theme="wedding.theme"
+            <aside class="rsvp-preview-column" :aria-label="copy.preview">
+                <RsvpFormPreview
                     :menus="form.menus.filter((menu) => menu.trim())"
                     :shuttle="form.offers_shuttle"
                     :stay="form.offers_stay"

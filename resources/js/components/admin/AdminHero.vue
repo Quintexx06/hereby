@@ -12,7 +12,7 @@ defineEmits<{ tour: [] }>();
 <!-- Masthead with the roses in its margin, then the numbers set in type. -->
 <template>
     <div>
-        <PageMasthead :title="copy.title" :lede="copy.lede">
+        <PageMasthead :title="copy.title" :lede="copy.lede" scene="roses">
             <template #actions>
                 <button
                     type="button"

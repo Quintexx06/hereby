@@ -19,7 +19,7 @@ const GOLDEN_ANGLE = Math.PI * (3 - Math.sqrt(5));
  * darken it towards the base, which gives the bloom its depth. Built once
  * and shared by every petal of every rose.
  */
-function petalGeometry(): BufferGeometry {
+export function petalGeometry(): BufferGeometry {
     const geometry = new PlaneGeometry(1, 1, 20, 28);
     const position = geometry.attributes.position;
     const shade: number[] = [];
@@ -72,7 +72,7 @@ function createRose(
     return rose;
 }
 
-function petalMaterial(color: number): MeshPhysicalMaterial {
+export function petalMaterial(color: number): MeshPhysicalMaterial {
     return new MeshPhysicalMaterial({
         color,
         vertexColors: true,

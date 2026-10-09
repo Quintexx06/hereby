@@ -67,22 +67,119 @@
     }
 }
 
-/* The couple's "Antwortformular" and its phone preview. */
+/*
+ * The couple's "Antwortformular": four numbered steps on a line, settings as
+ * switch rows, and the guest form as a plain sheet. Ink and porcelain only.
+ */
 @layer components {
-    .preview-chip {
-        @apply inline-flex h-7 items-center rounded-full border border-rule px-3 text-[0.6875rem] font-medium;
+    .rsvp-settings-grid {
+        @apply grid items-start gap-12 lg:grid-cols-[minmax(0,1fr)_22rem] xl:grid-cols-[minmax(0,1fr)_25rem] xl:gap-16;
     }
 
-    .preview-chip.is-on {
-        @apply border-foreground bg-foreground text-background;
+    .rsvp-steps {
+        @apply relative flex flex-col before:absolute before:top-4 before:bottom-10 before:left-[0.95rem] before:w-px before:bg-rule before:content-[''];
     }
 
-    .preview-line {
-        @apply flex items-center justify-between border-t border-rule pt-2;
+    .rsvp-step {
+        @apply relative grid grid-cols-[2rem_minmax(0,1fr)] gap-x-6 pb-12;
     }
 
-    .preview-send {
-        @apply mt-auto inline-flex h-10 items-center justify-center rounded-full bg-foreground text-xs font-semibold text-background;
+    .rsvp-step-number {
+        @apply grid size-8 place-items-center rounded-full border border-foreground bg-background text-sm font-semibold tabular-nums;
+    }
+
+    .rsvp-step-title {
+        @apply pt-1 font-display text-xl leading-tight font-semibold tracking-[-0.02em];
+    }
+
+    .always-list {
+        @apply flex flex-col gap-2.5 text-muted-foreground;
+    }
+
+    .always-list > li {
+        @apply flex items-start gap-2.5;
+    }
+
+    .switch-row {
+        @apply flex cursor-pointer items-center justify-between gap-6 border-b border-rule py-4 first:pt-0 last:border-b-0;
+    }
+
+    /* An on/off switch drawn on a native checkbox: ink when on. */
+    .switch {
+        @apply relative h-6 w-10 shrink-0 cursor-pointer appearance-none rounded-full bg-muted transition-colors duration-200 ease-out checked:bg-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring;
+    }
+
+    .switch::after {
+        @apply absolute top-0.5 left-0.5 size-5 rounded-full bg-background shadow-sm transition-transform duration-200 ease-out content-[''];
+    }
+
+    .switch:checked::after {
+        @apply translate-x-4;
+    }
+
+    .settings-savebar {
+        @apply sticky bottom-0 z-10 flex justify-end border-t border-foreground bg-background/90 py-4 backdrop-blur-sm;
+    }
+
+    .rsvp-preview-column {
+        @apply flex flex-col lg:sticky lg:top-6;
+    }
+
+    .rsvp-duration {
+        @apply h-1 overflow-hidden rounded-full bg-muted;
+    }
+
+    .rsvp-duration > span {
+        @apply block h-full rounded-full bg-foreground transition-[width] duration-300 ease-out;
+    }
+
+    /* The guest form as a sheet of paper. */
+    .rsvp-sheet {
+        @apply flex flex-col gap-5 rounded-xl border bg-card p-6 shadow-[0_24px_48px_-32px_rgb(30_14_10/0.35)];
+    }
+
+    .rsvp-sheet-block {
+        @apply flex flex-col gap-3 border-t border-rule pt-4;
+    }
+
+    .rsvp-sheet-row {
+        @apply flex items-center justify-between gap-3 border-t border-rule py-3 text-sm;
+    }
+
+    .rsvp-segment {
+        @apply inline-grid auto-cols-fr grid-flow-col rounded-lg border p-0.5 text-sm;
+    }
+
+    .rsvp-segment > span {
+        @apply rounded-md px-3 py-1.5 text-center text-muted-foreground;
+    }
+
+    .rsvp-segment > .is-on {
+        @apply bg-foreground font-medium text-background;
+    }
+
+    .rsvp-segment-sm {
+        @apply text-xs;
+    }
+
+    .rsvp-option {
+        @apply flex items-center gap-2 rounded-md border px-3 py-2 text-sm before:size-3 before:rounded-full before:border before:border-foreground/40 before:content-[''];
+    }
+
+    .rsvp-option.is-on {
+        @apply border-foreground before:border-[4px] before:border-foreground;
+    }
+
+    .rsvp-stepper {
+        @apply inline-flex items-center gap-3 rounded-lg border px-2.5 py-1 font-medium tabular-nums;
+    }
+
+    .rsvp-input {
+        @apply mt-2 rounded-md border px-3 py-2 text-muted-foreground;
+    }
+
+    .rsvp-send {
+        @apply inline-flex h-11 items-center justify-center rounded-full bg-foreground text-sm font-semibold text-background;
     }
 
     .preview-enter-active,
@@ -93,47 +190,6 @@
     .preview-enter-from,
     .preview-leave-to {
         @apply -translate-y-1 opacity-0;
-    }
-
-    .rsvp-settings-grid {
-        @apply grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_22rem] xl:grid-cols-[minmax(0,1fr)_24rem] xl:gap-12;
-    }
-
-    /* Settings as a ledger: title in the left column, everything else right. */
-    .settings-cards {
-        @apply flex flex-col;
-    }
-
-    .settings-cards > .settings-section {
-        @apply grid gap-x-10 gap-y-4 border-t border-foreground pt-6 pb-10 md:grid-cols-[12rem_minmax(0,1fr)];
-    }
-
-    .settings-cards > .settings-section > :not(:first-child) {
-        @apply md:col-start-2;
-    }
-
-    .always-list {
-        @apply flex flex-col gap-3 text-muted-foreground;
-    }
-
-    .always-list > li {
-        @apply flex items-start gap-2;
-    }
-
-    .toggle-tiles {
-        @apply flex flex-col;
-    }
-
-    .toggle-tile {
-        @apply flex cursor-pointer items-start gap-3 border-b border-rule py-4 first:pt-0;
-    }
-
-    .settings-savebar {
-        @apply sticky bottom-0 z-10 -mx-1 flex justify-end border-t border-foreground bg-background/90 px-1 py-4 backdrop-blur-sm;
-    }
-
-    .rsvp-preview-panel {
-        @apply sticky top-8 hidden items-center justify-center self-start rounded-lg px-6 py-10 lg:flex;
     }
 }
 

@@ -60,7 +60,7 @@ function move(index: number, direction: -1 | 1): void {
     <Head :title="copy.title" />
 
     <div class="app-page gap-10">
-        <PageMasthead :title="copy.title" :lede="copy.lede">
+        <PageMasthead :title="copy.title" :lede="copy.lede" scene="petals">
             <template #actions>
                 <a
                     :href="preview.url(wedding.id)"

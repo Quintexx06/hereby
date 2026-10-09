@@ -2,6 +2,7 @@
 import { Plus, X } from '@lucide/vue';
 import InputError from '@/components/InputError.vue';
 import { Input } from '@/components/ui/input';
+import SwitchRow from '@/components/rsvp/SwitchRow.vue';
 import { rsvpSettings as copy } from '@/content/rsvp';
 
 /* The couple's menus in their own words; each keeps its key when renamed. */
@@ -22,11 +23,7 @@ function removeMenu(index: number): void {
 </script>
 
 <template>
-    <section class="settings-section">
-        <div class="flex flex-col gap-1">
-            <h2 class="ledger-title">{{ copy.menus }}</h2>
-            <p class="field-hint">{{ copy.menusHint }}</p>
-        </div>
+    <div class="flex flex-col gap-3">
         <div
             v-for="(_, index) in menus"
             :key="index"
@@ -61,9 +58,11 @@ function removeMenu(index: number): void {
             <Plus class="size-4" /> {{ copy.addMenu }}
         </button>
         <InputError :message="error" />
-        <label class="check-label">
-            <input v-model="childrenMenu" type="checkbox" class="checkbox" />
-            {{ copy.childrenMenu }}
-        </label>
-    </section>
+        <SwitchRow
+            v-model="childrenMenu"
+            class="mt-2"
+            :label="copy.childrenMenu"
+            :hint="copy.childrenMenuHint"
+        />
+    </div>
 </template>

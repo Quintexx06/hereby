@@ -33,7 +33,7 @@ const groups = computed(() => [
     <Head :title="copy.title" />
 
     <div class="app-page admin-page">
-        <PageMasthead :title="copy.title" :lede="copy.lede" />
+        <PageMasthead :title="copy.title" :lede="copy.lede" scene="ribbon" />
 
         <section
             v-for="group in groups"

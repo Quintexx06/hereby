@@ -26,6 +26,15 @@ export const rsvpSettings = {
     songHint: 'Ein Lied pro Haushalt für eure Playlist.',
     save: 'Speichern',
     preview: 'So sieht es für eure Gäste aus',
+    steps: {
+        always: 'Was immer gefragt wird',
+        alwaysHint: 'Das Herz jeder Antwort. Es lässt sich nicht abschalten.',
+        menus: 'Menüs',
+        extras: 'Zusätzliche Fragen',
+        extrasHint:
+            'Nur was ihr wirklich braucht. Jede Frage kostet eure Gäste ein paar Sekunden.',
+        reminders: 'Erinnerungen',
+    },
     reminders: 'Erinnerungen',
     remindersToggle: 'Erinnerungen automatisch senden',
     remindersHint:
@@ -37,8 +46,15 @@ export const rsvpSettings = {
 
 /** The guest-side words, for the preview only (German). */
 export const rsvpPreview = {
+    heading: 'So antworten eure Gäste',
+    duration: (seconds: number) => `≈ ${seconds} Sekunden pro Haushalt`,
+    limit: 'Ziel: unter einer Minute',
+    menu: 'Menü',
     title: 'Kommt ihr?',
-    person: 'Heidi',
+    person: 'Heidi Muster',
+    yes: 'Ja',
+    no: 'Nein',
+    songPlaceholder: 'Titel und Interpret',
     attending: 'Dabei',
     declined: 'Leider nicht',
     allergies: 'Allergien oder Unverträglichkeiten?',
