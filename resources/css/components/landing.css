@@ -456,7 +456,7 @@
 
     /* Roses fill the card's open space below the heading. */
     .roses-stage {
-        @apply relative -my-4 h-56 w-full sm:h-72;
+        @apply relative -my-4 h-56 w-full sm:h-72 lg:h-auto lg:min-h-72 lg:flex-1;
     }
 
     /* FAQ: native details/summary; answers open smoothly where supported. */
