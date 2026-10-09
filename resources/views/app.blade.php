@@ -4,6 +4,15 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
+        {{-- Before first paint: skip the invitation opening (1.3) when already seen or motion is reduced. --}}
+        <script>
+            try {
+                if (matchMedia('(prefers-reduced-motion: reduce)').matches || localStorage.getItem('hereby:opening:' + location.pathname) === '1') {
+                    document.documentElement.dataset.openingSeen = '1';
+                }
+            } catch (e) {}
+        </script>
+
         {{-- Inline script to detect system dark mode preference and apply it immediately --}}
         <script>
             (function() {
@@ -41,7 +50,30 @@
             @include('partials.landing-seo', ['seo' => $page['props']['seo'], 'faq' => $page['props']['faq']])
         @endif
 
-        @vite(['resources/css/app.css', 'resources/js/app.ts', "resources/js/pages/{$page['component']}.vue"])
+        {{--
+            Guest pages (rule 2: under two seconds on mobile data): the lean stylesheet,
+            inlined so the first response can paint, and the one font file preloaded.
+        --}}
+        @php($leanGuestPage = str_starts_with($page['component'], 'invitation/') && ! Vite::isRunningHot())
+        @if ($leanGuestPage)
+            {{--
+                The HTML is server-rendered and links work without script, so the app
+                only hydrates. It starts after the first frame, leaving the connection
+                to the page and its font (rule 2).
+            --}}
+            <script type="module">
+                requestAnimationFrame(() => setTimeout(() => import(@js(Vite::asset('resources/js/app.ts'))), 0));
+            </script>
+            <style>{!! Vite::content('resources/css/guest.css') !!}</style>
+            <link rel="preload" href="{{ Vite::asset('node_modules/@fontsource-variable/archivo/files/archivo-latin-wght-normal.woff2') }}" as="font" type="font/woff2" crossorigin>
+        @endif
+        @unless ($leanGuestPage)
+            @vite([
+                str_starts_with($page['component'], 'invitation/') ? 'resources/css/guest.css' : 'resources/css/app.css',
+                'resources/js/app.ts',
+                "resources/js/pages/{$page['component']}.vue",
+            ])
+        @endunless
         <x-inertia::head>
             <title>{{ isset($page['props']['seo']['title']) ? $page['props']['seo']['title'].' - '.config('app.name') : config('app.name', 'Laravel') }}</title>
         </x-inertia::head>

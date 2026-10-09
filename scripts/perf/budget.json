@@ -1,0 +1,11 @@
+{
+    "runs": 3,
+    "pages": ["", "/antwort"],
+    "budget": {
+        "largest-contentful-paint": 2000,
+        "first-contentful-paint": 2000,
+        "total-blocking-time": 200,
+        "cumulative-layout-shift": 0.1,
+        "total-byte-weight": 204800
+    }
+}

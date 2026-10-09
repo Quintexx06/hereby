@@ -1,11 +1,23 @@
 import { createInertiaApp } from '@inertiajs/vue3';
+import { defineAsyncComponent } from 'vue';
 import { initializeTheme } from '@/composables/useAppearance';
 import { registerDirectives } from '@/directives';
-import AppLayout from '@/layouts/AppLayout.vue';
-import AuthLayout from '@/layouts/AuthLayout.vue';
-import MarketingLayout from '@/layouts/MarketingLayout.vue';
-import SettingsLayout from '@/layouts/settings/Layout.vue';
 import { initializeFlashToast } from '@/lib/flashToast';
+
+/*
+ * Layouts load on demand: a guest opening a personal link must not download
+ * the couple's app (sidebar, dialogs, auth) to see an invitation (rule 2).
+ */
+const AppLayout = defineAsyncComponent(() => import('@/layouts/AppLayout.vue'));
+const AuthLayout = defineAsyncComponent(
+    () => import('@/layouts/AuthLayout.vue'),
+);
+const MarketingLayout = defineAsyncComponent(
+    () => import('@/layouts/MarketingLayout.vue'),
+);
+const SettingsLayout = defineAsyncComponent(
+    () => import('@/layouts/settings/Layout.vue'),
+);
 
 const appName = import.meta.env.VITE_APP_NAME || 'Hereby';
 

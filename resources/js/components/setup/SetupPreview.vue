@@ -20,7 +20,7 @@ const story = computed(() => storyLine(props.step, form));
 watch(
     () => props.next,
     (next) => {
-        if (next) {
+        if (next && typeof window !== 'undefined') {
             new Image().src = sceneSource(scenes[next]);
         }
     },

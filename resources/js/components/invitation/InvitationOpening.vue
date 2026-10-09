@@ -4,68 +4,48 @@ import { useTrans } from '@/composables/useTrans';
 
 /*
  * The opening (roadmap 1.3): the couple's names behind a sheer veil in their
- * theme, which parts after a beat. CSS only, so the page stays under two
- * seconds. Once per link, never under reduced motion, and any tap or key
- * skips it: it never stands between a guest and the reply.
+ * theme, which parts after a beat. Rendered on the server and driven by CSS
+ * alone, so it plays from the first paint, before any script, and ends by
+ * itself after ~1.4s. It never catches a tap (pointer-events: none). Script
+ * only remembers that it was seen and ends it early on a tap or a key.
+ * app.blade.php hides it before paint when seen or when motion is reduced.
  */
 defineProps<{ couple: string; date: string }>();
 const { t } = useTrans();
+const visible = ref(true);
 
-const storageKey = `hereby:opening:${window.location.pathname}`;
-const seen = (): boolean => {
-    try {
-        return window.localStorage.getItem(storageKey) === '1';
-    } catch {
-        return false;
-    }
-};
-const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-const state = ref<'closed' | 'open' | 'gone'>(
-    reduced || seen() ? 'gone' : 'closed',
-);
-const timers: number[] = [];
-
-function finish(): void {
-    state.value = 'gone';
-    timers.forEach((timer) => window.clearTimeout(timer));
-
-    try {
-        window.localStorage.setItem(storageKey, '1');
-    } catch {
-        /* Private mode: the opening may play again, which is harmless. */
-    }
+function end(): void {
+    visible.value = false;
 }
 
-const skip = (event: Event) => {
-    event.preventDefault();
-    finish();
-};
-
 onMounted(() => {
-    if (state.value === 'gone') {
+    if (document.documentElement.dataset.openingSeen) {
+        visible.value = false;
+
         return;
     }
 
-    window.addEventListener('keydown', finish, { once: true });
-    timers.push(window.setTimeout(() => (state.value = 'open'), 450));
-    timers.push(window.setTimeout(finish, 1350));
+    try {
+        window.localStorage.setItem(
+            `hereby:opening:${window.location.pathname}`,
+            '1',
+        );
+    } catch {
+        /* Private mode: the opening may play again, which is harmless. */
+    }
+
+    window.addEventListener('pointerdown', end, { once: true });
+    window.addEventListener('keydown', end, { once: true });
 });
 
 onBeforeUnmount(() => {
-    window.removeEventListener('keydown', finish);
-    timers.forEach((timer) => window.clearTimeout(timer));
+    window.removeEventListener('pointerdown', end);
+    window.removeEventListener('keydown', end);
 });
 </script>
 
 <template>
-    <div
-        v-if="state !== 'gone'"
-        class="opening"
-        :data-state="state"
-        aria-hidden="true"
-        @pointerdown="skip"
-    >
+    <div v-if="visible" class="opening" aria-hidden="true">
         <span class="opening-panel opening-panel-left" />
         <span class="opening-panel opening-panel-right" />
         <p class="opening-names">

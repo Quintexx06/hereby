@@ -316,8 +316,9 @@ then shows "Danke für eure Antwort", who is coming and "Antwort ändern".
 The guest's first second: the couple's names and date rise (450ms, ease-out)
 behind two sheer panels drawn from the theme's own tokens, which part like
 the landing veil (900ms, ease-in-out) and leave the invitation underneath,
-already rendered. CSS only (no WebGL on guest pages, rule 2), once per link
-(localStorage), any tap or key skips, absent under reduced motion. The names
+already rendered. Server-rendered and driven by CSS alone, so it plays from
+the first paint before any script and never catches a tap; once per link
+(localStorage), a tap or key ends it early, absent under reduced motion. The names
 are `aria-hidden`: the page's real heading is the one that is read.
 
 ### Invitation content (`components/invitation/InvitationBlocks`, `blocks/*`)

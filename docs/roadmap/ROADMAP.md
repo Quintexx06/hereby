@@ -90,7 +90,7 @@ Every `code` item, before it is ticked:
 | 1.10 | Smart reminders 14 / 7 / 2 days before the deadline (email first) | code | [x] | Queued per household that hasn't answered; contain the personal link; opt-out respected |
 | 1.11 | "Opened but not answered" segment | code | [x] | Dashboard separates never opened / opened, not answered / answered |
 | 1.12 | Kitchen and service sheets as an export | code | [x] | PDF/Excel export: counts per menu, allergies per table, children |
-| 1.13 | Performance budget enforced: guest pages < 2s on mobile data | code | [ ] | CI check (Lighthouse, throttled 4G) fails the build above the budget |
+| 1.13 | Performance budget enforced: guest pages < 2s on mobile data | code | [x] | CI check (Lighthouse, throttled 4G) fails the build above the budget |
 | 1.14 | Legal review of guest data before the first paid wedding | human | [ ] | Written sign-off from a Swiss data-protection lawyer |
 
 **Gate →** 10 sites live, and 85% of guests answer without a manual chase.
@@ -148,6 +148,7 @@ needs an approved spec with its own acceptance criteria before work starts.
 
 | Date       | Change |
 | ---------- | ------ |
+| 2026-10-09 | 1.13 done: guest pages measured at LCP ~1.2 s on Lighthouse slow 4G (was 5.9 s uncompressed, 3.0 s gzipped): SSR, hydration after first frame, a lean inlined guest stylesheet, weight-only font, lazy layouts; a CI job fails above the budget ([frontend](../architecture/frontend.md#guest-pages-and-the-two-second-budget-roadmap-113)). Production must run the SSR server |
 | 2026-10-09 | 1.8 done: "Anreise" and "Übernachten" blocks (hotels with details and a link), per event access and language like every content block; shuttle seats are asked in the reply (1.4) |
 | 2026-10-09 | 1.3 done: the invitation opens behind a sheer veil in the couple's theme that parts after a beat (about 1.4s, CSS only); once per link, any tap or key skips, nothing under reduced motion |
 | 2026-10-09 | 1.12 done: "Küche & Service" with counts per part, menu and children; a printable A4 sheet with allergies (server-rendered, owner only) and a CSV for Excel. No PDF library: the browser prints to PDF; per-table counts follow with seating (2.3) ([spec](../specs/2026-10-09-kitchen-sheets-design.md)) |

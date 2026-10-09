@@ -9,8 +9,9 @@ import type { Locale } from '@/types';
 defineProps<{ languages: string[] }>();
 const page = usePage();
 const current = () => page.props.locale;
+/* page.url, not window: this also renders on the server. */
 const withLanguage = (locale: string) =>
-    `${window.location.pathname}?sprache=${locale}`;
+    `${page.url.split('?')[0]}?sprache=${locale}`;
 </script>
 
 <template>

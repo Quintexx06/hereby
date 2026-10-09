@@ -1,0 +1,53 @@
+name: performance
+
+# Product rule 2: every guest page loads in under two seconds on mobile data.
+# Fails the build when a personal link goes over the budget (roadmap 1.13).
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  guest-pages:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # v2
+        with:
+          php-version: '8.3'
+          tools: composer:v2
+          coverage: none
+          ini-values: opcache.enable_cli=1
+
+      - name: Setup Node
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '22'
+
+      - name: Build the app with server-side rendering
+        run: |
+          composer setup
+          npm run build:ssr
+          php artisan db:seed --force
+          php artisan optimize
+
+      - name: Serve it like production (SSR, gzip)
+        run: |
+          php artisan serve --port=8000 > /dev/null 2>&1 &
+          php artisan inertia:start-ssr > /dev/null 2>&1 &
+          node scripts/perf/gzip-proxy.mjs 8099 8000 > /dev/null 2>&1 &
+          sleep 5
+
+      - name: Check the budget
+        run: node scripts/perf/budget.mjs "http://127.0.0.1:8099$(php artisan hereby:demo-link)"

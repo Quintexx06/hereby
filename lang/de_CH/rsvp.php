@@ -32,6 +32,7 @@ return [
     'no' => 'Nein',
     'song' => 'Euer Liederwunsch',
     'song_placeholder' => 'Titel und Interpret',
+    'sending' => 'Wird gesendet',
     'submit' => 'Antwort senden',
     'update' => 'Änderung senden',
     'missing' => '{1} Noch 1 Antwort offen|[2,*] Noch :count Antworten offen',

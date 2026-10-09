@@ -45,16 +45,14 @@
 
 /*
  * The opening (components/invitation/InvitationOpening): a sheer veil in the
- * couple's theme, names behind it, parting after a beat. Ease-in-out for the
- * parting (a curtain, not UI), the whole moment under 1.4 seconds.
+ * couple's theme, names behind it, parting after a beat. CSS-driven so it plays
+ * before any script: names rise (450ms, ease-out), the veil parts (900ms,
+ * ease-in-out, a curtain rather than UI), and the layer is gone by 1.4s.
  */
 @layer components {
     .opening {
-        @apply fixed inset-0 z-50 flex cursor-pointer items-center justify-center overflow-hidden bg-background transition-[background-color] duration-700;
-    }
-
-    .opening[data-state='open'] {
-        @apply bg-transparent;
+        @apply pointer-events-none fixed inset-0 z-50 flex items-center justify-center overflow-hidden bg-background;
+        animation: opening-out 1400ms linear forwards;
     }
 
     .opening-panel {
@@ -66,44 +64,77 @@
             color-mix(in oklch, var(--foreground) 9%, var(--background)) 3.6%,
             color-mix(in oklch, var(--background) 88%, transparent) 5.4%
         );
-        transition: transform 900ms var(--ease-in-out);
+        animation: 900ms var(--ease-in-out) 450ms forwards;
     }
 
     .opening-panel-left {
         @apply left-0;
+        animation-name: opening-part-left;
     }
 
     .opening-panel-right {
         @apply right-0;
-    }
-
-    .opening[data-state='open'] .opening-panel-left {
-        transform: translateX(-104%);
-    }
-
-    .opening[data-state='open'] .opening-panel-right {
-        transform: translateX(104%);
+        animation-name: opening-part-right;
     }
 
     .opening-names {
-        @apply relative flex flex-col items-center gap-3 px-6 text-center text-4xl leading-none font-semibold tracking-[-0.04em] text-foreground transition-opacity duration-500 sm:text-6xl;
-        animation: opening-rise 450ms var(--ease-out) both;
-    }
-
-    .opening[data-state='open'] .opening-names,
-    .opening[data-state='open'] .opening-skip {
-        @apply opacity-0;
+        @apply relative flex flex-col items-center gap-3 px-6 text-center text-4xl leading-none font-semibold tracking-[-0.04em] text-foreground sm:text-6xl;
+        animation: opening-names 1000ms var(--ease-out) forwards;
     }
 
     .opening-skip {
-        @apply absolute bottom-8 text-sm text-muted-foreground transition-opacity duration-300;
+        @apply absolute bottom-8 text-sm text-muted-foreground;
+        animation: opening-names 1000ms var(--ease-out) forwards;
     }
 }
 
-@keyframes opening-rise {
-    from {
+/* The ground clears as the veil parts; at the end the layer leaves the page. */
+@keyframes opening-out {
+    0%,
+    32% {
+        background-color: var(--background);
+    }
+
+    99% {
+        background-color: transparent;
+        visibility: visible;
+    }
+
+    100% {
+        background-color: transparent;
+        visibility: hidden;
+    }
+}
+
+@keyframes opening-part-left {
+    to {
+        transform: translateX(-104%);
+    }
+}
+
+@keyframes opening-part-right {
+    to {
+        transform: translateX(104%);
+    }
+}
+
+@keyframes opening-names {
+    0% {
         opacity: 0;
         transform: translateY(8px);
+    }
+
+    45% {
+        opacity: 1;
+        transform: none;
+    }
+
+    70% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
     }
 }
 
@@ -111,4 +142,8 @@
     .opening {
         display: none;
     }
+}
+
+[data-opening-seen] .opening {
+    display: none;
 }

@@ -1,8 +1,8 @@
 <script setup lang="ts">
+import { defineAsyncComponent } from 'vue';
 import { Head } from '@inertiajs/vue3';
 import InvitationOpening from '@/components/invitation/InvitationOpening.vue';
 import InvitationBlocks from '@/components/invitation/InvitationBlocks.vue';
-import PreviewBanner from '@/components/invitation/PreviewBanner.vue';
 import InvitationEvents from '@/components/invitation/InvitationEvents.vue';
 import InvitationFooter from '@/components/invitation/InvitationFooter.vue';
 import InvitationReply from '@/components/invitation/InvitationReply.vue';
@@ -10,6 +10,11 @@ import InvitationHero from '@/components/invitation/InvitationHero.vue';
 import WeddingThemeScope from '@/components/invitation/WeddingThemeScope.vue';
 import { useTrans } from '@/composables/useTrans';
 import { formatDate } from '@/lib/format';
+
+/* Couple-only; guests never download it. */
+const PreviewBanner = defineAsyncComponent(
+    () => import('@/components/invitation/PreviewBanner.vue'),
+);
 import type { Invitation } from '@/types';
 
 defineProps<{

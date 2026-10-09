@@ -1,0 +1,64 @@
+/*
+ * Guest pages (personal links: invitation, reply, opt-out). A lean entry so
+ * every guest page loads in under two seconds on mobile data (rule 2, 1.13):
+ * the weight-only font (guests never use the width axis), and utilities only
+ * from the guest components. Shares tokens and partials with app.css.
+ */
+/*
+ * Archivo, weight axis only, latin and latin-ext. Preloaded by app.blade.php;
+ * "optional" so a slow first visit keeps its first paint instead of
+ * re-laying out when the font lands.
+ */
+@font-face {
+    font-family: 'Archivo Variable';
+    font-style: normal;
+    font-display: optional;
+    font-weight: 100 900;
+    src: url('@fontsource-variable/archivo/files/archivo-latin-ext-wght-normal.woff2')
+        format('woff2-variations');
+    unicode-range:
+        U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+        U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+        U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+    font-family: 'Archivo Variable';
+    font-style: normal;
+    font-display: optional;
+    font-weight: 100 900;
+    src: url('@fontsource-variable/archivo/files/archivo-latin-wght-normal.woff2')
+        format('woff2-variations');
+    unicode-range:
+        U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+        U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+        U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@import 'tailwindcss' source(none);
+
+@import './theme/palette.css';
+@import './theme/semantic.css';
+@import './theme/tailwind.css';
+@import './theme/motion.css';
+
+@import './base/base.css';
+@import './base/typography.css';
+
+@import './components/brand.css';
+@import './components/invitation.css';
+@import './components/setup.css';
+@import './components/guests.css';
+@import './components/dashboard.css';
+@import './components/rsvp.css';
+
+@import './themes/wedding.css';
+
+@import './utilities.css';
+
+@source '../js/pages/invitation';
+@source '../js/components/invitation';
+@source '../js/components/rsvp';
+@source '../views/app.blade.php';
+
+@custom-variant dark (&:is(.dark *));

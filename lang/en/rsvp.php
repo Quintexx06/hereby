@@ -32,6 +32,7 @@ return [
     'no' => 'No',
     'song' => 'Your song request',
     'song_placeholder' => 'Title and artist',
+    'sending' => 'Sending',
     'submit' => 'Send reply',
     'update' => 'Send changes',
     'missing' => '{1} 1 answer still open|[2,*] :count answers still open',

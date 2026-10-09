@@ -32,6 +32,7 @@ return [
     'no' => 'No',
     'song' => 'La vostra canzone',
     'song_placeholder' => 'Titolo e artista',
+    'sending' => 'Invio in corso',
     'submit' => 'Invia la risposta',
     'update' => 'Invia le modifiche',
     'missing' => '{1} Manca ancora 1 risposta|[2,*] Mancano ancora :count risposte',

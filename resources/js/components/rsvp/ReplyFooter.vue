@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { Spinner } from '@/components/ui/spinner';
+import { LoaderCircle } from '@lucide/vue';
 import { useReplyForm } from '@/composables/useReplyForm';
 import { useTrans } from '@/composables/useTrans';
 
@@ -33,7 +33,13 @@ const error = computed(() => Object.values(form.errors)[0]);
                 :disabled="missing > 0 || form.processing"
                 @click="submit"
             >
-                <Spinner v-if="form.processing" />
+                <!-- No ui/spinner here: it pulls in cn() and tailwind-merge (rule 2). -->
+                <LoaderCircle
+                    v-if="form.processing"
+                    class="size-4 animate-spin"
+                    role="status"
+                    :aria-label="t('rsvp.sending')"
+                />
                 {{ reply.answered ? t('rsvp.update') : t('rsvp.submit') }}
             </button>
         </div>

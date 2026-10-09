@@ -64,3 +64,29 @@ base/                 element defaults and the type scale
 components/           @apply component classes, grouped by area
 utilities.css         @utility custom utilities
 ```
+
+## Guest pages and the two-second budget (roadmap 1.13)
+
+Product rule 2: every guest page loads in under two seconds on mobile data.
+Personal links (`pages/invitation/*`) are built for it:
+
+- **Server-side rendering.** The page arrives as HTML (Inertia SSR,
+  `npm run build:ssr`, `php artisan inertia:start-ssr`). **Production must run
+  the SSR server**, or guest pages fall back to client rendering and miss the budget.
+- **Hydration waits for the first frame.** `app.blade.php` inlines a module script that
+  imports the app after the first frame. Links work as plain links before that.
+- **Lean CSS.**
+  - `resources/css/guest.css` holds only the tokens, the guest partials and
+    utilities scanned from the guest components (about 11 KB gzipped).
+  - It is inlined into the HTML.
+  - The font is Archivo with the weight axis only (35 KB), preloaded, with
+    `font-display: optional`.
+- **Lazy app shell.** Layouts and the toaster load on demand, so a guest never downloads the
+  couple's app.
+- **Browser-only code stays out of `setup()`.** Anything that reads `window`
+  or `document` runs in `onMounted` or behind a `typeof window` guard, because
+  `setup()` also runs on the server.
+- **Budget in CI.**
+  - `.github/workflows/performance.yml` serves the seeded demo wedding with SSR and gzip.
+  - `scripts/perf/budget.mjs` runs Lighthouse (default mobile throttling, median of three) on the invitation and the reply page.
+  - It fails above `scripts/perf/budget.json`: LCP and FCP 2 s, TBT 200 ms, CLS 0.1, 200 KB.
