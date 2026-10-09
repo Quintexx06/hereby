@@ -221,8 +221,6 @@ export const closing = {
 } as const;
 
 export const footer = {
-    tagline: 'Hochzeitswebsites aus der Schweiz.',
-    lede: 'Für Paare, die ihre Gäste persönlich einladen möchten. Von Hand gestaltet, in 48 Stunden bereit.',
     privacy: 'Datenschutz',
     imprint: 'Impressum',
     email: 'info@hereby.ch',
