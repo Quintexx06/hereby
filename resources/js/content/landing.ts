@@ -151,22 +151,22 @@ export const studio = {
     next: 'Nächste Stimmung',
     themes: [
         { slug: 'ivory', name: 'Ivory', mood: 'Porzellan, Tinte, Kerzenlicht' },
-        { slug: 'rose', name: 'Rosé', mood: 'Puder, Bordeaux, Pfingstrose' },
         {
             slug: 'alpine',
             name: 'Alpine',
-            mood: 'Gletscherweiss, Schiefer, Arve',
+            mood: 'Gletscherweiss, Bergsee, Schiefer',
         },
         {
             slug: 'riviera',
             name: 'Riviera',
-            mood: 'Kalkstein, Espresso, Terrakotta',
+            mood: 'Kalkstein, Nachtmeer, Indigo',
         },
         {
             slug: 'lavanda',
             name: 'Lavanda',
             mood: 'Flieder, Aubergine, Sommerwiese',
         },
+        { slug: 'rose', name: 'Rosé', mood: 'Puder, Beere, Pfingstrose' },
     ],
 } as const;
 

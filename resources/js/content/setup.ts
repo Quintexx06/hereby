@@ -152,12 +152,12 @@ export const guestsCopy = {
 
 export const themes: Record<WeddingTheme, { name: string; mood: string }> = {
     ivory: { name: 'Ivory', mood: 'Porzellan und Tinte, zeitlos' },
-    rose: { name: 'Rosé', mood: 'Ochsenblut und Blush, für Gartenfeste' },
+    rose: { name: 'Rosé', mood: 'Beere und Pfingstrose, für Gartenfeste' },
     alpine: {
         name: 'Alpine',
-        mood: 'Arvengrün und Gletscher, für Berg und See',
+        mood: 'Bergsee und Gletscher, für Berg und See',
     },
-    riviera: { name: 'Riviera', mood: 'Terrakotta und Butter, für den Süden' },
+    riviera: { name: 'Riviera', mood: 'Nachtmeer und Indigo, für den Süden' },
     lavanda: {
         name: 'Lavanda',
         mood: 'Flieder und Aubergine, für Sommerwiesen',

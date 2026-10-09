@@ -206,7 +206,7 @@ Each one is a motion pattern with a product reason, not decoration:
 - **Marquee** (`MarqueeBand`): Hochzeit · Mariage · Matrimonio · Wedding,
   solid and outlined; scroll speeds it up and reverses it.
 - **Theme studio** (`StudioSection`, `StudioCard`): five printed invitations
-  (Ivory, Rosé, Alpine, Riviera, Lavanda) fanned from a pivot below the deck,
+  (Ivory, Alpine, Riviera, Lavanda, Rosé) fanned from a pivot below the deck,
   rounded with a letterpress inner frame; the front card carries a blush
   light orbiting its border and tilts to the pointer. Carousel arrows flank the
   theme name and slide in when the deck is on screen; cards also respond to
@@ -366,15 +366,16 @@ imported dynamically and only from `lib/three/` (hero veil, rings, closing veil)
 
 ## Wedding themes
 
-| Theme   | Mood                              | `brand`   |
-| ------- | --------------------------------- | --------- |
-| Ivory   | House style: porcelain, night ink | Blush ink |
-| Rosé    | Oxblood paper, blush ink          | Blush     |
-| Alpine  | Pine-green paper, glacier ink     | Glacier   |
-| Riviera | Terracotta paper, limestone ink   | Butter    |
-| Lavanda | Aubergine paper, lilac ink        | Lilac     |
+| Theme   | Mood                              | `brand`    |
+| ------- | --------------------------------- | ---------- |
+| Ivory   | House style: porcelain, night ink | Blush ink  |
+| Rosé    | Berry paper, peony ink            | Peony      |
+| Alpine  | Lake-blue paper, glacier ink      | Glacier    |
+| Riviera | Indigo paper, limestone ink       | Periwinkle |
+| Lavanda | Aubergine paper, lilac ink        | Lilac      |
 
 The coloured themes share one lightness/chroma ladder and differ only in hue,
+stepping from lake blue through indigo and lilac to peony pink,
 so the collection reads as one family.
 
 Starter themes until the designer's collection lands (roadmap 0.6).
