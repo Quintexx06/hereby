@@ -1,0 +1,149 @@
+/* The team's area (pages/admin/*): stage hero, cards, checklist, tour. */
+@layer components {
+    .admin-page {
+        @apply max-w-6xl gap-10;
+    }
+
+    /* Night stage over candlelight; the roses sit to the right. */
+    .admin-hero {
+        @apply relative isolate flex min-h-80 flex-col justify-between gap-10 overflow-hidden rounded-2xl p-6 sm:p-10;
+    }
+
+    .admin-hero-photo {
+        @apply absolute inset-0 -z-20 size-full object-cover opacity-45;
+    }
+
+    .admin-hero-veil {
+        @apply absolute inset-0 -z-10;
+        background:
+            radial-gradient(
+                60% 80% at 85% 40%,
+                color-mix(in oklch, var(--brand) 22%, transparent),
+                transparent 70%
+            ),
+            linear-gradient(
+                90deg,
+                var(--background) 30%,
+                color-mix(in oklch, var(--background) 55%, transparent)
+            );
+    }
+
+    .admin-hero .roses-stage {
+        @apply pointer-events-none absolute inset-y-0 right-0 m-0 hidden h-full w-1/2 md:block lg:min-h-0;
+    }
+
+    .admin-stats {
+        @apply relative grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-rule bg-rule sm:grid-cols-4 md:max-w-2xl;
+    }
+
+    .admin-stat {
+        @apply flex flex-col-reverse gap-1 bg-background/70 px-4 py-3 backdrop-blur-sm;
+    }
+
+    .admin-stat-value {
+        @apply font-display text-3xl font-semibold tracking-[-0.03em] tabular-nums;
+    }
+
+    /* List left, checklist and form right; stacked on phones. */
+    .admin-grid {
+        @apply grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_24rem];
+    }
+
+    .admin-aside {
+        @apply flex flex-col gap-6 lg:sticky lg:top-6;
+    }
+
+    .admin-form-photo {
+        @apply -mx-5 -mt-5 h-36 w-[calc(100%+2.5rem)] max-w-none object-cover object-[50%_35%] sm:-mx-7 sm:-mt-7 sm:w-[calc(100%+3.5rem)];
+    }
+
+    .admin-form-names {
+        @apply grid gap-4 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2;
+    }
+
+    .admin-card {
+        @apply grid gap-4 rounded-xl border bg-card p-4 text-card-foreground transition-[border-color,box-shadow] duration-200 ease-out hover:border-foreground/20 hover:shadow-sm sm:grid-cols-[auto_minmax(0,1fr)_auto] sm:items-center sm:p-5;
+    }
+
+    .admin-inquiry {
+        @apply sm:grid-cols-[minmax(0,1fr)_auto];
+    }
+
+    .admin-inquiry[data-answered='true'] {
+        @apply opacity-70;
+    }
+
+    .admin-card-actions {
+        @apply flex flex-wrap items-center gap-x-4 gap-y-2 text-sm font-medium sm:justify-end;
+    }
+
+    .admin-monogram {
+        @apply grid size-12 place-items-center rounded-full bg-brand-muted font-display text-sm font-semibold tracking-tight text-foreground;
+    }
+
+    .admin-status {
+        @apply rounded-full border px-2 py-0.5 text-xs font-medium text-muted-foreground;
+    }
+
+    .admin-status[data-status='active'] {
+        @apply border-success/40 bg-success/10 text-success;
+    }
+
+    .admin-wish {
+        @apply line-clamp-2 max-w-prose text-sm text-muted-foreground;
+    }
+
+    .admin-meter {
+        @apply mt-1 h-1.5 max-w-48 overflow-hidden rounded-full bg-muted;
+    }
+
+    .admin-meter > span {
+        @apply block h-full rounded-full bg-brand transition-[width] duration-300 ease-out;
+    }
+
+    .admin-empty {
+        @apply flex flex-col gap-1 rounded-xl border border-dashed p-8 text-center text-muted-foreground;
+    }
+
+    .admin-checklist {
+        @apply flex flex-col gap-4 rounded-xl border bg-card p-5 sm:p-6;
+    }
+
+    .admin-check {
+        @apply flex items-center gap-3 border-t py-2.5 text-sm;
+    }
+
+    .admin-check[data-done='true'] {
+        @apply text-muted-foreground line-through decoration-foreground/30;
+    }
+
+    .admin-check-mark {
+        @apply grid size-5 shrink-0 place-items-center rounded-full border;
+    }
+
+    .admin-check[data-done='true'] .admin-check-mark {
+        @apply border-transparent bg-brand text-brand-foreground;
+    }
+
+    .admin-welcome-photo {
+        @apply aspect-[4/3] w-full object-cover;
+    }
+
+    .admin-welcome-dot {
+        @apply h-1.5 w-1.5 rounded-full bg-foreground/20 transition-[width,background-color] duration-200 ease-out;
+    }
+
+    .admin-welcome-dot[data-active='true'] {
+        @apply w-5 bg-foreground;
+    }
+
+    .welcome-slide-enter-active,
+    .welcome-slide-leave-active {
+        transition: opacity 180ms var(--ease-out);
+    }
+
+    .welcome-slide-enter-from,
+    .welcome-slide-leave-to {
+        opacity: 0;
+    }
+}

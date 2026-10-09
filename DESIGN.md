@@ -87,8 +87,8 @@ feel like the opening pages of a bridal magazine, not a SaaS template.
 Two surfaces, two looks (ADR 0004):
 
 - **Platform** (marketing, auth, dashboard): this system. Marketing is light by
-  default (`.surface-light`) with `.stage` night sections; the app follows the
-  OS and uses night as its dark theme.
+  default (`.surface-light`) with `.stage` night sections; the app is always
+  light (no dark mode), with the night sidebar framing the porcelain workspace.
 - **Guest sites** (`pages/invitation/*`): the couple's theme re-declares the
   semantic tokens inside `WeddingThemeScope`. Ivory is the house theme.
 
@@ -267,7 +267,7 @@ panel and the live invitation, never in decoration.
   `.stage` moment: the couple's invitation in their theme, rising out of the
   candlelit photo and cropped by the panel's bottom edge.
 - **Konto** (`layouts/settings`, `content/account.ts`): same page title and
-  column as the other app pages; Profil, Sicherheit, Darstellung as text tabs on
+  column as the other app pages; Profil and Sicherheit as text tabs on
   a hairline (`.settings-tab`); sections separated by hairlines; deleting the
   account asks inline for the password, never a red box or a modal. On the
   right a sticky `.stage` panel (`AccountPanel`): the couple's names, what

@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\Celebration;
 use App\Enums\GuestEstimate;
 use App\Enums\Locale;
+use App\Enums\LookStyle;
 use App\Enums\SetupStep;
 use App\Enums\WeddingStatus;
 use App\Enums\WeddingTheme;
@@ -37,6 +38,8 @@ use Illuminate\Support\Collection;
  * @property Locale $default_locale
  * @property Collection<int, Locale>|null $languages
  * @property WeddingTheme $theme
+ * @property Collection<int, LookStyle>|null $look_styles Style directions for the team (up to three).
+ * @property string|null $look_wishes The couple's own idea, in their words.
  * @property Celebration|null $celebration
  * @property GuestEstimate|null $guest_estimate
  * @property string|null $venue_name
@@ -58,7 +61,7 @@ use Illuminate\Support\Collection;
  */
 #[Fillable([
     'slug', 'couple_names', 'partner_one', 'partner_two', 'wedding_date', 'rsvp_deadline',
-    'default_locale', 'languages', 'theme', 'celebration', 'guest_estimate',
+    'default_locale', 'languages', 'theme', 'look_styles', 'look_wishes', 'celebration', 'guest_estimate',
     'venue_name', 'venue_address', 'venue_postcode', 'venue_town', 'venue_lat', 'venue_lng', 'venue_reference',
     'menu_options', 'children_menu', 'offers_shuttle', 'offers_stay', 'asks_song', 'sends_reminders',
 ])]
@@ -158,6 +161,7 @@ class Wedding extends Model
             'default_locale' => Locale::class,
             'languages' => AsEnumCollection::of(Locale::class),
             'theme' => WeddingTheme::class,
+            'look_styles' => AsEnumCollection::of(LookStyle::class),
             'status' => WeddingStatus::class,
             'setup_step' => SetupStep::class,
             'setup_completed_at' => 'datetime',

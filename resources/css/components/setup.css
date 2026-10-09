@@ -96,9 +96,42 @@
         @apply inline-flex h-11 cursor-pointer items-center rounded-full border px-5 text-sm font-medium transition-colors duration-150 hover:border-foreground/40 has-[:checked]:border-foreground has-[:checked]:bg-foreground has-[:checked]:text-background has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-ring;
     }
 
-    /* Programme rows */
-    .programme-row {
-        @apply grid grid-cols-[minmax(0,1fr)_7.5rem] items-end gap-3 border-t py-4 sm:grid-cols-[minmax(0,1fr)_7.5rem_10rem_2.75rem];
+    /* Steps with more to lay out (programme, look) get the full column. */
+    .setup-body[data-wide='true'] {
+        @apply max-w-4xl;
+    }
+
+    /* Programme: one timeline card per part of the day. */
+    .programme-list {
+        @apply relative flex flex-col gap-3 before:absolute before:inset-y-6 before:left-[1.65rem] before:w-px before:bg-border before:content-[''];
+    }
+
+    .programme-item {
+        @apply relative grid items-end gap-x-4 gap-y-3 rounded-xl border bg-card p-4 sm:p-5;
+        grid-template-columns: 7rem minmax(0, 1fr) auto;
+        grid-template-areas:
+            'time what remove'
+            'day day day';
+    }
+
+    .programme-time {
+        grid-area: time;
+    }
+
+    .programme-what {
+        grid-area: what;
+    }
+
+    .programme-day {
+        grid-area: day;
+    }
+
+    .programme-remove {
+        grid-area: remove;
+    }
+
+    .programme-add {
+        @apply flex flex-wrap items-center gap-2 rounded-xl border border-dashed p-4;
     }
 
     .select-native {
@@ -118,7 +151,31 @@
         @apply flex items-start justify-between gap-4 rounded-lg border bg-card p-4;
     }
 
-    /* Look */
+    /* Look: colour world, style directions, the couple's own idea. */
+    .look-section {
+        @apply flex flex-col gap-4;
+    }
+
+    .look-legend {
+        @apply mb-4 flex flex-col gap-1;
+    }
+
+    .look-themes {
+        @apply grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5;
+    }
+
+    .look-styles {
+        @apply grid gap-3 sm:grid-cols-2 lg:grid-cols-3;
+    }
+
+    .style-option {
+        @apply flex cursor-pointer items-center gap-3 rounded-xl border p-4 transition-[border-color,background-color,opacity] duration-150 ease-out hover:border-foreground/40 has-[:checked]:border-foreground has-[:checked]:bg-brand-muted/40 has-[:focus-visible]:border-ring data-[locked=true]:cursor-not-allowed data-[locked=true]:opacity-45;
+    }
+
+    .style-icon {
+        @apply size-9 shrink-0 rounded-full bg-muted p-2 text-foreground;
+    }
+
     .theme-option {
         @apply relative flex cursor-pointer flex-col gap-3 rounded-lg border p-3 transition-[border-color] duration-150 hover:border-foreground/40 has-[:checked]:border-foreground has-[:focus-visible]:border-ring;
     }
@@ -202,5 +259,12 @@
 
     .setup-saved {
         @apply inline-flex items-center gap-1.5 text-sm text-success;
+    }
+}
+
+@media (width >= 40rem) {
+    .programme-item {
+        grid-template-columns: 7.5rem minmax(0, 1fr) 12rem 2.75rem;
+        grid-template-areas: 'time what day remove';
     }
 }

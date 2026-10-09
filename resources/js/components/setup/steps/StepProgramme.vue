@@ -52,8 +52,10 @@ function add(type: EventType): void {
 
 <template>
     <div class="flex flex-col gap-10">
-        <fieldset class="grid gap-3">
-            <legend class="field-label mb-3">Wann feiert ihr?</legend>
+        <fieldset class="grid gap-3 sm:grid-cols-2">
+            <legend class="field-label mb-3 sm:col-span-2">
+                Wann feiert ihr?
+            </legend>
             <label
                 v-for="(option, value) in celebrations"
                 :key="value"
@@ -78,15 +80,17 @@ function add(type: EventType): void {
             <InputError :message="form.errors.celebration" />
         </fieldset>
 
-        <div v-if="form.events.length" class="flex flex-col">
-            <ProgrammeRowField
-                v-for="(row, index) in form.events"
-                :key="`${index}-${row.type}`"
-                v-model:row="form.events[index]"
-                :index="index"
-                @remove="form.events.splice(index, 1)"
-            />
-            <div class="flex flex-wrap items-center gap-2 border-t pt-4">
+        <div v-if="form.events.length" class="flex flex-col gap-3">
+            <div class="programme-list">
+                <ProgrammeRowField
+                    v-for="(row, index) in form.events"
+                    :key="`${index}-${row.type}`"
+                    v-model:row="form.events[index]"
+                    :index="index"
+                    @remove="form.events.splice(index, 1)"
+                />
+            </div>
+            <div class="programme-add">
                 <span class="mr-2 text-sm text-muted-foreground"
                     >{{ programme.addPart }}:</span
                 >

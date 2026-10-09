@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Actions\Admin\SetUpCouple;
+use App\Enums\LookStyle;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreCoupleRequest;
 use App\Models\Wedding;
@@ -34,6 +35,8 @@ class WeddingsController extends Controller
                     'date' => $wedding->wedding_date?->toDateString(),
                     'households' => (int) $wedding->households_count,
                     'answered' => (int) $wedding->getAttribute('answered_count'),
+                    'look_styles' => $wedding->look_styles?->map(fn (LookStyle $style): string => $style->value)->values() ?? [],
+                    'look_wishes' => $wedding->look_wishes,
                     'created_at' => $wedding->created_at?->toDateString(),
                 ]),
         ]);

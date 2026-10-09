@@ -4,6 +4,21 @@ export type Locale = 'de_CH' | 'fr' | 'it' | 'en';
 
 export type WeddingTheme = 'ivory' | 'rose' | 'alpine' | 'riviera' | 'lavanda';
 
+/** Mirrors App\Enums\LookStyle: style directions that brief the team. */
+export type LookStyle =
+    | 'classic'
+    | 'modern'
+    | 'romantic'
+    | 'natural'
+    | 'boho'
+    | 'rustic'
+    | 'elegant'
+    | 'mediterranean'
+    | 'vintage'
+    | 'minimal'
+    | 'playful'
+    | 'mountain';
+
 export type EventType =
     | 'civil_ceremony'
     | 'ceremony'

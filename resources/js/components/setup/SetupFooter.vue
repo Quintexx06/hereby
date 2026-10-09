@@ -19,7 +19,7 @@ defineProps<{
 
 <template>
     <div class="setup-footer">
-        <Button v-if="previous" variant="ghost" size="pill" as-child>
+        <Button v-if="previous" variant="outline" size="pill" as-child>
             <Link :href="show([weddingId, previous])">{{ actions.back }}</Link>
         </Button>
         <span v-else class="text-sm text-muted-foreground">{{

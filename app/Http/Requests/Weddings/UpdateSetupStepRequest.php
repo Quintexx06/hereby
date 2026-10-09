@@ -6,6 +6,7 @@ use App\Enums\Celebration;
 use App\Enums\EventType;
 use App\Enums\GuestEstimate;
 use App\Enums\Locale;
+use App\Enums\LookStyle;
 use App\Enums\SetupStep;
 use App\Enums\WeddingTheme;
 use App\Models\Wedding;
@@ -69,6 +70,9 @@ class UpdateSetupStepRequest extends FormRequest
             ],
             SetupStep::Look => [
                 'theme' => ['required', Rule::enum(WeddingTheme::class)],
+                'look_styles' => ['nullable', 'array', 'max:'.LookStyle::MAX],
+                'look_styles.*' => ['distinct', Rule::enum(LookStyle::class)],
+                'look_wishes' => ['nullable', 'string', 'max:2000'],
             ],
             SetupStep::Review => [],
         };
@@ -86,6 +90,7 @@ class UpdateSetupStepRequest extends FormRequest
             'rsvp_deadline.before' => 'Die Antwortfrist muss vor der Hochzeit liegen.',
             'venue_name.required' => 'Wie heisst eure Location? Oder wählt «Noch offen».',
             'events.required' => 'Wählt mindestens einen Teil eures Tages.',
+            'look_styles.max' => 'Höchstens drei Stilrichtungen, bitte.',
             'default_locale.in' => 'Die Hauptsprache muss eine der gewählten Sprachen sein.',
         ];
     }

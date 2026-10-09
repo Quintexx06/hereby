@@ -9,6 +9,7 @@ import {
     languages,
     review,
     themes,
+    lookStyles,
 } from '@/content/setup';
 import { useSetupForm } from '@/composables/useSetupForm';
 import { formatDate } from '@/lib/format';
@@ -67,6 +68,24 @@ const rows = computed<{ label: string; value: string; step: SetupStepKey }[]>(
             step: 'gaeste',
         },
         { label: review.look, value: themes[form.theme].name, step: 'look' },
+        {
+            label: review.styles,
+            value: form.look_styles.length
+                ? form.look_styles
+                      .map((style) => lookStyles[style].name)
+                      .join(', ')
+                : review.open,
+            step: 'look',
+        },
+        ...(form.look_wishes
+            ? [
+                  {
+                      label: review.wishes,
+                      value: form.look_wishes,
+                      step: 'look' as const,
+                  },
+              ]
+            : []),
     ],
 );
 

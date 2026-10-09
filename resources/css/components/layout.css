@@ -15,4 +15,11 @@
     .surface {
         @apply rounded-lg border bg-card text-card-foreground;
     }
+
+    /*
+     * The app workspace beside the night sidebar: a framed porcelain sheet.
+     */
+    .app-workspace {
+        @apply md:border md:border-sidebar-border;
+    }
 }

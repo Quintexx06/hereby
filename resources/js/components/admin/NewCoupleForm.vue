@@ -5,8 +5,10 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Spinner } from '@/components/ui/spinner';
 import { adminCopy as copy } from '@/content/admin';
+import { landingPhotos } from '@/content/landing-photos';
 import { store } from '@/routes/admin/weddings';
 
+const photo = landingPhotos.bouquet;
 const form = useForm({ email: '', partner_one: '', partner_two: '' });
 
 function submit(): void {
@@ -18,24 +20,35 @@ function submit(): void {
 </script>
 
 <template>
-    <form class="import-panel" @submit.prevent="submit">
+    <form class="import-panel overflow-hidden" @submit.prevent="submit">
+        <img :src="photo.src" alt="" class="admin-form-photo" loading="lazy" />
         <div class="flex flex-col gap-1">
             <h2 class="app-section-title">{{ copy.newCouple }}</h2>
             <p class="field-hint">{{ copy.newCoupleHint }}</p>
         </div>
-        <div class="grid gap-4 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+        <div class="admin-form-names">
             <div class="field">
                 <label for="partner_one" class="field-label">{{
                     copy.partnerOne
                 }}</label>
-                <Input id="partner_one" v-model="form.partner_one" required />
+                <Input
+                    id="partner_one"
+                    v-model="form.partner_one"
+                    :placeholder="copy.partnerOnePlaceholder"
+                    required
+                />
                 <InputError :message="form.errors.partner_one" />
             </div>
             <div class="field">
                 <label for="partner_two" class="field-label">{{
                     copy.partnerTwo
                 }}</label>
-                <Input id="partner_two" v-model="form.partner_two" required />
+                <Input
+                    id="partner_two"
+                    v-model="form.partner_two"
+                    :placeholder="copy.partnerTwoPlaceholder"
+                    required
+                />
                 <InputError :message="form.errors.partner_two" />
             </div>
         </div>
@@ -48,6 +61,7 @@ function submit(): void {
                 v-model="form.email"
                 type="email"
                 autocomplete="off"
+                :placeholder="copy.emailPlaceholder"
                 required
             />
             <InputError :message="form.errors.email" />
@@ -55,7 +69,7 @@ function submit(): void {
         <Button
             type="submit"
             size="pill"
-            class="self-start"
+            class="w-full"
             :disabled="form.processing"
         >
             <Spinner v-if="form.processing" />

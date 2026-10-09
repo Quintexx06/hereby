@@ -14,17 +14,19 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { mainNavItems, secondaryNavItems } from '@/config/navigation';
+import {
+    adminNavItems,
+    mainNavItems,
+    secondaryNavItems,
+} from '@/config/navigation';
 import { usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
 import { dashboard } from '@/routes';
 
 const page = usePage();
-const navItems = computed(() =>
-    mainNavItems(
-        page.props.currentWedding,
-        Boolean(page.props.auth.user?.is_admin),
-    ),
+const navItems = computed(() => mainNavItems(page.props.currentWedding));
+const teamItems = computed(() =>
+    page.props.adminInbox === null ? [] : adminNavItems(page.props.adminInbox),
 );
 </script>
 
@@ -45,6 +47,7 @@ const navItems = computed(() =>
         <SidebarContent>
             <SidebarWedding />
             <NavMain :items="navItems" />
+            <NavMain v-if="teamItems.length" label="Team" :items="teamItems" />
         </SidebarContent>
 
         <SidebarFooter>

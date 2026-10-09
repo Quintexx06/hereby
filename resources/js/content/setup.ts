@@ -3,7 +3,12 @@
  * the helper line says why we ask. Spec: docs/specs/2026-10-09-couple-setup-and-dashboard-design.md
  */
 import type { Celebration, GuestEstimate, SetupStepKey } from '@/types/setup';
-import type { EventType, Locale, WeddingTheme } from '@/types/wedding';
+import type {
+    EventType,
+    Locale,
+    LookStyle,
+    WeddingTheme,
+} from '@/types/wedding';
 
 export const steps: Record<
     SetupStepKey,
@@ -164,7 +169,39 @@ export const themes: Record<WeddingTheme, { name: string; mood: string }> = {
     },
 };
 
-export const look = { suggested: 'Unser Vorschlag' };
+export const look = {
+    suggested: 'Unser Vorschlag',
+    colours: 'Farbwelt',
+    coloursHint: 'Papier, Schrift und Akzent eurer Website.',
+    styles: 'Stilrichtung',
+    stylesHint: (max: number) =>
+        `Wählt bis zu ${max}. So wissen wir, wie wir euren Entwurf abstimmen.`,
+    stylesCount: (count: number, max: number) => `${count} von ${max}`,
+    wishes: 'Eure Idee',
+    wishesHint:
+        'Blumen, Farben, ein Pinterest-Board, das Kleid, ein Ort, der euch inspiriert. Wir schauen, was sich umsetzen lässt, und melden uns.',
+    wishesPlaceholder:
+        'z. B. «Wiesenblumen, viel Grün, ein bisschen wie unsere Lieblingsalp im Juni»',
+};
+
+/** Style directions (LookStyle), each with a mood in a few words. */
+export const lookStyles: Record<LookStyle, { name: string; mood: string }> = {
+    classic: { name: 'Klassisch', mood: 'Zeitlos, festlich, mit Tradition' },
+    modern: { name: 'Modern', mood: 'Klare Linien, viel Weissraum' },
+    romantic: { name: 'Romantisch', mood: 'Rosen, Blush, weiche Formen' },
+    natural: { name: 'Natürlich', mood: 'Grün, Leinen, Wiesenblumen' },
+    boho: { name: 'Boho', mood: 'Trockenblumen, Pampas, frei' },
+    rustic: { name: 'Rustikal', mood: 'Scheune, Holz, Kerzen' },
+    elegant: { name: 'Elegant', mood: 'Schwarz-weiss, Gold, Abendrobe' },
+    mediterranean: {
+        name: 'Mediterran',
+        mood: 'Zitronen, Olivenzweige, Süden',
+    },
+    vintage: { name: 'Vintage', mood: 'Spitze, Patina, Erbstücke' },
+    minimal: { name: 'Minimalistisch', mood: 'Wenig, aber genau' },
+    playful: { name: 'Verspielt', mood: 'Farbe, Muster, Humor' },
+    mountain: { name: 'Alpin', mood: 'Berge, See, klare Luft' },
+};
 
 export const review = {
     couple: 'Ihr zwei',
@@ -175,5 +212,7 @@ export const review = {
     size: 'Grösse',
     languages: 'Sprachen',
     look: 'Look',
+    styles: 'Stil',
+    wishes: 'Eure Idee',
     open: 'Noch offen',
 };

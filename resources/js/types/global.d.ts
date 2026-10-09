@@ -25,6 +25,8 @@ declare module '@inertiajs/core' {
             currentWedding: SharedWedding | null;
             account: AccountSummary | null;
             auth: Auth;
+            /** Open landing questions; null unless the user is an admin. */
+            adminInbox: number | null;
             sidebarOpen: boolean;
             [key: string]: unknown;
         };

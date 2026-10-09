@@ -1,6 +1,7 @@
 /*
  * Semantic tokens (shadcn-vue contract + Hereby extras). Components only use
- * these. Light is "porcelain", dark is "night".
+ * these. The app is always light ("porcelain"); "night" lives only on
+ * `.stage` sections and the sidebar (no dark mode).
  *  - `.surface-light` pins light tokens on a brand surface (marketing).
  *  - `.stage` re-declares the dark tokens on one section, so everything inside
  *    (buttons included) turns to night without `dark:` variants.
@@ -62,7 +63,6 @@
     color-scheme: light;
 }
 
-.dark,
 .stage {
     --background: var(--color-night-950);
     --foreground: var(--color-porcelain-100);

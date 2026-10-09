@@ -1,5 +1,10 @@
 /** Mirrors App\Http\Resources\WeddingSetupResource and the setup enums. */
-import type { EventType, Locale, WeddingTheme } from '@/types/wedding';
+import type {
+    EventType,
+    Locale,
+    LookStyle,
+    WeddingTheme,
+} from '@/types/wedding';
 
 export type SetupStepKey =
     | 'paar'
@@ -50,6 +55,8 @@ export type WeddingSetup = {
     languages: Locale[];
     default_locale: Locale;
     theme: WeddingTheme;
+    look_styles: LookStyle[];
+    look_wishes: string | null;
     events: ProgrammeRow[];
 };
 

@@ -8,7 +8,11 @@ import HeaderExternalLinks from '@/components/header/HeaderExternalLinks.vue';
 import HeaderMobileNav from '@/components/header/HeaderMobileNav.vue';
 import HeaderUserMenu from '@/components/header/HeaderUserMenu.vue';
 import { Button } from '@/components/ui/button';
-import { mainNavItems, secondaryNavItems } from '@/config/navigation';
+import {
+    adminNavItems,
+    mainNavItems,
+    secondaryNavItems,
+} from '@/config/navigation';
 import { usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
 import { dashboard } from '@/routes';
@@ -19,12 +23,12 @@ const { breadcrumbs = [] } = defineProps<{
 }>();
 
 const page = usePage();
-const navItems = computed(() =>
-    mainNavItems(
-        page.props.currentWedding,
-        Boolean(page.props.auth.user?.is_admin),
-    ),
-);
+const navItems = computed(() => [
+    ...mainNavItems(page.props.currentWedding),
+    ...(page.props.adminInbox === null
+        ? []
+        : adminNavItems(page.props.adminInbox)),
+]);
 </script>
 
 <template>

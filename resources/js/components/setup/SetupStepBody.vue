@@ -50,7 +50,11 @@ const stepProps = computed(() => {
 
 <template>
     <Transition name="step" mode="out-in">
-        <div :key="step" class="setup-body">
+        <div
+            :key="step"
+            class="setup-body"
+            :data-wide="step === 'ablauf' || step === 'look'"
+        >
             <div>
                 <h1 class="setup-question">{{ stepCopy[step].question }}</h1>
                 <p class="setup-helper">{{ stepCopy[step].helper }}</p>

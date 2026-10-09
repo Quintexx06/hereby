@@ -169,10 +169,3 @@
         @apply flex items-center justify-between gap-4 border-b py-2.5 text-sm;
     }
 }
-
-/* The team's admin (pages/admin/Weddings): one hairline row per wedding. */
-@layer components {
-    .admin-row {
-        @apply grid gap-x-6 gap-y-1 border-t py-4 sm:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)_minmax(0,1fr)_13rem] sm:items-center;
-    }
-}

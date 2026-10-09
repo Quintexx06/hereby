@@ -1,11 +1,10 @@
 /** Copy for the couple's account pages (Swiss German, "ihr"). */
 export const account = {
     title: 'Konto',
-    lede: 'Wer sich anmeldet, wie, und wie Hereby aussieht.',
+    lede: 'Wer sich anmeldet und wie.',
     nav: {
         profile: 'Profil',
         security: 'Sicherheit',
-        appearance: 'Darstellung',
     },
     navLabel: 'Kontobereiche',
     save: 'Speichern',
@@ -29,12 +28,6 @@ export const deleteCopy = {
     password: 'Passwort zur Bestätigung',
     confirm: 'Endgültig löschen',
     cancel: 'Abbrechen',
-};
-
-export const appearanceCopy = {
-    title: 'Darstellung',
-    lede: 'Hell, dunkel oder wie euer Gerät eingestellt ist.',
-    options: { light: 'Hell', dark: 'Dunkel', system: 'Wie das Gerät' },
 };
 
 export const userMenu = { settings: 'Konto', logout: 'Abmelden' };

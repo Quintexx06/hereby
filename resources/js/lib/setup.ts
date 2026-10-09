@@ -19,7 +19,7 @@ export const stepFields: Record<SetupStepKey, (keyof SetupForm)[]> = {
     ],
     ablauf: ['celebration', 'events'],
     gaeste: ['guest_estimate', 'languages', 'default_locale'],
-    look: ['theme'],
+    look: ['theme', 'look_styles', 'look_wishes'],
     uebersicht: [],
 };
 

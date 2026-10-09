@@ -148,6 +148,8 @@ needs an approved spec with its own acceptance criteria before work starts.
 
 | Date       | Change |
 | ---------- | ------ |
+| 2026-10-09 | Setup polish: the app is light only (dark mode and «Darstellung» removed); the programme step lays parts of the day out as timeline cards across the full width; the look step adds style directions (up to three of twelve) and a free-text idea that brief the team's hand-tuning and show on the admin's wedding cards |
+| 2026-10-09 | 1.1 follow-up: the team area gets its own sidebar section (Hochzeiten, Anfragen with an open-count badge, Website ansehen); landing-page questions are read and marked answered under «Anfragen»; the Hochzeiten page gains a candlelit hero with the roses, live counts, a first-visit tour and a starter checklist derived from real data |
 | 2026-10-09 | 1.1 done: the team's admin ("Hochzeiten"): every wedding at a glance, and setting one up for a couple, who gets a link to choose a password; admins edit on the couple's own pages (Gate::before). Admin only via `php artisan hereby:make-admin` |
 | 2026-10-09 | 1.13 done: guest pages measured at LCP ~1.2 s on Lighthouse slow 4G (was 5.9 s uncompressed, 3.0 s gzipped): SSR, hydration after first frame, a lean inlined guest stylesheet, weight-only font, lazy layouts; a CI job fails above the budget ([frontend](../architecture/frontend.md#guest-pages-and-the-two-second-budget-roadmap-113)). Production must run the SSR server |
 | 2026-10-09 | 1.8 done: "Anreise" and "Übernachten" blocks (hotels with details and a link), per event access and language like every content block; shuttle seats are asked in the reply (1.4) |

@@ -14,9 +14,23 @@ defineEmits<{ remove: [] }>();
 const row = defineModel<ProgrammeRow>('row', { required: true });
 </script>
 
+<!-- One part of the day as a timeline card: when, what, which day. -->
 <template>
-    <div class="programme-row">
-        <div class="field">
+    <div class="programme-item">
+        <div class="programme-time field">
+            <label :for="`event_time_${index}`" class="field-label">{{
+                programme.time
+            }}</label>
+            <Input
+                :id="`event_time_${index}`"
+                v-model="row.time"
+                type="time"
+                step="900"
+                class="tabular-nums"
+                required
+            />
+        </div>
+        <div class="programme-what field">
             <label :for="`event_name_${index}`" class="field-label">{{
                 eventTypes[row.type]
             }}</label>
@@ -27,19 +41,7 @@ const row = defineModel<ProgrammeRow>('row', { required: true });
                 maxlength="80"
             />
         </div>
-        <div class="field">
-            <label :for="`event_time_${index}`" class="field-label">{{
-                programme.time
-            }}</label>
-            <Input
-                :id="`event_time_${index}`"
-                v-model="row.time"
-                type="time"
-                step="900"
-                required
-            />
-        </div>
-        <div class="field col-span-1">
+        <div class="programme-day field">
             <label :for="`event_day_${index}`" class="field-label">{{
                 programme.day
             }}</label>
@@ -59,7 +61,7 @@ const row = defineModel<ProgrammeRow>('row', { required: true });
         </div>
         <button
             type="button"
-            class="icon-button size-11"
+            class="programme-remove icon-button size-11"
             :aria-label="`${eventTypes[row.type]} ${programme.remove}`"
             @click="$emit('remove')"
         >
