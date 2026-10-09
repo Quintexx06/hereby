@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Actions\Invitations\VisibleBlocks;
 use App\Enums\ResponseStatus;
 use App\Models\EventResponse;
 use App\Models\Guest;
@@ -29,11 +30,17 @@ class InvitationResource extends JsonResource
             'wedding' => new WeddingResource($this->wedding),
             'guests' => GuestResource::collection($this->guests),
             'events' => EventResource::collection($this->events),
+            'blocks' => app(VisibleBlocks::class)->handle(
+                $this->wedding,
+                array_values(array_map(intval(...), $this->events->modelKeys())),
+                $this->locale->value,
+            ),
             'rsvpOpen' => $this->wedding->acceptsReplies(),
-            'links' => [
+            // Null in the couple's preview, where the sample household has no link.
+            'links' => $this->exists ? [
                 'invitation' => route('invitation.show', $this->resource),
                 'reply' => route('invitation.reply', $this->resource),
-            ],
+            ] : null,
             'reply' => [
                 'answered' => $this->responded_at !== null,
                 'attending' => $this->guests->filter(fn (Guest $guest): bool => $guest->responses

@@ -16,11 +16,12 @@ class ShowInvitationController extends Controller
     public function __invoke(Household $household): Response
     {
         $household->markOpened();
-        $household->load(['wedding', 'guests.responses', 'events']);
+        $household->load(['wedding.contentBlocks', 'guests.responses', 'events']);
 
         return Inertia::render('invitation/Show', [
             'invitation' => new InvitationResource($household),
             'replied' => (bool) session('replied'),
+            'preview' => false,
         ]);
     }
 }

@@ -3,9 +3,11 @@ import {
     LayoutGrid,
     LifeBuoy,
     ListChecks,
+    NotebookPen,
     Users,
 } from '@lucide/vue';
 import { dashboard } from '@/routes';
+import { index as content } from '@/routes/weddings/content';
 import { index as guests } from '@/routes/weddings/guests';
 import { edit as rsvpSettings } from '@/routes/weddings/rsvp-settings';
 import { show as setup } from '@/routes/weddings/setup';
@@ -27,6 +29,11 @@ export function mainNavItems(wedding: SharedWedding | null): NavItem[] {
             href: guests(wedding.id),
             icon: Users,
             badge: wedding.households || undefined,
+        });
+        items.push({
+            title: 'Inhalte',
+            href: content(wedding.id),
+            icon: NotebookPen,
         });
         items.push({
             title: 'Antwortformular',

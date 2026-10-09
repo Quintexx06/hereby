@@ -1,0 +1,45 @@
+<script setup lang="ts">
+import FaqItemsField from '@/components/content/FaqItemsField.vue';
+import { Input } from '@/components/ui/input';
+import { blockTypes, contentPage as copy } from '@/content/content';
+import type { BlockText, ContentBlockType } from '@/types';
+
+/* One language's text for one block. */
+defineProps<{ type: ContentBlockType; idPrefix: string }>();
+const text = defineModel<BlockText>({ required: true });
+</script>
+
+<template>
+    <div class="flex flex-col gap-5">
+        <div class="field">
+            <label :for="`${idPrefix}-title`" class="field-label">{{
+                copy.customTitle
+            }}</label>
+            <Input
+                :id="`${idPrefix}-title`"
+                v-model="text.title"
+                maxlength="80"
+                :placeholder="blockTypes[type].label"
+            />
+        </div>
+        <FaqItemsField
+            v-if="type === 'faq'"
+            v-model="text.items"
+            :id-prefix="idPrefix"
+        />
+        <div v-else class="field">
+            <label :for="`${idPrefix}-body`" class="field-label">{{
+                copy.body
+            }}</label>
+            <textarea
+                :id="`${idPrefix}-body`"
+                v-model="text.body"
+                rows="5"
+                maxlength="3000"
+                class="textarea"
+                :placeholder="blockTypes[type].placeholder"
+            />
+            <p class="field-hint">{{ copy.bodyHint }}</p>
+        </div>
+    </div>
+</template>

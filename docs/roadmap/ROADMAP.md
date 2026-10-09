@@ -79,7 +79,7 @@ Every `code` item, before it is ticked:
 | ID   | Item | Owner | Status | Done when |
 | ---- | ---- | ----- | ------ | --------- |
 | 1.1  | Couple account owns weddings; internal admin to set up sites | code | [~] | An admin creates a wedding, events and households for a couple; the couple signs in and sees only theirs |
-| 1.2  | Invitation content blocks (story, venue, dress code, FAQ) on the personal link | code | [ ] | Blocks render per household and per event access, in the household's language |
+| 1.2  | Invitation content blocks (story, venue, dress code, FAQ) on the personal link | code | [x] | Blocks render per household and per event access, in the household's language |
 | 1.3  | Opening sequence (skippable, reduced-motion safe) | code | [ ] | Skippable in one tap; never blocks the RSVP; static under reduced motion; still < 2s |
 | 1.4  | **60-second RSVP**: per person and event, menu, allergies, children's meal, shuttle, stay, song; asks only what applies | code | [~] | Median completion < 60s in a timed test with 5 people on phones; no account; dietary notes encrypted |
 | 1.5  | Edit until the deadline, with an email summary and a calendar (.ics) entry | code | [ ] | Answers editable until the deadline, locked after; summary email + .ics sent on every save |
@@ -148,6 +148,7 @@ needs an approved spec with its own acceptance criteria before work starts.
 
 | Date       | Change |
 | ---------- | ------ |
+| 2026-10-09 | 1.2 done: story, venue (with route link), dress code and FAQ on the personal link, per event access and in the household's language with fallback; the couple's "Inhalte" editor and a preview in every language ([spec](../specs/2026-10-09-invitation-content-design.md)). Konto gets the account at a glance |
 | 2026-10-09 | 1.4 in progress: the reply form on the personal link (per person and part of the day, menus, children's menu, write-only allergies, named plus-one, shuttle/stay/song) and the couple's Antwortformular; code and tests done, the timed test with 5 people on phones is open ([spec](../specs/2026-10-09-rsvp-design.md)). Design pass over dashboard, guests and account (Swiss German everywhere, 44px targets, "Eure Einladung" panel) |
 | 2026-10-09 | Sidebar as a night stage with the couple's names and countdown; setup scenes that change per step with a story line; household editor (people, language, +1, invited parts, renew link, remove) |
 | 2026-10-09 | 1.9, 1.11 done; 1.1 in progress (couples own weddings and set them up in a 7-step guided setup with a live invitation preview; internal admin still open). Swiss address search (ADR 0010), guest import by paste, Excel, CSV and contacts with a preview ([spec](../specs/2026-10-09-couple-setup-and-dashboard-design.md)) |

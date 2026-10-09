@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\AddressSearchController;
+use App\Http\Controllers\Content\ContentBlockController;
+use App\Http\Controllers\Content\PreviewInvitationController;
+use App\Http\Controllers\Content\ReorderContentBlocksController;
 use App\Http\Controllers\Guests\GuestsController;
 use App\Http\Controllers\Guests\HouseholdController;
 use App\Http\Controllers\Guests\PreviewGuestImportController;
@@ -37,7 +40,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::put('hochzeit/{wedding}/antwortformular', [RsvpSettingsController::class, 'update'])
             ->name('weddings.rsvp-settings.update');
 
+        Route::get('hochzeit/{wedding}/inhalte', [ContentBlockController::class, 'index'])->name('weddings.content.index');
+        Route::post('hochzeit/{wedding}/inhalte', [ContentBlockController::class, 'store'])->name('weddings.content.store');
+        Route::put('hochzeit/{wedding}/inhalte/reihenfolge', ReorderContentBlocksController::class)->name('weddings.content.reorder');
+        Route::get('hochzeit/{wedding}/vorschau', PreviewInvitationController::class)->name('weddings.preview');
+
         Route::scopeBindings()->group(function () {
+            Route::put('hochzeit/{wedding}/inhalte/{contentBlock:id}', [ContentBlockController::class, 'update'])->name('weddings.content.update');
+            Route::delete('hochzeit/{wedding}/inhalte/{contentBlock:id}', [ContentBlockController::class, 'destroy'])->name('weddings.content.destroy');
             Route::put('hochzeit/{wedding}/haushalte/{household:id}', [HouseholdController::class, 'update'])
                 ->name('weddings.households.update');
             Route::delete('hochzeit/{wedding}/haushalte/{household:id}', [HouseholdController::class, 'destroy'])

@@ -135,3 +135,14 @@
         @apply inline-flex h-8 items-center rounded-full border border-border px-3 text-muted-foreground data-on:border-success/60 data-on:text-foreground;
     }
 }
+
+/* "Inhalte": one card per block on the invitation. */
+@layer components {
+    .block-editor {
+        @apply flex flex-col gap-6 rounded-lg border bg-card p-5 sm:p-7;
+    }
+
+    .faq-item-field {
+        @apply flex items-start gap-2 border-b pb-4;
+    }
+}

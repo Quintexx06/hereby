@@ -307,6 +307,18 @@ questions come last. A fixed bottom bar says how many answers are open and
 holds "Antwort senden", disabled until nothing is missing. The invitation
 then shows "Danke für eure Antwort", who is coming and "Antwort ändern".
 
+### Invitation content (`components/invitation/InvitationBlocks`, `blocks/*`)
+
+After the programme, the couple's own words, each block under a hairline
+with a `.title`: plain paragraphs at `text-lg` (a blank line is a new
+paragraph), the venue with its official address and a plain "Route planen"
+link (no map embed), the FAQ as native `<details>` with a chevron that turns.
+The couple edits them in **Inhalte** (`pages/content/Index`): one card per
+block, language tabs as a `.segmented` control (a dot marks an empty
+language), "Wer sieht das?" as a native select, arrows to reorder, and the
+same inline confirm as the guest editor to remove. The **preview** is the
+real invitation with a night bar on top (`PreviewBanner`) to switch language.
+
 ### Icons (`components/brand/HerebyIcon.vue`)
 
 Hereby's own set, never stock: 32px grid, 1.5px stroke, round caps, one

@@ -90,6 +90,14 @@ class Wedding extends Model
         return $this->hasMany(Household::class);
     }
 
+    /**
+     * @return HasMany<ContentBlock, $this>
+     */
+    public function contentBlocks(): HasMany
+    {
+        return $this->hasMany(ContentBlock::class)->orderBy('position')->orderBy('id');
+    }
+
     public function isDraft(): bool
     {
         return $this->status === WeddingStatus::Draft;

@@ -90,6 +90,7 @@ export const invitationPanel = {
     title: 'Eure Einladung',
     theme: (name: string) => `Im Look «${name}»`,
     change: 'Look ändern',
+    preview: 'Vorschau',
 };
 
 export const dashboardPage = { title: 'Übersicht' };

@@ -6,6 +6,13 @@ return [
     'title' => ':couple heiraten',
     'events_heading' => 'Eure Einladung',
     'reply_by' => 'Bitte antwortet bis :date',
+    'blocks' => [
+        'story' => 'Unsere Geschichte',
+        'venue' => 'Ort',
+        'dress_code' => 'Dresscode',
+        'faq' => 'Fragen & Antworten',
+    ],
+    'route' => 'Route planen',
     'event_types' => [
         'civil_ceremony' => 'Ziviltrauung',
         'ceremony' => 'Trauung',

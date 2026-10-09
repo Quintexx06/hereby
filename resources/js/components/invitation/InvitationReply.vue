@@ -28,7 +28,7 @@ const deadline = computed(() =>
                         })
                     }}
                 </p>
-                <template v-if="invitation.rsvpOpen">
+                <template v-if="invitation.rsvpOpen && invitation.links">
                     <p v-if="deadline" class="text-sm text-muted-foreground">
                         {{ t('rsvp.change_until', { date: deadline }) }}
                     </p>
@@ -42,9 +42,17 @@ const deadline = computed(() =>
             </div>
         </template>
         <template v-else-if="invitation.rsvpOpen">
-            <Link :href="invitation.links.reply" class="reply-send">
+            <Link
+                v-if="invitation.links"
+                :href="invitation.links.reply"
+                class="reply-send"
+            >
                 {{ t('rsvp.cta') }}
             </Link>
+            <!-- The couple's preview: the button shows, but leads nowhere. -->
+            <span v-else class="reply-send" aria-disabled="true">{{
+                t('rsvp.cta')
+            }}</span>
             <p v-if="deadline" class="text-sm text-muted-foreground">
                 {{ t('invitation.reply_by', { date: deadline }) }}
             </p>

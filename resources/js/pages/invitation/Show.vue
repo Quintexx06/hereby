@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { Head } from '@inertiajs/vue3';
+import InvitationBlocks from '@/components/invitation/InvitationBlocks.vue';
+import PreviewBanner from '@/components/invitation/PreviewBanner.vue';
 import InvitationEvents from '@/components/invitation/InvitationEvents.vue';
 import InvitationFooter from '@/components/invitation/InvitationFooter.vue';
 import InvitationReply from '@/components/invitation/InvitationReply.vue';
@@ -11,6 +13,8 @@ import type { Invitation } from '@/types';
 defineProps<{
     invitation: Invitation;
     replied: boolean;
+    preview: boolean;
+    previewLanguages?: string[];
 }>();
 
 const { localeTag } = useTrans();
@@ -19,12 +23,14 @@ const { localeTag } = useTrans();
 <template>
     <WeddingThemeScope :theme="invitation.wedding.theme" :lang="localeTag()">
         <Head :title="invitation.wedding.coupleNames" />
+        <PreviewBanner v-if="preview" :languages="previewLanguages ?? []" />
         <main class="invitation-page">
             <InvitationHero
                 :wedding="invitation.wedding"
                 :guests="invitation.guests"
             />
             <InvitationEvents :events="invitation.events" />
+            <InvitationBlocks :blocks="invitation.blocks" />
             <InvitationReply :invitation="invitation" :replied="replied" />
             <InvitationFooter />
         </main>

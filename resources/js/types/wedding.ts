@@ -42,7 +42,24 @@ export type Invitation = {
     wedding: Wedding;
     guests: Guest[];
     events: WeddingEvent[];
+    blocks: InvitationBlock[];
     rsvpOpen: boolean;
-    links: { invitation: string; reply: string };
+    links: { invitation: string; reply: string } | null;
     reply: { answered: boolean; attending: number; invited: number };
+};
+
+export type ContentBlockType = 'story' | 'venue' | 'dress_code' | 'faq';
+
+/** One content block as a guest sees it (App\Actions\Invitations\VisibleBlocks). */
+export type InvitationBlock = {
+    id: number;
+    type: ContentBlockType;
+    title: string | null;
+    body: string | null;
+    items: { question: string; answer: string }[];
+    venue: {
+        name: string | null;
+        address: string | null;
+        route: string | null;
+    } | null;
 };

@@ -9,6 +9,7 @@ import { landingPhotos } from '@/content/landing-photos';
 import type { LandingPhoto } from '@/content/landing-photos';
 import { previewFromWedding } from '@/lib/preview';
 import { sceneSource } from '@/lib/setupScenes';
+import { preview } from '@/routes/weddings';
 import { show } from '@/routes/weddings/setup';
 import type { DashboardWedding, OverviewEvent } from '@/types';
 
@@ -45,12 +46,21 @@ const photo: LandingPhoto = landingPhotos.tableCandles;
             <p class="text-sm text-muted-foreground">
                 {{ invitationPanel.theme(themes[wedding.theme].name) }}
             </p>
-            <Link
-                :href="show([wedding.id, 'look'])"
-                class="link-underline hit-area mt-2 self-start text-sm font-medium"
-            >
-                {{ invitationPanel.change }}
-            </Link>
+            <p class="mt-2 flex gap-5 text-sm font-medium">
+                <a
+                    :href="preview.url(wedding.id)"
+                    target="_blank"
+                    rel="noopener"
+                    class="link-underline hit-area"
+                    >{{ invitationPanel.preview }}</a
+                >
+                <Link
+                    :href="show([wedding.id, 'look'])"
+                    class="link-underline hit-area"
+                >
+                    {{ invitationPanel.change }}
+                </Link>
+            </p>
         </div>
 
         <div class="invitation-panel-phone phone-frame" aria-hidden="true">
