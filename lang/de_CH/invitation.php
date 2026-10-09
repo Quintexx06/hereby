@@ -12,6 +12,7 @@ return [
         'dress_code' => 'Dresscode',
         'faq' => 'Fragen & Antworten',
     ],
+    'skip' => 'Tippen zum Überspringen',
     'route' => 'Route planen',
     'event_types' => [
         'civil_ceremony' => 'Ziviltrauung',

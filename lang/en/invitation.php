@@ -12,6 +12,7 @@ return [
         'dress_code' => 'Dress code',
         'faq' => 'Questions & answers',
     ],
+    'skip' => 'Tap to skip',
     'route' => 'Get directions',
     'event_types' => [
         'civil_ceremony' => 'Civil ceremony',

@@ -311,6 +311,15 @@ questions come last. A fixed bottom bar says how many answers are open and
 holds "Antwort senden", disabled until nothing is missing. The invitation
 then shows "Danke für eure Antwort", who is coming and "Antwort ändern".
 
+### Invitation opening (`components/invitation/InvitationOpening`)
+
+The guest's first second: the couple's names and date rise (450ms, ease-out)
+behind two sheer panels drawn from the theme's own tokens, which part like
+the landing veil (900ms, ease-in-out) and leave the invitation underneath,
+already rendered. CSS only (no WebGL on guest pages, rule 2), once per link
+(localStorage), any tap or key skips, absent under reduced motion. The names
+are `aria-hidden`: the page's real heading is the one that is read.
+
 ### Invitation content (`components/invitation/InvitationBlocks`, `blocks/*`)
 
 After the programme, the couple's own words, each block under a hairline

@@ -80,7 +80,7 @@ Every `code` item, before it is ticked:
 | ---- | ---- | ----- | ------ | --------- |
 | 1.1  | Couple account owns weddings; internal admin to set up sites | code | [~] | An admin creates a wedding, events and households for a couple; the couple signs in and sees only theirs |
 | 1.2  | Invitation content blocks (story, venue, dress code, FAQ) on the personal link | code | [x] | Blocks render per household and per event access, in the household's language |
-| 1.3  | Opening sequence (skippable, reduced-motion safe) | code | [ ] | Skippable in one tap; never blocks the RSVP; static under reduced motion; still < 2s |
+| 1.3  | Opening sequence (skippable, reduced-motion safe) | code | [x] | Skippable in one tap; never blocks the RSVP; static under reduced motion; still < 2s |
 | 1.4  | **60-second RSVP**: per person and event, menu, allergies, children's meal, shuttle, stay, song; asks only what applies | code | [~] | Median completion < 60s in a timed test with 5 people on phones; no account; dietary notes encrypted |
 | 1.5  | Edit until the deadline, with an email summary and a calendar (.ics) entry | code | [x] | Answers editable until the deadline, locked after; summary email + .ics sent on every save |
 | 1.6  | Language per guest: German and English content | code | [ ] | Every guest string in de-CH and en, native-reviewed |
@@ -148,6 +148,7 @@ needs an approved spec with its own acceptance criteria before work starts.
 
 | Date       | Change |
 | ---------- | ------ |
+| 2026-10-09 | 1.3 done: the invitation opens behind a sheer veil in the couple's theme that parts after a beat (about 1.4s, CSS only); once per link, any tap or key skips, nothing under reduced motion |
 | 2026-10-09 | 1.12 done: "Küche & Service" with counts per part, menu and children; a printable A4 sheet with allergies (server-rendered, owner only) and a CSV for Excel. No PDF library: the browser prints to PDF; per-table counts follow with seating (2.3) ([spec](../specs/2026-10-09-kitchen-sheets-design.md)) |
 | 2026-10-09 | 1.10 done: reminders 14, 7 and 2 days before the deadline to unanswered households with an address, from the couple by name, once per stage, with one-click opt-out; couples switch them off on the Antwortformular ([spec](../specs/2026-10-09-reminders-design.md)) |
 | 2026-10-09 | 1.5 done: replies stay editable until the deadline; every save mails a summary from the couple by name (when the guest leaves an address) with the calendar attached, and the invitation offers "In den Kalender" ([spec](../specs/2026-10-09-reply-confirmation-design.md)) |

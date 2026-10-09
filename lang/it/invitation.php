@@ -12,6 +12,7 @@ return [
         'dress_code' => 'Dress code',
         'faq' => 'Domande e risposte',
     ],
+    'skip' => 'Tocca per saltare',
     'route' => 'Indicazioni stradali',
     'event_types' => [
         'civil_ceremony' => 'Matrimonio civile',

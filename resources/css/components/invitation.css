@@ -38,3 +38,73 @@
         @apply sticky top-0 z-30 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 bg-foreground px-5 py-3 text-sm text-background;
     }
 }
+
+/*
+ * The opening (components/invitation/InvitationOpening): a sheer veil in the
+ * couple's theme, names behind it, parting after a beat. Ease-in-out for the
+ * parting (a curtain, not UI), the whole moment under 1.4 seconds.
+ */
+@layer components {
+    .opening {
+        @apply fixed inset-0 z-50 flex cursor-pointer items-center justify-center overflow-hidden bg-background transition-[background-color] duration-700;
+    }
+
+    .opening[data-state='open'] {
+        @apply bg-transparent;
+    }
+
+    .opening-panel {
+        @apply absolute inset-y-0 w-[52%];
+        background: repeating-linear-gradient(
+            90deg,
+            color-mix(in oklch, var(--background) 92%, transparent) 0,
+            color-mix(in oklch, var(--background) 70%, transparent) 2.2%,
+            color-mix(in oklch, var(--foreground) 9%, var(--background)) 3.6%,
+            color-mix(in oklch, var(--background) 88%, transparent) 5.4%
+        );
+        transition: transform 900ms var(--ease-in-out);
+    }
+
+    .opening-panel-left {
+        @apply left-0;
+    }
+
+    .opening-panel-right {
+        @apply right-0;
+    }
+
+    .opening[data-state='open'] .opening-panel-left {
+        transform: translateX(-104%);
+    }
+
+    .opening[data-state='open'] .opening-panel-right {
+        transform: translateX(104%);
+    }
+
+    .opening-names {
+        @apply relative flex flex-col items-center gap-3 px-6 text-center text-4xl leading-none font-semibold tracking-[-0.04em] text-foreground transition-opacity duration-500 sm:text-6xl;
+        animation: opening-rise 450ms var(--ease-out) both;
+    }
+
+    .opening[data-state='open'] .opening-names,
+    .opening[data-state='open'] .opening-skip {
+        @apply opacity-0;
+    }
+
+    .opening-skip {
+        @apply absolute bottom-8 text-sm text-muted-foreground transition-opacity duration-300;
+    }
+}
+
+@keyframes opening-rise {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .opening {
+        display: none;
+    }
+}
