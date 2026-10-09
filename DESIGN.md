@@ -366,13 +366,16 @@ imported dynamically and only from `lib/three/` (hero veil, rings, closing veil)
 
 ## Wedding themes
 
-| Theme   | Mood                              | `brand`    |
-| ------- | --------------------------------- | ---------- |
-| Ivory   | House style: porcelain, night ink | Blush ink  |
-| Rosé    | Blush paper, burgundy ink         | Dusty rose |
-| Lavanda | Lilac paper, aubergine ink        | Lilac      |
-| Alpine  | Glacier white, slate              | Pine       |
-| Riviera | Limestone, espresso               | Terracotta |
+| Theme   | Mood                              | `brand`   |
+| ------- | --------------------------------- | --------- |
+| Ivory   | House style: porcelain, night ink | Blush ink |
+| Rosé    | Oxblood paper, blush ink          | Blush     |
+| Alpine  | Pine-green paper, glacier ink     | Glacier   |
+| Riviera | Terracotta paper, limestone ink   | Butter    |
+| Lavanda | Aubergine paper, lilac ink        | Lilac     |
+
+The coloured themes share one lightness/chroma ladder and differ only in hue,
+so the collection reads as one family.
 
 Starter themes until the designer's collection lands (roadmap 0.6).
 
