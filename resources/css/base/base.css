@@ -25,6 +25,41 @@
         cursor: not-allowed;
     }
 
+    /*
+     * Our own scrollbar: a slim ink pill on the page colour, no track, no
+     * arrows. It takes the tokens, so it turns porcelain inside a .stage and
+     * follows a couple's theme on guest pages.
+     */
+
+    ::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+    }
+
+    ::-webkit-scrollbar-track,
+    ::-webkit-scrollbar-corner {
+        background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        border: 3px solid transparent;
+        border-radius: 9999px;
+        background: color-mix(in oklch, var(--foreground) 22%, transparent)
+            padding-box;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: color-mix(
+            in oklch,
+            var(--foreground) 45%,
+            transparent
+        );
+    }
+
+    ::-webkit-scrollbar-button {
+        display: none;
+    }
+
     ::selection {
         @apply bg-brand text-brand-foreground;
     }
@@ -45,5 +80,14 @@
     /* Anchor jumps land below the floating pill nav, not under it. */
     [id] {
         scroll-margin-top: 5.5rem;
+    }
+}
+
+/* Firefox has no ::-webkit-scrollbar; the standard properties give it the same slim pill. */
+@supports not selector(::-webkit-scrollbar) {
+    * {
+        scrollbar-width: thin;
+        scrollbar-color: color-mix(in oklch, var(--foreground) 22%, transparent)
+            transparent;
     }
 }
