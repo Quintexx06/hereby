@@ -25,6 +25,7 @@ Route::middleware(UseSwissGerman::class)->group(function () {
 
     require __DIR__.'/settings.php';
     require __DIR__.'/weddings.php';
+    require __DIR__.'/admin.php';
 });
 
 require __DIR__.'/invitations.php';

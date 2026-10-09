@@ -78,7 +78,7 @@ Every `code` item, before it is ticked:
 
 | ID   | Item | Owner | Status | Done when |
 | ---- | ---- | ----- | ------ | --------- |
-| 1.1  | Couple account owns weddings; internal admin to set up sites | code | [~] | An admin creates a wedding, events and households for a couple; the couple signs in and sees only theirs |
+| 1.1  | Couple account owns weddings; internal admin to set up sites | code | [x] | An admin creates a wedding, events and households for a couple; the couple signs in and sees only theirs |
 | 1.2  | Invitation content blocks (story, venue, dress code, FAQ) on the personal link | code | [x] | Blocks render per household and per event access, in the household's language |
 | 1.3  | Opening sequence (skippable, reduced-motion safe) | code | [x] | Skippable in one tap; never blocks the RSVP; static under reduced motion; still < 2s |
 | 1.4  | **60-second RSVP**: per person and event, menu, allergies, children's meal, shuttle, stay, song; asks only what applies | code | [~] | Median completion < 60s in a timed test with 5 people on phones; no account; dietary notes encrypted |
@@ -148,6 +148,7 @@ needs an approved spec with its own acceptance criteria before work starts.
 
 | Date       | Change |
 | ---------- | ------ |
+| 2026-10-09 | 1.1 done: the team's admin ("Hochzeiten"): every wedding at a glance, and setting one up for a couple, who gets a link to choose a password; admins edit on the couple's own pages (Gate::before). Admin only via `php artisan hereby:make-admin` |
 | 2026-10-09 | 1.13 done: guest pages measured at LCP ~1.2 s on Lighthouse slow 4G (was 5.9 s uncompressed, 3.0 s gzipped): SSR, hydration after first frame, a lean inlined guest stylesheet, weight-only font, lazy layouts; a CI job fails above the budget ([frontend](../architecture/frontend.md#guest-pages-and-the-two-second-budget-roadmap-113)). Production must run the SSR server |
 | 2026-10-09 | 1.8 done: "Anreise" and "Übernachten" blocks (hotels with details and a link), per event access and language like every content block; shuttle seats are asked in the reply (1.4) |
 | 2026-10-09 | 1.3 done: the invitation opens behind a sheer veil in the couple's theme that parts after a beat (about 1.4s, CSS only); once per link, any tap or key skips, nothing under reduced motion |

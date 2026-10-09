@@ -19,7 +19,12 @@ const { breadcrumbs = [] } = defineProps<{
 }>();
 
 const page = usePage();
-const navItems = computed(() => mainNavItems(page.props.currentWedding));
+const navItems = computed(() =>
+    mainNavItems(
+        page.props.currentWedding,
+        Boolean(page.props.auth.user?.is_admin),
+    ),
+);
 </script>
 
 <template>

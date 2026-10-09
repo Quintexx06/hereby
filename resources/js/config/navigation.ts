@@ -3,11 +3,13 @@ import {
     LayoutGrid,
     LifeBuoy,
     ListChecks,
+    Shield,
     NotebookPen,
     Users,
     UtensilsCrossed,
 } from '@lucide/vue';
 import { dashboard } from '@/routes';
+import { index as adminWeddings } from '@/routes/admin/weddings';
 import { index as content } from '@/routes/weddings/content';
 import { index as guests } from '@/routes/weddings/guests';
 import { index as kitchen } from '@/routes/weddings/kitchen';
@@ -20,7 +22,10 @@ import type { NavItem, SharedWedding } from '@/types';
  * both read from here. Items follow the couple's wedding: "Gäste" appears
  * once the website exists, "Einrichten" while it is still a draft.
  */
-export function mainNavItems(wedding: SharedWedding | null): NavItem[] {
+export function mainNavItems(
+    wedding: SharedWedding | null,
+    isAdmin = false,
+): NavItem[] {
     const items: NavItem[] = [
         { title: 'Übersicht', href: dashboard(), icon: LayoutGrid },
     ];
@@ -55,6 +60,10 @@ export function mainNavItems(wedding: SharedWedding | null): NavItem[] {
             href: setup([wedding.id, wedding.setup_step ?? 'paar']),
             icon: CalendarHeart,
         });
+    }
+
+    if (isAdmin) {
+        items.push({ title: 'Admin', href: adminWeddings(), icon: Shield });
     }
 
     return items;
