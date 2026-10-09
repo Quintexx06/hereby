@@ -53,7 +53,7 @@ defineOptions({
                 <InvitationPanel
                     :wedding="wedding"
                     :events="overview.events"
-                    class="lg:sticky lg:top-20"
+                    class="lg:sticky lg:top-6"
                 />
             </div>
 

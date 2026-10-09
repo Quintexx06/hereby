@@ -16,37 +16,23 @@
         @apply rounded-lg border bg-card text-card-foreground;
     }
 
-    /* The app frame: a top bar instead of a sidebar, porcelain throughout. */
-    .app-frame {
+    /*
+     * The app workspace beside the night sidebar: a framed porcelain sheet.
+     */
+    .app-workspace {
+        @apply md:border md:border-sidebar-border;
+    }
+
+    /* No sidebar yet (no active wedding): a calm page with a slim top bar. */
+    .app-focus {
         @apply flex min-h-svh flex-col bg-background text-foreground;
     }
 
-    .app-topbar {
-        @apply sticky top-0 z-30 border-b border-rule bg-background/85 backdrop-blur-md;
+    .app-focus-bar {
+        @apply mx-auto flex h-20 w-full max-w-5xl items-center justify-between px-5 sm:px-8;
     }
 
-    .app-topbar-inner {
-        @apply mx-auto flex h-16 w-full max-w-6xl items-center gap-4 px-5 sm:px-8 lg:gap-10;
-    }
-
-    .app-topbar-nav {
-        @apply hidden h-full items-stretch gap-6 lg:flex;
-    }
-
-    .app-topbar-link {
-        @apply relative flex items-center text-sm font-medium text-muted-foreground transition-colors duration-150 ease-out hover:text-foreground aria-[current=page]:text-foreground;
-    }
-
-    /* The current chapter: an ink rule along the bottom of the bar. */
-    .app-topbar-link[aria-current='page']::after {
-        @apply absolute inset-x-0 -bottom-px h-0.5 bg-foreground content-[''];
-    }
-
-    .app-topbar-badge {
-        @apply ml-0.5 text-[0.65rem] font-semibold text-brand tabular-nums;
-    }
-
-    .app-topbar-divider {
-        @apply my-auto h-4 w-px bg-rule;
+    .app-focus-user {
+        @apply flex items-center gap-2 rounded-full py-1 pr-3 pl-1 transition-colors duration-150 ease-out hover:bg-muted;
     }
 }
