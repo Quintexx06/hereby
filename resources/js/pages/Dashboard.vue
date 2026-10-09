@@ -3,10 +3,11 @@ import { Head } from '@inertiajs/vue3';
 import { computed } from 'vue';
 import DashboardDraft from '@/components/dashboard/DashboardDraft.vue';
 import DashboardStart from '@/components/dashboard/DashboardStart.vue';
+import InvitationPanel from '@/components/dashboard/InvitationPanel.vue';
 import ProgrammeSummary from '@/components/dashboard/ProgrammeSummary.vue';
 import ReplySummary from '@/components/dashboard/ReplySummary.vue';
 import TodayList from '@/components/dashboard/TodayList.vue';
-import { active } from '@/content/dashboard';
+import { dashboardPage } from '@/content/dashboard';
 import { formatDate } from '@/lib/format';
 import { dashboard } from '@/routes';
 import type { DashboardWedding, WeddingOverview } from '@/types';
@@ -17,7 +18,9 @@ const props = defineProps<{
 }>();
 
 defineOptions({
-    layout: { breadcrumbs: [{ title: 'Übersicht', href: dashboard() }] },
+    layout: {
+        breadcrumbs: [{ title: dashboardPage.title, href: dashboard() }],
+    },
 });
 
 const subtitle = computed(() => {
@@ -25,24 +28,15 @@ const subtitle = computed(() => {
         return '';
     }
 
-    const parts = [
-        formatDate(props.wedding.date, 'de-CH'),
-        props.wedding.venue,
-    ];
-
-    if (
-        props.overview?.days_left !== null &&
-        props.overview?.days_left !== undefined
-    ) {
-        parts.push(active.daysLeft(props.overview.days_left));
-    }
-
-    return parts.filter(Boolean).join(', ');
+    /* The countdown lives in the sidebar; here, the date and the place. */
+    return [formatDate(props.wedding.date, 'de-CH'), props.wedding.venue]
+        .filter(Boolean)
+        .join(', ');
 });
 </script>
 
 <template>
-    <Head title="Übersicht" />
+    <Head :title="dashboardPage.title" />
 
     <div class="app-page">
         <DashboardStart v-if="!wedding" />
@@ -57,13 +51,27 @@ const subtitle = computed(() => {
                 <p class="lede">{{ subtitle }}</p>
             </header>
 
-            <TodayList :wedding-id="wedding.id" :actions="overview.actions" />
-
-            <div
-                class="grid gap-14 lg:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] lg:gap-16"
-            >
-                <ReplySummary :wedding-id="wedding.id" :overview="overview" />
-                <ProgrammeSummary :events="overview.events" />
+            <div class="dashboard-grid">
+                <div class="flex flex-col gap-14">
+                    <TodayList
+                        :wedding-id="wedding.id"
+                        :actions="overview.actions"
+                    />
+                    <ReplySummary
+                        :wedding-id="wedding.id"
+                        :overview="overview"
+                    />
+                </div>
+                <div class="flex flex-col gap-14">
+                    <InvitationPanel
+                        :wedding="wedding"
+                        :events="overview.events"
+                    />
+                    <ProgrammeSummary
+                        :events="overview.events"
+                        :has-replies="overview.replies.answered > 0"
+                    />
+                </div>
             </div>
         </template>
     </div>

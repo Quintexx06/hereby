@@ -36,7 +36,7 @@ const href = (key: string) =>
             </div>
             <Link
                 :href="href(item.key)"
-                class="link-underline justify-self-start font-medium sm:justify-self-end"
+                class="link-underline hit-area justify-self-start font-medium sm:justify-self-end"
             >
                 {{ todayActions[item.key].cta }}
             </Link>

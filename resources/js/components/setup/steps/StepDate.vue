@@ -66,7 +66,7 @@ const summary = computed(() => {
                 type="date"
                 :min="today"
                 :max="form.wedding_date ?? undefined"
-                class="h-11 max-w-xs"
+                class="max-w-xs"
                 @input="deadlineTouched = true"
             />
             <p class="field-hint">{{ date.deadlineHint }}</p>

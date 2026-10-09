@@ -35,7 +35,6 @@ function addPerson(): void {
                 <Input
                     :id="`${idPrefix}_first_${index}`"
                     v-model="guest.first_name"
-                    class="h-11"
                     required
                 />
             </div>
@@ -49,15 +48,14 @@ function addPerson(): void {
                 <Input
                     :id="`${idPrefix}_last_${index}`"
                     v-model="guest.last_name"
-                    class="h-11"
                 />
             </div>
             <div class="flex h-11 items-center gap-3">
-                <label class="inline-flex items-center gap-2 text-sm">
+                <label class="check-label">
                     <input
                         v-model="guest.is_child"
                         type="checkbox"
-                        class="size-4 accent-foreground"
+                        class="checkbox"
                     />
                     {{ manualCopy.child }}
                 </label>

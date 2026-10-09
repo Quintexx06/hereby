@@ -31,8 +31,8 @@ onUnmounted(() => clearTwoFactorAuthData());
     <div v-if="canManageTwoFactor" class="space-y-6">
         <Heading
             variant="small"
-            title="Two-factor authentication"
-            description="Manage your two-factor authentication settings"
+            title="Zwei-Faktor-Authentifizierung"
+            description="Schützt euer Konto mit einem zweiten Schritt bei der Anmeldung"
         />
 
         <div
@@ -40,14 +40,18 @@ onUnmounted(() => clearTwoFactorAuthData());
             class="flex flex-col items-start justify-start space-y-4"
         >
             <p class="text-sm text-muted-foreground">
-                When you enable two-factor authentication, you will be prompted
-                for a secure pin during login. This pin can be retrieved from a
-                TOTP-supported application on your phone.
+                Wenn ihr die Zwei-Faktor-Authentifizierung aktiviert, fragen wir
+                bei der Anmeldung nach einem sicheren Code. Diesen Code findet
+                ihr in einer Authenticator-App auf eurem Telefon.
             </p>
 
             <div>
-                <Button v-if="hasSetupData" @click="showSetupModal = true">
-                    <ShieldCheck />Continue setup
+                <Button
+                    v-if="hasSetupData"
+                    size="pill"
+                    @click="showSetupModal = true"
+                >
+                    <ShieldCheck />Einrichtung fortsetzen
                 </Button>
                 <Form
                     v-else
@@ -55,8 +59,8 @@ onUnmounted(() => clearTwoFactorAuthData());
                     @success="showSetupModal = true"
                     #default="{ processing }"
                 >
-                    <Button type="submit" :disabled="processing">
-                        Enable 2FA
+                    <Button type="submit" size="pill" :disabled="processing">
+                        Aktivieren
                     </Button>
                 </Form>
             </div>
@@ -64,19 +68,19 @@ onUnmounted(() => clearTwoFactorAuthData());
 
         <div v-else class="flex flex-col items-start justify-start space-y-4">
             <p class="text-sm text-muted-foreground">
-                You will be prompted for a secure, random pin during login,
-                which you can retrieve from the TOTP-supported application on
-                your phone.
+                Bei der Anmeldung fragen wir nach einem sicheren, zufälligen
+                Code, den ihr in eurer Authenticator-App auf dem Telefon findet.
             </p>
 
             <div class="relative inline">
                 <Form v-bind="disable.form()" #default="{ processing }">
                     <Button
                         variant="destructive"
+                        size="pill"
                         type="submit"
                         :disabled="processing"
                     >
-                        Disable 2FA
+                        Deaktivieren
                     </Button>
                 </Form>
             </div>

@@ -1,13 +1,21 @@
 <script setup lang="ts">
+import { computed } from 'vue';
 import { active } from '@/content/dashboard';
 import { eventTypes } from '@/content/setup';
 import { formatDay, formatTime } from '@/lib/format';
 import type { OverviewEvent } from '@/types';
 
-defineProps<{ events: OverviewEvent[] }>();
+const props = defineProps<{ events: OverviewEvent[]; hasReplies: boolean }>();
+
+/* On a one-day wedding the day is noise; show it only when the days differ. */
+const severalDays = computed(
+    () =>
+        new Set(props.events.map((event) => event.starts_at.slice(0, 10)))
+            .size > 1,
+);
 </script>
 
-<!-- The parts of the day with who is invited and who has said yes. -->
+<!-- The parts of the day with who is invited and, once replies come, who said yes. -->
 <template>
     <section aria-labelledby="programme">
         <h2 id="programme" class="app-section-title mb-2">
@@ -17,26 +25,26 @@ defineProps<{ events: OverviewEvent[] }>();
             <li
                 v-for="event in events"
                 :key="event.id"
-                class="app-row grid-cols-[5.5rem_minmax(0,1fr)] sm:grid-cols-[7rem_minmax(0,1fr)_auto]"
+                class="app-row programme-row"
             >
                 <span class="flex flex-col text-sm">
                     <span class="font-semibold tabular-nums">{{
                         formatTime(event.starts_at, 'de-CH')
                     }}</span>
-                    <span class="text-muted-foreground">{{
+                    <span v-if="severalDays" class="text-muted-foreground">{{
                         formatDay(event.starts_at, 'de-CH')
                     }}</span>
                 </span>
-                <span class="font-medium">{{
-                    event.name || eventTypes[event.type]
-                }}</span>
-                <span
-                    class="col-start-2 text-sm text-muted-foreground sm:col-start-auto sm:text-right"
-                >
-                    {{ active.invited(event.invited) }}
-                    <span class="block">{{
-                        active.attending(event.attending)
+                <span class="flex flex-col">
+                    <span class="font-medium">{{
+                        event.name || eventTypes[event.type]
                     }}</span>
+                    <span class="text-sm text-muted-foreground">
+                        {{ active.invited(event.invited)
+                        }}<template v-if="hasReplies"
+                            >, {{ active.attending(event.attending) }}</template
+                        >
+                    </span>
                 </span>
             </li>
         </ol>

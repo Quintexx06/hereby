@@ -43,7 +43,7 @@ function finish(): void {
                 <label
                     v-for="(label, value) in importCopy.modes"
                     :key="value"
-                    class="chip h-10"
+                    class="chip"
                 >
                     <input
                         v-model="mode"

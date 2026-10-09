@@ -94,7 +94,7 @@ function add(type: EventType): void {
                     v-for="type in missing"
                     :key="type"
                     type="button"
-                    class="chip h-9 px-4"
+                    class="chip"
                     @click="add(type)"
                 >
                     {{ eventTypes[type] }}

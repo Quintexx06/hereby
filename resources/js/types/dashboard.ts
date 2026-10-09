@@ -1,6 +1,6 @@
 /** Mirrors App\Http\Controllers\DashboardController and BuildWeddingOverview. */
 import type { SetupStepKey } from '@/types/setup';
-import type { EventType } from '@/types/wedding';
+import type { EventType, WeddingTheme } from '@/types/wedding';
 
 export type ReplyStatusKey = 'never_opened' | 'opened' | 'answered';
 
@@ -11,6 +11,7 @@ export type DashboardWedding = {
     date: string | null;
     rsvp_deadline: string | null;
     venue: string | null;
+    theme: WeddingTheme;
     setup_step: SetupStepKey | null;
     setup_position: number | null;
     setup_total: number;

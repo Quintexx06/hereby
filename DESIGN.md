@@ -258,9 +258,18 @@ panel and the live invitation, never in decoration.
       Minuten. Jeder Schritt wird gespeichert."
 
 - **Dashboard** (`components/dashboard/*`, `dashboard.css`): couple names as the
-  title; "Heute für euch" (at most three computed actions as hairline rows);
-  replies as **one bar and three rows** (never a donut or a hero metric);
-  the programme with invited and attending counts per part.
+  title with the date and place (the countdown lives in the sidebar only);
+  "Heute für euch" (at most three computed actions as hairline rows);
+  replies as **one bar and three rows** (never a donut or a hero metric), and
+  one plain sentence instead while nobody has opened a link; the programme
+  with invited counts (attending once replies exist; the day only when the
+  wedding spans several). **Eure Einladung** (`InvitationPanel`) is the one
+  `.stage` moment: the couple's invitation in their theme, rising out of the
+  candlelit photo and cropped by the panel's bottom edge.
+- **Konto** (`layouts/settings`, `content/account.ts`): same page title and
+  column as the other app pages; Profil, Sicherheit, Darstellung as text tabs on
+  a hairline (`.settings-tab`); sections separated by hairlines; deleting the
+  account asks inline for the password, never a red box or a modal.
 - **Gäste** (`pages/guests/Index`, `guests.css`): search plus reply filters, one
   hairline row per household with a copy-link pill. The import panel opens
   inline (never a modal): paste, file or one by one, then a preview with
@@ -272,6 +281,9 @@ panel and the live invitation, never in decoration.
   and removing the household are quiet text actions that ask once, inline
   ("Ja" / "Abbrechen"), never a second modal. The save button sits in a fixed
   footer.
+- Touch targets are 44px everywhere in the app: inputs default to `h-11`,
+  `.chip`, `.pill-outline`, `.icon-button`, `.check-label`; small text links
+  get `.hit-area`. Chips scroll sideways on phones (`.chip-row`).
 - Reply status colours: never opened `muted-foreground/35`, opened
   `foreground/60`, answered `success`. Blush stays out of the app UI except
   focus and the sidebar countdown.

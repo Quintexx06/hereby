@@ -2,6 +2,8 @@
 export const guestsPage = {
     title: 'Gäste',
     add: 'Gäste hinzufügen',
+    close: 'Schliessen',
+    filter: 'Nach Antwort filtern',
     search: 'Name suchen',
     all: 'Alle',
     child: 'Kind',

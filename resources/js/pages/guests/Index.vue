@@ -1,22 +1,18 @@
 <script setup lang="ts">
 import { Head } from '@inertiajs/vue3';
-import { UserPlus } from '@lucide/vue';
-import { computed, ref } from 'vue';
+import { UserPlus, X } from '@lucide/vue';
+import { computed, ref, toRef } from 'vue';
 import HouseholdEditor from '@/components/guests/editor/HouseholdEditor.vue';
 import GuestsToolbar from '@/components/guests/GuestsToolbar.vue';
 import HouseholdItem from '@/components/guests/HouseholdItem.vue';
 import ImportPanel from '@/components/guests/import/ImportPanel.vue';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent } from '@/components/ui/sheet';
-import { active } from '@/content/dashboard';
+import { active, dashboardPage } from '@/content/dashboard';
 import { guestsPage } from '@/content/guests';
+import { useGuestFilter } from '@/composables/useGuestFilter';
 import { dashboard } from '@/routes';
-import type {
-    GuestEvent,
-    GuestsWedding,
-    HouseholdRow,
-    ReplyStatusKey,
-} from '@/types';
+import type { GuestEvent, GuestsWedding, HouseholdRow } from '@/types';
 
 const props = defineProps<{
     wedding: GuestsWedding;
@@ -27,14 +23,15 @@ const props = defineProps<{
 defineOptions({
     layout: {
         breadcrumbs: [
-            { title: 'Übersicht', href: dashboard() },
-            { title: 'Gäste', href: '' },
+            { title: dashboardPage.title, href: dashboard() },
+            { title: guestsPage.title, href: '' },
         ],
     },
 });
 
-const query = ref('');
-const filter = ref<ReplyStatusKey | 'all'>('all');
+const { query, filter, visible } = useGuestFilter(
+    toRef(() => props.households),
+);
 const adding = ref(props.households.length === 0);
 
 const guestCount = computed(() =>
@@ -43,30 +40,6 @@ const guestCount = computed(() =>
         0,
     ),
 );
-
-/* Search matches the household or any person in it, accents ignored. */
-const normalise = (value: string) =>
-    value
-        .normalize('NFD')
-        .replace(/[̀-ͯ]/g, '')
-        .toLowerCase();
-
-const visible = computed(() => {
-    const needle = normalise(query.value.trim());
-
-    return props.households.filter(
-        (household) =>
-            (filter.value === 'all' ||
-                household.reply_status === filter.value) &&
-            (!needle ||
-                normalise(
-                    [
-                        household.name,
-                        ...household.guests.map((guest) => guest.name),
-                    ].join(' '),
-                ).includes(needle)),
-    );
-});
 
 const editingId = ref<number | null>(null);
 const editing = computed(() =>
@@ -98,11 +71,13 @@ const editing = computed(() =>
             <Button
                 v-if="households.length"
                 size="pill"
-                :variant="adding ? 'ghost' : 'default'"
+                :variant="adding ? 'outline' : 'default'"
+                :aria-expanded="adding"
                 @click="adding = !adding"
             >
-                <UserPlus class="size-4" />
-                {{ guestsPage.add }}
+                <X v-if="adding" class="size-4" />
+                <UserPlus v-else class="size-4" />
+                {{ adding ? guestsPage.close : guestsPage.add }}
             </Button>
         </header>
 

@@ -41,17 +41,13 @@ const filters = [
             <Input
                 v-model="query"
                 type="search"
-                class="h-11 pl-10"
+                class="rounded-full pl-10"
                 :placeholder="guestsPage.search"
                 :aria-label="guestsPage.search"
             />
         </div>
-        <div role="radiogroup" aria-label="Filter" class="flex flex-wrap gap-2">
-            <label
-                v-for="item in filters"
-                :key="item.value"
-                class="chip h-9 px-4"
-            >
+        <div role="radiogroup" :aria-label="guestsPage.filter" class="chip-row">
+            <label v-for="item in filters" :key="item.value" class="chip">
                 <input
                     v-model="filter"
                     type="radio"
@@ -60,9 +56,7 @@ const filters = [
                     class="sr-only"
                 />
                 {{ item.label }}
-                <span class="ml-1.5 tabular-nums opacity-60">{{
-                    counts[item.value] ?? 0
-                }}</span>
+                <span class="chip-count">{{ counts[item.value] ?? 0 }}</span>
             </label>
         </div>
     </div>

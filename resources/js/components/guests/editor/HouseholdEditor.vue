@@ -68,7 +68,7 @@ function submit(): void {
                 <label for="edit_name" class="field-label">{{
                     editCopy.name
                 }}</label>
-                <Input id="edit_name" v-model="form.name" class="h-11" />
+                <Input id="edit_name" v-model="form.name" />
                 <InputError :message="form.errors.name" />
             </div>
 
@@ -87,7 +87,6 @@ function submit(): void {
                         id="edit_email"
                         v-model="form.email"
                         type="email"
-                        class="h-11"
                         autocomplete="off"
                     />
                     <InputError :message="form.errors.email" />
@@ -112,11 +111,11 @@ function submit(): void {
                 </div>
             </div>
 
-            <label class="inline-flex items-center gap-2 text-sm">
+            <label class="check-label">
                 <input
                     v-model="form.plus_one_allowed"
                     type="checkbox"
-                    class="size-4 accent-foreground"
+                    class="checkbox"
                 />
                 {{ manualCopy.plusOne }}
             </label>

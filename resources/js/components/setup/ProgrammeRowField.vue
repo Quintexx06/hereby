@@ -23,7 +23,6 @@ const row = defineModel<ProgrammeRow>('row', { required: true });
             <Input
                 :id="`event_name_${index}`"
                 v-model="row.name"
-                class="h-11"
                 :placeholder="programme.customName"
                 maxlength="80"
             />
@@ -37,7 +36,6 @@ const row = defineModel<ProgrammeRow>('row', { required: true });
                 v-model="row.time"
                 type="time"
                 step="900"
-                class="h-11"
                 required
             />
         </div>

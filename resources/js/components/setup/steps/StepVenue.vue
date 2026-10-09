@@ -57,7 +57,6 @@ function choose(address: SwissAddress | null): void {
                     <Input
                         id="venue_address"
                         v-model="form.venue_address"
-                        class="h-11"
                         autocomplete="address-line1"
                     />
                 </div>
@@ -66,7 +65,6 @@ function choose(address: SwissAddress | null): void {
                     <Input
                         id="venue_postcode"
                         v-model="form.venue_postcode"
-                        class="h-11"
                         inputmode="numeric"
                         maxlength="4"
                     />
@@ -76,7 +74,6 @@ function choose(address: SwissAddress | null): void {
                     <Input
                         id="venue_town"
                         v-model="form.venue_town"
-                        class="h-11"
                         autocomplete="address-level2"
                     />
                 </div>

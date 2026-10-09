@@ -5,7 +5,8 @@ import Heading from '@/components/Heading.vue';
 import InputError from '@/components/InputError.vue';
 import PasswordInput from '@/components/PasswordInput.vue';
 import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
+import { Spinner } from '@/components/ui/spinner';
+import { account, passwordCopy } from '@/content/account';
 import { edit } from '@/routes/security';
 import type { Props as ManagePasskeysProps } from '@/components/ManagePasskeys.vue';
 import ManagePasskeys from '@/components/ManagePasskeys.vue';
@@ -22,26 +23,19 @@ const props = defineProps<Props>();
 
 defineOptions({
     layout: {
-        breadcrumbs: [
-            {
-                title: 'Security settings',
-                href: edit(),
-            },
-        ],
+        breadcrumbs: [{ title: account.title, href: edit() }],
     },
 });
 </script>
 
 <template>
-    <Head title="Security settings" />
+    <Head :title="account.nav.security" />
 
-    <h1 class="sr-only">Security settings</h1>
-
-    <div class="space-y-6">
+    <section class="settings-section">
         <Heading
             variant="small"
-            title="Update password"
-            description="Ensure your account is using a long, random password to stay secure"
+            :title="passwordCopy.title"
+            :description="passwordCopy.lede"
         />
 
         <Form
@@ -55,66 +49,71 @@ defineOptions({
                 'password_confirmation',
                 'current_password',
             ]"
-            class="space-y-6"
+            class="flex flex-col gap-6"
             v-slot="{ errors, processing }"
         >
-            <div class="grid gap-2">
-                <Label for="current_password">Current password</Label>
+            <div class="field">
+                <label for="current_password" class="field-label">{{
+                    passwordCopy.current
+                }}</label>
                 <PasswordInput
                     id="current_password"
                     name="current_password"
-                    class="mt-1 block w-full"
                     autocomplete="current-password"
-                    placeholder="Current password"
                 />
                 <InputError :message="errors.current_password" />
             </div>
 
-            <div class="grid gap-2">
-                <Label for="password">New password</Label>
+            <div class="field">
+                <label for="password" class="field-label">{{
+                    passwordCopy.next
+                }}</label>
                 <PasswordInput
                     id="password"
                     name="password"
-                    class="mt-1 block w-full"
                     autocomplete="new-password"
-                    placeholder="New password"
                     :passwordrules="props.passwordRules"
                 />
                 <InputError :message="errors.password" />
             </div>
 
-            <div class="grid gap-2">
-                <Label for="password_confirmation">Confirm password</Label>
+            <div class="field">
+                <label for="password_confirmation" class="field-label">{{
+                    passwordCopy.confirm
+                }}</label>
                 <PasswordInput
                     id="password_confirmation"
                     name="password_confirmation"
-                    class="mt-1 block w-full"
                     autocomplete="new-password"
-                    placeholder="Confirm password"
                     :passwordrules="props.passwordRules"
                 />
                 <InputError :message="errors.password_confirmation" />
             </div>
 
-            <div class="flex items-center gap-4">
-                <Button
-                    :disabled="processing"
-                    data-test="update-password-button"
-                >
-                    Save
-                </Button>
-            </div>
+            <Button
+                size="pill"
+                class="self-start"
+                :disabled="processing"
+                data-test="update-password-button"
+            >
+                <Spinner v-if="processing" />
+                {{ account.save }}
+            </Button>
         </Form>
-    </div>
+    </section>
 
-    <ManageTwoFactor
-        :canManageTwoFactor="canManageTwoFactor"
-        :requiresConfirmation="requiresConfirmation"
-        :twoFactorEnabled="twoFactorEnabled"
-    />
+    <section class="settings-section">
+        <ManageTwoFactor
+            :canManageTwoFactor="canManageTwoFactor"
+            :requiresConfirmation="requiresConfirmation"
+            :twoFactorEnabled="twoFactorEnabled"
+        />
+    </section>
 
-    <ManagePasskeys
-        :canManagePasskeys="canManagePasskeys"
-        :passkeys="passkeys"
-    />
+    <section class="settings-section">
+        <ManagePasskeys
+            :canManagePasskeys="canManagePasskeys"
+            :passkeys="passkeys"
+        />
+    </section>
 </template>

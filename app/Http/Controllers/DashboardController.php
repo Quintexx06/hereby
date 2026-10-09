@@ -25,6 +25,7 @@ class DashboardController extends Controller
                 'date' => $wedding->wedding_date?->toDateString(),
                 'rsvp_deadline' => $wedding->rsvp_deadline?->toDateString(),
                 'venue' => $wedding->venue_name,
+                'theme' => $wedding->theme,
                 'setup_step' => $wedding->setup_step,
                 'setup_position' => $wedding->setup_step?->position(),
                 'setup_total' => count(SetupStep::cases()),

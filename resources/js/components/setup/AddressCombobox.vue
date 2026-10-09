@@ -80,7 +80,6 @@ function onKeydown(event: KeyboardEvent): void {
                 id="venue_address_search"
                 v-model="query"
                 role="combobox"
-                class="h-11"
                 autocomplete="off"
                 aria-autocomplete="list"
                 aria-controls="venue_address_results"

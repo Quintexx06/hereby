@@ -1,31 +1,29 @@
 <script setup lang="ts">
 import { Monitor, Moon, Sun } from '@lucide/vue';
 import { useAppearance } from '@/composables/useAppearance';
+import { appearanceCopy } from '@/content/account';
 
 const { appearance, updateAppearance } = useAppearance();
 
-const tabs = [
-    { value: 'light', Icon: Sun, label: 'Light' },
-    { value: 'dark', Icon: Moon, label: 'Dark' },
-    { value: 'system', Icon: Monitor, label: 'System' },
+const options = [
+    { value: 'light', Icon: Sun },
+    { value: 'dark', Icon: Moon },
+    { value: 'system', Icon: Monitor },
 ] as const;
 </script>
 
 <template>
-    <div class="inline-flex gap-1 rounded-lg bg-muted p-1">
+    <div class="segmented" role="group" :aria-label="appearanceCopy.title">
         <button
-            v-for="{ value, Icon, label } in tabs"
+            v-for="{ value, Icon } in options"
             :key="value"
+            type="button"
+            class="segmented-option"
+            :aria-pressed="appearance === value"
             @click="updateAppearance(value)"
-            :class="[
-                'flex items-center rounded-md px-3.5 py-1.5 transition-colors',
-                appearance === value
-                    ? 'bg-card text-foreground shadow-xs'
-                    : 'text-muted-foreground hover:bg-accent hover:text-foreground',
-            ]"
         >
-            <component :is="Icon" class="-ml-1 h-4 w-4" />
-            <span class="ml-1.5 text-sm">{{ label }}</span>
+            <component :is="Icon" class="size-4" aria-hidden="true" />
+            {{ appearanceCopy.options[value] }}
         </button>
     </div>
 </template>

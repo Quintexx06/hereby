@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useForm } from '@inertiajs/vue3';
 import PeopleFields from '@/components/guests/PeopleFields.vue';
+import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Spinner } from '@/components/ui/spinner';
@@ -61,16 +62,18 @@ function submit(): void {
             <Input
                 id="manual_name"
                 v-model="form.name"
-                class="h-11"
                 :placeholder="manualCopy.householdPlaceholder"
             />
             <p class="field-hint">{{ manualCopy.householdHint }}</p>
+            <InputError
+                :message="firstError(form.errors, 'households.0.name')"
+            />
         </div>
 
         <PeopleFields
             v-model:guests="form.guests"
             id-prefix="manual"
-            :error="firstError(form.errors, 'guests')"
+            :error="firstError(form.errors, 'households.0.guests')"
         />
 
         <div class="grid gap-4 sm:grid-cols-[minmax(0,1fr)_12rem]">
@@ -82,8 +85,10 @@ function submit(): void {
                     id="manual_email"
                     v-model="form.email"
                     type="email"
-                    class="h-11"
                     autocomplete="off"
+                />
+                <InputError
+                    :message="firstError(form.errors, 'households.0.email')"
                 />
             </div>
             <div class="field">
@@ -106,11 +111,11 @@ function submit(): void {
             </div>
         </div>
 
-        <label class="inline-flex items-center gap-2 text-sm">
+        <label class="check-label">
             <input
                 v-model="form.plus_one_allowed"
                 type="checkbox"
-                class="size-4 accent-foreground"
+                class="checkbox"
             />
             {{ manualCopy.plusOne }}
         </label>

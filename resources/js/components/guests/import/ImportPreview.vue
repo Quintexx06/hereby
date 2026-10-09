@@ -37,7 +37,7 @@ defineEmits<{ toggle: [number]; save: []; reset: [] }>();
                 <label class="preview-row">
                     <input
                         type="checkbox"
-                        class="mt-1 size-4 accent-foreground"
+                        class="checkbox mt-1"
                         :checked="selected.has(index)"
                         @change="$emit('toggle', index)"
                     />
@@ -47,8 +47,8 @@ defineEmits<{ toggle: [number]; save: []; reset: [] }>();
                             class="flex flex-wrap gap-x-2 gap-y-1 text-sm text-muted-foreground"
                         >
                             <span
-                                v-for="guest in household.guests"
-                                :key="guest.first_name + guest.last_name"
+                                v-for="(guest, position) in household.guests"
+                                :key="position"
                                 class="inline-flex items-center gap-1.5"
                             >
                                 {{

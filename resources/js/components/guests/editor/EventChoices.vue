@@ -22,7 +22,7 @@ const selected = defineModel<number[]>({ required: true });
                     v-model="selected"
                     type="checkbox"
                     :value="event.id"
-                    class="size-4 accent-foreground"
+                    class="checkbox"
                 />
                 <span class="font-medium">{{
                     event.name ?? eventTypes[event.type]

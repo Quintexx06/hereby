@@ -12,6 +12,11 @@ const props = defineProps<{
 
 const order: ReplyStatusKey[] = ['answered', 'opened', 'never_opened'];
 const total = computed(() => Math.max(props.overview.households, 1));
+
+/* Before anyone has opened a link, a full grey bar would read as "done". */
+const quiet = computed(
+    () => props.overview.replies.answered + props.overview.replies.opened === 0,
+);
 </script>
 
 <!-- Where every household stands (roadmap 1.11), as one bar and three rows. -->
@@ -23,7 +28,10 @@ const total = computed(() => Math.max(props.overview.households, 1));
                 active.counts(overview.households, overview.guests)
             }}</span>
         </div>
-        <div class="reply-bar" aria-hidden="true">
+        <p v-if="quiet" class="app-row text-muted-foreground">
+            {{ active.noRepliesYet }}
+        </p>
+        <div v-else class="reply-bar" aria-hidden="true">
             <span
                 v-for="status in order"
                 :key="status"
@@ -32,7 +40,7 @@ const total = computed(() => Math.max(props.overview.households, 1));
                 :style="{ flexGrow: overview.replies[status], flexBasis: 0 }"
             />
         </div>
-        <ul>
+        <ul v-if="!quiet">
             <li
                 v-for="status in order"
                 :key="status"
@@ -66,7 +74,7 @@ const total = computed(() => Math.max(props.overview.households, 1));
         </ul>
         <Link
             :href="guests(weddingId)"
-            class="link-underline self-start font-medium"
+            class="link-underline hit-area self-start font-medium"
             >{{ active.toGuests }}</Link
         >
     </section>

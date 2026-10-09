@@ -46,26 +46,27 @@ const pinInputContainerRef = useTemplateRef('pinInputContainerRef');
 const modalConfig = computed<TwoFactorConfigContent>(() => {
     if (props.twoFactorEnabled) {
         return {
-            title: 'Two-factor authentication enabled',
+            title: 'Zwei-Faktor-Authentifizierung aktiviert',
             description:
-                'Two-factor authentication is now enabled. Scan the QR code or enter the setup key in your authenticator app.',
-            buttonText: 'Close',
+                'Die Zwei-Faktor-Authentifizierung ist jetzt aktiv. Scannt den QR-Code oder gebt den Einrichtungsschlüssel in eurer Authenticator-App ein.',
+            buttonText: 'Schliessen',
         };
     }
 
     if (showVerificationStep.value) {
         return {
-            title: 'Verify authentication code',
-            description: 'Enter the 6-digit code from your authenticator app',
-            buttonText: 'Continue',
+            title: 'Code bestätigen',
+            description:
+                'Gebt den 6-stelligen Code aus eurer Authenticator-App ein.',
+            buttonText: 'Weiter',
         };
     }
 
     return {
-        title: 'Enable two-factor authentication',
+        title: 'Zwei-Faktor-Authentifizierung aktivieren',
         description:
-            'To finish enabling two-factor authentication, scan the QR code or enter the setup key in your authenticator app',
-        buttonText: 'Continue',
+            'Scannt zum Abschluss den QR-Code oder gebt den Einrichtungsschlüssel in eurer Authenticator-App ein.',
+        buttonText: 'Weiter',
     };
 });
 
@@ -185,7 +186,11 @@ watch(
                         </div>
 
                         <div class="flex w-full items-center space-x-5">
-                            <Button class="w-full" @click="handleModalNextStep">
+                            <Button
+                                size="pill"
+                                class="w-full"
+                                @click="handleModalNextStep"
+                            >
                                 {{ modalConfig.buttonText }}
                             </Button>
                         </div>
@@ -196,8 +201,9 @@ watch(
                             <div
                                 class="absolute inset-0 top-1/2 h-px w-full bg-border"
                             />
-                            <span class="relative bg-card px-2 py-1"
-                                >or, enter the code manually</span
+                            <span
+                                class="relative bg-background px-2 py-1 text-sm text-muted-foreground"
+                                >oder den Code von Hand eingeben</span
                             >
                         </div>
 
@@ -221,12 +227,14 @@ watch(
                                         class="h-full w-full bg-background p-3 text-foreground"
                                     />
                                     <button
+                                        type="button"
+                                        aria-label="Einrichtungsschlüssel kopieren"
                                         @click="copy(manualSetupKey || '')"
                                         class="relative block h-auto border-l border-border px-3 hover:bg-muted"
                                     >
                                         <Check
                                             v-if="copied"
-                                            class="w-4 text-green-500"
+                                            class="w-4 text-success"
                                         />
                                         <Copy v-else class="w-4" />
                                     </button>
@@ -279,14 +287,15 @@ watch(
                                     @click="showVerificationStep = false"
                                     :disabled="processing"
                                 >
-                                    Back
+                                    Zurück
                                 </Button>
                                 <Button
                                     type="submit"
+                                    size="pill"
                                     class="w-auto flex-1"
                                     :disabled="processing || code.length < 6"
                                 >
-                                    Confirm
+                                    Bestätigen
                                 </Button>
                             </div>
                         </div>

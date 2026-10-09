@@ -14,10 +14,17 @@ Route::middleware(UseSwissGerman::class)->group(function () {
     Route::inertia('impressum', 'legal/Imprint')->name('legal.imprint');
 });
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('dashboard', DashboardController::class)->name('dashboard');
+/*
+| The couple's side speaks Swiss German, so validation, flash and relative
+| dates match the page. Guest links set the household's own locale.
+*/
+Route::middleware(UseSwissGerman::class)->group(function () {
+    Route::middleware(['auth', 'verified'])->group(function () {
+        Route::get('dashboard', DashboardController::class)->name('dashboard');
+    });
+
+    require __DIR__.'/settings.php';
+    require __DIR__.'/weddings.php';
 });
 
-require __DIR__.'/settings.php';
 require __DIR__.'/invitations.php';
-require __DIR__.'/weddings.php';

@@ -93,7 +93,7 @@
     }
 
     .chip {
-        @apply inline-flex h-11 cursor-pointer items-center rounded-full border px-5 text-sm font-medium transition-colors duration-150 hover:border-foreground/40 has-[:checked]:border-foreground has-[:checked]:bg-foreground has-[:checked]:text-background has-[:focus-visible]:border-ring;
+        @apply inline-flex h-11 cursor-pointer items-center rounded-full border px-5 text-sm font-medium transition-colors duration-150 hover:border-foreground/40 has-[:checked]:border-foreground has-[:checked]:bg-foreground has-[:checked]:text-background has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-ring;
     }
 
     /* Programme rows */

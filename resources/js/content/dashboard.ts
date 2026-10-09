@@ -26,6 +26,8 @@ export const active = {
         count === 1 ? '1 Haushalt eingeladen' : `${count} Haushalte eingeladen`,
     attending: (count: number) => `${count} zugesagt`,
     toGuests: 'Zur Gästeliste',
+    noRepliesYet:
+        'Noch keine Antworten. Sobald ihr die Links teilt, seht ihr hier, wer kommt.',
     daysLeft: (days: number) =>
         days > 1
             ? `noch ${days} Tage`
@@ -47,7 +49,7 @@ export const replyStatus = {
         label: 'Geöffnet, ohne Antwort',
         hint: 'Eine freundliche Erinnerung hilft.',
     },
-    answered: { label: 'Geantwortet', hint: 'Diese Gäste sind erledigt.' },
+    answered: { label: 'Geantwortet', hint: 'Ihre Zusage oder Absage ist da.' },
 } as const;
 
 /** "Heute für euch": what each computed action asks of the couple. */
@@ -81,4 +83,17 @@ export const todayActions: Record<
             'Ohne Frist wissen Küche und Service nicht, wann die Zahlen fix sind.',
         cta: 'Frist festlegen',
     },
+};
+
+export const invitationPanel = {
+    title: 'Eure Einladung',
+    theme: (name: string) => `Im Look «${name}»`,
+    change: 'Look ändern',
+};
+
+export const dashboardPage = { title: 'Übersicht' };
+
+export const sidebarWedding = {
+    fallbackName: 'Eure Hochzeit',
+    inSetup: (step: string) => `Einrichtung: ${step}`,
 };

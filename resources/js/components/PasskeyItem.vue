@@ -44,16 +44,16 @@ const handleDelete = () => {
                     <p class="font-medium tracking-tight">{{ passkey.name }}</p>
                     <span
                         v-if="passkey.authenticator"
-                        class="inline-flex items-center gap-1 rounded-md bg-muted px-2 py-0.5 text-[11px] font-medium tracking-wide text-muted-foreground uppercase ring-1 ring-border ring-inset"
+                        class="inline-flex items-center gap-1 rounded-md bg-muted px-2 py-0.5 text-xs font-medium text-muted-foreground ring-1 ring-border ring-inset"
                     >
                         {{ passkey.authenticator }}
                     </span>
                 </div>
                 <p class="text-sm text-muted-foreground">
-                    Added {{ passkey.created_at_diff }}
+                    Hinzugefügt {{ passkey.created_at_diff }}
                     <template v-if="passkey.last_used_at_diff">
                         <span class="mx-1 text-muted-foreground/50">/</span>
-                        Last used {{ passkey.last_used_at_diff }}
+                        Zuletzt verwendet {{ passkey.last_used_at_diff }}
                     </template>
                 </p>
             </div>
@@ -67,26 +67,26 @@ const handleDelete = () => {
                     class="text-destructive hover:bg-destructive/10 hover:text-destructive"
                 >
                     <Trash2 class="h-4 w-4" />
-                    <span class="sr-only">Remove</span>
+                    <span class="sr-only">Passkey löschen</span>
                 </Button>
             </DialogTrigger>
 
             <DialogContent>
-                <DialogTitle>Remove passkey</DialogTitle>
+                <DialogTitle>Passkey löschen</DialogTitle>
                 <DialogDescription>
-                    Are you sure you want to remove the "{{ passkey.name }}"
-                    passkey? You will no longer be able to use it to sign in.
+                    Wollt ihr den Passkey «{{ passkey.name }}» wirklich löschen?
+                    Danach könnt ihr euch nicht mehr damit anmelden.
                 </DialogDescription>
                 <DialogFooter class="gap-2">
                     <DialogClose as-child>
-                        <Button variant="secondary">Cancel</Button>
+                        <Button variant="secondary">Abbrechen</Button>
                     </DialogClose>
                     <Button
                         variant="destructive"
                         :disabled="isDeleting"
                         @click="handleDelete"
                     >
-                        {{ isDeleting ? 'Removing...' : 'Remove passkey' }}
+                        {{ isDeleting ? 'Wird gelöscht …' : 'Löschen' }}
                     </Button>
                 </DialogFooter>
             </DialogContent>

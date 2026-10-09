@@ -49,3 +49,62 @@
         @apply grid grid-cols-[2rem_minmax(0,1fr)] gap-3 border-t py-4 text-muted-foreground;
     }
 }
+
+/* Account pages (layouts/settings): text tabs on a hairline, no filled pills. */
+@layer components {
+    .settings-tabs {
+        @apply -mt-4 flex gap-6 overflow-x-auto border-b;
+    }
+
+    .settings-tab {
+        @apply -mb-px border-b border-transparent py-3 text-sm whitespace-nowrap text-muted-foreground transition-colors duration-150 hover:text-foreground aria-[current=page]:border-foreground aria-[current=page]:font-medium aria-[current=page]:text-foreground;
+    }
+
+    .settings-section {
+        @apply flex flex-col gap-6;
+    }
+
+    .settings-section + .settings-section {
+        @apply border-t pt-10;
+    }
+
+    .segmented {
+        @apply inline-flex rounded-full border p-1;
+    }
+
+    .segmented-option {
+        @apply inline-flex h-9 items-center gap-2 rounded-full px-4 text-sm text-muted-foreground transition-colors duration-150 hover:text-foreground aria-pressed:bg-foreground aria-pressed:text-background;
+    }
+}
+
+/* "Eure Einladung": the couple's invitation rising out of a night photo. */
+@layer components {
+    .invitation-panel {
+        @apply relative isolate flex min-h-[25rem] flex-col overflow-hidden rounded-lg p-6 text-foreground;
+    }
+
+    .invitation-panel-photo {
+        @apply absolute inset-0 -z-10 size-full object-cover opacity-70;
+    }
+
+    .invitation-panel-phone {
+        @apply absolute top-40 left-1/2 w-[15rem] -translate-x-1/2 sm:w-[15rem];
+    }
+
+    /* A 44px touch area around a small text link, without moving its underline. */
+    .hit-area {
+        @apply relative after:absolute after:-inset-x-2 after:-inset-y-3 after:content-[''];
+    }
+}
+
+@layer components {
+    .dashboard-grid {
+        @apply grid gap-14 lg:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] lg:gap-16;
+    }
+}
+
+@layer components {
+    .programme-row {
+        @apply grid-cols-[4.5rem_minmax(0,1fr)] items-start py-4;
+    }
+}
