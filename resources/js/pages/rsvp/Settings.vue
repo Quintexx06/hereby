@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Head, useForm } from '@inertiajs/vue3';
+import { Check } from '@lucide/vue';
 import MenuOptionsField from '@/components/rsvp/MenuOptionsField.vue';
 import ReminderSettings from '@/components/rsvp/ReminderSettings.vue';
 import RsvpPreview from '@/components/rsvp/RsvpPreview.vue';
@@ -46,9 +47,9 @@ const form = useForm({
 });
 
 const toggles = [
-    { field: 'offers_shuttle', label: copy.shuttle },
-    { field: 'offers_stay', label: copy.stay },
-    { field: 'asks_song', label: copy.song },
+    { field: 'offers_shuttle', label: copy.shuttle, hint: copy.shuttleHint },
+    { field: 'offers_stay', label: copy.stay, hint: copy.stayHint },
+    { field: 'asks_song', label: copy.song, hint: copy.songHint },
 ] as const;
 </script>
 
@@ -63,15 +64,16 @@ const toggles = [
 
         <div class="rsvp-settings-grid">
             <form
-                class="flex flex-col gap-10"
+                class="settings-cards"
                 @submit.prevent="
                     form.put(update.url(wedding.id), { preserveScroll: true })
                 "
             >
-                <section class="settings-section">
+                <section class="settings-section settings-wide">
                     <h2 class="app-section-title">{{ copy.always }}</h2>
-                    <ul class="flex flex-col gap-2 text-muted-foreground">
+                    <ul class="always-list">
                         <li v-for="item in copy.alwaysItems" :key="item">
+                            <Check class="size-4 shrink-0 text-brand" />
                             {{ item }}
                         </li>
                     </ul>
@@ -84,38 +86,46 @@ const toggles = [
                     :error="firstError(form.errors, 'menus')"
                 />
 
-                <section class="settings-section">
-                    <h2 class="app-section-title">{{ copy.household }}</h2>
-                    <div class="flex flex-col">
-                        <label
-                            v-for="toggle in toggles"
-                            :key="toggle.field"
-                            class="check-label"
-                        >
-                            <input
-                                v-model="form[toggle.field]"
-                                type="checkbox"
-                                class="checkbox"
-                            />
-                            {{ toggle.label }}
-                        </label>
-                    </div>
-                </section>
-
                 <ReminderSettings
                     v-model="form.sends_reminders"
                     :dates="reminderDates"
                 />
 
-                <Button
-                    type="submit"
-                    size="pill"
-                    class="self-start"
-                    :disabled="form.processing"
-                >
-                    <Spinner v-if="form.processing" />
-                    {{ copy.save }}
-                </Button>
+                <section class="settings-section settings-wide">
+                    <h2 class="app-section-title">{{ copy.household }}</h2>
+                    <div class="toggle-tiles">
+                        <label
+                            v-for="toggle in toggles"
+                            :key="toggle.field"
+                            class="toggle-tile"
+                        >
+                            <input
+                                v-model="form[toggle.field]"
+                                type="checkbox"
+                                class="checkbox mt-0.5"
+                            />
+                            <span class="flex flex-col gap-1">
+                                <span class="font-medium">{{
+                                    toggle.label
+                                }}</span>
+                                <span class="text-sm text-muted-foreground">{{
+                                    toggle.hint
+                                }}</span>
+                            </span>
+                        </label>
+                    </div>
+                </section>
+
+                <div class="settings-savebar settings-wide">
+                    <Button
+                        type="submit"
+                        size="pill"
+                        :disabled="form.processing || !form.isDirty"
+                    >
+                        <Spinner v-if="form.processing" />
+                        {{ copy.save }}
+                    </Button>
+                </div>
             </form>
 
             <aside class="rsvp-preview-panel stage" :aria-label="copy.preview">

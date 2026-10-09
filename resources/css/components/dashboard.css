@@ -1,7 +1,7 @@
 /* The couple's app pages: dashboard and guest list (Operate mode). */
 @layer components {
     .app-page {
-        @apply mx-auto flex w-full max-w-5xl flex-col gap-14 px-5 py-8 sm:px-8 lg:py-12;
+        @apply mx-auto flex w-full max-w-6xl flex-col gap-14 px-5 py-8 sm:px-8 lg:py-12;
     }
 
     .app-title {

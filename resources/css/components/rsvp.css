@@ -96,7 +96,40 @@
     }
 
     .rsvp-settings-grid {
-        @apply grid gap-12 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-16;
+        @apply grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_22rem] xl:grid-cols-[minmax(0,1fr)_24rem] xl:gap-12;
+    }
+
+    /* Settings as cards: two columns on wide screens, full-width rows where noted. */
+    .settings-cards {
+        @apply grid gap-4 md:grid-cols-2;
+    }
+
+    .settings-cards > .settings-section {
+        @apply rounded-xl border bg-card p-5 sm:p-6;
+    }
+
+    .settings-wide {
+        @apply md:col-span-2;
+    }
+
+    .always-list {
+        @apply grid gap-3 text-sm text-muted-foreground sm:grid-cols-3;
+    }
+
+    .always-list > li {
+        @apply flex items-start gap-2;
+    }
+
+    .toggle-tiles {
+        @apply grid gap-3 sm:grid-cols-3;
+    }
+
+    .toggle-tile {
+        @apply flex cursor-pointer items-start gap-3 rounded-lg border p-4 transition-[border-color,background-color] duration-150 ease-out hover:border-foreground/40 has-[:checked]:border-foreground has-[:checked]:bg-brand-muted/30;
+    }
+
+    .settings-savebar {
+        @apply sticky bottom-4 z-10 flex justify-end rounded-full border bg-background/85 p-2 shadow-sm backdrop-blur-sm;
     }
 
     .rsvp-preview-panel {
