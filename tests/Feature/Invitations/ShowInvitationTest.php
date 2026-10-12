@@ -7,6 +7,7 @@ use App\Enums\Locale;
 use App\Models\Event;
 use App\Models\Guest;
 use App\Models\Household;
+use App\Models\User;
 use App\Models\Wedding;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Inertia\Testing\AssertableInertia as Assert;
@@ -100,5 +101,12 @@ class ShowInvitationTest extends TestCase
     public function test_malformed_token_returns_not_found(): void
     {
         $this->get('/i/short')->assertNotFound();
+    }
+
+    public function test_couple_pages_do_not_carry_the_guest_translations(): void
+    {
+        $this->actingAs(User::factory()->create())
+            ->get(route('dashboard'))
+            ->assertInertia(fn (Assert $page) => $page->where('translations', []));
     }
 }

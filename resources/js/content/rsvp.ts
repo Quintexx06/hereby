@@ -25,6 +25,7 @@ export const rsvpSettings = {
     stayHint: 'Damit ihr Zimmer reservieren könnt.',
     songHint: 'Ein Lied pro Haushalt für eure Playlist.',
     save: 'Speichern',
+    saved: 'Gespeichert',
     preview: 'So sieht es für eure Gäste aus',
     steps: {
         always: 'Was immer gefragt wird',

@@ -362,7 +362,48 @@ for UI. The hero choreography is the one long moment (≈3s, skippable).
 Scroll reveals: `v-reveal` + `reveal`. Scroll-linked values come from
 `useScrollProgress` (modes `through`, `pinned`, `enter`; rAF-throttled, no
 scroll-jacking). Every animation has a reduced-motion path. three.js is
-imported dynamically and only from `lib/three/` (hero veil, rings, closing veil).
+imported dynamically and only from `lib/three/`.
+
+**Micro-interactions** (`components/micro.css`, after `emil-design-eng`):
+
+| Where                                | What                                                     | Why                      |
+| ------------------------------------ | -------------------------------------------------------- | ------------------------ |
+| Buttons, chips, pills, option cards  | `scale: 0.97` on `:active`, 160ms ease-out               | The UI heard the press   |
+| Switch                               | knob stretches while held, then travels                  | Tactile feedback         |
+| Arrow links (`text-action`)          | arrow leans toward its target, pointer devices only      | Where it leads           |
+| Copy link, Save                      | content crossfades through a 2px blur (`swap`) to a tick | State change             |
+| Figures                              | `v-count-up` once on mount, 700ms                        | The number you came for  |
+| Ledger rows, admin rows, switch rows | settle in, 40ms stagger                                  | No jarring pop-in        |
+| App pages                            | fade up 4px in 200ms                                     | Continuity between pages |
+| Guest reply after a yes              | one burst of petals around "Danke!"                      | Rare moment: delight     |
+
+Never start from `scale(0)`, never animate keyboard actions, hover only under
+`(hover: hover) and (pointer: fine)`, UI under 300ms.
+
+## App pages: the editorial system (`components/editorial.css`)
+
+App pages read like a printed programme: `PageMasthead` (title over a firm
+ink rule, actions as words), figures set in type between hairlines
+(`figure-row`, `stat-figure`), and `ledger-section`s (title in a left column,
+hairline rows on the right). No boxed cards, no icons in circles. Each
+masthead carries its own lazy three.js scene in the margin (`MastheadScene`):
+roses (Übersicht, Hochzeiten), rings (Gäste), petals (Inhalte), flutes
+(Küche & Service), ribbon (Anfragen). The Antwortformular has none: its night
+preview panel is its one moment.
+
+## Guest templates (`WeddingTemplate`, `components/invitation/templates/`)
+
+Layout and motion, independent of the colour theme (any template × any theme):
+
+| Template | First screen                                         | Story                          | Signature motion                                                 |
+| -------- | ---------------------------------------------------- | ------------------------------ | ---------------------------------------------------------------- |
+| Atelier  | names at landing scale, turning seal                 | a drawn path through chapters  | letters drift apart on scroll, path scrubbed (DrawSVG)           |
+| Garten   | names in a tall arch between hand-drawn SVG branches | chapters in garden-gate arches | branches draw and leaves unfurl (CSS), arches open (clip-path)   |
+| Panorama | names as a running title over three.js bokeh         | film strip                     | title leans with scroll speed, the day pins and travels sideways |
+
+Guest-page budget (rule 2): the first screen is CSS only. GSAP
+(`useGuestMotion`) and three.js load on the guest's first scroll, touch or
+key, never in the first paint; reduced motion keeps everything still.
 
 ## Wedding themes
 

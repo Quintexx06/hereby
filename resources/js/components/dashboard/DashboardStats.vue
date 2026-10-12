@@ -39,6 +39,7 @@ const stats = computed(() => [
         <div v-for="stat in stats" :key="stat.label" class="stat-figure">
             <dt class="figure-label">{{ stat.label }}</dt>
             <dd
+                v-count-up="stat.value"
                 class="figure-value"
                 :class="'accent' in stat ? 'text-brand' : undefined"
             >

@@ -1,0 +1,162 @@
+/*
+ * Micro-interactions (emil-design-eng): small, functional feedback that
+ * compounds. Press: 97% in 160ms. Hover only with a real pointer. Entering
+ * things ease out and never start from nothing. Reduced motion: motion.css
+ * shortens everything to a blink.
+ */
+@layer components {
+    /* Press feedback on everything pressable that isn't a shadcn Button. */
+    :is(
+        .chip,
+        .pill-outline,
+        .reply-send,
+        .calendar-option,
+        .choice,
+        .theme-option,
+        .style-option,
+        .icon-button,
+        .text-action,
+        .inv-closing-button,
+        .story-film > li
+    ) {
+        transition-property:
+            scale, background-color, border-color, color, box-shadow, opacity,
+            text-decoration-color;
+        transition-duration: 160ms;
+        transition-timing-function: var(--ease-out);
+    }
+
+    :is(
+            .chip,
+            .pill-outline,
+            .reply-send,
+            .calendar-option,
+            .choice,
+            .theme-option,
+            .style-option,
+            .icon-button,
+            .inv-closing-button
+        ):active:not(:disabled, [aria-disabled='true']) {
+        scale: 0.97;
+    }
+
+    /* Links with an arrow lean toward where they go. */
+    :is(.text-action, .ledger-link) svg {
+        transition: translate 200ms var(--ease-out);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+        .text-action:hover svg:last-child {
+            translate: 0.2rem 0;
+        }
+
+        .text-action:hover svg.lucide-arrow-up-right {
+            translate: 0.15rem -0.15rem;
+        }
+    }
+
+    /* Switch: the knob stretches while held, like a finger pressing it. */
+    .switch::after {
+        transition:
+            translate 200ms var(--ease-out),
+            width 160ms var(--ease-out);
+    }
+
+    .switch:active::after {
+        @apply w-6;
+    }
+
+    .switch:checked:active::after {
+        @apply translate-x-3;
+    }
+
+    /* Swaps (copy → copied, save → saved): crossfade through a slight blur. */
+    .swap-enter-active,
+    .swap-leave-active {
+        transition:
+            opacity 150ms var(--ease-out),
+            filter 150ms var(--ease-out),
+            scale 150ms var(--ease-out);
+    }
+
+    .swap-enter-from,
+    .swap-leave-to {
+        opacity: 0;
+        filter: blur(2px);
+        scale: 0.9;
+    }
+
+    /* Lists settle in with a short stagger when a page opens. */
+    :is(.ledger-link, .admin-row, .switch-row, .admin-check, .today-row) {
+        animation: micro-settle 260ms var(--ease-out) both;
+    }
+
+    :is(.ledger-link, .admin-row, .switch-row, .admin-check):nth-child(2) {
+        animation-delay: 40ms;
+    }
+
+    :is(.ledger-link, .admin-row, .switch-row, .admin-check):nth-child(3) {
+        animation-delay: 80ms;
+    }
+
+    :is(.ledger-link, .admin-row, .switch-row, .admin-check):nth-child(4) {
+        animation-delay: 120ms;
+    }
+
+    :is(.ledger-link, .admin-row, .switch-row, .admin-check):nth-child(n + 5) {
+        animation-delay: 160ms;
+    }
+
+    /* App pages fade up a few pixels on every visit: continuity, not a show. */
+    .app-page {
+        animation: micro-settle 200ms var(--ease-out) both;
+    }
+
+    /* A finished checklist step: the tick draws itself. */
+    .admin-check[data-done='true'] .admin-check-mark svg path {
+        stroke-dasharray: 24;
+        animation: micro-tick 320ms var(--ease-out) 120ms both;
+    }
+}
+
+/* Guest reply: a one-time burst of petals around "Danke!" after a yes. */
+@layer components {
+    .reply-burst {
+        @apply pointer-events-none absolute top-1/2 left-1/2;
+    }
+
+    .reply-burst > i {
+        @apply absolute h-3 w-2 rounded-[60%_0] bg-brand;
+        rotate: calc(var(--n) * 36deg);
+        animation: micro-burst 900ms var(--ease-out) both;
+        animation-delay: calc(var(--n) * 12ms);
+    }
+}
+
+@keyframes micro-burst {
+    from {
+        opacity: 1;
+        translate: 0 0;
+        scale: 0.6;
+    }
+
+    to {
+        opacity: 0;
+        translate: calc(cos(var(--n) * 36deg) * 4.5rem)
+            calc(sin(var(--n) * 36deg) * 3rem);
+        scale: 1;
+    }
+}
+
+@keyframes micro-settle {
+    from {
+        opacity: 0;
+        translate: 0 4px;
+    }
+}
+
+@keyframes micro-tick {
+    from {
+        stroke-dashoffset: 24;
+    }
+}

@@ -30,7 +30,7 @@ useGuestMotion(root, (kit) => {
     <main ref="root" class="invitation-page" data-template="panorama">
         <PanoramaHero :wedding="invitation.wedding" :place="place" />
         <InvitationLetter :invitation="invitation" :replied="replied" />
-        <InvitationEvents :events="invitation.events" />
+        <InvitationEvents :events="invitation.events" scrollable />
         <InvitationCalendar :invitation="invitation" />
         <InvitationBlocks :blocks="invitation.blocks" story="film" />
         <InvitationClosing :invitation="invitation" />

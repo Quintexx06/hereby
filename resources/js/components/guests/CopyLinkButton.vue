@@ -14,10 +14,14 @@ const { copy, copied } = useClipboard({ copiedDuring: 1800 });
         :aria-label="`${guestsPage.copy}: ${household}`"
         @click="copy(props.link)"
     >
-        <Check v-if="copied" class="size-4 text-success" />
-        <Link2 v-else class="size-4" />
-        <span aria-live="polite">{{
-            copied ? guestsPage.copied : guestsPage.copy
-        }}</span>
+        <Transition name="swap" mode="out-in">
+            <Check v-if="copied" class="size-4 text-success" />
+            <Link2 v-else class="size-4" />
+        </Transition>
+        <Transition name="swap" mode="out-in">
+            <span :key="String(copied)" aria-live="polite">{{
+                copied ? guestsPage.copied : guestsPage.copy
+            }}</span>
+        </Transition>
     </button>
 </template>

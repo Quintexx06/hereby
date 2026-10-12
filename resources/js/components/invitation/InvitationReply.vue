@@ -20,7 +20,21 @@ const deadline = computed(() =>
     <section class="flex flex-col items-center gap-4 text-center">
         <template v-if="invitation.reply.answered">
             <div class="reply-summary w-full" role="status">
-                <p v-if="replied" class="title">{{ t('rsvp.thanks') }}</p>
+                <p v-if="replied" class="title relative">
+                    <!-- Once, right after a yes: petals open around the thanks. -->
+                    <span
+                        v-if="invitation.reply.attending > 0"
+                        class="reply-burst"
+                        aria-hidden="true"
+                    >
+                        <i
+                            v-for="petal in 10"
+                            :key="petal"
+                            :style="{ '--n': petal }"
+                        />
+                    </span>
+                    {{ t('rsvp.thanks') }}
+                </p>
                 <p class="font-medium">
                     {{
                         tc('rsvp.summary', invitation.reply.attending, {

@@ -6,9 +6,8 @@ import MenuOptionsField from '@/components/rsvp/MenuOptionsField.vue';
 import ReminderSettings from '@/components/rsvp/ReminderSettings.vue';
 import RsvpFormPreview from '@/components/rsvp/RsvpFormPreview.vue';
 import RsvpStep from '@/components/rsvp/RsvpStep.vue';
+import SaveBar from '@/components/SaveBar.vue';
 import SwitchRow from '@/components/rsvp/SwitchRow.vue';
-import { Button } from '@/components/ui/button';
-import { Spinner } from '@/components/ui/spinner';
 import { dashboardPage } from '@/content/dashboard';
 import { rsvpSettings as copy } from '@/content/rsvp';
 import { firstError } from '@/lib/forms';
@@ -120,16 +119,13 @@ const toggles = [
                     </RsvpStep>
                 </ol>
 
-                <div class="settings-savebar">
-                    <Button
-                        type="submit"
-                        size="pill"
-                        :disabled="form.processing || !form.isDirty"
-                    >
-                        <Spinner v-if="form.processing" />
-                        {{ copy.save }}
-                    </Button>
-                </div>
+                <SaveBar
+                    :processing="form.processing"
+                    :dirty="form.isDirty"
+                    :saved="form.recentlySuccessful"
+                    :label="copy.save"
+                    :saved-label="copy.saved"
+                />
             </form>
 
             <aside class="rsvp-preview-column" :aria-label="copy.preview">
