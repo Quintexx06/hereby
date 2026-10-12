@@ -329,6 +329,152 @@
         @apply translate-x-0 opacity-100;
     }
 
+    /* A template card: a phone-shaped screen, edge to edge, label beneath. */
+    .deck-card-screen {
+        @apply aspect-[9/16] w-[14.5rem] overflow-hidden bg-background p-0 sm:w-[17rem];
+        background:
+            linear-gradient(var(--background), var(--background)) padding-box,
+            linear-gradient(
+                    160deg,
+                    color-mix(in oklch, var(--brand) 45%, transparent),
+                    var(--rule) 40%,
+                    color-mix(in oklch, var(--brand) 30%, transparent)
+                )
+                border-box;
+    }
+
+    .deck-card[data-front='true'] .deck-card-screen {
+        background:
+            linear-gradient(var(--background), var(--background)) padding-box,
+            conic-gradient(
+                    from var(--border-angle),
+                    transparent 0deg,
+                    var(--brand) 40deg,
+                    transparent 110deg,
+                    transparent 250deg,
+                    color-mix(in oklch, var(--brand) 60%, transparent) 300deg,
+                    transparent 360deg
+                )
+                border-box;
+    }
+
+    .deck-card-screen::before {
+        @apply hidden;
+    }
+
+    .deck-card-screen .deck-card-label {
+        @apply absolute inset-x-0 bottom-3 mt-0 text-xs;
+    }
+
+    /* The three miniatures: each template's first screen at phone scale. */
+    .mini {
+        @apply relative isolate flex size-full flex-col items-center justify-center gap-1.5 overflow-hidden px-4 pb-8 text-center text-foreground;
+    }
+
+    .mini-names {
+        @apply flex flex-col items-center font-display text-[2.6rem] leading-[0.88] font-semibold tracking-[-0.05em];
+        font-stretch: 112%;
+    }
+
+    .mini-amp {
+        @apply text-[0.55em] leading-none text-brand;
+    }
+
+    .mini-date {
+        @apply font-display text-xl font-semibold tracking-[-0.03em] text-brand tabular-nums;
+    }
+
+    .mini-pill {
+        @apply mt-1 rounded-full border border-rule px-2.5 py-0.5 text-[0.6rem] font-medium;
+    }
+
+    .mini-seal {
+        @apply absolute top-4 right-3 size-16 fill-muted-foreground text-[0.5rem] font-medium tracking-[0.18em] uppercase;
+        animation: seal-turn 40s linear infinite;
+    }
+
+    .mini-garten {
+        @apply justify-end pb-0;
+    }
+
+    .mini-garten .garten-branch {
+        @apply h-[56%] max-w-none;
+    }
+
+    .mini-garten .garten-branch[data-side='left'] {
+        @apply -left-12;
+    }
+
+    .mini-garten .garten-branch[data-side='right'] {
+        @apply -right-12;
+    }
+
+    .mini-arch {
+        @apply mt-auto flex h-[74%] w-[64%] flex-col items-center justify-center gap-1.5 rounded-t-full border border-brand/40 bg-card px-2 pb-6;
+    }
+
+    .mini-panorama {
+        @apply items-start justify-end gap-3 px-0;
+    }
+
+    .mini-bokeh {
+        @apply absolute inset-0 -z-10;
+        background:
+            radial-gradient(
+                circle at 22% 18%,
+                color-mix(in oklch, var(--brand) 55%, transparent) 0 4px,
+                transparent 9px
+            ),
+            radial-gradient(
+                circle at 70% 12%,
+                color-mix(in oklch, var(--brand) 40%, transparent) 0 7px,
+                transparent 14px
+            ),
+            radial-gradient(
+                circle at 48% 34%,
+                color-mix(in oklch, var(--brand) 35%, transparent) 0 3px,
+                transparent 7px
+            ),
+            radial-gradient(
+                circle at 84% 40%,
+                color-mix(in oklch, var(--brand) 45%, transparent) 0 5px,
+                transparent 11px
+            ),
+            radial-gradient(
+                circle at 12% 46%,
+                color-mix(in oklch, var(--brand) 30%, transparent) 0 8px,
+                transparent 16px
+            );
+        animation: mini-drift 9s var(--ease-in-out) infinite alternate;
+    }
+
+    .mini-marquee {
+        @apply w-full overflow-hidden;
+    }
+
+    .mini-track {
+        @apply flex w-max;
+        animation: panorama-run 14s linear infinite;
+    }
+
+    .mini-run {
+        @apply shrink-0 px-1 font-display text-[3.4rem] leading-none font-semibold tracking-[-0.06em] whitespace-nowrap;
+        font-stretch: 112%;
+    }
+
+    .mini-panorama-meta {
+        @apply mx-4 flex flex-col items-start gap-0.5 self-stretch border-t border-foreground pt-2 text-left;
+    }
+
+    /* Colour worlds: each swatch is its theme's paper with its accent inside. */
+    .studio-swatches {
+        @apply -mt-6 flex items-center gap-3;
+    }
+
+    .studio-swatch {
+        @apply relative size-9 cursor-pointer rounded-full border border-rule shadow-sm transition-[scale,box-shadow] duration-150 ease-out after:absolute after:inset-[30%] after:rounded-full after:bg-brand after:content-[''] active:scale-95 aria-checked:ring-2 aria-checked:ring-foreground aria-checked:ring-offset-2 aria-checked:ring-offset-background;
+    }
+
     .deck-card-event {
         @apply flex items-center gap-3 border-t border-rule py-3 text-[0.8125rem];
     }
@@ -524,4 +670,16 @@
     syntax: '<angle>';
     initial-value: 0deg;
     inherits: false;
+}
+
+@keyframes mini-drift {
+    to {
+        translate: 0 -8px;
+    }
+}
+
+@keyframes seal-turn {
+    to {
+        transform: rotate(1turn);
+    }
 }

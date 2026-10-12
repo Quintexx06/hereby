@@ -207,12 +207,13 @@ Each one is a motion pattern with a product reason, not decoration:
   below `lg`. Shows the product's core idea: each household sees its acts.
 - **Marquee** (`MarqueeBand`): Hochzeit · Mariage · Matrimonio · Wedding,
   solid and outlined; scroll speeds it up and reverses it.
-- **Theme studio** (`StudioSection`, `StudioCard`): five printed invitations
-  (Ivory, Alpine, Riviera, Lavanda, Rosé) fanned from a pivot below the deck,
-  rounded with a letterpress inner frame; the front card carries a blush
-  light orbiting its border and tilts to the pointer. Carousel arrows flank the
-  theme name and slide in when the deck is on screen; cards also respond to
-  click and arrow keys. The whole section wears the front card's theme.
+- **Template studio** (`StudioSection`, `StudioCard`, `marketing/studio/Mini*`):
+  the three guest templates (Atelier, Garten, Panorama) as phone screens fanned
+  from a pivot below the deck, each a live miniature of the template's real
+  first screen (Garten's branches draw, Panorama's names run). The front card
+  carries a blush light orbiting its border and tilts to the pointer. Arrows
+  flank the template name; cards respond to click and arrow keys. Five swatches
+  below recolour cards and section in any colour world: any template × any theme.
 - **Hiermit gestrichen.** (`StruckSection`, `StruckRow`): what we leave out
   (Passwörter, Vorlagen, Werbung…), struck through by a blush line as each
   row scrolls in. A custom icon pops out of the struck word (spring, never from

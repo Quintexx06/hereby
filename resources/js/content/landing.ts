@@ -144,29 +144,35 @@ export const marquee = [
 ] as const;
 
 export const studio = {
-    title: 'Gestaltet, nicht zusammengeklickt.',
-    lede: 'Wählt eine Stimmung, und alles folgt: Farben, Kontraste, die Einladung eurer Gäste. Jede Website wird von Hand auf euren Tag abgestimmt.',
-    hint: 'Stimmung wählen',
-    previous: 'Vorherige Stimmung',
-    next: 'Nächste Stimmung',
+    title: 'Drei Vorlagen. Fünf Farbwelten.',
+    lede: 'Jede Vorlage hat ihre eigene Bühne und ihre eigene Bewegung, und jede passt zu jeder Farbwelt. Probiert es aus: so sieht der erste Moment eurer Gäste aus.',
+    hint: 'Vorlage wählen',
+    previous: 'Vorherige Vorlage',
+    next: 'Nächste Vorlage',
+    colours: 'Farbwelt',
+    templates: [
+        {
+            slug: 'atelier',
+            name: 'Atelier',
+            mood: 'Grosse Schrift, eure Geschichte als gezeichneter Weg',
+        },
+        {
+            slug: 'garten',
+            name: 'Garten',
+            mood: 'Torbögen, Zweige, die wachsen, fallende Blüten',
+        },
+        {
+            slug: 'panorama',
+            name: 'Panorama',
+            mood: 'Namen als Laufband, Lichter in 3D, der Tag zum Seitwärtsscrollen',
+        },
+    ],
     themes: [
-        { slug: 'ivory', name: 'Ivory', mood: 'Porzellan, Tinte, Kerzenlicht' },
-        {
-            slug: 'alpine',
-            name: 'Alpine',
-            mood: 'Gletscherweiss, Bergsee, Schiefer',
-        },
-        {
-            slug: 'riviera',
-            name: 'Riviera',
-            mood: 'Kalkstein, Nachtmeer, Indigo',
-        },
-        {
-            slug: 'lavanda',
-            name: 'Lavanda',
-            mood: 'Flieder, Aubergine, Sommerwiese',
-        },
-        { slug: 'rose', name: 'Rosé', mood: 'Puder, Beere, Pfingstrose' },
+        { slug: 'ivory', name: 'Ivory' },
+        { slug: 'alpine', name: 'Alpine' },
+        { slug: 'riviera', name: 'Riviera' },
+        { slug: 'lavanda', name: 'Lavanda' },
+        { slug: 'rose', name: 'Rosé' },
     ],
 } as const;
 

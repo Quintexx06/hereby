@@ -5,11 +5,14 @@ import StudioCard from '@/components/marketing/StudioCard.vue';
 import { useAutoCycle } from '@/composables/motion/useAutoCycle';
 import { studio } from '@/content/landing';
 
-const total = studio.themes.length;
-const { index, select, pause, resume } = useAutoCycle(total, 3600);
-const active = computed(() => studio.themes[index.value]);
+const total = studio.templates.length;
+const { index, select, pause, resume } = useAutoCycle(total, 4200);
+const active = computed(() => studio.templates[index.value]);
 
-/** Fan position of each card relative to the one in front (-2 … 2). */
+/* Any template in any colour world: the swatches recolour cards and section. */
+const theme = ref<string>('rose');
+
+/** Fan position of each card relative to the one in front (-1 … 1). */
 const half = Math.floor(total / 2);
 const positionOf = (cardIndex: number) =>
     ((cardIndex - index.value + total + half) % total) - half;
@@ -34,13 +37,14 @@ onBeforeUnmount(() => observer?.disconnect());
 </script>
 
 <!--
-    Like stationery samples fanned out on a table: every card wears its own
-    wedding theme, the chosen one comes forward and the section takes its colour.
+    The three templates fanned out like phones on a table, each showing its
+    real first screen; the chosen one comes forward, and the swatches below
+    recolour everything in one of the five colour worlds.
 -->
 <template>
     <section
         class="studio"
-        :data-theme="active.slug"
+        :data-theme="theme"
         @mouseenter="pause"
         @mouseleave="resume"
     >
@@ -64,10 +68,11 @@ onBeforeUnmount(() => observer?.disconnect());
                 @keydown.right.prevent="step(1)"
             >
                 <StudioCard
-                    v-for="(theme, cardIndex) in studio.themes"
-                    :key="theme.slug"
-                    :slug="theme.slug"
-                    :name="theme.name"
+                    v-for="(template, cardIndex) in studio.templates"
+                    :key="template.slug"
+                    :template="template.slug"
+                    :theme="theme"
+                    :name="template.name"
                     :position="positionOf(cardIndex)"
                     @select="select(cardIndex)"
                 />
@@ -102,6 +107,25 @@ onBeforeUnmount(() => observer?.disconnect());
                 >
                     <ChevronRight class="size-5" />
                 </button>
+            </div>
+
+            <div
+                class="studio-swatches"
+                role="radiogroup"
+                :aria-label="studio.colours"
+            >
+                <button
+                    v-for="option in studio.themes"
+                    :key="option.slug"
+                    type="button"
+                    role="radio"
+                    class="studio-swatch"
+                    :data-theme="option.slug"
+                    :aria-checked="theme === option.slug"
+                    :aria-label="option.name"
+                    :title="option.name"
+                    @click="theme = option.slug"
+                />
             </div>
         </div>
     </section>
