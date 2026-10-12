@@ -11,7 +11,10 @@ use App\Models\Wedding;
  */
 class MarkWeddingPaid
 {
-    public function handle(Wedding $wedding, Plan $plan): Wedding
+    /**
+     * @param  string|null  $paymentIntent  Stripe's payment id; null for invoices.
+     */
+    public function handle(Wedding $wedding, Plan $plan, ?string $paymentIntent = null): Wedding
     {
         if ($wedding->plan !== null && $wedding->plan->rank() >= $plan->rank()) {
             return $wedding;
@@ -20,6 +23,7 @@ class MarkWeddingPaid
         $wedding->forceFill([
             'plan' => $plan,
             'paid_at' => $wedding->paid_at ?? now(),
+            'stripe_payment_intent' => $paymentIntent ?? $wedding->stripe_payment_intent,
         ])->save();
 
         return $wedding;

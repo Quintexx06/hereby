@@ -24,6 +24,8 @@ return [
         'secret' => env('STRIPE_SECRET'),
         'webhook_secret' => env('STRIPE_WEBHOOK_SECRET'),
         'api_url' => env('STRIPE_API_URL', 'https://api.stripe.com/v1'),
+        // Pin the API version the integration was tested on (empty: the account's default).
+        'api_version' => env('STRIPE_API_VERSION'),
     ],
 
     'postmark' => [

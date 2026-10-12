@@ -32,6 +32,7 @@ use Illuminate\Support\Collection;
  * @property WeddingStatus $status
  * @property Plan|null $plan What the couple paid for; null until they send.
  * @property Carbon|null $paid_at When the personal links went live.
+ * @property string|null $stripe_payment_intent The latest Stripe payment, for refunds.
  * @property SetupStep|null $setup_step Furthest step reached in the setup.
  * @property Carbon|null $setup_completed_at
  * @property string $couple_names

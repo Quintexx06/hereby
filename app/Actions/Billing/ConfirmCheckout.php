@@ -4,7 +4,6 @@ namespace App\Actions\Billing;
 
 use App\Enums\Plan;
 use App\Models\Wedding;
-use Illuminate\Support\Facades\Http;
 
 /**
  * Settles a finished Checkout session, from the webhook or the return page:
@@ -19,7 +18,7 @@ class ConfirmCheckout
      */
     public function fromSessionId(Wedding $wedding, string $sessionId): bool
     {
-        $session = Http::withToken(config()->string('services.stripe.secret'))
+        $session = StartCheckout::client()
             ->get(config()->string('services.stripe.api_url').'/checkout/sessions/'.rawurlencode($sessionId))
             ->throw()
             ->json();
@@ -35,7 +34,7 @@ class ConfirmCheckout
         $weddingId = (int) data_get($session, 'metadata.wedding_id');
         $plan = Plan::tryFrom((string) data_get($session, 'metadata.plan'));
 
-        if (data_get($session, 'payment_status') !== 'paid' || $plan === null) {
+        if (data_get($session, 'payment_status') !== 'paid' || data_get($session, 'currency') !== 'chf' || $plan === null) {
             return false;
         }
 
@@ -49,7 +48,9 @@ class ConfirmCheckout
             return false;
         }
 
-        $this->markPaid->handle($wedding, $plan);
+        $paymentIntent = data_get($session, 'payment_intent');
+
+        $this->markPaid->handle($wedding, $plan, is_string($paymentIntent) ? $paymentIntent : null);
 
         return true;
     }

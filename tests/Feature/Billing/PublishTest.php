@@ -65,7 +65,8 @@ class PublishTest extends TestCase
 
         Http::assertSent(fn (ClientRequest $request): bool => $request['line_items'][0]['price_data']['currency'] === 'chf'
             && (int) $request['line_items'][0]['price_data']['unit_amount'] === Plan::Signature->price()
-            && $request['metadata']['wedding_id'] == $wedding->id);
+            && $request['metadata']['wedding_id'] == $wedding->id
+            && $request['invoice_creation']['enabled'] === 'true');
     }
 
     public function test_a_plan_already_owned_cannot_be_bought_again_and_couture_is_not_sold_online(): void
@@ -100,6 +101,7 @@ class PublishTest extends TestCase
         $wedding->refresh();
         $this->assertSame(Plan::Atelier, $wedding->plan);
         $this->assertTrue($wedding->isPublished());
+        $this->assertSame('pi_1', $wedding->stripe_payment_intent);
     }
 
     public function test_an_unsigned_or_unpaid_webhook_changes_nothing(): void
@@ -108,6 +110,19 @@ class PublishTest extends TestCase
 
         $this->webhook($this->event($wedding, 'atelier'), 'wrong_secret')->assertStatus(400);
         $this->webhook($this->event($wedding, 'atelier', 'unpaid'))->assertNoContent();
+
+        $this->assertFalse($wedding->refresh()->isPublished());
+    }
+
+    public function test_a_payment_in_another_currency_unlocks_nothing(): void
+    {
+        $wedding = Wedding::factory()->unpaid()->create();
+        $payload = (string) json_encode([
+            'type' => 'checkout.session.completed',
+            'data' => ['object' => ['currency' => 'eur'] + $this->checkoutSession($wedding, 'atelier')],
+        ]);
+
+        $this->webhook($payload)->assertNoContent();
 
         $this->assertFalse($wedding->refresh()->isPublished());
     }
@@ -171,6 +186,8 @@ class PublishTest extends TestCase
             'id' => 'cs_1',
             'object' => 'checkout.session',
             'payment_status' => $status,
+            'currency' => 'chf',
+            'payment_intent' => 'pi_1',
             'metadata' => ['wedding_id' => (string) $wedding->id, 'plan' => $plan],
         ];
     }

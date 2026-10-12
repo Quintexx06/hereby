@@ -4,6 +4,7 @@ namespace App\Actions\Billing;
 
 use App\Enums\Plan;
 use App\Models\Wedding;
+use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Facades\Http;
 use RuntimeException;
 
@@ -26,7 +27,7 @@ class StartCheckout
 
         $returnUrl = route('weddings.publish.return', $wedding).'?session_id={CHECKOUT_SESSION_ID}';
 
-        $session = Http::withToken(config()->string('services.stripe.secret'))
+        $session = self::client()
             ->asForm()
             ->post(config()->string('services.stripe.api_url').'/checkout/sessions', [
                 'mode' => 'payment',
@@ -34,6 +35,10 @@ class StartCheckout
                 'client_reference_id' => (string) $wedding->id,
                 'customer_email' => $wedding->owner->email,
                 'success_url' => $returnUrl,
+                // A receipt with an invoice PDF for the couple; codes for venue partners.
+                'invoice_creation' => ['enabled' => 'true'],
+                'allow_promotion_codes' => 'true',
+                'payment_intent_data' => ['description' => "Hereby {$plan->label()} · {$wedding->couple_names}"],
                 'cancel_url' => route('weddings.publish.show', $wedding),
                 'line_items' => [[
                     'quantity' => 1,
@@ -49,5 +54,15 @@ class StartCheckout
             ->json();
 
         return (string) data_get($session, 'url');
+    }
+
+    /**
+     * Stripe's API, authenticated, on the pinned API version if one is set.
+     */
+    public static function client(): PendingRequest
+    {
+        return Http::withToken(config()->string('services.stripe.secret'))
+            ->withHeaders(array_filter(['Stripe-Version' => config('services.stripe.api_version')]))
+            ->timeout(15);
     }
 }
