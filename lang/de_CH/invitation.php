@@ -5,6 +5,12 @@ return [
     'for' => 'Für',
     'title' => ':couple heiraten',
     'marry' => 'heiraten',
+    'dear' => 'Liebe :names',
+    'letter' => 'Wir heiraten, und es wäre nicht dasselbe ohne euch. Hier findet ihr alles für den Tag, und mit einem Tippen sagt ihr uns, ob ihr dabei seid.',
+    'scroll' => 'Weiter',
+    'story_heading' => 'Unsere Geschichte',
+    'closing_title' => 'Kommt ihr?',
+    'closing_text' => 'Eine Antwort dauert keine Minute. Ihr könnt sie bis zur Frist jederzeit ändern.',
     'events_heading' => 'Eure Einladung',
     'reply_by' => 'Bitte antwortet bis :date',
     'blocks' => [

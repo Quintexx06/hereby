@@ -5,6 +5,12 @@ return [
     'for' => 'Per',
     'title' => ':couple si sposano',
     'marry' => 'si sposano',
+    'dear' => 'Cari :names',
+    'letter' => 'Ci sposiamo, e non sarebbe lo stesso senza di voi. Qui trovate tutto per il grande giorno, e con un tocco ci dite se ci sarete.',
+    'scroll' => 'Continua',
+    'story_heading' => 'La nostra storia',
+    'closing_title' => 'Venite?',
+    'closing_text' => 'Rispondere richiede meno di un minuto. Potete modificare la risposta fino alla scadenza.',
     'events_heading' => 'Il vostro invito',
     'reply_by' => 'Vi preghiamo di rispondere entro il :date',
     'blocks' => [

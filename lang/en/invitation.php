@@ -5,6 +5,12 @@ return [
     'for' => 'For',
     'title' => ':couple are getting married',
     'marry' => 'are getting married',
+    'dear' => 'Dear :names',
+    'letter' => 'We are getting married, and it would not be the same without you. Everything for the day is here, and one tap tells us whether you can come.',
+    'scroll' => 'Continue',
+    'story_heading' => 'Our story',
+    'closing_title' => 'Will you come?',
+    'closing_text' => 'Replying takes less than a minute. You can change it any time before the deadline.',
     'events_heading' => 'Your invitation',
     'reply_by' => 'Please reply by :date',
     'blocks' => [

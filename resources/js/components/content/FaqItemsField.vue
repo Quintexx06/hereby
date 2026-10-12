@@ -4,8 +4,11 @@ import { computed } from 'vue';
 import { Input } from '@/components/ui/input';
 import { itemLabels } from '@/content/content';
 
-/* List entries: FAQ question/answer pairs, or hotels with an optional link. */
-const props = defineProps<{ idPrefix: string; kind: 'faq' | 'stay' }>();
+/* List entries: FAQ pairs, hotels with an optional link, or story chapters. */
+const props = defineProps<{
+    idPrefix: string;
+    kind: 'faq' | 'stay' | 'story';
+}>();
 const items = defineModel<{ question: string; answer: string; url?: string }[]>(
     { required: true },
 );

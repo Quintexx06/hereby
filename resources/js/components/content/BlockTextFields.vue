@@ -37,7 +37,7 @@ const text = defineModel<BlockText>({ required: true });
             <p class="field-hint">{{ copy.bodyHint }}</p>
         </div>
         <FaqItemsField
-            v-if="type === 'faq' || type === 'stay'"
+            v-if="type === 'faq' || type === 'stay' || type === 'story'"
             v-model="text.items"
             :id-prefix="idPrefix"
             :kind="type"

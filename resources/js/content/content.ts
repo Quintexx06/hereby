@@ -36,7 +36,7 @@ export const blockTypes: Record<
 > = {
     story: {
         label: 'Unsere Geschichte',
-        hint: 'Wie ihr euch kennengelernt habt, in ein paar Sätzen.',
+        hint: 'Ein paar Sätze zum Einstieg, dann eure Geschichte in Kapiteln. Auf der Website werden sie zu einem Weg, der sich beim Scrollen zeichnet.',
         placeholder: 'Es begann an einem Sonntag am See…',
     },
     venue: {
@@ -68,8 +68,14 @@ export const blockTypes: Record<
     },
 };
 
-/** Labels for list entries: FAQ questions, or hotels in the stay block. */
+/** Labels for list entries: FAQ questions, hotels, or story chapters. */
 export const itemLabels = {
+    story: {
+        name: 'Kapitel, z. B. «2019 · Zürich» oder «Der Antrag»',
+        details: 'Was damals passiert ist, in zwei, drei Sätzen',
+        add: 'Kapitel hinzufügen',
+        remove: 'Kapitel entfernen',
+    },
     faq: {
         name: 'Frage',
         details: 'Antwort',

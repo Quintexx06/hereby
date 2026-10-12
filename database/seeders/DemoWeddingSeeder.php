@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\ContentBlockType;
 use App\Enums\EventType;
 use App\Enums\Locale;
 use App\Enums\WeddingTheme;
@@ -38,9 +39,49 @@ class DemoWeddingSeeder extends Seeder
         $this->household($wedding, 'Famiglia Bernasconi', Locale::Italian, ['Giulia'], [$apero, $dinner, $party]);
         $this->household($wedding, 'The Carters', Locale::English, ['Emma', 'James'], [$party]);
 
+        $this->blocks($wedding);
+
         $wedding->households()->each(function (Household $household): void {
             $this->command->info("{$household->name}: ".route('invitation.show', $household));
         });
+    }
+
+    /**
+     * The couple's own pages: their story in chapters, and the practical ones.
+     */
+    private function blocks(Wedding $wedding): void
+    {
+        $blocks = [
+            ContentBlockType::Story->value => [
+                'body' => 'Zwei Menschen, eine Stadt, und ein Zug, der zu spät kam. Hier ist, wie aus einem Zufall ein Ja wurde.',
+                'items' => [
+                    ['question' => '2017 · Luzern', 'answer' => 'Der Zug nach Zürich fiel aus. Anna und Luca teilten sich das letzte Taxi und stritten die ganze Fahrt über die beste Pizza der Stadt.'],
+                    ['question' => '2019 · Die erste Wohnung', 'answer' => 'Drei Zimmer, ein Balkon mit Blick auf die Reuss und ein Sofa, das nicht durch die Tür passte.'],
+                    ['question' => '2023 · Lissabon', 'answer' => 'Eine Reise, zu viele Pastéis de Nata und der Moment, in dem beide wussten: das ist es.'],
+                    ['question' => '2026 · Der Antrag', 'answer' => 'Auf dem Steg in Vitznau, bei Sonnenaufgang. Sie hat Ja gesagt, bevor er fertig war.'],
+                ],
+            ],
+            ContentBlockType::DressCode->value => [
+                'body' => 'Festlich und sommerlich. Der Apéro ist auf dem Rasen, also lieber Blockabsätze als Stilettos.',
+            ],
+            ContentBlockType::Travel->value => [
+                'body' => 'Mit dem Zug bis Luzern, dann mit dem Schiff nach Vitznau (40 Minuten). Parkplätze gibt es beim Bootshaus.',
+            ],
+            ContentBlockType::Faq->value => [
+                'items' => [
+                    ['question' => 'Sind Kinder willkommen?', 'answer' => 'Sehr! Für die Kleinen gibt es ein eigenes Menü und eine Spielecke.'],
+                    ['question' => 'Was schenken wir euch?', 'answer' => 'Eure Anwesenheit. Wer mag, darf etwas an unsere Hochzeitsreise beitragen.'],
+                ],
+            ],
+        ];
+
+        foreach (array_keys($blocks) as $position => $type) {
+            $wedding->contentBlocks()->create([
+                'type' => $type,
+                'position' => $position,
+                'content' => [$wedding->default_locale->value => ['title' => null, 'body' => null, 'items' => [], ...$blocks[$type]]],
+            ]);
+        }
     }
 
     private function event(Wedding $wedding, EventType $type, string $startsAt, string $location, string $address): Event

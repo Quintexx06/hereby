@@ -11,8 +11,8 @@ const { t } = useTrans();
 </script>
 
 <template>
-    <section class="invitation-section">
-        <h2 class="invitation-heading">
+    <section class="inv-section">
+        <h2 class="inv-heading">
             {{ t('invitation.programme_heading') }}
         </h2>
         <ol class="event-timeline">

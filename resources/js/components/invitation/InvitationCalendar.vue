@@ -32,8 +32,8 @@ const links = computed(() => {
 
 <!-- Every guest can keep the date, before and after they reply. -->
 <template>
-    <section v-if="invitation.events.length" class="invitation-section">
-        <h2 class="invitation-heading">
+    <section v-if="invitation.events.length" class="inv-section">
+        <h2 class="inv-heading">
             {{ t('invitation.calendar_heading') }}
         </h2>
         <div class="calendar-options">
