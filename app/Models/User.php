@@ -52,6 +52,17 @@ class User extends Authenticatable implements MustVerifyEmail, PasskeyUser
     }
 
     /**
+     * An account takes its weddings along one by one, so their guests'
+     * photos leave the server too, not only the database rows.
+     */
+    protected static function booted(): void
+    {
+        static::deleting(function (User $user): void {
+            $user->weddings()->get()->each->delete();
+        });
+    }
+
+    /**
      * Get the attributes that should be cast.
      *
      * @return array<string, string>

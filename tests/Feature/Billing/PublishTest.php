@@ -6,9 +6,11 @@ use App\Enums\Plan;
 use App\Models\Household;
 use App\Models\User;
 use App\Models\Wedding;
+use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Client\Request as ClientRequest;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Testing\TestResponse;
 use Inertia\Testing\AssertableInertia as Assert;
 use Tests\TestCase;
@@ -26,6 +28,7 @@ class PublishTest extends TestCase
             'services.stripe.secret' => 'sk_test_123',
             'services.stripe.webhook_secret' => self::SECRET,
             'services.stripe.api_url' => 'https://stripe.test/v1',
+            'services.stripe.products' => [],
         ]);
     }
 
@@ -66,7 +69,41 @@ class PublishTest extends TestCase
         Http::assertSent(fn (ClientRequest $request): bool => $request['line_items'][0]['price_data']['currency'] === 'chf'
             && (int) $request['line_items'][0]['price_data']['unit_amount'] === Plan::Signature->price()
             && $request['metadata']['wedding_id'] == $wedding->id
-            && $request['invoice_creation']['enabled'] === 'true');
+            && $request['invoice_creation']['enabled'] === 'true'
+            && $request['managed_payments']['enabled'] === 'false');
+    }
+
+    public function test_checkout_bills_the_stripe_product_of_the_plan_when_one_is_configured(): void
+    {
+        Http::fake(['stripe.test/*' => Http::response(['id' => 'cs_1', 'url' => 'https://checkout.stripe.test/cs_1'])]);
+        config(['services.stripe.products.atelier' => 'prod_atelier']);
+        $wedding = Wedding::factory()->create(['plan' => Plan::Signature]);
+
+        $this->actingAs($wedding->owner)
+            ->post(route('weddings.publish.store', $wedding), ['plan' => 'atelier'], ['X-Inertia' => 'true'])
+            ->assertStatus(409);
+
+        Http::assertSent(fn (ClientRequest $request): bool => $request['line_items'][0]['price_data']['product'] === 'prod_atelier'
+            && ! isset($request['line_items'][0]['price_data']['product_data'])
+            && (int) $request['line_items'][0]['price_data']['unit_amount'] === Plan::Atelier->price() - Plan::Signature->price());
+    }
+
+    public function test_checkout_survives_a_stripe_hiccup_without_opening_a_second_session(): void
+    {
+        Http::fake(['stripe.test/*' => Http::sequence()
+            ->pushStatus(503)
+            ->push(['id' => 'cs_1', 'url' => 'https://checkout.stripe.test/cs_1'])]);
+        $wedding = Wedding::factory()->unpaid()->create();
+
+        $this->actingAs($wedding->owner)
+            ->post(route('weddings.publish.store', $wedding), ['plan' => 'signature'], ['X-Inertia' => 'true'])
+            ->assertHeader('X-Inertia-Location', 'https://checkout.stripe.test/cs_1');
+
+        $keys = Http::recorded()->map(fn (array $pair): string => $pair[0]->header('Idempotency-Key')[0] ?? '');
+
+        $this->assertCount(2, $keys);
+        $this->assertNotSame('', $keys[0]);
+        $this->assertSame($keys[0], $keys[1]);
     }
 
     public function test_a_plan_already_owned_cannot_be_bought_again_and_couture_is_not_sold_online(): void
@@ -102,6 +139,14 @@ class PublishTest extends TestCase
         $this->assertSame(Plan::Atelier, $wedding->plan);
         $this->assertTrue($wedding->isPublished());
         $this->assertSame('pi_1', $wedding->stripe_payment_intent);
+    }
+
+    public function test_the_webhook_is_exempt_from_the_csrf_check_stripe_cannot_pass(): void
+    {
+        $route = Route::getRoutes()->getByName('stripe.webhook');
+
+        $this->assertNotNull($route);
+        $this->assertContains(PreventRequestForgery::class, $route->excludedMiddleware());
     }
 
     public function test_an_unsigned_or_unpaid_webhook_changes_nothing(): void

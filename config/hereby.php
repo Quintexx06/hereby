@@ -43,4 +43,20 @@ return [
         'couture' => (int) env('HEREBY_PRICE_COUTURE', 149000),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Memories
+    |--------------------------------------------------------------------------
+    |
+    | Guest photos (Atelier and up): the largest photo a guest may send, in
+    | kilobytes, and how many one wedding may hold. The server's upload limit
+    | (upload_max_filesize, post_max_size) must allow the former.
+    |
+    */
+
+    'memories' => [
+        'max_kilobytes' => (int) env('HEREBY_MEMORIES_MAX_KILOBYTES', 20480),
+        'max_photos' => (int) env('HEREBY_MEMORIES_MAX_PHOTOS', 3000),
+    ],
+
 ];

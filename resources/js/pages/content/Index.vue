@@ -2,8 +2,9 @@
 import PageMasthead from '@/components/PageMasthead.vue';
 import { Head, router } from '@inertiajs/vue3';
 import { Eye, Plus } from '@lucide/vue';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import BlockEditor from '@/components/content/BlockEditor.vue';
+import InvitationPreview from '@/components/content/InvitationPreview.vue';
 import { blockTypes, contentPage as copy } from '@/content/content';
 import { dashboardPage } from '@/content/dashboard';
 import { dashboard } from '@/routes';
@@ -36,6 +37,9 @@ const missing = computed(() =>
         (type) => !props.blocks.some((block) => block.type === type),
     ),
 );
+
+/* Counts saves, so the preview beside the editor loads the new state. */
+const saves = ref(0);
 
 function add(type: ContentBlockType): void {
     router.post(
@@ -77,16 +81,24 @@ function move(index: number, direction: -1 | 1): void {
             {{ copy.empty }}
         </p>
 
-        <div class="flex max-w-3xl flex-col gap-6">
-            <BlockEditor
-                v-for="(block, index) in blocks"
-                :key="block.id"
-                :block="block"
+        <div class="content-layout">
+            <div class="flex max-w-3xl flex-col gap-6">
+                <BlockEditor
+                    v-for="(block, index) in blocks"
+                    :key="block.id"
+                    :block="block"
+                    :wedding="wedding"
+                    :events="events"
+                    :first="index === 0"
+                    :last="index === blocks.length - 1"
+                    @move="(direction) => move(index, direction)"
+                    @saved="saves++"
+                />
+            </div>
+            <InvitationPreview
+                v-if="blocks.length"
                 :wedding="wedding"
-                :events="events"
-                :first="index === 0"
-                :last="index === blocks.length - 1"
-                @move="(direction) => move(index, direction)"
+                :version="saves + blocks.length"
             />
         </div>
 

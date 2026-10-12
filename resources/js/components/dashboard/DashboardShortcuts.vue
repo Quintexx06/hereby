@@ -5,6 +5,7 @@ import { shortcuts } from '@/content/dashboard';
 import { index as content } from '@/routes/weddings/content';
 import { index as guests } from '@/routes/weddings/guests';
 import { index as kitchen } from '@/routes/weddings/kitchen';
+import { index as memories } from '@/routes/weddings/memories';
 import { edit as rsvpSettings } from '@/routes/weddings/rsvp-settings';
 
 const props = defineProps<{ weddingId: number }>();
@@ -14,6 +15,7 @@ const rows = [
     { key: 'content', href: content(props.weddingId) },
     { key: 'rsvp', href: rsvpSettings(props.weddingId) },
     { key: 'kitchen', href: kitchen(props.weddingId) },
+    { key: 'memories', href: memories(props.weddingId) },
 ] as const;
 </script>
 

@@ -9,5 +9,6 @@ export * from './guests';
 export * from './rsvp';
 export * from './content';
 export * from './kitchen';
+export * from './memories';
 export * from './admin';
 export * from './billing';

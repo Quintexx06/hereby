@@ -20,4 +20,12 @@ class WeddingPolicy
     {
         return $wedding->owner_id === $user->id;
     }
+
+    /**
+     * Guest photos are the couple's, and part of Atelier and Couture.
+     */
+    public function useMemories(User $user, Wedding $wedding): bool
+    {
+        return $wedding->owner_id === $user->id && $wedding->includesMemories();
+    }
 }

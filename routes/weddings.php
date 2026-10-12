@@ -10,6 +10,7 @@ use App\Http\Controllers\Guests\HouseholdController;
 use App\Http\Controllers\Guests\PreviewGuestImportController;
 use App\Http\Controllers\Guests\StoreHouseholdsController;
 use App\Http\Controllers\Kitchen\KitchenController;
+use App\Http\Controllers\Memories\MemoriesController;
 use App\Http\Controllers\Weddings\CompleteWeddingSetupController;
 use App\Http\Controllers\Weddings\RsvpSettingsController;
 use App\Http\Controllers\Weddings\StartWeddingSetupController;
@@ -55,7 +56,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('hochzeit/{wedding}/kueche/blatt', [KitchenController::class, 'sheet'])->name('weddings.kitchen.sheet');
         Route::get('hochzeit/{wedding}/kueche/gaeste.csv', [KitchenController::class, 'csv'])->name('weddings.kitchen.csv');
 
+        Route::get('hochzeit/{wedding}/erinnerungen', [MemoriesController::class, 'index'])->name('weddings.memories.index');
+
         Route::scopeBindings()->group(function () {
+            Route::middleware('can:useMemories,wedding')->group(function () {
+                Route::get('hochzeit/{wedding}/erinnerungen/{photo}/{size}', [MemoriesController::class, 'photo'])
+                    ->whereIn('size', ['klein', 'original'])
+                    ->name('weddings.memories.photo');
+                Route::delete('hochzeit/{wedding}/erinnerungen/{photo}', [MemoriesController::class, 'destroy'])
+                    ->name('weddings.memories.destroy');
+            });
             Route::put('hochzeit/{wedding}/inhalte/{contentBlock:id}', [ContentBlockController::class, 'update'])->name('weddings.content.update');
             Route::delete('hochzeit/{wedding}/inhalte/{contentBlock:id}', [ContentBlockController::class, 'destroy'])->name('weddings.content.destroy');
             Route::put('hochzeit/{wedding}/haushalte/{household:id}', [HouseholdController::class, 'update'])

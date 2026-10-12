@@ -5,10 +5,12 @@ use App\Http\Controllers\Invitations\SaveReplyController;
 use App\Http\Controllers\Invitations\ShowInvitationController;
 use App\Http\Controllers\Invitations\ShowReplyController;
 use App\Http\Controllers\Invitations\StopRemindersController;
+use App\Http\Controllers\Memories\GuestUploadController;
+use App\Http\Middleware\EnsureWeddingHasMemories;
 use App\Http\Middleware\EnsureWeddingIsPublished;
 use App\Http\Middleware\PreventIndexing;
 use App\Http\Middleware\UseHouseholdLocale;
-use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken;
+use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,6 +25,19 @@ Route::middleware(['throttle:invitations', PreventIndexing::class, EnsureWedding
     Route::get('i/{household}/kalender.ics', DownloadCalendarController::class)->name('invitation.calendar');
     Route::match(['get', 'post'], 'i/{household}/keine-erinnerungen', StopRemindersController::class)
         ->middleware('signed')
-        ->withoutMiddleware(ValidateCsrfToken::class)
+        ->withoutMiddleware(PreventRequestForgery::class)
         ->name('invitation.reminders.stop');
+});
+
+/*
+| «Fotos von allen»: one upload link per wedding, for every guest. The token
+| is the credential, as on the personal links; open only with Atelier and up.
+*/
+Route::middleware([PreventIndexing::class, EnsureWeddingHasMemories::class])->group(function () {
+    Route::get('fotos/{wedding:memories_token}', [GuestUploadController::class, 'show'])
+        ->middleware('throttle:invitations')
+        ->name('invitation.memories.show');
+    Route::post('fotos/{wedding:memories_token}', [GuestUploadController::class, 'store'])
+        ->middleware('throttle:photo-uploads')
+        ->name('invitation.memories.store');
 });

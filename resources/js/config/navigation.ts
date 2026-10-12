@@ -1,6 +1,7 @@
 import {
     CalendarHeart,
     Globe,
+    Images,
     Inbox,
     LayoutGrid,
     LifeBuoy,
@@ -15,6 +16,7 @@ import { index as adminWeddings } from '@/routes/admin/weddings';
 import { index as content } from '@/routes/weddings/content';
 import { index as guests } from '@/routes/weddings/guests';
 import { index as kitchen } from '@/routes/weddings/kitchen';
+import { index as memories } from '@/routes/weddings/memories';
 import { edit as rsvpSettings } from '@/routes/weddings/rsvp-settings';
 import { show as setup } from '@/routes/weddings/setup';
 import type { NavItem, SharedWedding } from '@/types';
@@ -50,6 +52,11 @@ export function mainNavItems(wedding: SharedWedding | null): NavItem[] {
             title: 'Küche & Service',
             href: kitchen(wedding.id),
             icon: UtensilsCrossed,
+        });
+        items.push({
+            title: 'Erinnerungen',
+            href: memories(wedding.id),
+            icon: Images,
         });
     }
 

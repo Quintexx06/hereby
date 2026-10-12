@@ -142,6 +142,24 @@
         @apply flex flex-col gap-6 rounded-lg border bg-card p-5 sm:p-7;
     }
 
+    /* Editor and, on wide screens, the invitation on a phone beside it. */
+    .content-layout {
+        @apply grid items-start gap-12 xl:grid-cols-[minmax(0,48rem)_20rem];
+    }
+
+    .content-preview {
+        @apply hidden flex-col gap-4 xl:sticky xl:top-6 xl:flex;
+    }
+
+    .content-preview-phone {
+        @apply relative h-[39rem] w-80 overflow-hidden rounded-[2rem] border border-rule bg-card;
+    }
+
+    /* A 390px phone drawn at 82%, so the guest layout is the real one. */
+    .content-preview-frame {
+        @apply absolute top-0 left-0 h-[761px] w-[390px] origin-top-left scale-[0.8205] border-0;
+    }
+
     .faq-item-field {
         @apply flex items-start gap-2 border-b pb-4;
     }

@@ -7,7 +7,13 @@ export const contentPage = {
     empty: 'Noch keine Inhalte. Fangt mit dem an, was ihr am häufigsten gefragt werdet.',
     add: 'Block hinzufügen',
     preview: 'Vorschau ansehen',
+    previewLabel: 'Vorschau',
+    previewHint:
+        'So sehen es eure Gäste auf dem Handy, Stand eures letzten Speicherns.',
     save: 'Speichern',
+    unsaved: 'Noch nicht gespeichert',
+    leaveUnsaved:
+        'Ihr habt Änderungen, die noch nicht gespeichert sind. Seite trotzdem verlassen?',
     remove: 'Block entfernen',
     removeConfirm: 'Diesen Block mit allen Sprachen löschen?',
     up: 'Nach oben',

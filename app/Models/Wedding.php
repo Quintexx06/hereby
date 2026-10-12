@@ -11,13 +11,14 @@ use App\Enums\SetupStep;
 use App\Enums\WeddingStatus;
 use App\Enums\WeddingTemplate;
 use App\Enums\WeddingTheme;
+use App\Models\Concerns\HasMemories;
 use Database\Factories\WeddingFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\AsEnumCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\MassPrunable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Prunable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
@@ -74,7 +75,7 @@ use Illuminate\Support\Collection;
 class Wedding extends Model
 {
     /** @use HasFactory<WeddingFactory> */
-    use HasFactory, MassPrunable;
+    use HasFactory, HasMemories, Prunable;
 
     /**
      * @return BelongsTo<User, $this>
@@ -162,7 +163,7 @@ class Wedding extends Model
     /**
      * Weddings past the retention window, and drafts abandoned for as long.
      * Deleting them cascades to every household, guest and answer at the
-     * database level.
+     * database level; one by one, so each wedding's photos go with it.
      *
      * @return Builder<static>
      */

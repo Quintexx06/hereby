@@ -5,12 +5,12 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\StoreInquiryController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Middleware\UseSwissGerman;
-use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken;
+use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', WelcomeController::class)->name('home');
 Route::post('stripe/webhook', StripeWebhookController::class)
-    ->withoutMiddleware(ValidateCsrfToken::class)
+    ->withoutMiddleware(PreventRequestForgery::class)
     ->name('stripe.webhook');
 Route::post('fragen', StoreInquiryController::class)->middleware('throttle:inquiries')->name('inquiries.store');
 

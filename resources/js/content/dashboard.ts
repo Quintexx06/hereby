@@ -136,5 +136,9 @@ export const shortcuts = {
             title: 'Küche & Service',
             body: 'Menüzahlen und Allergien für Caterer und Location.',
         },
+        memories: {
+            title: 'Erinnerungen',
+            body: 'Die Fotos eurer Gäste, über einen Link für alle.',
+        },
     },
 };
