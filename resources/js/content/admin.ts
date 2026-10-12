@@ -10,6 +10,14 @@ export const adminCopy = {
         answered: 'Antworten',
     },
     newCouple: 'Hochzeit für ein Paar anlegen',
+    newCoupleShort: 'Paar anlegen',
+    columns: {
+        couple: 'Paar',
+        status: 'Stand',
+        date: 'Hochzeit',
+        replies: 'Antworten',
+    },
+    noDate: 'Datum offen',
     newCoupleHint:
         'Legt Konto und Entwurf an. Das Paar bekommt einen Link, um sein Passwort zu wählen.',
     email: 'E-Mail des Paars',

@@ -9,6 +9,20 @@
         @apply text-brand;
     }
 
+    /* Letters that can fall through the line and back in (sidebar logo). */
+    .wordmark-drop {
+        @apply inline-flex overflow-hidden py-1;
+    }
+
+    .wordmark-letter {
+        @apply inline-block;
+    }
+
+    [data-sidebar='menu-button']:hover .wordmark-letter,
+    [data-sidebar='menu-button']:focus-visible .wordmark-letter {
+        animation: letter-drop 560ms var(--ease-out) calc(var(--i) * 40ms) both;
+    }
+
     /* Underline that grows from the left on hover. */
     .link-underline {
         @apply bg-[linear-gradient(currentColor,currentColor)] bg-[length:0%_1px] bg-left-bottom bg-no-repeat pb-0.5 transition-[background-size] duration-200 ease-out hover:bg-[length:100%_1px];
@@ -36,5 +50,21 @@
 
     .reveal[data-revealed] .hereby-icon .draw {
         stroke-dashoffset: 0;
+    }
+}
+
+/* Out through the bottom, in again from above: the footer's letters arriving. */
+@keyframes letter-drop {
+    0% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(110%);
+    }
+    41% {
+        transform: translateY(-110%);
+    }
+    100% {
+        transform: translateY(0);
     }
 }

@@ -20,48 +20,48 @@ const answeredShare = computed(() =>
 );
 </script>
 
-<!-- One wedding as a ledger row: who, where they stand, the way in. -->
+<!-- One wedding as a table row: who, where they stand, when, replies, the way in. -->
 <template>
-    <li class="admin-row">
-        <div class="flex min-w-0 flex-col gap-1">
+    <li class="admin-row admin-wedding">
+        <div class="flex min-w-0 flex-col gap-0.5">
             <p class="truncate text-lg font-semibold">
                 {{ wedding.couple_names }}
             </p>
             <p class="truncate text-sm text-muted-foreground">
                 {{ wedding.email }}
             </p>
-            <p v-if="wedding.look_styles.length" class="text-sm">
+            <p v-if="wedding.look_styles.length" class="admin-row-styles">
                 {{
                     wedding.look_styles
                         .map((style) => lookStyles[style].name)
                         .join(' · ')
                 }}
             </p>
-            <p v-if="wedding.look_wishes" class="admin-wish">
-                «{{ wedding.look_wishes }}»
-            </p>
         </div>
 
-        <div class="flex flex-col gap-1 text-sm">
-            <p class="admin-status" :data-status="wedding.status">
-                {{
-                    isDraft
-                        ? copy.draft(steps[wedding.setup_step ?? 'paar'].label)
-                        : copy.active
-                }}
-            </p>
-            <p v-if="wedding.date" class="text-muted-foreground">
-                {{ formatDate(wedding.date, 'de-CH') }}
-            </p>
+        <p class="admin-status" :data-status="wedding.status">
+            {{
+                isDraft
+                    ? copy.draft(steps[wedding.setup_step ?? 'paar'].label)
+                    : copy.active
+            }}
+        </p>
+
+        <p class="admin-cell">
+            {{ wedding.date ? formatDate(wedding.date, 'de-CH') : copy.noDate }}
+        </p>
+
+        <div class="admin-cell">
             <template v-if="!isDraft">
-                <p class="text-muted-foreground tabular-nums">
-                    {{ copy.households(wedding.households) }},
-                    {{ copy.answered(wedding.answered) }}
+                <p class="tabular-nums">
+                    {{ wedding.answered }} /
+                    {{ copy.households(wedding.households) }}
                 </p>
                 <div v-if="wedding.households > 0" class="admin-meter">
                     <span :style="{ width: `${answeredShare}%` }" />
                 </div>
             </template>
+            <p v-else>–</p>
         </div>
 
         <p class="admin-row-actions">

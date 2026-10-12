@@ -4,10 +4,6 @@
         @apply gap-12;
     }
 
-    .admin-grid {
-        @apply grid items-start gap-12 lg:grid-cols-[minmax(0,1fr)_22rem] xl:grid-cols-[minmax(0,1fr)_24rem];
-    }
-
     .admin-list {
         @apply flex min-w-0 flex-col gap-6 border-t border-foreground pt-6;
     }
@@ -18,6 +14,23 @@
 
     .admin-row {
         @apply grid gap-4 border-b border-rule py-5 first:pt-0 sm:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)_13rem] sm:items-start;
+    }
+
+    /* Weddings as a table: couple, stand, date, replies, the way in. */
+    .admin-wedding {
+        @apply gap-x-6 gap-y-2 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)_8rem_10rem_minmax(0,1.2fr)] lg:items-center;
+    }
+
+    .admin-row-head {
+        @apply hidden py-3 text-xs font-medium text-muted-foreground lg:grid;
+    }
+
+    .admin-cell {
+        @apply flex flex-col gap-1 text-sm text-muted-foreground;
+    }
+
+    .admin-row-styles {
+        @apply truncate text-xs text-muted-foreground;
     }
 
     .admin-inquiry {
@@ -32,8 +45,12 @@
         @apply flex flex-wrap items-center gap-x-5 gap-y-2 text-sm sm:justify-end;
     }
 
+    .admin-wedding .admin-row-actions {
+        @apply sm:justify-start lg:justify-end;
+    }
+
     .admin-status {
-        @apply font-medium text-muted-foreground;
+        @apply flex items-center gap-2 text-sm font-medium text-muted-foreground before:size-1.5 before:shrink-0 before:rounded-full before:bg-current before:content-[''];
     }
 
     .admin-status[data-status='active'] {
@@ -53,32 +70,40 @@
     }
 
     .admin-empty {
-        @apply border-b border-rule pb-6 text-muted-foreground;
+        @apply flex flex-col gap-1 border-b border-rule pb-6 text-muted-foreground;
     }
 
-    .admin-aside {
-        @apply flex flex-col gap-10 lg:sticky lg:top-6;
-    }
-
-    .admin-aside-section,
-    .admin-checklist {
-        @apply flex flex-col gap-5 border-t border-foreground pt-6;
+    .admin-sheet-form {
+        @apply flex flex-1 flex-col gap-6 overflow-y-auto px-6 py-4;
     }
 
     .admin-form-names {
-        @apply grid gap-4 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2;
+        @apply grid gap-4 sm:grid-cols-2;
+    }
+
+    /* First steps: one strip across the page while any step is open. */
+    .admin-checklist {
+        @apply flex flex-col gap-4 border-t border-foreground pt-6;
+    }
+
+    .admin-checklist-head {
+        @apply flex flex-wrap items-baseline gap-x-5 gap-y-1;
+    }
+
+    .admin-steps {
+        @apply grid gap-x-6 sm:grid-cols-2 lg:grid-cols-5;
     }
 
     .admin-check {
-        @apply flex items-center gap-3 border-b border-rule py-2.5 text-sm;
+        @apply flex items-start gap-3 border-b border-rule py-3 text-sm lg:border-t-2 lg:border-b-0 lg:border-t-rule lg:pt-4;
     }
 
     .admin-check[data-done='true'] {
-        @apply text-muted-foreground line-through decoration-foreground/30;
+        @apply text-muted-foreground line-through decoration-foreground/30 lg:border-t-brand;
     }
 
     .admin-check-mark {
-        @apply grid size-5 shrink-0 place-items-center rounded-full border border-foreground/30;
+        @apply grid size-5 shrink-0 place-items-center rounded-full border border-foreground/30 text-[0.65rem] font-semibold tabular-nums;
     }
 
     .admin-check[data-done='true'] .admin-check-mark {

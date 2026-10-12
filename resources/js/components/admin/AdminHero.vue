@@ -1,19 +1,26 @@
 <script setup lang="ts">
-import { Sparkles } from '@lucide/vue';
+import { Plus, Sparkles } from '@lucide/vue';
 import PageMasthead from '@/components/PageMasthead.vue';
+import { Button } from '@/components/ui/button';
 import { adminCopy as copy, adminWelcome } from '@/content/admin';
 
 defineProps<{
     stats: { label: string; value: number }[];
 }>();
-defineEmits<{ tour: [] }>();
+defineEmits<{ tour: []; create: [] }>();
 </script>
 
-<!-- Masthead with the roses in its margin, then the numbers set in type. -->
+<!--
+    Masthead with the roses in its margin and the one thing the team does
+    most (a new couple) as its button; then the numbers set in type.
+-->
 <template>
     <div>
         <PageMasthead :title="copy.title" :lede="copy.lede" scene="roses">
             <template #actions>
+                <Button size="pill" @click="$emit('create')">
+                    <Plus class="size-4" /> {{ copy.newCoupleShort }}
+                </Button>
                 <button
                     type="button"
                     class="text-action hit-area"

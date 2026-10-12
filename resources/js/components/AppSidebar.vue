@@ -35,7 +35,11 @@ const teamItems = computed(() =>
         <SidebarHeader>
             <SidebarMenu>
                 <SidebarMenuItem>
-                    <SidebarMenuButton size="lg" as-child>
+                    <SidebarMenuButton
+                        size="lg"
+                        as-child
+                        class="hover:bg-transparent active:bg-transparent"
+                    >
                         <Link :href="dashboard()">
                             <AppLogo />
                         </Link>

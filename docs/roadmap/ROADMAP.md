@@ -103,7 +103,7 @@ needs an approved spec with its own acceptance criteria before work starts.
 | ID  | Item | Owner | Status |
 | --- | ---- | ----- | ------ |
 | 2.1 | Day-of mode: live programme, find my table, announcements (works offline) | code | [ ] |
-| 2.2 | Photo wall with live slideshow, message capsule, one gallery | code | [ ] |
+| 2.2 | Photo wall with live slideshow, message capsule, one gallery ([proposal](../specs/2026-10-12-paywall-and-memories-design.md)) | code | [ ] |
 | 2.3 | Seating on the real floor plan | code | [ ] |
 | 2.4 | Venue dashboard: profile, wedding calendar, final-numbers and seating handoff | code | [ ] |
 | 2.5 | Broadcast, roles and witness mode | code | [ ] |
@@ -126,7 +126,7 @@ needs an approved spec with its own acceptance criteria before work starts.
 | 3.5 | Matching print exports and wallet pass | code | [ ] |
 | 3.6 | Door-to-door travel from public transport data | code | [ ] |
 | 3.7 | Photographer and planner accounts | code | [ ] |
-| 3.8 | Billing for the couple tiers and venue plans | code | [ ] |
+| 3.8 | Billing for the couple tiers and venue plans ([proposal](../specs/2026-10-12-paywall-and-memories-design.md): build free, pay to send) | code | [ ] |
 
 **Gate →** 100 couples booked for 2028, and 10 paying venues.
 
@@ -148,6 +148,7 @@ needs an approved spec with its own acceptance criteria before work starts.
 
 | Date       | Change |
 | ---------- | ------ |
+| 2026-10-12 | Landing studio as a wide browser window with big template tabs and three colour dots. App: page transitions (View Transitions on Inertia visits), sidebar wordmark letters drop on hover, masthead scenes fade out above the rule, the flutes no longer overlap. Team «Hochzeiten» in one column: «Paar anlegen» in the masthead (side sheet), first steps as a strip, weddings as a table. Proposal for the paywall and «Erinnerungen» (photos, voice wishes, film) awaiting approval |
 | 2026-10-12 | Micro-interactions across the app and guest pages (press, switch, arrow, swap-to-tick, count-up, list settle, page fade, a petal burst after a guest's yes; see DESIGN.md). Guest translations ship only to guest pages; unused header layout removed; Panorama's sideways rows reachable by keyboard. Budget measured on the production image with Lighthouse (mobile, slow 4G): Atelier LCP 1.79 s, Garten 1.80 s, Panorama 1.63 s, all ~161 KB, TBT < 100 ms, CLS 0 |
 | 2026-10-12 | Guest-site templates (layout and motion, independent of the colour theme): Atelier (editorial, story as a drawn path), Garten (arched hero with hand-drawn SVG branches, story in garden gates), Panorama (running title over three.js bokeh, the day as a pinned horizontal scroll, story as a film strip). GSAP and three.js load on the guest's first interaction, so the first paint and the load budget carry neither (rule 2) |
 | 2026-10-09 | The sidebar appears only once a wedding is active (or for the team); before that a slim top bar. Dashboard: a hero band with names, date, venue and countdown, four numbers, cards for today's tasks and shortcuts to every area. Guest site: stacked names with a turning save-the-date seal and countdown, the reply button right under it, the day as an illustrated timeline with route links, botanical dividers, and «Haltet euch den Tag frei» for every guest (.ics, Google Calendar, webcal subscription that refreshes twice a day) |

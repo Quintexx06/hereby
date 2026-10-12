@@ -37,6 +37,18 @@ void createInertiaApp({
         }
     },
     withApp: (app) => registerDirectives(app),
+    defaults: {
+        /*
+         * Moving to another page cross-fades through the View Transitions API
+         * (motion.css); form posts, partial reloads and kept state swap at once.
+         */
+        visitOptions: (_href, options) =>
+            (options.method ?? 'get') === 'get' &&
+            !options.preserveState &&
+            !options.only?.length
+                ? { viewTransition: true }
+                : {},
+    },
     progress: {
         color: 'oklch(0.8 0.09 7)',
     },

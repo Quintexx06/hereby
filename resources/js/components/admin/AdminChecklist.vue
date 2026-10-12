@@ -35,38 +35,35 @@ const steps = computed(
 const doneCount = computed(() => steps.value.filter((s) => s.done).length);
 </script>
 
-<!-- Starter checklist: every tick comes from real data, never from a click. -->
+<!--
+    Starter checklist as one strip across the page: five steps side by side,
+    each tick derived from real data, never from a click.
+-->
 <template>
-    <section class="admin-checklist">
-        <div class="flex items-baseline justify-between gap-4">
+    <section v-if="doneCount < steps.length" class="admin-checklist">
+        <div class="admin-checklist-head">
             <h2 class="ledger-title">{{ copy.title }}</h2>
+            <p class="text-sm text-muted-foreground tabular-nums">
+                {{ copy.progress(doneCount, steps.length) }}
+            </p>
             <button
                 type="button"
-                class="link-underline hit-area text-sm text-muted-foreground"
+                class="link-underline hit-area ml-auto text-sm text-muted-foreground"
                 @click="$emit('hide')"
             >
                 {{ copy.hide }}
             </button>
         </div>
-        <div class="flex items-center gap-3">
-            <div class="admin-meter max-w-none flex-1">
-                <span
-                    :style="{ width: `${(doneCount / steps.length) * 100}%` }"
-                />
-            </div>
-            <p class="text-sm text-muted-foreground tabular-nums">
-                {{ copy.progress(doneCount, steps.length) }}
-            </p>
-        </div>
-        <ol class="flex flex-col">
+        <ol class="admin-steps">
             <li
-                v-for="step in steps"
+                v-for="(step, stepIndex) in steps"
                 :key="step.key"
                 class="admin-check"
                 :data-done="step.done"
             >
                 <span class="admin-check-mark" aria-hidden="true">
                     <Check v-if="step.done" class="size-3.5" />
+                    <template v-else>{{ stepIndex + 1 }}</template>
                 </span>
                 <Link
                     v-if="'href' in step && !step.done"

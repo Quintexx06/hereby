@@ -3,26 +3,39 @@ import { useForm } from '@inertiajs/vue3';
 import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import {
+    SheetDescription,
+    SheetHeader,
+    SheetTitle,
+} from '@/components/ui/sheet';
 import { Spinner } from '@/components/ui/spinner';
 import { adminCopy as copy } from '@/content/admin';
 import { store } from '@/routes/admin/weddings';
+
+const emit = defineEmits<{ created: [] }>();
 
 const form = useForm({ email: '', partner_one: '', partner_two: '' });
 
 function submit(): void {
     form.post(store.url(), {
         preserveScroll: true,
-        onSuccess: () => form.reset(),
+        onSuccess: () => {
+            form.reset();
+            emit('created');
+        },
     });
 }
 </script>
 
+<!-- The new-couple form, inside the side sheet opened from the masthead. -->
 <template>
-    <form class="admin-aside-section" @submit.prevent="submit">
-        <div class="flex flex-col gap-1">
-            <h2 class="ledger-title">{{ copy.newCouple }}</h2>
-            <p class="field-hint">{{ copy.newCoupleHint }}</p>
-        </div>
+    <SheetHeader class="px-6 pt-8 pb-2">
+        <SheetTitle class="font-display text-2xl">{{
+            copy.newCouple
+        }}</SheetTitle>
+        <SheetDescription>{{ copy.newCoupleHint }}</SheetDescription>
+    </SheetHeader>
+    <form class="admin-sheet-form" @submit.prevent="submit">
         <div class="admin-form-names">
             <div class="field">
                 <label for="partner_one" class="field-label">{{

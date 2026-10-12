@@ -93,10 +93,10 @@ export function createFlutes(
         return { holder, bubbles, lean };
     };
 
-    const left = flute(-0.16);
-    const right = flute(0.16);
-    left.holder.position.x = -0.62;
-    right.holder.position.x = 0.62;
+    const left = flute(-0.12);
+    const right = flute(0.12);
+    left.holder.position.x = -0.95;
+    right.holder.position.x = 0.95;
     const pair = new Group();
     pair.add(left.holder, right.holder);
     scene.add(pair);

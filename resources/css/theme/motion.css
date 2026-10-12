@@ -28,3 +28,49 @@
         scroll-behavior: auto !important;
     }
 }
+
+/*
+ * Page transitions (Inertia visits with viewTransition). The workspace is
+ * its own layer so the sidebar stays put: the old page fades quickly, the
+ * new one rises in with ease-out.
+ */
+.app-workspace,
+.app-focus > main {
+    view-transition-name: app-page;
+}
+
+::view-transition-old(app-page) {
+    animation: page-out 140ms var(--ease-out) both;
+}
+
+::view-transition-new(app-page) {
+    animation: page-in 300ms var(--ease-out) both;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation-duration: 200ms;
+    animation-timing-function: var(--ease-out);
+}
+
+@keyframes page-out {
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes page-in {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+        filter: blur(2px);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    ::view-transition-group(*),
+    ::view-transition-old(*),
+    ::view-transition-new(*) {
+        animation: none !important;
+    }
+}
