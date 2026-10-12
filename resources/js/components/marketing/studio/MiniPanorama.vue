@@ -10,10 +10,8 @@
             </span>
         </span>
         <span class="mini-panorama-meta">
-            <span class="mini-date text-[1.6rem]">19. Juni 2027</span>
-            <span class="text-[0.65rem] text-muted-foreground"
-                >heiraten · Vitznau</span
-            >
+            <span class="mini-date">19. Juni 2027</span>
+            <span class="mini-kicker">heiraten · Vitznau</span>
         </span>
     </span>
 </template>

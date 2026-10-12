@@ -144,11 +144,9 @@ export const marquee = [
 ] as const;
 
 export const studio = {
-    title: 'Drei Vorlagen. Fünf Farbwelten.',
-    lede: 'Jede Vorlage hat ihre eigene Bühne und ihre eigene Bewegung, und jede passt zu jeder Farbwelt. Probiert es aus: so sieht der erste Moment eurer Gäste aus.',
+    title: 'Drei Vorlagen. Jede mit eigener Bühne.',
+    lede: 'Jede Vorlage hat ihre eigene Bewegung und ihren eigenen Auftritt. Wechselt durch: so sieht der erste Moment eurer Gäste aus. Die Farben passt ihr danach an.',
     hint: 'Vorlage wählen',
-    previous: 'Vorherige Vorlage',
-    next: 'Nächste Vorlage',
     colours: 'Farbwelt',
     templates: [
         {
@@ -169,10 +167,8 @@ export const studio = {
     ],
     themes: [
         { slug: 'ivory', name: 'Ivory' },
-        { slug: 'alpine', name: 'Alpine' },
-        { slug: 'riviera', name: 'Riviera' },
-        { slug: 'lavanda', name: 'Lavanda' },
         { slug: 'rose', name: 'Rosé' },
+        { slug: 'alpine', name: 'Alpine' },
     ],
 } as const;
 
