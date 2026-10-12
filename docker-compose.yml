@@ -8,98 +8,106 @@
 # Rule 4: run this on a server in Switzerland, with the database there too.
 
 x-env: &env
-  APP_NAME: Hereby
-  APP_ENV: production
-  APP_DEBUG: 'false'
-  APP_KEY: '${APP_KEY}'
-  APP_URL: '${APP_URL}'
-  APP_LOCALE: '${APP_LOCALE:-de_CH}'
-  APP_FALLBACK_LOCALE: '${APP_FALLBACK_LOCALE:-de_CH}'
-  LOG_CHANNEL: stderr
-  LOG_LEVEL: '${LOG_LEVEL:-warning}'
-  DB_CONNECTION: '${DB_CONNECTION:-mariadb}'
-  DB_HOST: '${DB_HOST}'
-  DB_PORT: '${DB_PORT:-3306}'
-  DB_DATABASE: '${DB_DATABASE}'
-  DB_USERNAME: '${DB_USERNAME}'
-  DB_PASSWORD: '${DB_PASSWORD}'
-  SESSION_DRIVER: database
-  SESSION_SECURE_COOKIE: 'true'
-  CACHE_STORE: database
-  QUEUE_CONNECTION: database
-  MAIL_MAILER: '${MAIL_MAILER:-smtp}'
-  MAIL_HOST: '${MAIL_HOST}'
-  MAIL_PORT: '${MAIL_PORT:-587}'
-  MAIL_USERNAME: '${MAIL_USERNAME}'
-  MAIL_PASSWORD: '${MAIL_PASSWORD}'
-  MAIL_SCHEME: '${MAIL_SCHEME:-}'
-  MAIL_FROM_ADDRESS: '${MAIL_FROM_ADDRESS}'
-  MAIL_FROM_NAME: '${MAIL_FROM_NAME:-Hereby}'
-  HEREBY_INBOX: '${HEREBY_INBOX:-}'
-  INERTIA_SSR_URL: 'http://ssr:13714'
-  PHP_OPCACHE_ENABLE: '1'
+    APP_NAME: Hereby
+    APP_ENV: production
+    APP_DEBUG: 'false'
+    APP_KEY: '${APP_KEY}'
+    APP_URL: '${APP_URL}'
+    APP_LOCALE: '${APP_LOCALE:-de_CH}'
+    APP_FALLBACK_LOCALE: '${APP_FALLBACK_LOCALE:-de_CH}'
+    LOG_CHANNEL: stderr
+    LOG_LEVEL: '${LOG_LEVEL:-warning}'
+    DB_CONNECTION: '${DB_CONNECTION:-mariadb}'
+    DB_HOST: '${DB_HOST}'
+    DB_PORT: '${DB_PORT:-3306}'
+    DB_DATABASE: '${DB_DATABASE}'
+    DB_USERNAME: '${DB_USERNAME}'
+    DB_PASSWORD: '${DB_PASSWORD}'
+    SESSION_DRIVER: database
+    SESSION_SECURE_COOKIE: 'true'
+    CACHE_STORE: database
+    QUEUE_CONNECTION: database
+    MAIL_MAILER: '${MAIL_MAILER:-smtp}'
+    MAIL_HOST: '${MAIL_HOST}'
+    MAIL_PORT: '${MAIL_PORT:-587}'
+    MAIL_USERNAME: '${MAIL_USERNAME}'
+    MAIL_PASSWORD: '${MAIL_PASSWORD}'
+    MAIL_SCHEME: '${MAIL_SCHEME:-}'
+    MAIL_FROM_ADDRESS: '${MAIL_FROM_ADDRESS}'
+    MAIL_FROM_NAME: '${MAIL_FROM_NAME:-Hereby}'
+    HEREBY_INBOX: '${HEREBY_INBOX:-}'
+    INERTIA_SSR_URL: 'http://ssr:13714'
+    PHP_OPCACHE_ENABLE: '1'
 
 x-app: &app
-  build: .
-  restart: unless-stopped
-  volumes:
-    - storage:/var/www/html/storage/app
+    build: .
+    restart: unless-stopped
+    volumes:
+        - storage:/var/www/html/storage/app
 
 services:
-  app:
-    <<: *app
-    environment:
-      <<: *env
-      AUTORUN_ENABLED: 'true'
-      AUTORUN_LARAVEL_MIGRATION: 'true'
-      # Set to ipv4 on hosts without IPv6 (nginx then fails to bind [::]).
-      NGINX_LISTEN_IP_PROTOCOL: '${NGINX_LISTEN_IP_PROTOCOL:-all}'
-    depends_on:
-      - ssr
+    app:
+        <<: *app
+        environment:
+            <<: *env
+            AUTORUN_ENABLED: 'true'
+            AUTORUN_LARAVEL_MIGRATION: 'true'
+            # Set to ipv4 on hosts without IPv6 (nginx then fails to bind [::]).
+            NGINX_LISTEN_IP_PROTOCOL: '${NGINX_LISTEN_IP_PROTOCOL:-all}'
+        depends_on:
+            - ssr
 
-  ssr:
-    <<: *app
-    command: ['php', '/var/www/html/artisan', 'inertia:start-ssr']
-    stop_signal: SIGTERM
-    environment:
-      <<: *env
-      PHP_FPM_POOL_NAME: app_ssr
-    healthcheck:
-      test: ['CMD', 'php', '/var/www/html/artisan', 'inertia:check-ssr']
-      interval: 30s
-      timeout: 5s
-      retries: 3
-      start_period: 15s
+    ssr:
+        <<: *app
+        command: ['php', '/var/www/html/artisan', 'inertia:start-ssr']
+        stop_signal: SIGTERM
+        environment:
+            <<: *env
+            PHP_FPM_POOL_NAME: app_ssr
+        healthcheck:
+            test: ['CMD', 'php', '/var/www/html/artisan', 'inertia:check-ssr']
+            interval: 30s
+            timeout: 5s
+            retries: 3
+            start_period: 15s
 
-  queue:
-    <<: *app
-    command: ['php', '/var/www/html/artisan', 'queue:work', '--sleep=3', '--tries=3', '--max-time=3600']
-    stop_signal: SIGTERM
-    environment:
-      <<: *env
-      PHP_FPM_POOL_NAME: app_queue
-    # Waits for the app: it runs the migrations before reporting healthy.
-    depends_on:
-      app:
-        condition: service_healthy
-    healthcheck:
-      test: ['CMD', 'healthcheck-queue']
-      start_period: 10s
+    queue:
+        <<: *app
+        command:
+            [
+                'php',
+                '/var/www/html/artisan',
+                'queue:work',
+                '--sleep=3',
+                '--tries=3',
+                '--max-time=3600',
+            ]
+        stop_signal: SIGTERM
+        environment:
+            <<: *env
+            PHP_FPM_POOL_NAME: app_queue
+        # Waits for the app: it runs the migrations before reporting healthy.
+        depends_on:
+            app:
+                condition: service_healthy
+        healthcheck:
+            test: ['CMD', 'healthcheck-queue']
+            start_period: 10s
 
-  scheduler:
-    <<: *app
-    command: ['php', '/var/www/html/artisan', 'schedule:work']
-    stop_signal: SIGTERM
-    environment:
-      <<: *env
-      PHP_FPM_POOL_NAME: app_scheduler
-    # Waits for the app: it runs the migrations before reporting healthy.
-    depends_on:
-      app:
-        condition: service_healthy
-    healthcheck:
-      test: ['CMD', 'healthcheck-schedule']
-      start_period: 10s
+    scheduler:
+        <<: *app
+        command: ['php', '/var/www/html/artisan', 'schedule:work']
+        stop_signal: SIGTERM
+        environment:
+            <<: *env
+            PHP_FPM_POOL_NAME: app_scheduler
+        # Waits for the app: it runs the migrations before reporting healthy.
+        depends_on:
+            app:
+                condition: service_healthy
+        healthcheck:
+            test: ['CMD', 'healthcheck-schedule']
+            start_period: 10s
 
 volumes:
-  storage:
+    storage:
