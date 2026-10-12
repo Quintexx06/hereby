@@ -26,4 +26,21 @@ return [
 
     'inbox' => env('HEREBY_INBOX'),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Plans
+    |--------------------------------------------------------------------------
+    |
+    | One-time prices in Rappen. Building a site is free; a plan sends the
+    | personal links (Signature) and adds the memories (Atelier). Couture
+    | starts at this price and is agreed in person.
+    |
+    */
+
+    'plans' => [
+        'signature' => (int) env('HEREBY_PRICE_SIGNATURE', 29000),
+        'atelier' => (int) env('HEREBY_PRICE_ATELIER', 59000),
+        'couture' => (int) env('HEREBY_PRICE_COUTURE', 149000),
+    ],
+
 ];

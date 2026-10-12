@@ -1,6 +1,6 @@
 # Paywall and «Erinnerungen»: design
 
-Status: proposal, 2026-10-12. Refines the couple tiers in
+Status: approved 2026-10-12 (prices set to CHF 290 / 590 / from 1,490; payment through Stripe; storage on the app server in Switzerland). Step 1 built. Refines the couple tiers in
 [business.md](../product/business.md) and roadmap items 2.2, 3.2 and 3.8.
 
 ## The idea in one line
@@ -26,7 +26,7 @@ not like being blocked.
 
 ## Tiers
 
-| | Signature (CHF 390) | Atelier (CHF 890) | Couture (from CHF 1,900) |
+| | Signature (CHF 290) | Atelier (CHF 590) | Couture (from CHF 1,490) |
 | --- | --- | --- | --- |
 | Personal links, 60-second reply, reminders, kitchen sheets | ✓ | ✓ | ✓ |
 | Languages | 2 | 4 | 4, native-reviewed |
@@ -34,12 +34,14 @@ not like being blocked.
 | **Live-Fotowand**: the photos as a slideshow on the evening's screen | — | ✓ | ✓ |
 | **Sprachgrüsse**: every guest can record a short voice wish | — | ✓ | ✓ |
 | **Day-of mode**: live programme, find my table | — | ✓ | ✓ |
-| **Der Film**: a 2–3 minute film cut from the best photos and voice wishes | — | Add-on CHF 190 | ✓ |
+| **Der Film**: a 2–3 minute film cut from the best photos and voice wishes | — | Add-on CHF 149 | ✓ |
 | Matching print files (save-the-date, menu, place cards) | — | ✓ | ✓ |
 | Own domain, printed keepsake book, concierge setup | — | — | ✓ |
 
 Upgrading is possible at any time, paying only the difference. Payment by
-TWINT or card through a Swiss provider (Payrexx or Datatrans).
+TWINT or card through Stripe Checkout (one-time, CHF), confirmed by a signed
+webhook and again when the couple returns. Couture and invoices are unlocked by
+the team in the admin.
 
 ## The memories features
 
@@ -87,8 +89,8 @@ Swiss-hosted model is not yet good enough, that feature waits (rule 5).
 
 ## Data and deletion
 
-Photos and voice wishes are guest data: stored in Switzerland (Infomaniak or
-Exoscale object storage, ADR 0007), deleted on the same schedule as other
+Photos and voice wishes are guest data: stored in Switzerland on the app
+server's persistent volume (Novatrend; disk `memories`, ADR 0007), deleted on the same schedule as other
 guest data (12 months after the wedding). Two months before deletion the
 couple gets a download of the full gallery, the voice wishes and the film.
 
@@ -96,8 +98,7 @@ couple gets a download of the full gallery, the voice wishes and the film.
 
 1. Tier on the wedding, the «Einladungen versenden» paywall page and payment
    (roadmap 3.8, brought forward).
-2. Fotos von allen + gallery + Live-Fotowand (roadmap 2.2). Needs the Swiss
-   storage provider decided.
+2. Fotos von allen + gallery + Live-Fotowand (roadmap 2.2), on the `memories` disk.
 3. Sprachgrüsse.
 4. Der Film, with photo curation and subtitles (roadmap 3.2).
 
@@ -105,6 +106,6 @@ Each step gets its own plan in `docs/plans/` and ships only when finished.
 
 ## Open questions
 
-- Prices are hypotheses (Phase 0 tests them); is CHF 190 right for the film add-on?
+- Prices are hypotheses (Phase 0 tests them).
 - Music licensing for the film: a small licensed library, or no music at first.
 - Which Swiss GPU host for the self-hosted models (Infomaniak AI, Exoscale GPU).

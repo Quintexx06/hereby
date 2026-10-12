@@ -23,6 +23,9 @@ export type SharedWedding = {
     date: string | null;
     households: number;
     setup_step: string | null;
+    plan: 'signature' | 'atelier' | 'couture' | null;
+    /** Personal links are open (a plan is paid). */
+    published: boolean;
 };
 
 /** The account pages' side panel (App\Actions\Account\BuildAccountSummary). */

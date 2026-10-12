@@ -18,6 +18,8 @@ export const adminCopy = {
         replies: 'Antworten',
     },
     noDate: 'Datum offen',
+    linksClosed: 'Links zu',
+    unlock: 'Bezahlt per Rechnung',
     newCoupleHint:
         'Legt Konto und Entwurf an. Das Paar bekommt einen Link, um sein Passwort zu wählen.',
     email: 'E-Mail des Paars',

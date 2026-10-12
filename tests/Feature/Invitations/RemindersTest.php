@@ -94,4 +94,14 @@ class RemindersTest extends TestCase
         $this->artisan('hereby:send-reminders');
         Mail::assertNothingQueued();
     }
+
+    public function test_weddings_not_yet_paid_send_no_reminders(): void
+    {
+        $this->wedding->forceFill(['plan' => null, 'paid_at' => null])->save();
+        Household::factory()->for($this->wedding)->create(['email' => 'due@example.ch']);
+
+        $this->artisan('hereby:send-reminders')->assertSuccessful();
+
+        Mail::assertNothingQueued();
+    }
 }

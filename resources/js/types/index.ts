@@ -10,3 +10,4 @@ export * from './rsvp';
 export * from './content';
 export * from './kitchen';
 export * from './admin';
+export * from './billing';

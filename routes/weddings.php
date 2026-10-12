@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AddressSearchController;
+use App\Http\Controllers\Billing\PublishController;
 use App\Http\Controllers\Content\ContentBlockController;
 use App\Http\Controllers\Content\PreviewInvitationController;
 use App\Http\Controllers\Content\ReorderContentBlocksController;
@@ -45,6 +46,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('hochzeit/{wedding}/inhalte', [ContentBlockController::class, 'store'])->name('weddings.content.store');
         Route::put('hochzeit/{wedding}/inhalte/reihenfolge', ReorderContentBlocksController::class)->name('weddings.content.reorder');
         Route::get('hochzeit/{wedding}/vorschau', PreviewInvitationController::class)->name('weddings.preview');
+
+        Route::get('hochzeit/{wedding}/freischalten', [PublishController::class, 'show'])->name('weddings.publish.show');
+        Route::post('hochzeit/{wedding}/freischalten', [PublishController::class, 'store'])->name('weddings.publish.store');
+        Route::get('hochzeit/{wedding}/freischalten/zurueck', [PublishController::class, 'confirm'])->name('weddings.publish.return');
 
         Route::get('hochzeit/{wedding}/kueche', [KitchenController::class, 'index'])->name('weddings.kitchen.index');
         Route::get('hochzeit/{wedding}/kueche/blatt', [KitchenController::class, 'sheet'])->name('weddings.kitchen.sheet');

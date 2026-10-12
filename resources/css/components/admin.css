@@ -57,6 +57,15 @@
         @apply text-success;
     }
 
+    /* The plan as a quiet chip; blush while the links are still closed. */
+    .admin-plan {
+        @apply inline-flex cursor-pointer items-center gap-1 rounded-full border border-rule px-2.5 py-0.5 text-xs text-muted-foreground transition-colors duration-150 ease-out hover:text-foreground;
+    }
+
+    .admin-plan[data-published='false'] {
+        @apply border-brand/50 text-brand;
+    }
+
     .admin-wish {
         @apply line-clamp-2 max-w-prose text-sm text-muted-foreground;
     }

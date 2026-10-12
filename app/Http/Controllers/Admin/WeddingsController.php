@@ -31,6 +31,8 @@ class WeddingsController extends Controller
                     'couple_names' => $wedding->couple_names ?: '–',
                     'email' => $wedding->owner->email,
                     'status' => $wedding->status,
+                    'plan' => $wedding->plan,
+                    'published' => $wedding->isPublished(),
                     'setup_step' => $wedding->setup_step,
                     'date' => $wedding->wedding_date?->toDateString(),
                     'households' => (int) $wedding->households_count,

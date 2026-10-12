@@ -47,6 +47,19 @@ return [
             'report' => false,
         ],
 
+        /*
+         * Guest photos and voice wishes (Atelier). Private, on the app
+         * server's persistent volume (Novatrend, Switzerland; ADR 0007);
+         * served only through signed, wedding-scoped routes.
+         */
+        'memories' => [
+            'driver' => 'local',
+            'root' => storage_path('app/memories'),
+            'visibility' => 'private',
+            'throw' => true,
+            'report' => false,
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

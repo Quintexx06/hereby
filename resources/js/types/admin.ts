@@ -1,4 +1,5 @@
 /** Mirrors App\Http\Controllers\Admin\WeddingsController::index. */
+import type { PlanKey } from '@/types/billing';
 import type { SetupStepKey } from '@/types/setup';
 import type { LookStyle } from '@/types/wedding';
 
@@ -7,6 +8,8 @@ export type AdminWedding = {
     couple_names: string;
     email: string;
     status: 'draft' | 'active';
+    plan: PlanKey | null;
+    published: boolean;
     setup_step: SetupStepKey | null;
     date: string | null;
     households: number;

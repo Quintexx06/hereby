@@ -1,12 +1,17 @@
 <?php
 
+use App\Http\Controllers\Billing\StripeWebhookController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\StoreInquiryController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Middleware\UseSwissGerman;
+use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', WelcomeController::class)->name('home');
+Route::post('stripe/webhook', StripeWebhookController::class)
+    ->withoutMiddleware(ValidateCsrfToken::class)
+    ->name('stripe.webhook');
 Route::post('fragen', StoreInquiryController::class)->middleware('throttle:inquiries')->name('inquiries.store');
 
 Route::middleware(UseSwissGerman::class)->group(function () {

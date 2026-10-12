@@ -6,6 +6,7 @@ use App\Enums\Celebration;
 use App\Enums\GuestEstimate;
 use App\Enums\Locale;
 use App\Enums\LookStyle;
+use App\Enums\Plan;
 use App\Enums\SetupStep;
 use App\Enums\WeddingStatus;
 use App\Enums\WeddingTemplate;
@@ -29,6 +30,8 @@ use Illuminate\Support\Collection;
  * @property int $owner_id
  * @property string $slug
  * @property WeddingStatus $status
+ * @property Plan|null $plan What the couple paid for; null until they send.
+ * @property Carbon|null $paid_at When the personal links went live.
  * @property SetupStep|null $setup_step Furthest step reached in the setup.
  * @property Carbon|null $setup_completed_at
  * @property string $couple_names
@@ -110,6 +113,27 @@ class Wedding extends Model
     }
 
     /**
+     * Personal links open for guests only once a plan is paid.
+     */
+    public function isPublished(): bool
+    {
+        return $this->paid_at !== null;
+    }
+
+    /**
+     * What this plan costs now, in Rappen: the full price, or the difference
+     * to the plan already paid. Zero when it is not an upgrade.
+     */
+    public function amountFor(Plan $plan): int
+    {
+        if ($this->plan !== null && $this->plan->rank() >= $plan->rank()) {
+            return 0;
+        }
+
+        return $plan->price() - ($this->plan?->price() ?? 0);
+    }
+
+    /**
      * Guests may answer, and change their answer, until the end of the deadline day.
      */
     public function acceptsReplies(): bool
@@ -169,6 +193,8 @@ class Wedding extends Model
             'template' => WeddingTemplate::class,
             'look_styles' => AsEnumCollection::of(LookStyle::class),
             'status' => WeddingStatus::class,
+            'plan' => Plan::class,
+            'paid_at' => 'datetime',
             'setup_step' => SetupStep::class,
             'setup_completed_at' => 'datetime',
             'celebration' => Celebration::class,

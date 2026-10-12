@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Enums\Locale;
+use App\Enums\Plan;
 use App\Enums\SetupStep;
 use App\Enums\WeddingStatus;
 use App\Enums\WeddingTheme;
@@ -31,6 +32,8 @@ class WeddingFactory extends Factory
             'owner_id' => User::factory(),
             'slug' => Str::slug($coupleNames).'-'.Str::lower(Str::random(4)),
             'status' => WeddingStatus::Active,
+            'plan' => Plan::Signature,
+            'paid_at' => now(),
             'setup_step' => SetupStep::Review,
             'setup_completed_at' => now(),
             'couple_names' => $coupleNames,
@@ -53,6 +56,19 @@ class WeddingFactory extends Factory
             'status' => WeddingStatus::Draft,
             'setup_step' => $step,
             'setup_completed_at' => null,
+            'plan' => null,
+            'paid_at' => null,
+        ]);
+    }
+
+    /**
+     * A finished site whose couple has not paid yet: links stay closed.
+     */
+    public function unpaid(): static
+    {
+        return $this->state(fn (): array => [
+            'plan' => null,
+            'paid_at' => null,
         ]);
     }
 

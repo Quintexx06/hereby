@@ -7,6 +7,7 @@ import HouseholdEditor from '@/components/guests/editor/HouseholdEditor.vue';
 import GuestsToolbar from '@/components/guests/GuestsToolbar.vue';
 import HouseholdItem from '@/components/guests/HouseholdItem.vue';
 import ImportPanel from '@/components/guests/import/ImportPanel.vue';
+import PublishBanner from '@/components/publish/PublishBanner.vue';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent } from '@/components/ui/sheet';
 import { active, dashboardPage } from '@/content/dashboard';
@@ -76,6 +77,8 @@ const editing = computed(() =>
                 </Button>
             </template>
         </PageMasthead>
+
+        <PublishBanner v-if="households.length" />
 
         <ImportPanel v-if="adding" :wedding="wedding" @done="adding = false" />
 

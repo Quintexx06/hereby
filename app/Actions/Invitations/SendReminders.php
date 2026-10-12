@@ -29,6 +29,7 @@ class SendReminders
 
         $weddings = Wedding::query()
             ->where('status', WeddingStatus::Active)
+            ->whereNotNull('paid_at')
             ->where('sends_reminders', true)
             ->whereDate('rsvp_deadline', '>=', $today->toDateString())
             ->get();

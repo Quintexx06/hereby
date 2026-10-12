@@ -19,6 +19,13 @@ return [
     |
     */
 
+    // Payments: Stripe Checkout, one-time, in CHF (cards and TWINT).
+    'stripe' => [
+        'secret' => env('STRIPE_SECRET'),
+        'webhook_secret' => env('STRIPE_WEBHOOK_SECRET'),
+        'api_url' => env('STRIPE_API_URL', 'https://api.stripe.com/v1'),
+    ],
+
     'postmark' => [
         'key' => env('POSTMARK_API_KEY'),
     ],

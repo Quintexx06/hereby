@@ -1,14 +1,16 @@
 # Business: pricing, risks and metrics
 
-All prices are hypotheses to test in Phase 0.
+All prices are hypotheses to test in Phase 0. Building a site is free; a plan
+opens the personal links ([paywall spec](../specs/2026-10-12-paywall-and-memories-design.md)).
+Prices live in `config/hereby.php` (env `HEREBY_PRICE_*`).
 
 ## Couples (one-time)
 
 | Tier | Price | Includes |
 | --- | --- | --- |
-| Signature | CHF 390 | Curated design, personal links, RSVP, 2 languages, seating, photo wall, 12-month keepsake |
-| Atelier | CHF 890 | Art-directed design, 4 languages, day-of mode, concierge, opening sequence, print files, named contact |
-| Couture | from CHF 1,900 | Bespoke design, own domain, venue film, wedding-day support, printed keepsake book |
+| Signature | CHF 290 | Personal links, 60-second reply, reminders, kitchen sheets, calendar |
+| Atelier | CHF 590 | Signature plus the memories: guest photos, live photo wall, voice wishes; 4 languages, day-of mode, print files |
+| Couture | from CHF 1,490 | Atelier plus the film, own domain, printed keepsake book, setup and translation by the team (sold in person) |
 
 ## Venues (yearly)
 

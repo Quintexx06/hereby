@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { usePage } from '@inertiajs/vue3';
+import { Link, usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
 import { active, sidebarWedding } from '@/content/dashboard';
+import { plans } from '@/content/publish';
 import { steps } from '@/content/setup';
 import { formatDate } from '@/lib/format';
 import { daysUntil } from '@/lib/setup';
+import { show as publish } from '@/routes/weddings/publish';
 import type { SetupStepKey } from '@/types';
 
 const page = usePage();
@@ -50,5 +52,17 @@ const countdown = computed(() =>
         <p v-if="countdown" class="text-sm font-medium text-brand">
             {{ countdown }}
         </p>
+        <Link
+            v-if="wedding.status === 'active'"
+            :href="publish(wedding.id)"
+            class="sidebar-plan"
+            :data-published="wedding.published"
+        >
+            {{
+                wedding.plan
+                    ? plans[wedding.plan].name
+                    : sidebarWedding.linksClosed
+            }}
+        </Link>
     </div>
 </template>

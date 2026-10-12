@@ -1,0 +1,82 @@
+/* «Einladungen versenden» (pages/weddings/Publish): the paywall, calm and editorial. */
+@layer components {
+    /* The couple's own site in a small window, scaled down from desktop size. */
+    .publish-window {
+        @apply relative hidden aspect-[16/10] w-[26rem] overflow-hidden rounded-xl border border-rule bg-card shadow-[0_30px_60px_-30px_rgb(30_14_10/0.45)] lg:block xl:w-[30rem];
+    }
+
+    .publish-window-bar {
+        @apply flex h-7 items-center gap-1.5 border-b border-rule px-3;
+    }
+
+    .publish-window-bar > span {
+        @apply size-2 rounded-full bg-rule;
+    }
+
+    .publish-window-frame {
+        @apply pointer-events-none absolute top-7 left-0 h-[calc((100%-1.75rem)*2.5)] w-[250%] origin-top-left scale-[0.4] border-0;
+    }
+
+    .publish-note {
+        @apply border-l-2 border-brand pl-4 text-sm text-muted-foreground;
+    }
+
+    .plans {
+        @apply grid gap-6 md:grid-cols-3;
+    }
+
+    .plan {
+        @apply flex flex-col gap-4 rounded-2xl border border-rule bg-card p-7 transition-[translate,box-shadow] duration-200 ease-out;
+    }
+
+    .plan[data-featured='true'] {
+        @apply border-foreground shadow-[0_30px_60px_-36px_rgb(30_14_10/0.5)] md:-translate-y-2;
+    }
+
+    .plan-name {
+        @apply font-display text-2xl leading-none font-semibold tracking-[-0.03em];
+        font-stretch: 110%;
+    }
+
+    .plan-flag {
+        @apply rounded-full bg-brand/15 px-2.5 py-1 text-xs font-medium text-brand;
+    }
+
+    .plan-price {
+        @apply font-display text-4xl leading-none font-semibold tracking-[-0.04em] tabular-nums;
+    }
+
+    .plan-features {
+        @apply flex flex-col gap-2.5 border-t border-rule pt-4 pb-2 text-sm;
+    }
+
+    .plan-features > li {
+        @apply flex items-start gap-2.5;
+    }
+
+    .plan-tick {
+        @apply mt-0.5 size-4 shrink-0 text-brand;
+    }
+
+    .plan-soon {
+        @apply ml-1 rounded-full border border-rule px-1.5 py-px align-[0.1em] text-[0.65rem] text-muted-foreground;
+    }
+
+    .publish-fine {
+        @apply flex flex-col gap-1 border-t border-rule pt-6 text-sm text-muted-foreground;
+    }
+
+    /* The nudge on Gäste and Übersicht while links are closed. */
+    .publish-banner {
+        @apply flex flex-col gap-4 rounded-2xl border border-brand/40 bg-brand/5 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6;
+    }
+
+    /* The plan under the couple's names in the sidebar; a nudge while closed. */
+    .sidebar-plan {
+        @apply mt-2 self-start rounded-full border border-sidebar-border px-2.5 py-0.5 text-xs text-muted-foreground transition-colors duration-150 ease-out hover:text-sidebar-foreground;
+    }
+
+    .sidebar-plan[data-published='false'] {
+        @apply border-brand/50 text-brand;
+    }
+}

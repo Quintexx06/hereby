@@ -9,6 +9,7 @@ import InvitationPanel from '@/components/dashboard/InvitationPanel.vue';
 import ProgrammeSummary from '@/components/dashboard/ProgrammeSummary.vue';
 import ReplySummary from '@/components/dashboard/ReplySummary.vue';
 import TodayList from '@/components/dashboard/TodayList.vue';
+import PublishBanner from '@/components/publish/PublishBanner.vue';
 import { dashboardPage } from '@/content/dashboard';
 import { dashboard } from '@/routes';
 import type { DashboardWedding, WeddingOverview } from '@/types';
@@ -37,6 +38,7 @@ defineOptions({
 
         <template v-else-if="overview">
             <DashboardHero :wedding="wedding" />
+            <PublishBanner class="mt-8" />
             <DashboardStats :overview="overview" />
 
             <div class="dashboard-columns">

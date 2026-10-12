@@ -96,6 +96,7 @@ export const invitationPanel = {
 export const dashboardPage = { title: 'Übersicht' };
 
 export const sidebarWedding = {
+    linksClosed: 'Links geschlossen · freischalten',
     fallbackName: 'Eure Hochzeit',
     inSetup: (step: string) => `Einrichtung: ${step}`,
 };

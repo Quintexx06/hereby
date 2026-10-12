@@ -5,7 +5,8 @@
 #   scheduler  reminders 10:07, data deletion 03:17 (ADR 0007)
 # Coolify: set the domain on the "app" service as https://your-domain:8080 and
 # fill the variables below in the Environment Variables tab.
-# Rule 4: run this on a server in Switzerland, with the database there too.
+# Rule 4: run this on a server in Switzerland (Novatrend), with the database there
+# too. Guest photos live in the `storage` volume (disk "memories"); back it up.
 
 x-env: &env
     APP_NAME: Hereby
@@ -36,6 +37,8 @@ x-env: &env
     MAIL_FROM_ADDRESS: '${MAIL_FROM_ADDRESS}'
     MAIL_FROM_NAME: '${MAIL_FROM_NAME:-Hereby}'
     HEREBY_INBOX: '${HEREBY_INBOX:-}'
+    STRIPE_SECRET: '${STRIPE_SECRET:-}'
+    STRIPE_WEBHOOK_SECRET: '${STRIPE_WEBHOOK_SECRET:-}'
     INERTIA_SSR_URL: 'http://ssr:13714'
     PHP_OPCACHE_ENABLE: '1'
 

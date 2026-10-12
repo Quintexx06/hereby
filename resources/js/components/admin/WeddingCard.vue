@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
 import { computed } from 'vue';
+import AdminUnlock from '@/components/admin/AdminUnlock.vue';
 import { adminCopy as copy } from '@/content/admin';
 import { lookStyles, steps } from '@/content/setup';
 import { formatDate } from '@/lib/format';
@@ -39,13 +40,16 @@ const answeredShare = computed(() =>
             </p>
         </div>
 
-        <p class="admin-status" :data-status="wedding.status">
-            {{
-                isDraft
-                    ? copy.draft(steps[wedding.setup_step ?? 'paar'].label)
-                    : copy.active
-            }}
-        </p>
+        <div class="flex flex-col items-start gap-1.5">
+            <p class="admin-status" :data-status="wedding.status">
+                {{
+                    isDraft
+                        ? copy.draft(steps[wedding.setup_step ?? 'paar'].label)
+                        : copy.active
+                }}
+            </p>
+            <AdminUnlock v-if="!isDraft" :wedding="wedding" />
+        </div>
 
         <p class="admin-cell">
             {{ wedding.date ? formatDate(wedding.date, 'de-CH') : copy.noDate }}

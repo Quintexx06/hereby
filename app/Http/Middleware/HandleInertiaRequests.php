@@ -65,7 +65,7 @@ class HandleInertiaRequests extends Middleware
     }
 
     /**
-     * @return array{id: int, status: string, couple_names: string, date: string|null, households: int, setup_step: string|null}|null
+     * @return array{id: int, status: string, couple_names: string, date: string|null, households: int, setup_step: string|null, plan: string|null, published: bool}|null
      */
     private function currentWedding(Request $request): ?array
     {
@@ -82,6 +82,8 @@ class HandleInertiaRequests extends Middleware
             'date' => $wedding->wedding_date?->toDateString(),
             'households' => (int) $wedding->households_count,
             'setup_step' => $wedding->setup_step?->value,
+            'plan' => $wedding->plan?->value,
+            'published' => $wedding->isPublished(),
         ];
     }
 }
