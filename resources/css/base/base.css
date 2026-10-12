@@ -11,6 +11,14 @@
     body {
         @apply bg-background font-sans text-foreground antialiased;
         font-optical-sizing: auto;
+        /*
+         * Body text slightly widened and a touch light, like the display
+         * lines: one family set like a poster, not a default grotesk. Guest
+         * pages load the weight-only cut, so they keep only the weight.
+         */
+        font-stretch: 108%;
+        font-weight: 390;
+        letter-spacing: -0.006em;
     }
 
     /* Tailwind v4 dropped the pointer on buttons; everything clickable gets it. */

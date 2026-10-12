@@ -120,7 +120,9 @@ a gradient, a glow, a button background or a card border.
 
 **One family:** Archivo Variable (`wght` 100–900, `wdth` 62–125%, italic),
 self-hosted. Hierarchy comes from size, weight and width; display lines are
-semibold and widened (`font-stretch` 104–118%), body text is plain.
+semibold and widened (`font-stretch` 104–118%); body text is widened a little
+(108%), a touch light (390) and tracked in slightly (−0.006em), so text and
+headlines read as one voice rather than a default grotesk.
 
 ### Hierarchy
 

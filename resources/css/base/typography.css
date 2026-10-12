@@ -1,7 +1,8 @@
 /*
  * Type system (ADR 0009, amended 2026-10-07): one family, Archivo Variable,
  * set like a poster. Hierarchy comes from size, weight and width (the `wdth`
- * axis): display lines are heavy and slightly widened, body text is plain.
+ * axis): display lines are heavy and slightly widened, body text is widened
+ * a little (108%) and set a touch light (390), so both read as one voice.
  * The accent voice is Archivo italic in blush (`.accent`), once per section.
  */
 @layer base {
