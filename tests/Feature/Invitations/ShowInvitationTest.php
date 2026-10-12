@@ -32,6 +32,7 @@ class ShowInvitationTest extends TestCase
                 ->component('invitation/Show')
                 ->where('invitation.household.name', 'Familie Meier')
                 ->where('invitation.wedding.coupleNames', 'Anna & Luca')
+                ->where('invitation.wedding.template', 'atelier')
                 ->where('invitation.guests.0.firstName', 'Heidi')
                 ->has('invitation.events', 1)
                 ->where('invitation.events.0.id', $dinner->id)

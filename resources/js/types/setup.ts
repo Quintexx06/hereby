@@ -3,6 +3,7 @@ import type {
     EventType,
     Locale,
     LookStyle,
+    WeddingTemplate,
     WeddingTheme,
 } from '@/types/wedding';
 
@@ -55,6 +56,7 @@ export type WeddingSetup = {
     languages: Locale[];
     default_locale: Locale;
     theme: WeddingTheme;
+    template: WeddingTemplate;
     look_styles: LookStyle[];
     look_wishes: string | null;
     events: ProgrammeRow[];

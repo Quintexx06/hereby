@@ -21,6 +21,7 @@ class WeddingResource extends JsonResource
             'date' => $this->wedding_date->toDateString(),
             'rsvpDeadline' => $this->rsvp_deadline?->toDateString(),
             'theme' => $this->theme,
+            'template' => $this->template,
         ];
     }
 }

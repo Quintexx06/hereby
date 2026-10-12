@@ -6,6 +6,7 @@ use App\Enums\EventType;
 use App\Enums\LookStyle;
 use App\Enums\SetupStep;
 use App\Enums\WeddingStatus;
+use App\Enums\WeddingTemplate;
 use App\Enums\WeddingTheme;
 use App\Models\User;
 use App\Models\Wedding;
@@ -107,12 +108,14 @@ class WeddingSetupTest extends TestCase
         $this->actingAs($wedding->owner)
             ->put(route('weddings.setup.update', [$wedding, SetupStep::Look]), [
                 'theme' => WeddingTheme::Rose->value,
+                'template' => WeddingTemplate::Garten->value,
                 'look_styles' => [LookStyle::Romantic->value, LookStyle::Natural->value],
                 'look_wishes' => 'Wiesenblumen wie auf unserem Pinterest-Board.',
             ])
             ->assertRedirect(route('weddings.setup.show', [$wedding, SetupStep::Review]));
 
         $wedding->refresh();
+        $this->assertSame(WeddingTemplate::Garten, $wedding->template);
         $this->assertEquals([LookStyle::Romantic, LookStyle::Natural], $wedding->look_styles->all());
         $this->assertSame('Wiesenblumen wie auf unserem Pinterest-Board.', $wedding->look_wishes);
     }
@@ -124,6 +127,7 @@ class WeddingSetupTest extends TestCase
         $this->actingAs($wedding->owner)
             ->put(route('weddings.setup.update', [$wedding, SetupStep::Look]), [
                 'theme' => WeddingTheme::Ivory->value,
+                'template' => WeddingTemplate::Atelier->value,
                 'look_styles' => ['classic', 'modern', 'romantic', 'boho'],
             ])
             ->assertSessionHasErrors('look_styles');

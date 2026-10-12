@@ -30,6 +30,7 @@ class SaveSetupStep
             SetupStep::Guests => $wedding->fill(Arr::only($data, ['guest_estimate', 'languages', 'default_locale'])),
             SetupStep::Look => $wedding->fill([
                 'theme' => $data['theme'],
+                'template' => $data['template'],
                 'look_styles' => $data['look_styles'] ?? [],
                 'look_wishes' => $data['look_wishes'] ?? null,
             ]),

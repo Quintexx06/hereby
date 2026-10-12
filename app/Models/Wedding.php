@@ -8,6 +8,7 @@ use App\Enums\Locale;
 use App\Enums\LookStyle;
 use App\Enums\SetupStep;
 use App\Enums\WeddingStatus;
+use App\Enums\WeddingTemplate;
 use App\Enums\WeddingTheme;
 use Database\Factories\WeddingFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
@@ -38,6 +39,7 @@ use Illuminate\Support\Collection;
  * @property Locale $default_locale
  * @property Collection<int, Locale>|null $languages
  * @property WeddingTheme $theme
+ * @property WeddingTemplate $template Layout and motion of the guest site.
  * @property Collection<int, LookStyle>|null $look_styles Style directions for the team (up to three).
  * @property string|null $look_wishes The couple's own idea, in their words.
  * @property Celebration|null $celebration
@@ -61,7 +63,7 @@ use Illuminate\Support\Collection;
  */
 #[Fillable([
     'slug', 'couple_names', 'partner_one', 'partner_two', 'wedding_date', 'rsvp_deadline',
-    'default_locale', 'languages', 'theme', 'look_styles', 'look_wishes', 'celebration', 'guest_estimate',
+    'default_locale', 'languages', 'theme', 'template', 'look_styles', 'look_wishes', 'celebration', 'guest_estimate',
     'venue_name', 'venue_address', 'venue_postcode', 'venue_town', 'venue_lat', 'venue_lng', 'venue_reference',
     'menu_options', 'children_menu', 'offers_shuttle', 'offers_stay', 'asks_song', 'sends_reminders',
 ])]
@@ -150,6 +152,9 @@ class Wedding extends Model
                 ->where('updated_at', '<', $cutoff));
     }
 
+    /** @var array<string, mixed> */
+    protected $attributes = ['template' => 'atelier'];
+
     /**
      * @return array<string, string>
      */
@@ -161,6 +166,7 @@ class Wedding extends Model
             'default_locale' => Locale::class,
             'languages' => AsEnumCollection::of(Locale::class),
             'theme' => WeddingTheme::class,
+            'template' => WeddingTemplate::class,
             'look_styles' => AsEnumCollection::of(LookStyle::class),
             'status' => WeddingStatus::class,
             'setup_step' => SetupStep::class,

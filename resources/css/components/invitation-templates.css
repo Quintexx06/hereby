@@ -1,0 +1,244 @@
+/*
+ * Guest-site templates (WeddingTemplate): layout and motion on top of the
+ * shared invitation styles. Colours always come from the theme tokens.
+ * GSAP (loaded on first interaction) adds .gsap-on and takes over from the
+ * CSS scroll animations.
+ */
+@layer components {
+    .gsap-on :is(.story-line-ink, .story-card, .inv-heading, .event-card) {
+        animation: none;
+    }
+
+    /* --- Garten ----------------------------------------------------------- */
+    .garten-hero {
+        @apply relative isolate grid min-h-svh w-full max-w-6xl grid-cols-[1fr_minmax(0,30rem)_1fr] items-end pt-10;
+    }
+
+    .garten-arch {
+        @apply col-start-2 flex min-h-[78svh] flex-col items-center justify-center gap-4 rounded-t-full border border-brand/40 bg-card px-8 pt-24 pb-14 text-center;
+        animation: inv-rise 1s var(--ease-out) both;
+    }
+
+    .garten-names {
+        @apply flex flex-col items-center font-display text-[clamp(3rem,11vw,6rem)] leading-[0.9] font-semibold tracking-[-0.05em] text-balance;
+    }
+
+    .garten-branch {
+        @apply pointer-events-none absolute bottom-0 h-[70svh] w-auto max-w-[40vw] text-brand;
+    }
+
+    .garten-branch[data-side='left'] {
+        @apply left-0 sm:left-[4%];
+    }
+
+    .garten-branch[data-side='right'] {
+        @apply right-0 -scale-x-100 sm:right-[4%];
+    }
+
+    .garten-stem,
+    .garten-vein {
+        stroke: currentColor;
+        stroke-width: 1.6;
+        stroke-linecap: round;
+        stroke-dasharray: 1;
+        animation: garten-draw 2.4s var(--ease-in-out) 0.3s both;
+    }
+
+    .garten-vein {
+        stroke-width: 0.8;
+        animation-delay: calc(1s + var(--i) * 0.18s);
+    }
+
+    .garten-leaf,
+    .garten-blossom {
+        transform-box: fill-box;
+        transform-origin: 0% 50%;
+        animation: garten-bloom 0.9s var(--ease-out)
+            calc(0.9s + var(--i) * 0.18s) both;
+    }
+
+    .garten-leaf > path:first-child {
+        fill: color-mix(in oklch, var(--brand) 22%, transparent);
+        stroke: currentColor;
+        stroke-width: 0.8;
+    }
+
+    .garten-blossom {
+        transform-origin: 50% 50%;
+        fill: color-mix(in oklch, var(--brand) 45%, var(--background));
+    }
+
+    .garten-blossom-heart {
+        fill: var(--brand);
+    }
+
+    .garten-petals {
+        @apply pointer-events-none absolute inset-0 -z-10 overflow-hidden;
+    }
+
+    .garten-petals > span {
+        @apply absolute -top-6 h-3 w-2 rounded-[60%_0] bg-brand/40;
+        left: calc(var(--p) * 10% + 2%);
+        animation: garten-fall calc(9s + var(--p) * 1.3s) linear
+            calc(var(--p) * -1.7s) infinite;
+    }
+
+    /* The day hangs on a vine; each part is a leaf. */
+    [data-template='garten'] .event-timeline::before {
+        @apply w-0.5 bg-transparent;
+        background-image: radial-gradient(
+            circle,
+            var(--brand) 1.2px,
+            transparent 1.6px
+        );
+        background-size: 2px 10px;
+    }
+
+    [data-template='garten'] .event-node {
+        @apply rounded-tl-full rounded-br-full border-brand/50 bg-card;
+    }
+
+    .story-arches {
+        @apply grid justify-items-center gap-x-6 gap-y-10 sm:grid-cols-2;
+    }
+
+    /* Tall and narrow, like a garden gate. */
+    .story-arch {
+        @apply flex min-h-[26rem] w-full max-w-[21rem] flex-col items-center justify-end gap-3 rounded-t-full border border-brand/40 bg-card px-8 pt-24 pb-12 text-center;
+    }
+
+    .story-arch:nth-child(even) {
+        @apply sm:translate-y-16;
+    }
+
+    .story-arch-numeral {
+        @apply font-display text-4xl font-semibold tracking-tight text-brand;
+    }
+
+    /* --- Panorama --------------------------------------------------------- */
+    [data-template='panorama'] {
+        @apply gap-24 px-0 sm:gap-32;
+    }
+
+    [data-template='panorama'] > :not(.panorama-hero, .inv-closing) {
+        @apply px-5 sm:px-8;
+    }
+
+    .panorama-hero {
+        @apply relative isolate flex min-h-svh w-full flex-col justify-end gap-10 overflow-hidden pb-12;
+    }
+
+    .panorama-bokeh {
+        @apply absolute inset-0 -z-10 size-full transition-opacity duration-1000 ease-out;
+    }
+
+    .panorama-marquee {
+        @apply w-full overflow-hidden;
+    }
+
+    .panorama-track {
+        @apply flex w-max;
+        animation: panorama-run 38s linear infinite;
+    }
+
+    .panorama-names {
+        @apply shrink-0 font-display text-[clamp(5rem,17vw,15rem)] leading-[0.85] font-semibold tracking-[-0.06em] whitespace-nowrap;
+    }
+
+    .panorama-dot {
+        @apply px-[0.3em] text-brand;
+    }
+
+    .panorama-meta {
+        @apply mx-auto flex w-full max-w-6xl flex-col justify-between gap-6 border-t border-foreground px-5 pt-6 sm:flex-row sm:items-end sm:px-8;
+    }
+
+    .panorama-date {
+        @apply font-display text-[clamp(2.5rem,7vw,5rem)] leading-none font-semibold tracking-[-0.05em] text-brand tabular-nums;
+    }
+
+    /* The day as a row of frames: swipe on phones, pinned scroll on wide screens. */
+    [data-template='panorama'] .inv-section:has(.event-timeline) {
+        @apply max-w-none;
+    }
+
+    [data-template='panorama'] .event-timeline {
+        @apply -mx-5 flex snap-x snap-mandatory flex-row gap-4 overflow-x-auto px-5 pb-4 before:hidden sm:-mx-8 sm:px-8;
+    }
+
+    [data-template='panorama'] .event-timeline.is-pinned {
+        @apply mx-0 w-max snap-none overflow-visible px-[max(2rem,calc((100vw-72rem)/2))];
+    }
+
+    [data-template='panorama'] .event-card {
+        @apply flex min-h-[26rem] w-[78vw] shrink-0 snap-start flex-col justify-between gap-6 rounded-2xl border border-rule bg-card p-6 sm:w-[30rem] sm:p-10;
+    }
+
+    [data-template='panorama'] .event-time {
+        @apply text-[clamp(4rem,9vw,7.5rem)];
+    }
+
+    .story-film {
+        @apply -mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-6 sm:-mx-8 sm:px-8;
+    }
+
+    .story-frame {
+        @apply relative flex w-[78vw] shrink-0 snap-start flex-col gap-4 rounded-2xl bg-primary px-7 pt-14 pb-10 text-primary-foreground sm:w-[26rem];
+        background-image:
+            radial-gradient(circle, var(--background) 3px, transparent 3.5px),
+            radial-gradient(circle, var(--background) 3px, transparent 3.5px);
+        background-position:
+            0 10px,
+            0 calc(100% - 10px);
+        background-size: 22px 8px;
+        background-repeat: repeat-x;
+    }
+
+    .story-frame .story-text {
+        @apply text-primary-foreground/75;
+    }
+
+    .story-frame-number {
+        @apply font-display text-7xl leading-none font-semibold tracking-[-0.05em] text-primary-foreground/30;
+    }
+}
+
+@keyframes garten-draw {
+    from {
+        stroke-dashoffset: 1;
+    }
+
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes garten-bloom {
+    from {
+        opacity: 0;
+        scale: 0.3;
+    }
+
+    to {
+        opacity: 1;
+        scale: 1;
+    }
+}
+
+@keyframes garten-fall {
+    from {
+        translate: 0 0;
+        rotate: 0deg;
+    }
+
+    to {
+        translate: 3rem 110svh;
+        rotate: 540deg;
+    }
+}
+
+@keyframes panorama-run {
+    to {
+        translate: -50% 0;
+    }
+}

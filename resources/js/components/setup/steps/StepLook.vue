@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import InputError from '@/components/InputError.vue';
 import LookStyles from '@/components/setup/look/LookStyles.vue';
+import LookTemplates from '@/components/setup/look/LookTemplates.vue';
 import LookThemes from '@/components/setup/look/LookThemes.vue';
 import { look } from '@/content/setup';
 import { useSetupForm } from '@/composables/useSetupForm';
@@ -13,9 +14,10 @@ defineProps<{
 const form = useSetupForm();
 </script>
 
-<!-- The look in three parts: colour world, style directions, their own idea. -->
+<!-- The look in four parts: template, colour world, style directions, their idea. -->
 <template>
     <div class="flex flex-col gap-12">
+        <LookTemplates />
         <LookThemes :suggestion="suggestion" />
         <LookStyles />
 

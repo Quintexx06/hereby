@@ -7,6 +7,7 @@ import type {
     EventType,
     Locale,
     LookStyle,
+    WeddingTemplate,
     WeddingTheme,
 } from '@/types/wedding';
 
@@ -171,6 +172,9 @@ export const themes: Record<WeddingTheme, { name: string; mood: string }> = {
 
 export const look = {
     suggested: 'Unser Vorschlag',
+    templates: 'Vorlage',
+    templatesHint:
+        'Wie eure Website aufgebaut ist und sich bewegt. Jede Vorlage passt zu jeder Farbwelt.',
     colours: 'Farbwelt',
     coloursHint: 'Papier, Schrift und Akzent eurer Website.',
     styles: 'Stilrichtung',
@@ -182,6 +186,25 @@ export const look = {
         'Blumen, Farben, ein Pinterest-Board, das Kleid, ein Ort, der euch inspiriert. Wir schauen, was sich umsetzen lässt, und melden uns.',
     wishesPlaceholder:
         'z. B. «Wiesenblumen, viel Grün, ein bisschen wie unsere Lieblingsalp im Juni»',
+};
+
+/** Guest-site templates (WeddingTemplate): layout and motion. */
+export const templates: Record<
+    WeddingTemplate,
+    { name: string; mood: string }
+> = {
+    atelier: {
+        name: 'Atelier',
+        mood: 'Redaktionell und klar: grosse Schrift, eure Geschichte als gezeichneter Weg.',
+    },
+    garten: {
+        name: 'Garten',
+        mood: 'Romantisch: Torbögen, gezeichnete Zweige, Blätter und fallende Blüten.',
+    },
+    panorama: {
+        name: 'Panorama',
+        mood: 'Wie im Kino: Namen als Laufband, der Tag zum Seitwärtsscrollen, Lichter in 3D.',
+    },
 };
 
 /** Style directions (LookStyle), each with a mood in a few words. */

@@ -8,6 +8,7 @@ use App\Enums\GuestEstimate;
 use App\Enums\Locale;
 use App\Enums\LookStyle;
 use App\Enums\SetupStep;
+use App\Enums\WeddingTemplate;
 use App\Enums\WeddingTheme;
 use App\Models\Wedding;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -70,6 +71,7 @@ class UpdateSetupStepRequest extends FormRequest
             ],
             SetupStep::Look => [
                 'theme' => ['required', Rule::enum(WeddingTheme::class)],
+                'template' => ['required', Rule::enum(WeddingTemplate::class)],
                 'look_styles' => ['nullable', 'array', 'max:'.LookStyle::MAX],
                 'look_styles.*' => ['distinct', Rule::enum(LookStyle::class)],
                 'look_wishes' => ['nullable', 'string', 'max:2000'],

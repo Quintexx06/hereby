@@ -4,6 +4,9 @@ export type Locale = 'de_CH' | 'fr' | 'it' | 'en';
 
 export type WeddingTheme = 'ivory' | 'rose' | 'alpine' | 'riviera' | 'lavanda';
 
+/** Mirrors App\Enums\WeddingTemplate: layout and motion of a guest site. */
+export type WeddingTemplate = 'atelier' | 'garten' | 'panorama';
+
 /** Mirrors App\Enums\LookStyle: style directions that brief the team. */
 export type LookStyle =
     | 'classic'
@@ -33,6 +36,7 @@ export type Wedding = {
     date: string;
     rsvpDeadline: string | null;
     theme: WeddingTheme;
+    template: WeddingTemplate;
 };
 
 export type WeddingEvent = {

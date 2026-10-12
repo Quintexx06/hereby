@@ -164,6 +164,59 @@
         @apply grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5;
     }
 
+    .look-templates {
+        @apply grid gap-3 sm:grid-cols-3;
+    }
+
+    /* A template drawn small: the shape of its first screen in the theme. */
+    .template-sample {
+        @apply relative flex aspect-[4/3] flex-col items-center justify-center gap-2 overflow-hidden rounded-md bg-background p-3 text-foreground;
+    }
+
+    .template-sample-names {
+        @apply relative font-display text-lg leading-none font-semibold tracking-tight;
+    }
+
+    .template-sample-line {
+        @apply relative h-1 w-10 rounded-full bg-primary;
+    }
+
+    .template-sample[data-template='atelier'] .template-sample-names {
+        @apply text-2xl;
+    }
+
+    .template-sample[data-template='garten'] .template-sample-frame {
+        @apply absolute inset-x-[22%] top-3 bottom-0 rounded-t-full border border-brand/60;
+    }
+
+    .template-sample[data-template='panorama'] {
+        @apply items-start justify-end;
+    }
+
+    .template-sample[data-template='panorama'] .template-sample-names {
+        @apply -mr-8 text-3xl whitespace-nowrap;
+    }
+
+    .template-sample[data-template='panorama'] .template-sample-frame {
+        @apply absolute inset-x-0 top-0 h-1/2;
+        background:
+            radial-gradient(
+                circle at 30% 40%,
+                color-mix(in oklch, var(--brand) 45%, transparent) 0 3px,
+                transparent 4px
+            ),
+            radial-gradient(
+                circle at 70% 30%,
+                color-mix(in oklch, var(--brand) 35%, transparent) 0 5px,
+                transparent 6px
+            ),
+            radial-gradient(
+                circle at 55% 65%,
+                color-mix(in oklch, var(--brand) 30%, transparent) 0 2px,
+                transparent 3px
+            );
+    }
+
     .look-styles {
         @apply grid gap-3 sm:grid-cols-2 lg:grid-cols-3;
     }
