@@ -5,6 +5,8 @@ use App\Http\Controllers\Billing\PublishController;
 use App\Http\Controllers\Content\ContentBlockController;
 use App\Http\Controllers\Content\PreviewInvitationController;
 use App\Http\Controllers\Content\ReorderContentBlocksController;
+use App\Http\Controllers\Evening\EveningController;
+use App\Http\Controllers\Evening\SeatingController;
 use App\Http\Controllers\Extras\ExtrasController;
 use App\Http\Controllers\Guests\GuestsController;
 use App\Http\Controllers\Guests\HouseholdController;
@@ -52,6 +54,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('hochzeit/{wedding}/freischalten', [PublishController::class, 'show'])->name('weddings.publish.show');
         Route::post('hochzeit/{wedding}/freischalten', [PublishController::class, 'store'])->name('weddings.publish.store');
         Route::get('hochzeit/{wedding}/freischalten/zurueck', [PublishController::class, 'confirm'])->name('weddings.publish.return');
+
+        Route::get('hochzeit/{wedding}/abend', [EveningController::class, 'show'])->name('weddings.evening.show');
+        Route::get('hochzeit/{wedding}/tische', [SeatingController::class, 'edit'])->name('weddings.seating.edit');
+        Route::put('hochzeit/{wedding}/tische', [SeatingController::class, 'update'])->name('weddings.seating.update');
 
         Route::get('hochzeit/{wedding}/extras', [ExtrasController::class, 'show'])->name('weddings.extras.show');
         Route::post('hochzeit/{wedding}/extras', [ExtrasController::class, 'store'])->name('weddings.extras.store');

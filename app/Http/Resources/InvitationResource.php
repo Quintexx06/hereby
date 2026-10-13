@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Actions\Evening\BuildEvening;
 use App\Actions\Invitations\VisibleBlocks;
 use App\Enums\ResponseStatus;
 use App\Models\EventResponse;
@@ -36,6 +37,8 @@ class InvitationResource extends JsonResource
                 $this->locale->value,
             ),
             'rsvpOpen' => $this->wedding->acceptsReplies(),
+            // «Der Abend» (Atelier and up); other guests only by first name and the couple's note.
+            'evening' => app(BuildEvening::class)->handle($this->resource),
             // Null in the couple's preview, where the sample household has no link.
             'links' => $this->exists ? [
                 'invitation' => route('invitation.show', $this->resource),

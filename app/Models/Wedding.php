@@ -199,6 +199,7 @@ class Wedding extends Model
             'plan' => Plan::class,
             'paid_at' => 'datetime',
             'memories_kept_until' => 'date',
+            'seating_published_at' => 'datetime',
             'setup_step' => SetupStep::class,
             'setup_completed_at' => 'datetime',
             'celebration' => Celebration::class,

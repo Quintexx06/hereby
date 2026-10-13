@@ -28,4 +28,12 @@ class WeddingPolicy
     {
         return $wedding->owner_id === $user->id && $wedding->includesMemories();
     }
+
+    /**
+     * «Der Abend»: table mates, way home, group photos, programme sign-ups.
+     */
+    public function useEvening(User $user, Wedding $wedding): bool
+    {
+        return $wedding->owner_id === $user->id && $wedding->includesEvening();
+    }
 }

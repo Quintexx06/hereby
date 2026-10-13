@@ -1,0 +1,22 @@
+/* «Der Abend» on the personal link (spec 2026-10-13): text only, rule 2. */
+@layer components {
+    .evening-card {
+        @apply flex flex-col gap-3 rounded-2xl border border-rule bg-card p-6 text-card-foreground sm:p-8;
+    }
+
+    .evening-card-title {
+        @apply font-display text-2xl font-semibold tracking-[-0.03em];
+    }
+
+    .evening-card-label {
+        @apply mt-2 text-sm font-semibold text-brand;
+    }
+
+    .evening-mates {
+        @apply flex flex-col divide-y divide-rule;
+    }
+
+    .evening-mates > li {
+        @apply flex flex-col gap-0.5 py-3 sm:flex-row sm:gap-3;
+    }
+}

@@ -1,0 +1,60 @@
+<?php
+
+namespace App\Actions\Evening;
+
+use App\Models\Guest;
+use App\Models\Household;
+use Illuminate\Support\Collection;
+
+/**
+ * What one household sees of «Der Abend» on its personal link (spec
+ * 2026-10-13). Null without Atelier. Other guests appear only by first
+ * name and the couple's note, and only at the household's own tables.
+ */
+class BuildEvening
+{
+    /**
+     * @return array{tables: list<array{name: string, yours: list<string>, mates: list<array{name: string, note: string|null}>}>}|null
+     */
+    public function handle(Household $household): ?array
+    {
+        $wedding = $household->wedding;
+
+        if (! $wedding->includesEvening()) {
+            return null;
+        }
+
+        return [
+            'tables' => $wedding->seating_published_at !== null && $household->exists ? $this->tables($household) : [],
+        ];
+    }
+
+    /**
+     * @return list<array{name: string, yours: list<string>, mates: list<array{name: string, note: string|null}>}>
+     */
+    private function tables(Household $household): array
+    {
+        /** @var Collection<string, Collection<int, Guest>> $own */
+        $own = $household->guests->filter(fn (Guest $guest): bool => filled($guest->table_name))->groupBy('table_name');
+
+        if ($own->isEmpty()) {
+            return [];
+        }
+
+        $mates = Guest::query()
+            ->whereIn('table_name', $own->keys())
+            ->where('household_id', '!=', $household->id)
+            ->whereHas('household', fn ($query) => $query->where('wedding_id', $household->wedding_id))
+            ->orderBy('first_name')
+            ->get(['first_name', 'table_name', 'table_note'])
+            ->groupBy('table_name');
+
+        return $own->map(fn (Collection $guests, string $table): array => [
+            'name' => $table,
+            'yours' => $guests->pluck('first_name')->values()->all(),
+            'mates' => ($mates->get($table) ?? collect())
+                ->map(fn (Guest $guest): array => ['name' => $guest->first_name, 'note' => $guest->table_note])
+                ->values()->all(),
+        ])->values()->all();
+    }
+}

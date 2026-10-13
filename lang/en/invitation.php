@@ -41,4 +41,11 @@ return [
         'brunch' => 'Brunch',
         'other' => 'Programme',
     ],
+    // «Der Abend» (spec 2026-10-13).
+    'evening' => [
+        'tables_heading' => 'Your table',
+        'table' => 'Table :name',
+        'you' => 'You',
+        'mates' => 'At your table',
+    ],
 ];

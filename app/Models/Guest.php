@@ -21,6 +21,8 @@ use Illuminate\Support\Carbon;
  * @property bool $is_child
  * @property bool $is_plus_one
  * @property string|null $dietary_notes Sensitive health data; encrypted at rest.
+ * @property string|null $table_name Where the couple seats them (spec 2026-10-13).
+ * @property string|null $table_note One line from the couple, shown to table mates.
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  */

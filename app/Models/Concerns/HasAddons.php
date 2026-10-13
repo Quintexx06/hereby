@@ -13,6 +13,7 @@ use Illuminate\Support\Carbon;
  * and the extras bought one by one (spec 2026-10-13).
  *
  * @property Carbon|null $memories_kept_until Photos and newspaper stay until then (ADR 0011).
+ * @property Carbon|null $seating_published_at When guests started seeing their table mates.
  */
 trait HasAddons
 {

@@ -65,6 +65,19 @@ export type Invitation = {
     rsvpOpen: boolean;
     links: { invitation: string; reply: string; calendar: string } | null;
     reply: { answered: boolean; attending: number; invited: number };
+    evening: Evening | null;
+};
+
+/** One of the household's tables (App\Actions\Evening\BuildEvening). */
+export type EveningTable = {
+    name: string;
+    yours: string[];
+    mates: { name: string; note: string | null }[];
+};
+
+/** «Der Abend» on the personal link; null without Atelier. */
+export type Evening = {
+    tables: EveningTable[];
 };
 
 export type ContentBlockType =

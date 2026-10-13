@@ -3,6 +3,7 @@ import { ref } from 'vue';
 import InvitationBlocks from '@/components/invitation/InvitationBlocks.vue';
 import InvitationCalendar from '@/components/invitation/InvitationCalendar.vue';
 import InvitationClosing from '@/components/invitation/InvitationClosing.vue';
+import InvitationEvening from '@/components/invitation/InvitationEvening.vue';
 import InvitationEvents from '@/components/invitation/InvitationEvents.vue';
 import InvitationFooter from '@/components/invitation/InvitationFooter.vue';
 import InvitationLetter from '@/components/invitation/InvitationLetter.vue';
@@ -31,6 +32,7 @@ useGuestMotion(root, (kit) => {
         <PanoramaHero :wedding="invitation.wedding" :place="place" />
         <InvitationLetter :invitation="invitation" :replied="replied" />
         <InvitationEvents :events="invitation.events" scrollable />
+        <InvitationEvening :evening="invitation.evening" />
         <InvitationCalendar :invitation="invitation" />
         <InvitationBlocks :blocks="invitation.blocks" story="film" />
         <InvitationClosing :invitation="invitation" />

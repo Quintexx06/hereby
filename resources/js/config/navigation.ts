@@ -5,6 +5,7 @@ import {
     Inbox,
     LayoutGrid,
     LifeBuoy,
+    Martini,
     ListChecks,
     NotebookPen,
     Sparkles,
@@ -15,6 +16,7 @@ import { dashboard, home } from '@/routes';
 import { index as adminInquiries } from '@/routes/admin/inquiries';
 import { index as adminWeddings } from '@/routes/admin/weddings';
 import { index as content } from '@/routes/weddings/content';
+import { show as evening } from '@/routes/weddings/evening';
 import { show as extras } from '@/routes/weddings/extras';
 import { index as guests } from '@/routes/weddings/guests';
 import { index as kitchen } from '@/routes/weddings/kitchen';
@@ -54,6 +56,11 @@ export function mainNavItems(wedding: SharedWedding | null): NavItem[] {
             title: 'Küche & Service',
             href: kitchen(wedding.id),
             icon: UtensilsCrossed,
+        });
+        items.push({
+            title: 'Der Abend',
+            href: evening(wedding.id),
+            icon: Martini,
         });
         items.push({
             title: 'Erinnerungen',
