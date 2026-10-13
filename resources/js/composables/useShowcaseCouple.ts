@@ -3,6 +3,15 @@ import { VENUE_TIME_ZONE } from '@/lib/format';
 
 export type ShowcaseCouple = { first: string; second: string; date: string };
 
+/** The couple as the example site shows them. */
+export type ShowcaseCoupleSite = {
+    first: string;
+    second: string;
+    monogram: string;
+    url: string;
+    date: string;
+};
+
 /** "Zoë Müller" → "zoe-mueller", as a subdomain would spell it. */
 export function toSubdomainPart(name: string): string {
     return name
@@ -50,7 +59,7 @@ export function useShowcaseCouple(fallback: ShowcaseCouple) {
     const first = computed(() => couple.first.trim() || fallback.first);
     const second = computed(() => couple.second.trim() || fallback.second);
 
-    const site = computed(() => {
+    const site = computed((): ShowcaseCoupleSite => {
         const slug = [first.value, second.value]
             .map(toSubdomainPart)
             .filter(Boolean)

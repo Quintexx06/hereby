@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import ShowcaseCoupleForm from '@/components/marketing/ShowcaseCoupleForm.vue';
-import ShowcaseWindow from '@/components/marketing/ShowcaseWindow.vue';
+import ShowcaseCarousel from '@/components/marketing/ShowcaseCarousel.vue';
 import { useShowcaseCouple } from '@/composables/useShowcaseCouple';
 import { studio } from '@/content/landing';
 
@@ -18,9 +18,9 @@ const { couple, site } = useShowcaseCouple(studio.site.couple);
 </script>
 
 <!--
-    A finished couple's site, shown in a browser window. Visitors type their
-    own names and date into it, and pick an accent: only the accents change,
-    the page itself stays porcelain.
+    The three templates as finished sites in browser windows, side by side.
+    Visitors type their own names and date into them and pick an accent:
+    only the accents change, the page itself stays porcelain.
 -->
 <template>
     <section class="overflow-hidden">
@@ -66,10 +66,8 @@ const { couple, site } = useShowcaseCouple(studio.site.couple);
                 </div>
             </div>
 
-            <ShowcaseWindow :accent="selected" :couple="site" />
-            <p class="caption -mt-4 text-center sm:-mt-6">
-                {{ studio.example }}
-            </p>
+            <ShowcaseCarousel :accent="selected" :couple="site" />
+            <p class="caption -mt-4 text-center">{{ studio.example }}</p>
         </div>
     </section>
 </template>

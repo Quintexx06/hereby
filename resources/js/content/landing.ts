@@ -145,7 +145,27 @@ export const marquee = [
 
 export const studio = {
     title: 'Gestaltet, nicht zusammengeklickt.',
-    lede: 'So sieht eine fertige Hochzeitswebsite von Hereby aus: eure Fotos, euer Programm, eure Anreise. Setzt eure Namen ein und wählt eine Akzentfarbe, der Rest bleibt ruhig.',
+    lede: 'Drei Vorlagen, jede mit eigenem Auftritt: eure Fotos, euer Programm, eure Anreise. Scrollt durch die Seiten, setzt eure Namen ein und wählt eine Akzentfarbe.',
+    templatesLabel: 'Vorlagen',
+    previous: 'Vorherige Vorlage',
+    next: 'Nächste Vorlage',
+    templates: [
+        {
+            slug: 'atelier',
+            name: 'Atelier',
+            mood: 'Grosse Schrift über eurem Foto, ruhig und editorial',
+        },
+        {
+            slug: 'garten',
+            name: 'Garten',
+            mood: 'Ein Torbogen, Zweige und viel Luft',
+        },
+        {
+            slug: 'panorama',
+            name: 'Panorama',
+            mood: 'Eure Namen als Laufband, Fotos in voller Breite',
+        },
+    ],
     pickerLabel: 'Akzentfarbe der Beispielseite',
     example: 'Beispielseite mit Demo-Daten',
     tryLead: 'Probiert es mit euren Namen:',
@@ -165,6 +185,7 @@ export const studio = {
     site: {
         couple: { first: 'Anna', second: 'Luca', date: '2027-06-19' },
         place: 'Vitznau',
+        welcomeKicker: 'Wir heiraten',
         nav: ['Programm', 'Anreise', 'Fotos'],
         action: 'Jetzt antworten',
         welcome:
@@ -181,6 +202,8 @@ export const studio = {
         replyNote: 'Heidi, Peter und Lina haben zugesagt',
         photos: {
             hero: photo.sparklers,
+            arch: photo.veilKiss,
+            strip: [photo.sparklers, photo.tableCandles, photo.bouquet],
             venue: photo.lakeJetty,
             gallery: [photo.veilKiss, photo.tableCandles, photo.bouquet],
         },

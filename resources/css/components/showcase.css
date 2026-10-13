@@ -27,8 +27,9 @@
         background: var(--showcase-ink);
     }
 
+    /* A fixed height, like a real browser: the site scrolls inside it. */
     .showcase-window {
-        @apply mx-auto w-full max-w-6xl overflow-hidden rounded-[1.5rem] border border-rule bg-card text-card-foreground shadow-[0_50px_100px_-50px_rgb(30_14_10/0.5)];
+        @apply flex h-[34rem] w-full flex-col overflow-hidden rounded-[1.5rem] border border-rule bg-card text-card-foreground shadow-[0_50px_100px_-50px_rgb(30_14_10/0.5)] sm:h-[40rem] lg:h-[44rem];
     }
 
     .showcase-bar {
@@ -48,7 +49,8 @@
         --brand: var(--showcase-ink);
         --primary: var(--showcase-ink);
         --primary-foreground: var(--color-porcelain-50);
-        @apply bg-background;
+        @apply min-h-0 flex-1 overflow-y-auto bg-background focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring;
+        scrollbar-width: thin;
     }
 
     .showcase-site .text-brand,
@@ -61,7 +63,7 @@
     }
 
     .showcase-nav {
-        @apply flex items-center justify-between gap-4 px-5 py-4 sm:px-8;
+        @apply sticky top-0 z-10 flex items-center justify-between gap-4 bg-background/90 px-5 py-4 backdrop-blur-md sm:px-8;
     }
 
     .showcase-monogram {

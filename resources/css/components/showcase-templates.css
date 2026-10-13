@@ -1,0 +1,128 @@
+/*
+ * The studio carousel (spec 2026-10-13, landing): the three templates side
+ * by side, swiped or stepped with the arrows, and the heroes that set
+ * Garten and Panorama apart from Atelier.
+ */
+@layer components {
+    /* Full-bleed track; padding lets the first and last window sit centred. */
+    .showcase-track {
+        @apply mx-[calc(50%-50vw)] flex snap-x snap-mandatory gap-5 overflow-x-auto px-[max(1rem,calc(50vw-34rem))] pb-2 sm:gap-8;
+        scrollbar-width: none;
+    }
+
+    .showcase-track::-webkit-scrollbar {
+        display: none;
+    }
+
+    .showcase-slide {
+        @apply w-[88vw] max-w-[68rem] shrink-0 snap-center transition-[opacity,scale] duration-500 ease-out;
+    }
+
+    .showcase-slide[data-active='false'] {
+        @apply scale-[0.96] opacity-55;
+    }
+
+    .showcase-controls {
+        @apply flex items-center justify-center gap-6 sm:gap-10;
+    }
+
+    .showcase-arrow {
+        @apply grid size-12 shrink-0 cursor-pointer place-items-center rounded-full border border-rule bg-card text-foreground shadow-[0_14px_30px_-16px_rgb(30_14_10/0.45)] transition-[background-color,scale] duration-200 ease-out hover:bg-background active:scale-95;
+    }
+
+    .showcase-template-name {
+        @apply font-display text-[clamp(2rem,4vw,3.25rem)] leading-none font-semibold tracking-[-0.045em];
+        font-stretch: 110%;
+    }
+
+    .showcase-dot {
+        @apply h-2 w-2 rounded-full bg-foreground/20 transition-[width,background-color] duration-300 ease-out;
+    }
+
+    .showcase-dot[data-active='true'] {
+        @apply w-6 bg-foreground;
+    }
+
+    .studio-flip-enter-active,
+    .studio-flip-leave-active {
+        transition:
+            opacity 220ms var(--ease-out),
+            transform 220ms var(--ease-out);
+    }
+
+    .studio-flip-enter-from {
+        @apply translate-y-2 opacity-0;
+    }
+
+    .studio-flip-leave-to {
+        @apply -translate-y-1.5 opacity-0;
+    }
+
+    /* Garten: the photo under an arch, a twig on either side. */
+    .sc-garten-hero {
+        @apply relative flex flex-col items-center gap-4 px-6 pt-8 pb-12 text-center;
+    }
+
+    .sc-garten-arch {
+        @apply aspect-[3/4] w-[min(62%,19rem)] overflow-hidden rounded-t-full;
+    }
+
+    .sc-garten-arch > picture {
+        @apply block size-full;
+    }
+
+    .sc-garten-names {
+        @apply text-foreground;
+    }
+
+    .sc-garten-twig {
+        @apply absolute top-16 w-12 stroke-brand sm:top-24 sm:w-16;
+        stroke-width: 1.5;
+        stroke-linecap: round;
+    }
+
+    .sc-garten-twig[data-side='left'] {
+        @apply left-[6%] sm:left-[14%];
+    }
+
+    .sc-garten-twig[data-side='right'] {
+        @apply right-[6%] -scale-x-100 sm:right-[14%];
+    }
+
+    /* Panorama: a dark band where the names run past, photos edge to edge. */
+    .sc-panorama-hero {
+        @apply mx-3 overflow-hidden rounded-[1rem] bg-night-950 pt-8 pb-6 text-porcelain-50 sm:mx-5;
+    }
+
+    .sc-panorama-band {
+        @apply flex w-max whitespace-nowrap;
+        animation: marquee 40s linear infinite;
+    }
+
+    .sc-panorama-run {
+        @apply flex pr-6 font-display text-[clamp(3rem,9vw,6.5rem)] leading-none font-bold tracking-[-0.05em];
+        font-stretch: 112%;
+    }
+
+    .sc-panorama-run > span {
+        @apply pr-6;
+    }
+
+    .sc-panorama-strip {
+        @apply mt-8 grid grid-cols-3 gap-2 px-3 sm:gap-3 sm:px-5;
+    }
+
+    .sc-panorama-photo {
+        @apply aspect-[3/4] w-full rounded-md object-cover;
+    }
+
+    .sc-panorama-meta {
+        @apply flex justify-between gap-4 px-5 pt-5 text-sm font-medium sm:px-8;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .sc-panorama-band {
+            animation: none;
+        }
+    }
+}

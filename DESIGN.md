@@ -207,15 +207,18 @@ Each one is a motion pattern with a product reason, not decoration:
   below `lg`. Shows the product's core idea: each household sees its acts.
 - **Marquee** (`MarqueeBand`): Hochzeit · Mariage · Matrimonio · Wedding,
   solid and outlined; scroll speeds it up and reverses it.
-- **Studio** (`StudioSection`, `ShowcaseWindow`, `ShowcaseDetails`): the demo
-  couple's finished site in a browser window, with real wedding photos (hero,
-  venue, guests' snapshots as casually tilted prints). Three accent chips
-  (Ivory, Rosé, Alpine) recolour only the accents inside the site
-  (`--showcase-ink` in `components/showcase.css`); the section and the site's
-  ground stay porcelain. No autoplay, no tabs. Above it, one sentence with
-  blanks (`ShowcaseCoupleForm`, `useShowcaseCouple`): visitors type their
-  names and date and the site's hero, monogram and URL become theirs. Nothing
-  is stored or sent.
+- **Studio** (`StudioSection`, `ShowcaseCarousel`, `ShowcaseWindow`,
+  `ShowcaseHero*`, `ShowcaseDetails`): the three templates (Atelier, Garten,
+  Panorama) as finished sites in browser windows of fixed height that scroll
+  inside, side by side in a full-bleed scroll-snap track: swipe, or step with
+  the arrows; the template's name and mood sit between them. Nothing moves
+  on its own. Atelier sets the names over the photo, Garten puts the photo
+  under an arch between two drawn twigs, Panorama runs the names as a band
+  over a strip of photos. Above, one sentence with blanks
+  (`ShowcaseCoupleForm`, `useShowcaseCouple`) puts the visitor's names and
+  date into all three, and three accent chips recolour only their accents
+  (`--showcase-ink`); the ground stays porcelain. Classes are `sc-*` so the
+  real templates' styles never leak in.
 - **Hiermit gestrichen.** (`StruckSection`, `StruckRow`): what we leave out
   (Passwörter, Vorlagen, Werbung…), struck through by a blush line as each
   row scrolls in. A custom icon pops out of the struck word (spring, never from
