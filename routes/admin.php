@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ChaseController;
 use App\Http\Controllers\Admin\InquiriesController;
 use App\Http\Controllers\Admin\UnlockWeddingController;
 use App\Http\Controllers\Admin\WeddingsController;
@@ -15,4 +16,6 @@ Route::middleware(['auth', 'verified', 'can:admin'])->prefix('admin')->name('adm
     Route::patch('hochzeiten/{wedding}/freischalten', UnlockWeddingController::class)->name('weddings.unlock');
     Route::get('anfragen', [InquiriesController::class, 'index'])->name('inquiries.index');
     Route::patch('anfragen/{inquiry}', [InquiriesController::class, 'update'])->name('inquiries.update');
+    Route::get('nachfassen', [ChaseController::class, 'index'])->name('chase.index');
+    Route::patch('nachfassen/{household:id}', [ChaseController::class, 'update'])->name('chase.update');
 });

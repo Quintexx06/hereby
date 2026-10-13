@@ -6,6 +6,7 @@ import {
     LayoutGrid,
     LifeBuoy,
     Martini,
+    PhoneCall,
     ListChecks,
     NotebookPen,
     Sparkles,
@@ -13,6 +14,7 @@ import {
     UtensilsCrossed,
 } from '@lucide/vue';
 import { dashboard, home } from '@/routes';
+import { index as adminChase } from '@/routes/admin/chase';
 import { index as adminInquiries } from '@/routes/admin/inquiries';
 import { index as adminWeddings } from '@/routes/admin/weddings';
 import { index as content } from '@/routes/weddings/content';
@@ -98,6 +100,7 @@ export function adminNavItems(openInquiries: number): NavItem[] {
             icon: Inbox,
             badge: openInquiries || undefined,
         },
+        { title: 'Nachfassen', href: adminChase(), icon: PhoneCall },
         { title: 'Website ansehen', href: home(), icon: Globe },
     ];
 }

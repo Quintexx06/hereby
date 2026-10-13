@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useForm } from '@inertiajs/vue3';
+import ContactFields from '@/components/guests/editor/ContactFields.vue';
 import EventChoices from '@/components/guests/editor/EventChoices.vue';
 import HouseholdLink from '@/components/guests/editor/HouseholdLink.vue';
 import PeopleFields from '@/components/guests/PeopleFields.vue';
@@ -29,6 +30,7 @@ const emit = defineEmits<{ close: [] }>();
 const form = useForm({
     name: props.household.name,
     email: props.household.email ?? '',
+    phone: props.household.phone ?? '',
     locale: props.household.locale,
     plus_one_allowed: props.household.plus_one_allowed,
     events: [...props.household.event_ids],
@@ -43,10 +45,14 @@ const form = useForm({
 });
 
 function submit(): void {
-    form.transform((data) => ({ ...data, email: data.email || null })).put(
-        update.url([props.weddingId, props.household.id]),
-        { preserveScroll: true, onSuccess: () => emit('close') },
-    );
+    form.transform((data) => ({
+        ...data,
+        email: data.email || null,
+        phone: data.phone || null,
+    })).put(update.url([props.weddingId, props.household.id]), {
+        preserveScroll: true,
+        onSuccess: () => emit('close'),
+    });
 }
 </script>
 
@@ -78,19 +84,13 @@ function submit(): void {
                 :error="firstError(form.errors, 'guests')"
             />
 
-            <div class="grid gap-4 sm:grid-cols-[minmax(0,1fr)_10rem]">
-                <div class="field">
-                    <label for="edit_email" class="field-label">{{
-                        manualCopy.email
-                    }}</label>
-                    <Input
-                        id="edit_email"
-                        v-model="form.email"
-                        type="email"
-                        autocomplete="off"
-                    />
-                    <InputError :message="form.errors.email" />
-                </div>
+            <div class="grid gap-4 sm:grid-cols-2">
+                <ContactFields
+                    v-model:email="form.email"
+                    v-model:phone="form.phone"
+                    :email-error="form.errors.email"
+                    :phone-error="form.errors.phone"
+                />
                 <div class="field">
                     <label for="edit_locale" class="field-label">{{
                         manualCopy.language

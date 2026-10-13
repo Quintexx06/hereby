@@ -98,3 +98,16 @@ export const adminChecklist = {
         inbox: 'Alle Anfragen beantworten',
     },
 };
+
+export const chaseCopy = {
+    title: 'Nachfassen',
+    lede: 'Paare mit «Wir fassen nach», deren Frist in den nächsten zwei Wochen endet: alle Haushalte ohne Antwort. Ruft an oder schreibt, dann hakt sie ab.',
+    empty: 'Gerade niemand, dem wir nachfassen müssten.',
+    deadline: (date: string) =>
+        `Frist ${new Date(date).toLocaleDateString('de-CH', { dateStyle: 'medium' })}`,
+    opened: 'Geöffnet, nicht geantwortet',
+    unopened: 'Nie geöffnet',
+    noContact: 'Keine Kontaktdaten. Fragt das Paar.',
+    markChased: 'Erledigt',
+    chased: 'Kontaktiert',
+};

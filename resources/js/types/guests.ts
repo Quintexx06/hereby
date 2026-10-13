@@ -6,6 +6,7 @@ export type HouseholdRow = {
     id: number;
     name: string;
     email: string | null;
+    phone: string | null;
     locale: Locale;
     plus_one_allowed: boolean;
     reply_status: ReplyStatusKey;

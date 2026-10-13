@@ -35,6 +35,7 @@ class GuestsController extends Controller
                 'id' => $household->id,
                 'name' => $household->name,
                 'email' => $household->email,
+                'phone' => $household->phone,
                 'locale' => $household->locale,
                 'plus_one_allowed' => $household->plus_one_allowed,
                 'reply_status' => $household->replyStatus(),

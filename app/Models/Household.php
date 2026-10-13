@@ -24,6 +24,8 @@ use Illuminate\Support\Str;
  * @property int $wedding_id
  * @property string $name
  * @property string|null $email
+ * @property string|null $phone For the team's chase service only (spec 2026-10-13).
+ * @property Carbon|null $chased_at When the team last reached out about the reply.
  * @property Locale $locale
  * @property string $token
  * @property bool $plus_one_allowed
@@ -38,8 +40,8 @@ use Illuminate\Support\Str;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  */
-#[Fillable(['name', 'email', 'locale', 'plus_one_allowed'])]
-#[Hidden(['token'])]
+#[Fillable(['name', 'email', 'phone', 'locale', 'plus_one_allowed'])]
+#[Hidden(['token', 'phone'])]
 #[RouteKey('token')]
 class Household extends Model
 {
@@ -151,6 +153,7 @@ class Household extends Model
             'needs_stay' => 'boolean',
             'responded_at' => 'datetime',
             'reminders_opted_out_at' => 'datetime',
+            'chased_at' => 'datetime',
         ];
     }
 }

@@ -28,6 +28,7 @@ class UpdateHouseholdRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:120'],
             'email' => ['nullable', 'email', 'max:191'],
+            'phone' => ['nullable', 'string', 'max:30', 'regex:/^[0-9+()\/.\s-]{6,30}$/'],
             'locale' => ['required', Rule::enum(Locale::class)],
             'plus_one_allowed' => ['boolean'],
             'events' => ['required', 'array', 'min:1'],
@@ -43,13 +44,14 @@ class UpdateHouseholdRequest extends FormRequest
     /**
      * The validated household, typed for UpdateHousehold.
      *
-     * @return array{name: string, email: string|null, locale: string, plus_one_allowed: bool, events: list<int>, guests: list<array{id: int|null, first_name: string, last_name: string|null, is_child: bool}>}
+     * @return array{name: string, email: string|null, phone: string|null, locale: string, plus_one_allowed: bool, events: list<int>, guests: list<array{id: int|null, first_name: string, last_name: string|null, is_child: bool}>}
      */
     public function household(): array
     {
         return [
             'name' => $this->string('name')->value(),
             'email' => $this->filled('email') ? $this->string('email')->value() : null,
+            'phone' => $this->filled('phone') ? trim($this->string('phone')->value()) : null,
             'locale' => $this->string('locale')->value(),
             'plus_one_allowed' => $this->boolean('plus_one_allowed'),
             'events' => array_map(intval(...), array_values($this->array('events'))),
@@ -72,6 +74,7 @@ class UpdateHouseholdRequest extends FormRequest
             'guests.required' => 'Ein Haushalt braucht mindestens eine Person.',
             'guests.*.first_name.required' => 'Jede Person braucht einen Vornamen.',
             'email.email' => 'Diese E-Mail-Adresse sieht nicht richtig aus.',
+            'phone.regex' => 'Diese Telefonnummer sieht nicht richtig aus.',
         ];
     }
 }

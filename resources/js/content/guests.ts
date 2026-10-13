@@ -54,6 +54,9 @@ export const manualCopy = {
     addPerson: 'Person hinzufügen',
     removePerson: 'Person entfernen',
     email: 'E-Mail (für Erinnerungen)',
+    phone: 'Telefon (freiwillig)',
+    phoneHint:
+        'Nur für uns, wenn ihr «Wir fassen nach» gebucht habt. Gäste sehen es nie.',
     language: 'Sprache',
     plusOne: 'Darf eine Begleitung mitbringen',
     save: 'Haushalt speichern',
