@@ -221,3 +221,30 @@
         @apply grid items-start gap-12 lg:grid-cols-[minmax(0,1fr)_22rem] xl:grid-cols-[minmax(0,1fr)_24rem];
     }
 }
+
+/* «Eure Fotos» on Inhalte: four slots, the first is the cover. */
+@layer components {
+    .couple-photos {
+        @apply grid max-w-3xl grid-cols-2 gap-3 sm:grid-cols-4;
+    }
+
+    .couple-photo {
+        @apply relative aspect-[3/4] overflow-hidden rounded-xl bg-muted;
+    }
+
+    .couple-photo-badge {
+        @apply absolute top-2 left-2 inline-flex items-center gap-1 rounded-full bg-background/90 px-2 py-0.5 text-xs font-medium;
+    }
+
+    .couple-photo-actions {
+        @apply absolute inset-x-2 bottom-2 flex justify-end gap-1.5;
+    }
+
+    .couple-photo-action {
+        @apply inline-flex h-8 cursor-pointer items-center gap-1.5 rounded-full bg-background/90 px-2.5 text-xs font-medium transition-[background-color,scale] duration-150 ease-out hover:bg-background active:scale-95;
+    }
+
+    .couple-photo-add {
+        @apply flex aspect-[3/4] cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border border-dashed border-input text-sm text-muted-foreground transition-colors duration-150 ease-out hover:border-foreground hover:text-foreground has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-ring;
+    }
+}

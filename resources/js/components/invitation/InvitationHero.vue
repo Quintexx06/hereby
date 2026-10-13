@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ArrowDown } from '@lucide/vue';
 import { computed } from 'vue';
+import HeroPhoto from '@/components/invitation/HeroPhoto.vue';
 import { useTrans } from '@/composables/useTrans';
 import { daysUntil } from '@/lib/calendar';
 import { formatDate } from '@/lib/format';
@@ -13,55 +14,50 @@ const props = defineProps<{
 
 const { t, tc, localeTag } = useTrans();
 
-/* "Anna & Luca" set as two lines, the ampersand in the accent voice. */
+/* "Anna & Luca": the ampersand in a light tint of the accent. */
 const names = computed(() => {
     const [first, ...rest] = props.wedding.coupleNames.split(/\s+&\s+/);
 
     return { first, second: rest.join(' & ') };
 });
-const date = computed(() => formatDate(props.wedding.date, localeTag()));
-const days = computed(() => daysUntil(props.wedding.date));
-const seal = computed(() =>
-    `${t('invitation.save_the_date')} · ${date.value} · `.repeat(2),
-);
+const cover = computed(() => props.wedding.photos[0] ?? null);
 </script>
 
-<!-- The first screen: their names as large as the landing's, the date, the place. -->
+<!--
+    Atelier, as on the landing: the names set large over the couple's photo,
+    the date and place beneath them. Without a photo, the same frame at night.
+-->
 <template>
     <header class="inv-hero">
-        <div class="inv-hero-glow" aria-hidden="true" />
-
-        <h1 class="inv-names">
-            <span class="inv-name">{{ names.first }}</span>
-            <template v-if="names.second">
-                <span class="inv-amp accent">&amp;</span>
-                <span class="inv-name">{{ names.second }}</span>
-            </template>
-            <span class="sr-only">{{ t('invitation.marry') }}</span>
-        </h1>
-
-        <div class="inv-hero-meta">
-            <p class="text-lg font-medium" aria-hidden="true">
-                {{ t('invitation.marry') }}
-            </p>
-            <p class="inv-hero-date">{{ date }}</p>
-            <p v-if="place" class="text-muted-foreground">{{ place }}</p>
-            <p class="invitation-countdown">
-                {{ tc('invitation.countdown', days) }}
-            </p>
+        <div class="inv-stage" :data-photo="cover !== null">
+            <HeroPhoto
+                v-if="cover"
+                :photo="cover"
+                :alt="
+                    t('invitation.photo_alt', { couple: wedding.coupleNames })
+                "
+                eager
+                class="inv-stage-photo"
+            />
+            <div class="inv-stage-text">
+                <h1 class="inv-names">
+                    <span class="inv-name">{{ names.first }}</span>
+                    <template v-if="names.second">
+                        <span class="inv-amp">&amp;</span>
+                        <span class="inv-name">{{ names.second }}</span>
+                    </template>
+                    <span class="sr-only">{{ t('invitation.marry') }}</span>
+                </h1>
+                <p class="inv-stage-meta">
+                    {{ formatDate(wedding.date, localeTag())
+                    }}<template v-if="place"> · {{ place }}</template>
+                </p>
+            </div>
         </div>
 
-        <svg class="inv-seal" viewBox="0 0 200 200" aria-hidden="true">
-            <defs>
-                <path
-                    id="seal-path"
-                    d="M100 100m-82 0a82 82 0 1 1 164 0a82 82 0 1 1-164 0"
-                />
-            </defs>
-            <text>
-                <textPath href="#seal-path">{{ seal }}</textPath>
-            </text>
-        </svg>
+        <p class="invitation-countdown">
+            {{ tc('invitation.countdown', daysUntil(wedding.date)) }}
+        </p>
 
         <a href="#inv-letter" class="inv-scroll">
             <ArrowDown class="size-4" aria-hidden="true" />

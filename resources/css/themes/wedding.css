@@ -1,25 +1,17 @@
 /*
- * Guest-site themes (ADR 0004). A theme re-declares semantic tokens on its
- * scope element (`WeddingThemeScope`), so everything inside a wedding site,
- * shadcn components included, takes the couple's look. Guest sites are always
- * light: the couple's design is the design, whatever the visitor's OS setting.
- *
- * Starter themes until the designer's collection replaces them (roadmap
- * Phase 0/1). Ivory is the light house style; the coloured themes share one
- * ladder (same lightness and chroma for paper, ink, rules and accent) and
- * differ only in hue, stepping from lake blue through indigo and lilac
- * to peony pink, so they read as one collection. Every text, accent and
- * button pairing must keep WCAG AA (4.5:1) or better.
- * Themes may also override --type-display / --type-sans for their own pairing.
+ * Guest-site themes (ADR 0004, amended by ADR 0012). A theme re-declares
+ * semantic tokens on its scope element (`WeddingThemeScope`), so everything
+ * inside a wedding site, shadcn components included, takes the couple's
+ * look. Guest sites are always light: porcelain ground and night ink for
+ * every theme, as the landing studio shows them; a theme sets only its
+ * accent (brand, primary, ring, brand-muted). Templates decide the layout,
+ * the couple's photos carry the colour, the theme signs it.
+ * Every accent keeps WCAG AA (4.5:1) on porcelain, as text and as a button.
  */
 @layer base {
     [data-theme] {
         @apply bg-background font-sans text-foreground;
         color-scheme: light;
-    }
-
-    /* Ivory: the Hereby house style. Porcelain, night ink, blush. */
-    [data-theme='ivory'] {
         --background: var(--color-porcelain-100);
         --foreground: var(--color-night-900);
         --card: var(--color-porcelain-50);
@@ -41,99 +33,42 @@
         --rule: color-mix(in oklch, var(--color-night-900) 14%, transparent);
     }
 
-    /* Rosé: berry paper, peony ink. For garden weddings and candlelit dinners. */
+    /* Ivory: the Hereby house style. Porcelain, night ink, blush. */
+
+    /* Rosé: peony. For garden weddings and candlelit dinners. */
     [data-theme='rose'] {
-        color-scheme: dark;
-        --background: oklch(0.33 0.07 350);
-        --foreground: oklch(0.96 0.015 350);
-        --card: oklch(0.36 0.075 350);
-        --card-foreground: oklch(0.96 0.015 350);
-        --popover: oklch(0.36 0.075 350);
-        --popover-foreground: oklch(0.96 0.015 350);
-        --primary: oklch(0.86 0.08 355);
-        --primary-foreground: oklch(0.26 0.06 350);
-        --muted: oklch(0.4 0.075 350);
-        --muted-foreground: oklch(0.84 0.04 350);
-        --accent: oklch(0.4 0.075 350);
-        --accent-foreground: oklch(0.96 0.015 350);
-        --border: oklch(0.47 0.07 350);
-        --input: oklch(0.47 0.07 350);
-        --ring: oklch(0.86 0.08 355);
-        --brand: oklch(0.86 0.08 355);
-        --brand-foreground: oklch(0.26 0.06 350);
-        --brand-muted: oklch(0.46 0.08 350);
-        --rule: color-mix(in oklch, oklch(0.96 0.015 350) 20%, transparent);
+        --theme-hue: 355;
+        --theme-chroma: 0.13;
     }
 
-    /* Alpine: lake-blue paper, glacier ink. For mountain and lake venues. */
+    /* Alpine: lake blue. For mountain and lake venues. */
     [data-theme='alpine'] {
-        color-scheme: dark;
-        --background: oklch(0.33 0.07 235);
-        --foreground: oklch(0.96 0.015 235);
-        --card: oklch(0.36 0.075 235);
-        --card-foreground: oklch(0.96 0.015 235);
-        --popover: oklch(0.36 0.075 235);
-        --popover-foreground: oklch(0.96 0.015 235);
-        --primary: oklch(0.86 0.08 220);
-        --primary-foreground: oklch(0.26 0.06 235);
-        --muted: oklch(0.4 0.075 235);
-        --muted-foreground: oklch(0.84 0.04 235);
-        --accent: oklch(0.4 0.075 235);
-        --accent-foreground: oklch(0.96 0.015 235);
-        --border: oklch(0.47 0.07 235);
-        --input: oklch(0.47 0.07 235);
-        --ring: oklch(0.86 0.08 220);
-        --brand: oklch(0.86 0.08 220);
-        --brand-foreground: oklch(0.26 0.06 235);
-        --brand-muted: oklch(0.46 0.08 235);
-        --rule: color-mix(in oklch, oklch(0.96 0.015 235) 20%, transparent);
+        --theme-hue: 235;
+        --theme-chroma: 0.1;
     }
 
-    /* Riviera: night-sea indigo paper, periwinkle ink. Ticino and the south. */
+    /* Riviera: night-sea indigo. Ticino and the south. */
     [data-theme='riviera'] {
-        color-scheme: dark;
-        --background: oklch(0.33 0.07 265);
-        --foreground: oklch(0.96 0.015 265);
-        --card: oklch(0.36 0.075 265);
-        --card-foreground: oklch(0.96 0.015 265);
-        --popover: oklch(0.36 0.075 265);
-        --popover-foreground: oklch(0.96 0.015 265);
-        --primary: oklch(0.86 0.08 250);
-        --primary-foreground: oklch(0.26 0.06 265);
-        --muted: oklch(0.4 0.075 265);
-        --muted-foreground: oklch(0.84 0.04 265);
-        --accent: oklch(0.4 0.075 265);
-        --accent-foreground: oklch(0.96 0.015 265);
-        --border: oklch(0.47 0.07 265);
-        --input: oklch(0.47 0.07 265);
-        --ring: oklch(0.86 0.08 250);
-        --brand: oklch(0.86 0.08 250);
-        --brand-foreground: oklch(0.26 0.06 265);
-        --brand-muted: oklch(0.46 0.08 265);
-        --rule: color-mix(in oklch, oklch(0.96 0.015 265) 20%, transparent);
+        --theme-hue: 265;
+        --theme-chroma: 0.11;
     }
 
-    /* Lavanda: aubergine paper, lilac ink. Summer meadows and the Valais. */
+    /* Lavanda: lilac. Summer meadows and the Valais. */
     [data-theme='lavanda'] {
-        color-scheme: dark;
-        --background: oklch(0.33 0.07 300);
-        --foreground: oklch(0.96 0.015 300);
-        --card: oklch(0.36 0.075 300);
-        --card-foreground: oklch(0.96 0.015 300);
-        --popover: oklch(0.36 0.075 300);
-        --popover-foreground: oklch(0.96 0.015 300);
-        --primary: oklch(0.86 0.08 310);
-        --primary-foreground: oklch(0.26 0.06 300);
-        --muted: oklch(0.4 0.075 300);
-        --muted-foreground: oklch(0.84 0.04 300);
-        --accent: oklch(0.4 0.075 300);
-        --accent-foreground: oklch(0.96 0.015 300);
-        --border: oklch(0.47 0.07 300);
-        --input: oklch(0.47 0.07 300);
-        --ring: oklch(0.86 0.08 310);
-        --brand: oklch(0.86 0.08 310);
-        --brand-foreground: oklch(0.26 0.06 300);
-        --brand-muted: oklch(0.46 0.08 300);
-        --rule: color-mix(in oklch, oklch(0.96 0.015 300) 20%, transparent);
+        --theme-hue: 305;
+        --theme-chroma: 0.11;
+    }
+
+    /* The coloured themes: one ladder, only the hue changes. */
+    [data-theme]:is(
+        [data-theme='rose'],
+        [data-theme='alpine'],
+        [data-theme='riviera'],
+        [data-theme='lavanda']
+    ) {
+        --brand: oklch(0.47 var(--theme-chroma) var(--theme-hue));
+        --primary: var(--brand);
+        --ring: oklch(0.6 var(--theme-chroma) var(--theme-hue));
+        --brand-muted: oklch(0.9 0.04 var(--theme-hue));
     }
 }

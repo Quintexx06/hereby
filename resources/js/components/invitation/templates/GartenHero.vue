@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+import HeroPhoto from '@/components/invitation/HeroPhoto.vue';
 import GartenBranch from '@/components/invitation/templates/GartenBranch.vue';
 import { useTrans } from '@/composables/useTrans';
 import { daysUntil } from '@/lib/calendar';
@@ -14,35 +15,58 @@ const names = computed(() => {
 
     return { first, second: rest.join(' & ') };
 });
+const cover = computed(() => props.wedding.photos[0] ?? null);
+/* Without a photo the arch holds their initials. */
+const initials = computed(() =>
+    [names.value.first, names.value.second]
+        .filter(Boolean)
+        .map((name) => name.trim().charAt(0))
+        .join(' & '),
+);
 </script>
 
-<!-- Garten: the names inside a tall arch, branches growing round it, petals falling. -->
+<!--
+    Garten, as on the landing: the couple's photo under an arch, a branch
+    growing on either side, the names centred below; petals fall.
+-->
 <template>
     <header class="garten-hero">
         <div class="garten-petals" aria-hidden="true">
             <span v-for="petal in 9" :key="petal" :style="{ '--p': petal }" />
         </div>
         <GartenBranch side="left" />
-        <div class="garten-arch">
-            <p class="text-sm font-medium text-muted-foreground">
-                {{ formatDate(wedding.date, localeTag()) }}
-            </p>
-            <h1 class="garten-names">
-                <span>{{ names.first }}</span>
-                <span v-if="names.second" class="accent text-[0.55em]"
-                    >&amp;</span
-                >
-                <span v-if="names.second">{{ names.second }}</span>
-                <span class="sr-only">{{ t('invitation.marry') }}</span>
-            </h1>
-            <p class="text-lg font-medium" aria-hidden="true">
-                {{ t('invitation.marry') }}
-            </p>
-            <p v-if="place" class="text-muted-foreground">{{ place }}</p>
-            <p class="invitation-countdown">
-                {{ tc('invitation.countdown', daysUntil(wedding.date)) }}
-            </p>
-        </div>
         <GartenBranch side="right" />
+
+        <p class="text-sm font-medium text-muted-foreground">
+            {{ t('invitation.save_the_date') }}
+        </p>
+        <div class="garten-arch" :data-photo="cover !== null">
+            <HeroPhoto
+                v-if="cover"
+                :photo="cover"
+                :alt="
+                    t('invitation.photo_alt', { couple: wedding.coupleNames })
+                "
+                eager
+                class="size-full"
+            />
+            <span v-else class="garten-initials" aria-hidden="true">{{
+                initials
+            }}</span>
+        </div>
+        <h1 class="garten-names">
+            {{ names.first }}
+            <template v-if="names.second">
+                <span class="text-brand">&amp;</span> {{ names.second }}
+            </template>
+            <span class="sr-only">{{ t('invitation.marry') }}</span>
+        </h1>
+        <p class="font-medium text-muted-foreground">
+            {{ formatDate(wedding.date, localeTag())
+            }}<template v-if="place"> · {{ place }}</template>
+        </p>
+        <p class="invitation-countdown">
+            {{ tc('invitation.countdown', daysUntil(wedding.date)) }}
+        </p>
     </header>
 </template>

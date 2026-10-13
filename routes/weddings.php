@@ -3,6 +3,7 @@
 use App\Http\Controllers\AddressSearchController;
 use App\Http\Controllers\Billing\PublishController;
 use App\Http\Controllers\Content\ContentBlockController;
+use App\Http\Controllers\Content\CouplePhotoController;
 use App\Http\Controllers\Content\PreviewInvitationController;
 use App\Http\Controllers\Content\ReorderContentBlocksController;
 use App\Http\Controllers\Evening\EveningController;
@@ -53,6 +54,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('hochzeit/{wedding}/inhalte', [ContentBlockController::class, 'index'])->name('weddings.content.index');
         Route::post('hochzeit/{wedding}/inhalte', [ContentBlockController::class, 'store'])->name('weddings.content.store');
         Route::put('hochzeit/{wedding}/inhalte/reihenfolge', ReorderContentBlocksController::class)->name('weddings.content.reorder');
+        Route::post('hochzeit/{wedding}/fotos', [CouplePhotoController::class, 'store'])
+            ->middleware('throttle:photo-uploads')
+            ->name('weddings.photos.store');
         Route::get('hochzeit/{wedding}/vorschau', PreviewInvitationController::class)->name('weddings.preview');
 
         Route::get('hochzeit/{wedding}/freischalten', [PublishController::class, 'show'])->name('weddings.publish.show');
@@ -94,6 +98,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 Route::delete('hochzeit/{wedding}/erinnerungen/{photo}', [MemoriesController::class, 'destroy'])
                     ->name('weddings.memories.destroy');
             });
+            Route::put('hochzeit/{wedding}/fotos/{couplePhoto}/titelbild', [CouplePhotoController::class, 'cover'])
+                ->name('weddings.photos.cover');
+            Route::delete('hochzeit/{wedding}/fotos/{couplePhoto}', [CouplePhotoController::class, 'destroy'])
+                ->name('weddings.photos.destroy');
             Route::put('hochzeit/{wedding}/inhalte/{contentBlock:id}', [ContentBlockController::class, 'update'])->name('weddings.content.update');
             Route::delete('hochzeit/{wedding}/inhalte/{contentBlock:id}', [ContentBlockController::class, 'destroy'])->name('weddings.content.destroy');
             Route::put('hochzeit/{wedding}/haushalte/{household:id}', [HouseholdController::class, 'update'])

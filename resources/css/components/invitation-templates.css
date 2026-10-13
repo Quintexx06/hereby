@@ -11,21 +11,27 @@
 
     /* --- Garten ----------------------------------------------------------- */
     .garten-hero {
-        @apply relative isolate grid min-h-svh w-full max-w-6xl grid-cols-[1fr_minmax(0,30rem)_1fr] items-end pt-10;
+        @apply relative isolate flex min-h-svh w-full max-w-6xl flex-col items-center justify-center gap-4 pt-10 pb-16 text-center;
     }
 
+    /* The couple's photo under an arch; without one, their initials. */
     .garten-arch {
-        @apply col-start-2 flex min-h-[78svh] flex-col items-center justify-center gap-4 rounded-t-full border border-brand/40 bg-card px-8 pt-24 pb-14 text-center;
+        @apply grid aspect-[3/4] w-[min(72vw,22rem)] place-items-center overflow-hidden rounded-t-full bg-brand-muted;
         /* Rise without fading: content invisible at first paint never counts as LCP. */
         animation: garten-rise 1s var(--ease-out) both;
     }
 
+    .garten-initials {
+        @apply font-display text-5xl font-semibold tracking-[-0.04em] text-brand;
+    }
+
     .garten-names {
-        @apply flex flex-col items-center font-display text-[clamp(3rem,11vw,6rem)] leading-[0.9] font-semibold tracking-[-0.05em] text-balance;
+        @apply font-display text-[clamp(2.75rem,9vw,5.5rem)] leading-[0.9] font-bold tracking-[-0.05em] text-balance [overflow-wrap:anywhere];
+        font-stretch: 112%;
     }
 
     .garten-branch {
-        @apply pointer-events-none absolute bottom-0 h-[70svh] w-auto max-w-[40vw] text-brand;
+        @apply pointer-events-none absolute top-[12svh] -z-10 h-[56svh] w-auto max-w-[30vw] text-brand;
     }
 
     .garten-branch[data-side='left'] {
@@ -125,12 +131,28 @@
         @apply px-5 sm:px-8;
     }
 
+    /* A night band, as on the landing: the lights read its tokens. */
     .panorama-hero {
-        @apply relative isolate flex min-h-svh w-full flex-col justify-end gap-10 overflow-hidden pb-12;
+        --band-accent: color-mix(in oklch, var(--brand) 35%, white);
+        --background: var(--color-night-950);
+        --foreground: var(--color-porcelain-50);
+        --rule: color-mix(in oklch, var(--color-porcelain-50) 25%, transparent);
+        @apply relative isolate mx-auto mt-3 flex min-h-[min(88svh,52rem)] w-[calc(100%-1.5rem)] flex-col justify-center gap-8 overflow-hidden rounded-[1.5rem] bg-background py-10 text-foreground sm:mt-5 sm:w-[calc(100%-2.5rem)];
     }
 
+    /* The lights take a light tint of the accent, as the dot and the date. */
     .panorama-bokeh {
+        --brand: var(--band-accent);
         @apply absolute inset-0 -z-10 size-full transition-opacity duration-1000 ease-out;
+    }
+
+    .panorama-strip {
+        @apply mx-auto grid w-full max-w-6xl gap-2 px-3 sm:gap-3 sm:px-5;
+        grid-template-columns: repeat(var(--count), minmax(0, 1fr));
+    }
+
+    .panorama-photo {
+        @apply aspect-[3/4] w-full rounded-md sm:aspect-[4/3];
     }
 
     .panorama-marquee {
@@ -143,11 +165,12 @@
     }
 
     .panorama-names {
-        @apply shrink-0 font-display text-[clamp(5rem,17vw,15rem)] leading-[0.85] font-semibold tracking-[-0.06em] whitespace-nowrap;
+        @apply shrink-0 font-display text-[clamp(3.5rem,11vw,9rem)] leading-[0.9] font-bold tracking-[-0.05em] whitespace-nowrap;
     }
 
     .panorama-dot {
-        @apply px-[0.3em] text-brand;
+        @apply px-[0.3em];
+        color: var(--band-accent);
     }
 
     .panorama-meta {
@@ -155,7 +178,8 @@
     }
 
     .panorama-date {
-        @apply font-display text-[clamp(2.5rem,7vw,5rem)] leading-none font-semibold tracking-[-0.05em] text-brand tabular-nums;
+        @apply font-display text-[clamp(2.5rem,7vw,5rem)] leading-none font-semibold tracking-[-0.05em] tabular-nums;
+        color: var(--band-accent);
     }
 
     /* The day as a row of frames: swipe on phones, pinned scroll on wide screens. */

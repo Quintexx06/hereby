@@ -89,8 +89,9 @@ Two surfaces, two looks (ADR 0004):
 - **Platform** (marketing, auth, dashboard): this system. Marketing is light by
   default (`.surface-light`) with `.stage` night sections; the app is always
   light (no dark mode), with the night sidebar framing the porcelain workspace.
-- **Guest sites** (`pages/invitation/*`): the couple's theme re-declares the
-  semantic tokens inside `WeddingThemeScope`. Ivory is the house theme.
+- **Guest sites** (`pages/invitation/*`): always porcelain and night ink,
+  as the landing studio shows them; the couple's theme sets only the accent
+  inside `WeddingThemeScope` (ADR 0012). Ivory is the house theme.
 
 ## Colors
 
@@ -442,13 +443,16 @@ preview panel is its one moment.
 
 ## Guest templates (`WeddingTemplate`, `components/invitation/templates/`)
 
-Layout and motion, independent of the colour theme (any template × any theme):
+Layout and motion, independent of the accent (any template × any theme).
+The first screens are the landing studio's, filled with the couple's own
+photos (up to four, uploaded in «Inhalte», cover first; spec
+2026-10-13-couple-photos). Each still stands without a photo.
 
-| Template | First screen                                         | Story                          | Signature motion                                                 |
-| -------- | ---------------------------------------------------- | ------------------------------ | ---------------------------------------------------------------- |
-| Atelier  | names at landing scale, turning seal                 | a drawn path through chapters  | letters drift apart on scroll, path scrubbed (DrawSVG)           |
-| Garten   | names in a tall arch between hand-drawn SVG branches | chapters in garden-gate arches | branches draw and leaves unfurl (CSS), arches open (clip-path)   |
-| Panorama | names as a running title over three.js bokeh         | film strip                     | title leans with scroll speed, the day pins and travels sideways |
+| Template | First screen                                                                | Without a photo                         | Story                          | Signature motion                                                 |
+| -------- | --------------------------------------------------------------------------- | --------------------------------------- | ------------------------------ | ---------------------------------------------------------------- |
+| Atelier  | names set large over the cover photo in a rounded frame, date · place       | the frame at night, an accent glow      | a drawn path through chapters  | letters drift apart on scroll, path scrubbed (DrawSVG)           |
+| Garten   | the cover under an arch between hand-drawn branches, names centred below    | the arch in the accent's tint, initials | chapters in garden-gate arches | branches draw and leaves unfurl (CSS), arches open (clip-path)   |
+| Panorama | a night band: names running past, up to three photos edge to edge, the date | the band without the strip              | film strip                     | title leans with scroll speed, the day pins and travels sideways |
 
 Guest-page budget (rule 2): the first screen is CSS only. GSAP
 (`useGuestMotion`) and three.js load on the guest's first scroll, touch or
@@ -456,17 +460,20 @@ key, never in the first paint; reduced motion keeps everything still.
 
 ## Wedding themes
 
-| Theme   | Mood                              | `brand`    |
-| ------- | --------------------------------- | ---------- |
-| Ivory   | House style: porcelain, night ink | Blush ink  |
-| Rosé    | Berry paper, peony ink            | Peony      |
-| Alpine  | Lake-blue paper, glacier ink      | Glacier    |
-| Riviera | Indigo paper, limestone ink       | Periwinkle |
-| Lavanda | Aubergine paper, lilac ink        | Lilac      |
+Every theme is porcelain ground and night ink (ADR 0012); a theme is its
+accent (`brand`, `primary`, `ring`, `brand-muted`), as the landing's
+accent chips show it.
 
-The coloured themes share one lightness/chroma ladder and differ only in hue,
-stepping from lake blue through indigo and lilac to peony pink,
-so the collection reads as one family.
+| Theme   | Accent              |
+| ------- | ------------------- |
+| Ivory   | Blush (house style) |
+| Rosé    | Peony               |
+| Alpine  | Lake blue           |
+| Riviera | Night-sea indigo    |
+| Lavanda | Lilac               |
+
+The coloured accents share one lightness/chroma ladder (L 0.47, AA on
+porcelain) and differ only in hue, so the collection reads as one family.
 
 Starter themes until the designer's collection lands (roadmap 0.6).
 

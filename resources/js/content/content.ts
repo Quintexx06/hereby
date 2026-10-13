@@ -1,6 +1,18 @@
 /** Copy for the couple's "Inhalte" editor and the preview (Swiss German, "ihr"). */
 import type { ContentBlockType } from '@/types/wedding';
 
+/** «Eure Fotos» on Inhalte (spec 2026-10-13-couple-photos). */
+export const couplePhotosCopy = {
+    title: 'Eure Fotos',
+    hint: 'Bis zu vier Fotos von euch. Das erste steht gross oben auf eurer Seite, so wie auf der Startseite gezeigt.',
+    add: 'Foto hinzufügen',
+    uploading: 'Wird hochgeladen …',
+    cover: 'Titelbild',
+    makeCover: 'Als Titelbild',
+    remove: 'Foto löschen',
+    alt: (index: number) => `Euer Foto ${index + 1}`,
+};
+
 export const contentPage = {
     title: 'Inhalte',
     lede: 'Was eure Gäste sonst per Nachricht fragen würden: wo, was anziehen, wie es zu euch kam. Jeder Block erscheint auf jeder persönlichen Einladung.',

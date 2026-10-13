@@ -5,6 +5,7 @@ return [
     'for' => 'Per',
     'title' => ':couple si sposano',
     'marry' => 'si sposano',
+    'photo_alt' => 'Foto di :couple',
     'dear' => 'Cari :names',
     'letter' => 'Ci sposiamo, e non sarebbe lo stesso senza di voi. Qui trovate tutto per il grande giorno, e con un tocco ci dite se ci sarete.',
     'scroll' => 'Continua',

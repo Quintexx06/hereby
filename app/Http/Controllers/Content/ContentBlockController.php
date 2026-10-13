@@ -9,6 +9,7 @@ use App\Http\Requests\Content\UpdateContentBlockRequest;
 use App\Models\ContentBlock;
 use App\Models\Event;
 use App\Models\Wedding;
+use App\Models\WeddingPhoto;
 use App\Support\WeddingLanguages;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
@@ -33,6 +34,10 @@ class ContentBlockController extends Controller
                 'type' => $block->type,
                 'event_id' => $block->event_id,
                 'content' => (object) $block->content,
+            ]),
+            'photos' => $wedding->couplePhotos->map(fn (WeddingPhoto $photo): array => [
+                'id' => $photo->id,
+                'url' => route('wedding-photos.show', $photo->token),
             ]),
             'events' => $wedding->events()->orderBy('starts_at')->get()->map(fn (Event $event): array => [
                 'id' => $event->id,

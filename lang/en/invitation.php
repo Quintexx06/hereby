@@ -5,6 +5,7 @@ return [
     'for' => 'For',
     'title' => ':couple are getting married',
     'marry' => 'are getting married',
+    'photo_alt' => 'Photo of :couple',
     'dear' => 'Dear :names',
     'letter' => 'We are getting married, and it would not be the same without you. Everything for the day is here, and one tap tells us whether you can come.',
     'scroll' => 'Continue',

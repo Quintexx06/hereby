@@ -9,6 +9,7 @@ use App\Models\Household;
 use App\Models\Inquiry;
 use App\Models\User;
 use App\Models\Wedding;
+use App\Models\WeddingPhoto;
 use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Routing\Route as RoutingRoute;
@@ -92,6 +93,7 @@ class AccessControlTest extends TestCase
             'contentBlock' => ContentBlock::factory()->for($wedding)->create()->id,
             'inquiry' => Inquiry::factory()->create()->id,
             'photo' => GuestPhoto::factory()->for($wedding)->create()->id,
+            'couplePhoto' => WeddingPhoto::factory()->for($wedding)->create()->id,
             'size' => 'original',
         ];
         $values = $this->parameters[$wedding->id];

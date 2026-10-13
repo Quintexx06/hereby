@@ -21,6 +21,9 @@ export type ContentWedding = {
     venue: string | null;
 };
 
+/** One of the couple's photos on Inhalte, cover first. */
+export type CouplePhoto = { id: number; url: string };
+
 export type ContentEvent = {
     id: number;
     type: EventType;

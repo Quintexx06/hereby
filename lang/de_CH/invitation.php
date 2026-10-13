@@ -5,6 +5,7 @@ return [
     'for' => 'Für',
     'title' => ':couple heiraten',
     'marry' => 'heiraten',
+    'photo_alt' => 'Foto von :couple',
     'dear' => 'Liebe :names',
     'letter' => 'Wir heiraten, und es wäre nicht dasselbe ohne euch. Hier findet ihr alles für den Tag, und mit einem Tippen sagt ihr uns, ob ihr dabei seid.',
     'scroll' => 'Weiter',

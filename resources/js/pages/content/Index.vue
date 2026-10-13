@@ -4,6 +4,7 @@ import { Head, router } from '@inertiajs/vue3';
 import { Eye, Plus } from '@lucide/vue';
 import { computed, ref } from 'vue';
 import BlockEditor from '@/components/content/BlockEditor.vue';
+import CouplePhotos from '@/components/content/CouplePhotos.vue';
 import InvitationPreview from '@/components/content/InvitationPreview.vue';
 import { blockTypes, contentPage as copy } from '@/content/content';
 import { dashboardPage } from '@/content/dashboard';
@@ -14,6 +15,7 @@ import type {
     ContentBlockType,
     ContentEvent,
     ContentWedding,
+    CouplePhoto,
     EditableBlock,
 } from '@/types';
 
@@ -21,6 +23,7 @@ const props = defineProps<{
     wedding: ContentWedding;
     blocks: EditableBlock[];
     events: ContentEvent[];
+    photos: CouplePhoto[];
 }>();
 
 defineOptions({
@@ -77,6 +80,12 @@ function move(index: number, direction: -1 | 1): void {
             </template>
         </PageMasthead>
 
+        <CouplePhotos
+            :wedding-id="wedding.id"
+            :photos="photos"
+            @changed="saves++"
+        />
+
         <p v-if="blocks.length === 0" class="text-muted-foreground">
             {{ copy.empty }}
         </p>
@@ -96,7 +105,7 @@ function move(index: number, direction: -1 | 1): void {
                 />
             </div>
             <InvitationPreview
-                v-if="blocks.length"
+                v-if="blocks.length || photos.length"
                 :wedding="wedding"
                 :version="saves + blocks.length"
             />

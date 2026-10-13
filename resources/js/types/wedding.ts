@@ -31,12 +31,16 @@ export type EventType =
     | 'brunch'
     | 'other';
 
+/** One of the couple's own photos, cover first (WeddingResource). */
+export type WeddingPhoto = { url: string; width: number; height: number };
+
 export type Wedding = {
     coupleNames: string;
     date: string;
     rsvpDeadline: string | null;
     theme: WeddingTheme;
     template: WeddingTemplate;
+    photos: WeddingPhoto[];
 };
 
 export type WeddingEvent = {

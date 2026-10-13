@@ -6,6 +6,7 @@ use App\Http\Controllers\Invitations\ProgrammeController;
 use App\Http\Controllers\Invitations\SaveReplyController;
 use App\Http\Controllers\Invitations\ShowInvitationController;
 use App\Http\Controllers\Invitations\ShowReplyController;
+use App\Http\Controllers\Invitations\ShowWeddingPhotoController;
 use App\Http\Controllers\Invitations\StopRemindersController;
 use App\Http\Controllers\Memories\GuestUploadController;
 use App\Http\Controllers\Witness\GroupPhotoCallController;
@@ -45,6 +46,13 @@ Route::middleware(['throttle:invitations', PreventIndexing::class, EnsureWedding
             ->name('invitation.programme.destroy');
     });
 });
+
+/*
+| The couple's own photos for their site, by unguessable token (spec 2026-10-13-couple-photos).
+*/
+Route::get('paarfoto/{weddingPhoto:token}', ShowWeddingPhotoController::class)
+    ->middleware(['throttle:invitations', PreventIndexing::class])
+    ->name('wedding-photos.show');
 
 /*
 | «Fotos von allen»: one upload link per wedding, for every guest. The token
