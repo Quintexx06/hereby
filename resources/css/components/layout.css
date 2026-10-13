@@ -20,7 +20,7 @@
      * The app workspace beside the night sidebar: a framed porcelain sheet.
      */
     .app-workspace {
-        @apply md:border md:border-sidebar-border;
+        @apply sm:border sm:border-sidebar-border;
     }
 
     /* No sidebar yet (no active wedding): a calm page with a slim top bar. */

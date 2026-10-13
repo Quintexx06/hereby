@@ -53,7 +53,7 @@
 /* Account pages (layouts/settings): text tabs on a hairline, no filled pills. */
 @layer components {
     .settings-tabs {
-        @apply -mt-4 flex gap-6 overflow-x-auto border-b;
+        @apply -mt-4 flex flex-wrap gap-x-6 border-b;
     }
 
     .settings-tab {
@@ -165,23 +165,37 @@
     }
 }
 
-/* "Küche & Service": numbers first, one hairline block per part of the day. */
+/*
+ * "Küche & Service": one card with a row per part of the day (equal rows,
+ * the count right-aligned), and beside it the exports and the service.
+ */
 @layer components {
-    .kitchen-action {
-        @apply flex min-h-16 items-start gap-3 border-b border-rule py-4 transition-colors duration-150 ease-out hover:text-brand;
+    .kitchen-layout {
+        @apply grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(18rem,22rem)];
     }
 
-    /* One column per part of the day, like the courses on a menu card. */
-    .kitchen-grid {
-        @apply grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3;
+    .kitchen-card {
+        @apply flex flex-col gap-4 rounded-[1.25rem] border border-rule bg-card p-6 sm:p-8;
     }
 
-    .kitchen-event {
-        @apply flex flex-col gap-3 border-t border-foreground pt-6;
+    .kitchen-card-title {
+        @apply text-sm font-medium text-muted-foreground;
+    }
+
+    .kitchen-row {
+        @apply flex flex-col gap-4 border-t border-rule py-6 first:border-t-0 first:pt-2 last:pb-0;
     }
 
     .kitchen-number {
         @apply font-display text-5xl leading-none font-semibold tracking-[-0.04em] tabular-nums;
+    }
+
+    .kitchen-action {
+        @apply -mx-3 flex items-start gap-3 rounded-xl p-3 transition-colors duration-150 ease-out hover:bg-muted;
+    }
+
+    .kitchen-action-icon {
+        @apply mt-0.5 size-5 shrink-0 text-brand;
     }
 
     .kitchen-menus {
@@ -189,7 +203,7 @@
     }
 
     .kitchen-menus > li {
-        @apply flex items-center justify-between gap-4 border-b py-2.5 text-sm;
+        @apply flex items-center justify-between gap-4 border-b border-rule py-2.5 text-sm last:border-b-0;
     }
 }
 

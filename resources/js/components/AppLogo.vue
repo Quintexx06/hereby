@@ -1,11 +1,10 @@
 <!--
-    The wordmark in the sidebar; collapsed to its first letter and full stop.
+    The wordmark in the nav; in the icon rail its first letter and full stop.
     On hover the letters drop through and fall back in, one after another,
     as the footer's wordmark arrives.
 -->
 <template>
-    <span
-        class="wordmark wordmark-drop text-[1.6rem] group-data-[collapsible=icon]:hidden"
+    <span class="wordmark wordmark-drop app-nav-wide text-[1.6rem]"
         ><span
             v-for="(letter, index) in 'hereby'"
             :key="index"
@@ -16,7 +15,7 @@
             >.</span
         ></span
     >
-    <span class="wordmark hidden text-xl group-data-[collapsible=icon]:inline">
+    <span class="wordmark app-nav-railonly text-xl">
         h<span class="wordmark-stop">.</span>
     </span>
 </template>

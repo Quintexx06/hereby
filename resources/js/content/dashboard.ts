@@ -97,6 +97,8 @@ export const dashboardPage = { title: 'Übersicht' };
 
 export const sidebarWedding = {
     linksClosed: 'Links geschlossen · freischalten',
+    /** Signature, Atelier and Couture are names, so they get a German frame. */
+    plan: (name: string) => `Paket ${name}`,
     fallbackName: 'Eure Hochzeit',
     inSetup: (step: string) => `Einrichtung: ${step}`,
 };

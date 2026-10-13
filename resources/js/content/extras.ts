@@ -20,8 +20,8 @@ export type AddonOffer = {
 export const extrasPage = {
     title: 'Extras',
     lede: 'Was ihr zu eurem Paket dazunehmen könnt, einzeln und einmalig. Couture enthält alles ausser «Erinnerungen behalten».',
-    buy: (price: number) => `Dazunehmen · ${chf(price)}`,
-    renew: (price: number) => `Ein Jahr länger · ${chf(price)}`,
+    buyShort: 'Dazunehmen',
+    renewShort: 'Ein Jahr länger',
     owned: 'Gebucht',
     included: 'In eurem Paket',
     needsPlan: 'Zuerst braucht ihr ein Paket.',
@@ -53,6 +53,17 @@ export const addons: Record<
         line: 'Nach einem Jahr löschen wir die Daten eurer Gäste. Fotos, Grüsse und eure Zeitung bleiben so ein weiteres Jahr.',
         perYear: true,
     },
+};
+
+/** Demo content for each extra's small scene on the Extras page. */
+export const addonScenes = {
+    newspaper: { masthead: 'Die Hochzeitszeitung', lead: 'Wie alles begann' },
+    chase: {
+        open: 'offen',
+        done: 'zugesagt',
+        names: ['Familie Keller', 'Sofia & Jonas', 'Onkel Peter'],
+    },
+    domain: { before: 'hereby.ch/w/k7f2q', after: 'anna-und-luca.ch' },
 };
 
 export const newspaperPage = {

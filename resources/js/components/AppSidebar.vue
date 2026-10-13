@@ -1,26 +1,16 @@
 <script setup lang="ts">
-import { Link } from '@inertiajs/vue3';
+import { Link, usePage } from '@inertiajs/vue3';
+import { computed } from 'vue';
 import AppLogo from '@/components/AppLogo.vue';
 import NavFooter from '@/components/NavFooter.vue';
 import NavMain from '@/components/NavMain.vue';
 import NavUser from '@/components/NavUser.vue';
 import SidebarWedding from '@/components/sidebar/SidebarWedding.vue';
 import {
-    Sidebar,
-    SidebarContent,
-    SidebarFooter,
-    SidebarHeader,
-    SidebarMenu,
-    SidebarMenuButton,
-    SidebarMenuItem,
-} from '@/components/ui/sidebar';
-import {
     adminNavItems,
     mainNavItems,
     secondaryNavItems,
 } from '@/config/navigation';
-import { usePage } from '@inertiajs/vue3';
-import { computed } from 'vue';
 import { dashboard } from '@/routes';
 
 const page = usePage();
@@ -30,34 +20,25 @@ const teamItems = computed(() =>
 );
 </script>
 
+<!--
+    Hereby's own app nav, always night. Full, icon rail or drawer is up to
+    CSS (app-nav.css), so the same markup stays mounted at every width.
+-->
 <template>
-    <Sidebar collapsible="icon" variant="inset" class="stage">
-        <SidebarHeader>
-            <SidebarMenu>
-                <SidebarMenuItem>
-                    <SidebarMenuButton
-                        size="lg"
-                        as-child
-                        class="hover:bg-transparent active:bg-transparent"
-                    >
-                        <Link :href="dashboard()">
-                            <AppLogo />
-                        </Link>
-                    </SidebarMenuButton>
-                </SidebarMenuItem>
-            </SidebarMenu>
-        </SidebarHeader>
+    <aside id="app-nav" class="app-nav stage">
+        <Link :href="dashboard()" class="app-nav-logo">
+            <AppLogo />
+        </Link>
 
-        <SidebarContent>
+        <div class="app-nav-scroll">
             <SidebarWedding />
-            <NavMain :items="navItems" />
+            <NavMain :items="navItems" label-sr="Hochzeit" />
             <NavMain v-if="teamItems.length" label="Team" :items="teamItems" />
-        </SidebarContent>
+        </div>
 
-        <SidebarFooter>
+        <div class="app-nav-foot">
             <NavFooter :items="secondaryNavItems" />
             <NavUser />
-        </SidebarFooter>
-    </Sidebar>
-    <slot />
+        </div>
+    </aside>
 </template>

@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { usePage } from '@inertiajs/vue3';
 import { computed, onBeforeUnmount, watchEffect } from 'vue';
-import AppContent from '@/components/AppContent.vue';
 import AppFocusBar from '@/components/AppFocusBar.vue';
-import AppShell from '@/components/AppShell.vue';
 import AppSidebar from '@/components/AppSidebar.vue';
 import AppSidebarHeader from '@/components/AppSidebarHeader.vue';
+import ScrollRail from '@/components/sidebar/ScrollRail.vue';
 import { Toaster } from '@/components/ui/sonner';
+import { provideAppNav } from '@/composables/useAppNav';
 import type { BreadcrumbItem } from '@/types';
 
 type Props = {
@@ -27,8 +27,9 @@ const hasSidebar = computed(
         page.props.currentWedding?.status === 'active' ||
         page.props.adminInbox !== null,
 );
+const { expanded, drawer, close } = provideAppNav(page.props.sidebarOpen);
 
-/* The page scrolls on the night frame then; base.css gives it a light scrollbar. */
+/* The page scrolls on the night frame then, with its own scroll rail. */
 const shell = (on: boolean) =>
     typeof document !== 'undefined' &&
     document.documentElement.classList.toggle('app-shell', on);
@@ -37,17 +38,21 @@ onBeforeUnmount(() => shell(false));
 </script>
 
 <template>
-    <AppShell v-if="hasSidebar" variant="sidebar">
+    <div
+        v-if="hasSidebar"
+        class="app-frame"
+        :data-expanded="expanded"
+        :data-drawer="drawer"
+    >
         <AppSidebar />
-        <AppContent
-            variant="sidebar"
-            class="app-workspace min-w-0 overflow-x-clip"
-        >
+        <div class="app-nav-backdrop" aria-hidden="true" @click="close" />
+        <main class="app-main app-workspace">
             <AppSidebarHeader :breadcrumbs="breadcrumbs" />
             <slot />
-        </AppContent>
+        </main>
+        <ScrollRail />
         <Toaster />
-    </AppShell>
+    </div>
     <div v-else class="app-focus">
         <AppFocusBar />
         <main class="min-w-0 flex-1">

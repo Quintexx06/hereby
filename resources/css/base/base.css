@@ -67,31 +67,18 @@
         );
     }
 
-    /* In the app shell the page scrolls on the night frame: a porcelain pill there. */
+    /*
+     * In the app shell the page scrolls on the night frame. Its native
+     * scrollbar came and went with the page's length and pushed the
+     * workspace sideways; ScrollRail draws one that takes no space.
+     */
     html.app-shell {
-        --scrollbar-thumb: color-mix(
-            in oklch,
-            var(--color-porcelain-100) 32%,
-            transparent
-        );
-        --scrollbar-thumb-hover: color-mix(
-            in oklch,
-            var(--color-porcelain-100) 55%,
-            transparent
-        );
         background-color: var(--color-night-950);
+        scrollbar-width: none;
     }
 
-    /* Only the page's own scrollbar; inner scroll areas keep the ink pill. */
-    html.app-shell
-        :is(
-            [data-slot='sidebar-inset'],
-            [role='dialog'],
-            [role='menu'],
-            [role='listbox']
-        ) {
-        --scrollbar-thumb: initial;
-        --scrollbar-thumb-hover: initial;
+    html.app-shell::-webkit-scrollbar {
+        display: none;
     }
 
     ::-webkit-scrollbar-button {
@@ -123,18 +110,14 @@
 
 /* Firefox has no ::-webkit-scrollbar; the standard properties give it the same slim pill. */
 @supports not selector(::-webkit-scrollbar) {
-    html.app-shell {
-        scrollbar-color: color-mix(
-                in oklch,
-                var(--color-porcelain-100) 30%,
-                transparent
-            )
-            var(--color-night-950);
-    }
-
     * {
         scrollbar-width: thin;
         scrollbar-color: color-mix(in oklch, var(--foreground) 22%, transparent)
             transparent;
+    }
+
+    /* The app shell's page scrollbar is ScrollRail's; see above. */
+    html.app-shell {
+        scrollbar-width: none;
     }
 }

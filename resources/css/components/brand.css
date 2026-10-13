@@ -39,8 +39,8 @@
         @apply inline-block;
     }
 
-    [data-sidebar='menu-button']:hover .wordmark-letter,
-    [data-sidebar='menu-button']:focus-visible .wordmark-letter {
+    .app-nav-logo:hover .wordmark-letter,
+    .app-nav-logo:focus-visible .wordmark-letter {
         animation: letter-drop 560ms var(--ease-out) calc(var(--i) * 40ms) both;
     }
 

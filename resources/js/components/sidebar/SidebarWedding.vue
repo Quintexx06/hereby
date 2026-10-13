@@ -37,10 +37,7 @@ const countdown = computed(() =>
 
 <!-- Whose wedding this is: the couple's names, the date and the countdown. -->
 <template>
-    <div
-        v-if="wedding"
-        class="flex flex-col gap-1 px-4 pt-2 pb-6 group-data-[collapsible=icon]:hidden"
-    >
+    <div v-if="wedding" class="app-nav-wide flex-col gap-1 px-3 pt-2 pb-6">
         <p
             class="font-display text-2xl leading-tight font-semibold tracking-[-0.03em] text-balance"
         >
@@ -60,7 +57,7 @@ const countdown = computed(() =>
         >
             {{
                 wedding.plan
-                    ? plans[wedding.plan].name
+                    ? sidebarWedding.plan(plans[wedding.plan].name)
                     : sidebarWedding.linksClosed
             }}
         </Link>

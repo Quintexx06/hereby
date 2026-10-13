@@ -1,0 +1,155 @@
+/*
+ * Extras (pages/extras): two large cards a row, each opening on a small
+ * scene of what the extra does. Hover (or focus within) plays the scene;
+ * all of it is transform and opacity, under 400ms, and still under
+ * reduced motion.
+ */
+@layer components {
+    .addon-grid {
+        @apply grid gap-6 md:grid-cols-2;
+    }
+
+    .addon-card {
+        @apply flex flex-col gap-6 rounded-[1.5rem] border border-rule bg-card p-6 transition-[translate,box-shadow] duration-300 ease-out sm:p-8;
+    }
+
+    @media (hover: hover) {
+        .addon-card:hover {
+            @apply -translate-y-1 shadow-[0_30px_60px_-36px_rgb(30_14_10/0.45)];
+        }
+    }
+
+    .addon-foot {
+        @apply mt-auto flex flex-wrap items-center justify-between gap-4 border-t border-rule pt-5;
+    }
+
+    .addon-scene {
+        @apply relative grid h-44 place-items-center overflow-hidden rounded-[1rem] bg-muted;
+    }
+
+    /* Newspaper: a page that lifts, the next one peeking out behind. */
+    .addon-paper {
+        @apply relative flex w-40 flex-col gap-1.5 rounded-md bg-background p-3 shadow-[0_18px_30px_-20px_rgb(30_14_10/0.5)];
+        transition:
+            rotate 360ms var(--ease-out),
+            translate 360ms var(--ease-out);
+    }
+
+    .addon-paper-back {
+        @apply absolute h-36 bg-background/70 p-0;
+        rotate: 0deg;
+    }
+
+    .addon-card:is(:hover, :focus-within) .addon-paper:not(.addon-paper-back) {
+        rotate: -4deg;
+        translate: -10px -6px;
+    }
+
+    .addon-card:is(:hover, :focus-within) .addon-paper-back {
+        rotate: 6deg;
+        translate: 18px 4px;
+    }
+
+    .addon-line {
+        @apply block h-1.5 w-full rounded-full bg-muted;
+    }
+
+    /* Wir fassen nach: open replies turn to yes, one after another. */
+    .addon-chase {
+        @apply flex w-64 flex-col gap-2;
+    }
+
+    .addon-chase > li {
+        @apply flex items-center justify-between gap-3 rounded-lg bg-background px-3 py-2 text-xs font-medium;
+    }
+
+    .addon-chip {
+        @apply relative grid overflow-hidden rounded-full text-[0.65rem];
+    }
+
+    .addon-chip > span {
+        @apply col-start-1 row-start-1 px-2 py-0.5 text-center;
+        transition:
+            translate 280ms var(--ease-out) calc(var(--i) * 90ms),
+            opacity 280ms var(--ease-out) calc(var(--i) * 90ms);
+    }
+
+    .addon-chip-open {
+        @apply bg-muted text-muted-foreground;
+    }
+
+    .addon-chip-done {
+        @apply translate-y-full bg-brand text-brand-foreground opacity-0;
+    }
+
+    .addon-card:is(:hover, :focus-within) .addon-chip-open {
+        @apply -translate-y-full opacity-0;
+    }
+
+    .addon-card:is(:hover, :focus-within) .addon-chip-done {
+        @apply translate-y-0 opacity-100;
+    }
+
+    /* Eigene Domain: the long link gives way to their own address, typed. */
+    .addon-browser {
+        @apply flex w-64 flex-col gap-3 rounded-lg bg-background p-3 shadow-[0_18px_30px_-20px_rgb(30_14_10/0.5)];
+    }
+
+    .addon-browser-dot {
+        @apply size-1.5 rounded-full bg-muted-foreground/40;
+    }
+
+    .addon-url {
+        @apply grid rounded-full bg-muted px-3 py-1.5 text-xs;
+    }
+
+    .addon-url > span {
+        @apply col-start-1 row-start-1 overflow-hidden whitespace-nowrap;
+    }
+
+    .addon-url-before {
+        @apply text-muted-foreground transition-opacity duration-150 ease-out;
+    }
+
+    .addon-url-after {
+        @apply w-0 font-medium text-foreground;
+        transition: width 0s;
+    }
+
+    .addon-card:is(:hover, :focus-within) .addon-url-before {
+        @apply opacity-0;
+    }
+
+    .addon-card:is(:hover, :focus-within) .addon-url-after {
+        width: calc(var(--chars) * 1ch);
+        transition: width 700ms steps(16) 120ms;
+    }
+
+    /* Erinnerungen behalten: the stack fans out like prints on a table. */
+    .addon-stack {
+        @apply relative h-32 w-28;
+    }
+
+    .addon-stack-photo {
+        @apply absolute inset-0 size-full rounded-md border-4 border-background object-cover shadow-[0_14px_24px_-16px_rgb(30_14_10/0.6)];
+        rotate: calc(var(--i) * 4deg);
+        transition:
+            rotate 360ms var(--ease-out),
+            translate 360ms var(--ease-out);
+    }
+
+    .addon-card:is(:hover, :focus-within) .addon-stack-photo {
+        rotate: calc(var(--i) * 12deg);
+        translate: calc(var(--i) * 3.5rem) 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .addon-card,
+    .addon-paper,
+    .addon-chip > span,
+    .addon-url-after,
+    .addon-stack-photo {
+        transition: none !important;
+    }
+}

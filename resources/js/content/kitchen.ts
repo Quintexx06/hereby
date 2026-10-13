@@ -6,6 +6,9 @@ export const kitchenPage = {
     printHint: 'Mit allen Allergien, zum Drucken oder als PDF.',
     csv: 'Gästeliste für Excel',
     csvHint: 'Eine Zeile pro Person, mit Antworten, Menüs und Allergien.',
+    parts: 'Wer kommt',
+    exports: 'Für die Location',
+    people: (count: number) => (count === 1 ? 'Person' : 'Personen'),
     attending: (count: number) =>
         count === 1 ? '1 Person' : `${count} Personen`,
     children: (count: number) =>

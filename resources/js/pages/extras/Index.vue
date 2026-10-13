@@ -53,7 +53,7 @@ function buy(addon: AddonKey): void {
             {{ copy.keptUntil(wedding.memories_kept_until) }}
         </p>
 
-        <section class="plans md:grid-cols-2 xl:grid-cols-4">
+        <section class="addon-grid">
             <AddonCard
                 v-for="offer in addons"
                 :key="offer.key"

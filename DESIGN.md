@@ -258,11 +258,22 @@ Each one is a motion pattern with a product reason, not decoration:
 Operate mode: calm, familiar, fast. The brand lives in type, the night
 panel and the live invitation, never in decoration.
 
-- **Sidebar** (`AppSidebar`, `sidebar/SidebarWedding`): a `.stage` night
-  column framing the porcelain workspace (inset variant). The wordmark, then the
-  couple's names in display type with the date and a blush countdown (the
-  one blush moment in the app), then the nav with plain counts as badges. No
-  group labels. On phones the same night sheet slides in.
+- **Sidebar** (`AppSidebar`, `NavMain`, `sidebar/*`, `useAppNav`,
+  `app-nav.css`): our own nav, not shadcn's. A `.stage` night column framing
+  the porcelain workspace. The wordmark, then the couple's names in display
+  type with the date, a blush countdown and the plan («Paket Signature»),
+  then the nav with plain counts as badges. Full from 1024px (or the icon
+  rail if the couple collapses it), the rail on tablets with the full nav
+  laid over the page on the toggle, a drawer on phones. The look is chosen
+  by media queries alone, through custom properties, so zooming never
+  remounts or swaps it. Hover: one ink pill per group glides to the row
+  under the pointer and back to the active one, the icon tips with a small
+  overshoot and turns blush, the label steps 2px; the active row wears the
+  wordmark's full stop. In the rail each row's name floats out as a pill.
+- **Scroll rail** (`sidebar/ScrollRail`): the app page has no native
+  scrollbar (it came and went with the page's length and pushed the
+  workspace sideways). A slim porcelain pill in the night frame's margin
+  shows while scrolling or near the pointer and can be dragged.
 - **Setup** (`pages/setup/Step`, `components/setup/*`, `setup.css`): one
   question per screen, seven progress segments (reached steps link back), a
   sticky footer with "Zurück" and "Weiter", and on `lg` the **live

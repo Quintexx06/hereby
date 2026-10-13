@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import PageMasthead from '@/components/PageMasthead.vue';
 import { Head } from '@inertiajs/vue3';
+import KitchenEventRow from '@/components/kitchen/KitchenEventRow.vue';
+import PageMasthead from '@/components/PageMasthead.vue';
 import { FileSpreadsheet, Printer } from '@lucide/vue';
 import { dashboardPage } from '@/content/dashboard';
 import { kitchenPage as copy } from '@/content/kitchen';
-import { eventTypes } from '@/content/setup';
-import { formatDay, formatTime } from '@/lib/format';
 import { dashboard } from '@/routes';
 import { csv, sheet } from '@/routes/weddings/kitchen';
 import type { KitchenEvent } from '@/types';
@@ -35,95 +34,92 @@ defineOptions({
     <div class="app-page gap-10">
         <PageMasthead :title="copy.title" :lede="copy.lede" scene="flutes" />
 
-        <div class="grid gap-3 sm:grid-cols-2">
-            <a
-                :href="sheet.url(wedding.id)"
-                target="_blank"
-                rel="noopener"
-                class="kitchen-action"
-            >
-                <Printer class="size-5" aria-hidden="true" />
-                <span>
-                    <span class="font-semibold">{{ copy.print }}</span>
-                    <span class="block text-sm text-muted-foreground">{{
-                        copy.printHint
-                    }}</span>
-                </span>
-            </a>
-            <a :href="csv.url(wedding.id)" class="kitchen-action" download>
-                <FileSpreadsheet class="size-5" aria-hidden="true" />
-                <span>
-                    <span class="font-semibold">{{ copy.csv }}</span>
-                    <span class="block text-sm text-muted-foreground">{{
-                        copy.csvHint
-                    }}</span>
-                </span>
-            </a>
-        </div>
+        <div class="kitchen-layout">
+            <section class="kitchen-card" aria-labelledby="kitchen-parts">
+                <h2 id="kitchen-parts" class="kitchen-card-title">
+                    {{ copy.parts }}
+                </h2>
+                <p v-if="events.length === 0" class="text-muted-foreground">
+                    {{ copy.empty }}
+                </p>
+                <ul v-else class="flex flex-col">
+                    <KitchenEventRow
+                        v-for="event in events"
+                        :key="event.id"
+                        :event="event"
+                    />
+                </ul>
+            </section>
 
-        <p v-if="events.length === 0" class="text-muted-foreground">
-            {{ copy.empty }}
-        </p>
-
-        <div class="kitchen-grid">
-            <section
-                v-for="event in events"
-                :key="event.id"
-                class="kitchen-event"
-                :aria-labelledby="`kitchen-${event.id}`"
-            >
-                <header class="flex flex-col gap-1">
-                    <h2 :id="`kitchen-${event.id}`" class="ledger-title">
-                        {{ event.name || eventTypes[event.type] }}
+            <aside class="flex flex-col gap-6">
+                <section class="kitchen-card" aria-labelledby="kitchen-exports">
+                    <h2 id="kitchen-exports" class="kitchen-card-title">
+                        {{ copy.exports }}
                     </h2>
-                    <p class="text-sm text-muted-foreground">
-                        {{ formatDay(event.starts_at, 'de-CH') }},
-                        {{ formatTime(event.starts_at, 'de-CH') }}
-                    </p>
-                </header>
-                <p class="kitchen-number">
-                    {{ copy.attending(event.attending) }}
-                </p>
-                <p class="text-sm text-muted-foreground">
-                    {{ copy.children(event.children)
-                    }}<template v-if="event.pending"
-                        >, {{ copy.pending(event.pending) }}</template
+                    <a
+                        :href="sheet.url(wedding.id)"
+                        target="_blank"
+                        rel="noopener"
+                        class="kitchen-action"
                     >
-                </p>
-                <ul v-if="event.menus.length" class="kitchen-menus">
-                    <li v-for="menu in event.menus" :key="menu.label">
-                        <span>{{ menu.label }}</span>
-                        <span class="font-semibold tabular-nums">{{
-                            menu.count
-                        }}</span>
-                    </li>
-                </ul>
-            </section>
+                        <Printer
+                            class="kitchen-action-icon"
+                            aria-hidden="true"
+                        />
+                        <span>
+                            <span class="font-semibold">{{ copy.print }}</span>
+                            <span class="block text-sm text-muted-foreground">{{
+                                copy.printHint
+                            }}</span>
+                        </span>
+                    </a>
+                    <a
+                        :href="csv.url(wedding.id)"
+                        class="kitchen-action"
+                        download
+                    >
+                        <FileSpreadsheet
+                            class="kitchen-action-icon"
+                            aria-hidden="true"
+                        />
+                        <span>
+                            <span class="font-semibold">{{ copy.csv }}</span>
+                            <span class="block text-sm text-muted-foreground">{{
+                                copy.csvHint
+                            }}</span>
+                        </span>
+                    </a>
+                </section>
 
-            <section class="kitchen-event">
-                <h2 class="ledger-title">{{ copy.service }}</h2>
-                <p class="text-sm">{{ copy.allergies(allergies) }}</p>
-                <ul class="kitchen-menus">
-                    <li>
-                        <span>{{ copy.shuttle }}</span
-                        ><span class="font-semibold tabular-nums">{{
-                            shuttle
-                        }}</span>
-                    </li>
-                    <li>
-                        <span>{{ copy.stays }}</span
-                        ><span class="font-semibold tabular-nums">{{
-                            stays
-                        }}</span>
-                    </li>
-                </ul>
-                <div v-if="songs.length" class="flex flex-col gap-1">
-                    <p class="text-sm font-medium">{{ copy.songs }}</p>
-                    <ul class="text-sm text-muted-foreground">
-                        <li v-for="song in songs" :key="song">{{ song }}</li>
+                <section class="kitchen-card" aria-labelledby="kitchen-service">
+                    <h2 id="kitchen-service" class="kitchen-card-title">
+                        {{ copy.service }}
+                    </h2>
+                    <p class="text-sm">{{ copy.allergies(allergies) }}</p>
+                    <ul class="kitchen-menus">
+                        <li>
+                            <span>{{ copy.shuttle }}</span
+                            ><span class="font-semibold tabular-nums">{{
+                                shuttle
+                            }}</span>
+                        </li>
+                        <li>
+                            <span>{{ copy.stays }}</span
+                            ><span class="font-semibold tabular-nums">{{
+                                stays
+                            }}</span>
+                        </li>
                     </ul>
-                </div>
-            </section>
+                    <div v-if="songs.length" class="flex flex-col gap-1">
+                        <p class="text-sm font-medium">{{ copy.songs }}</p>
+                        <ul class="text-sm text-muted-foreground">
+                            <li v-for="song in songs" :key="song">
+                                {{ song }}
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+            </aside>
         </div>
     </div>
 </template>

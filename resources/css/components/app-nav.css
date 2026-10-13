@@ -1,0 +1,252 @@
+/*
+ * The app's own nav (AppSidebar, NavMain, useAppNav). One markup, three
+ * looks, chosen by media queries only, so zoom never swaps or remounts it:
+ *   ≥ 1024px  full nav, or the icon rail when the couple collapses it
+ *   640–1023  icon rail; the toggle lays the full nav over the page
+ *   < 640     a drawer from the left
+ * The looks switch through custom properties (--nav-wide / --nav-rail are
+ * display values), so every rule below is written once.
+ */
+@layer components {
+    .app-frame {
+        --nav-full: 15.5rem;
+        --nav-slim: 4.25rem;
+        --nav-col: var(--nav-full);
+        --nav-width: var(--nav-full);
+        --nav-wide: flex;
+        --nav-rail: none;
+        --nav-overflow: auto;
+        @apply grid min-h-svh bg-sidebar;
+        grid-template-columns: var(--nav-col) minmax(0, 1fr);
+        transition: grid-template-columns 260ms var(--ease-out);
+    }
+
+    .app-nav {
+        @apply sticky top-0 z-20 col-start-1 row-start-1 flex h-svh flex-col gap-2 bg-sidebar px-3 py-3 text-sidebar-foreground;
+        width: var(--nav-width);
+        transition:
+            width 260ms var(--ease-out),
+            translate 300ms var(--ease-drawer),
+            box-shadow 260ms var(--ease-out);
+    }
+
+    .app-main {
+        @apply relative col-start-2 row-start-1 flex min-w-0 flex-col overflow-x-clip bg-background sm:my-2 sm:mr-2 sm:rounded-xl sm:shadow-sm;
+    }
+
+    .app-nav-wide {
+        display: var(--nav-wide);
+    }
+
+    .app-nav-railonly {
+        display: var(--nav-rail);
+    }
+
+    .app-nav-logo {
+        @apply flex h-12 items-center rounded-lg px-3 text-porcelain-100 outline-none focus-visible:ring-2 focus-visible:ring-sidebar-ring;
+    }
+
+    .app-nav-scroll {
+        @apply flex min-h-0 flex-1 flex-col gap-5;
+        /* Visible in the rail, so the floating names aren't clipped. */
+        overflow: var(--nav-overflow);
+        scrollbar-width: none;
+    }
+
+    .app-nav-foot {
+        @apply flex flex-col gap-1 border-t border-sidebar-border pt-2;
+    }
+
+    .app-nav-group-label {
+        @apply px-3 pb-1 text-xs font-medium text-sand-200/60;
+        display: var(--nav-wide);
+    }
+
+    /* The ink pill that glides between rows; under the rows, never over. */
+    .app-nav-glide {
+        @apply pointer-events-none absolute inset-x-0 top-0 rounded-lg bg-sidebar-accent opacity-0;
+        transition:
+            translate 240ms var(--ease-out),
+            height 240ms var(--ease-out),
+            opacity 160ms var(--ease-out);
+    }
+
+    .app-nav-glide[data-on='true'] {
+        @apply opacity-100;
+    }
+
+    .app-nav-item {
+        @apply relative z-[1] flex h-10 w-full cursor-pointer items-center gap-3 rounded-lg px-3 text-left text-sm text-sand-200 transition-colors duration-150 ease-out outline-none hover:text-porcelain-100 focus-visible:ring-2 focus-visible:ring-sidebar-ring;
+    }
+
+    .app-nav-item[data-active='true'] {
+        @apply font-medium text-porcelain-100;
+    }
+
+    /* The active row wears the wordmark's full stop. */
+    .app-nav-item[data-active='true']::after {
+        @apply absolute top-1/2 right-3 size-1.5 -translate-y-1/2 rounded-full bg-sidebar-primary content-[''];
+        display: var(--nav-wide);
+    }
+
+    .app-nav-item-quiet {
+        @apply text-sand-200/70;
+    }
+
+    .app-nav-icon {
+        @apply size-[1.125rem] shrink-0;
+        transition:
+            rotate 320ms cubic-bezier(0.34, 1.56, 0.64, 1),
+            scale 320ms cubic-bezier(0.34, 1.56, 0.64, 1),
+            color 150ms var(--ease-out);
+    }
+
+    .app-nav-item:hover .app-nav-icon,
+    .app-nav-item:focus-visible .app-nav-icon {
+        @apply text-sidebar-primary;
+        rotate: -8deg;
+        scale: 1.12;
+    }
+
+    .app-nav-item[data-active='true'] .app-nav-icon {
+        @apply text-sidebar-primary;
+    }
+
+    .app-nav-label {
+        @apply min-w-0 truncate;
+        display: var(--nav-wide);
+        transition: translate 200ms var(--ease-out);
+    }
+
+    .app-nav-item:hover .app-nav-label {
+        translate: 2px 0;
+    }
+
+    .app-nav-badge {
+        @apply ml-auto text-xs text-sand-200/70 tabular-nums;
+        display: var(--nav-wide);
+    }
+
+    .app-nav-item[data-active='true'] .app-nav-badge {
+        @apply mr-4;
+    }
+
+    /* In the rail, the row's name floats out beside it on hover. */
+    .app-nav-tip {
+        @apply pointer-events-none absolute top-1/2 left-[calc(100%+0.75rem)] z-30 rounded-full bg-porcelain-100 px-3 py-1 text-xs font-medium whitespace-nowrap text-night-950 opacity-0 shadow-lg;
+        display: var(--nav-rail);
+        translate: -4px -50%;
+        transition:
+            opacity 150ms var(--ease-out),
+            translate 200ms var(--ease-out);
+    }
+
+    .app-nav-item:hover .app-nav-tip,
+    .app-nav-item:focus-visible .app-nav-tip {
+        @apply opacity-100;
+        translate: 0 -50%;
+    }
+
+    .app-nav-user {
+        @apply h-12 px-2;
+    }
+
+    .app-nav-user > .grid {
+        display: var(--nav-wide);
+    }
+
+    .app-nav-toggle {
+        @apply -ml-1 grid size-9 cursor-pointer place-items-center rounded-lg text-muted-foreground transition-[background-color,color,scale] duration-150 ease-out hover:bg-muted hover:text-foreground active:scale-95;
+    }
+
+    .app-nav-backdrop {
+        @apply pointer-events-none fixed inset-0 z-10 bg-night-950/45 opacity-0 transition-opacity duration-300 ease-out;
+    }
+
+    /* Rail: the couple chose it on desktop. */
+    @media (min-width: 1024px) {
+        .app-frame[data-expanded='false'] {
+            --nav-col: var(--nav-slim);
+            --nav-width: var(--nav-slim);
+            --nav-wide: none;
+            --nav-rail: flex;
+            --nav-overflow: visible;
+        }
+    }
+
+    /* Tablet: always a rail, the full nav opens over the page. */
+    @media (min-width: 640px) and (max-width: 1023.98px) {
+        .app-frame {
+            --nav-col: var(--nav-slim);
+            --nav-width: var(--nav-slim);
+            --nav-wide: none;
+            --nav-rail: flex;
+            --nav-overflow: visible;
+        }
+
+        .app-frame[data-drawer='true'] {
+            --nav-width: var(--nav-full);
+            --nav-wide: flex;
+            --nav-rail: none;
+            --nav-overflow: auto;
+        }
+
+        .app-frame[data-drawer='true'] .app-nav {
+            @apply shadow-[24px_0_60px_-30px_rgb(0_0_0/0.6)];
+        }
+    }
+
+    /* Phone: no column, a drawer. */
+    @media (max-width: 639.98px) {
+        .app-frame {
+            grid-template-columns: minmax(0, 1fr);
+        }
+
+        .app-nav {
+            @apply invisible fixed inset-y-0 left-0;
+            translate: -100% 0;
+            transition:
+                translate 300ms var(--ease-drawer),
+                visibility 0s 300ms;
+        }
+
+        .app-frame[data-drawer='true'] .app-nav {
+            @apply visible;
+            translate: 0 0;
+            transition: translate 300ms var(--ease-drawer);
+        }
+
+        .app-main {
+            @apply col-start-1;
+        }
+    }
+
+    @media (max-width: 1023.98px) {
+        .app-frame[data-drawer='true'] .app-nav-backdrop {
+            @apply pointer-events-auto opacity-100;
+        }
+    }
+
+    /* ScrollRail: the page's own scrollbar, in the night frame's margin. */
+    .scroll-rail {
+        @apply fixed top-0 right-0 bottom-0 z-40 w-2.5 opacity-0 transition-opacity duration-300 ease-out hover:opacity-100;
+    }
+
+    .scroll-rail[data-awake='true'] {
+        @apply opacity-100;
+    }
+
+    .scroll-rail-thumb {
+        @apply absolute top-0 right-[3px] w-1 cursor-grab touch-none rounded-full bg-porcelain-100/35 transition-[width,background-color] duration-150 ease-out hover:w-1.5 hover:bg-porcelain-100/60 active:cursor-grabbing;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .app-frame,
+    .app-nav,
+    .app-nav-glide,
+    .app-nav-icon,
+    .app-nav-label {
+        transition: none;
+    }
+}
