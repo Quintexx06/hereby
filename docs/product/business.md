@@ -9,8 +9,17 @@ Prices live in `config/hereby.php` (env `HEREBY_PRICE_*`).
 | Tier | Price | Includes |
 | --- | --- | --- |
 | Signature | CHF 290 | Personal links, 60-second reply, reminders, kitchen sheets, calendar |
-| Atelier | CHF 590 | Signature plus the memories: guest photos, live photo wall, voice wishes; 4 languages, day-of mode, print files |
-| Couture | from CHF 1,490 | Atelier plus the film, own domain, printed keepsake book, setup and translation by the team (sold in person) |
+| Atelier | CHF 590 | Signature plus «Der Abend» (table mates, programme sign-ups and group photos run by the witnesses, way-home reminder) and the memories: guest photos, live photo wall, voice wishes; 4 languages, day-of mode, print files |
+| Couture | from CHF 1,490 | Atelier plus the wedding newspaper, «Wir fassen nach», the film, own domain, printed keepsake book, setup and translation by the team (sold in person) |
+
+## Extras (one-time, on any plan; [spec](../specs/2026-10-13-evening-and-extras-design.md))
+
+| Extra | Price | What it is |
+| --- | --- | --- |
+| Hochzeitszeitung | CHF 149 | Friends send stories and photos by link; the witnesses print the newspaper |
+| Wir fassen nach | CHF 190 | The team calls or writes every household still unanswered two weeks before the deadline |
+| Eigene Domain | CHF 49 | Personal links on the couple's own domain, connected by the team |
+| Erinnerungen behalten | CHF 39 / year | Photos and the newspaper kept a year longer; guest data still goes on schedule (ADR 0011). Atelier and up |
 
 ## Venues (yearly)
 

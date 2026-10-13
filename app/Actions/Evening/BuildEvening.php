@@ -76,12 +76,12 @@ class BuildEvening
             ->get(['first_name', 'table_name', 'table_note'])
             ->groupBy('table_name');
 
-        return $own->map(fn (Collection $guests, string $table): array => [
+        return array_values($own->map(fn (Collection $guests, string $table): array => [
             'name' => $table,
-            'yours' => $guests->pluck('first_name')->values()->all(),
-            'mates' => ($mates->get($table) ?? collect())
+            'yours' => array_values($guests->map(fn (Guest $guest): string => $guest->first_name)->all()),
+            'mates' => array_values(($mates->get($table) ?? collect())
                 ->map(fn (Guest $guest): array => ['name' => $guest->first_name, 'note' => $guest->table_note])
-                ->values()->all(),
-        ])->values()->all();
+                ->all()),
+        ])->all());
     }
 }

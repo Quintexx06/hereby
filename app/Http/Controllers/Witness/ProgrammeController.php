@@ -36,7 +36,7 @@ class ProgrammeController extends Controller
         ])['ids'];
 
         DB::transaction(function () use ($ids, $wedding): void {
-            foreach (array_values($ids) as $position => $id) {
+            foreach ($ids as $position => $id) {
                 $wedding->programmeItems()->whereKey($id)->update(['position' => $position + 1]);
             }
         });

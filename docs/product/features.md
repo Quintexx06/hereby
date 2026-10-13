@@ -29,6 +29,10 @@ Each row names the roadmap phase where it ships. Details: [vision.md](vision.md)
 | Announcements | Short messages to all or some guests. | 2 |
 | Photo wall | Table QR codes, full-resolution uploads with no app, and a live slideshow approved by the witnesses. | 2 |
 | Wallet pass | Date, address and table in Apple or Google Wallet, available offline. | 3 |
+| Table mates | The household's table, with the first names of the others there and a line from the couple about each. Once the couple publishes the plan. | 1 (Atelier) |
+| Way home | The night's last connections with a countdown; a mail half an hour before each. | 1 (Atelier) |
+| Group photo call-up | A mail and a banner when the witnesses call the household's group photo. | 1 (Atelier) |
+| Programme sign-ups | After replying, offer a speech, game or song; the witnesses decide. | 1 (Atelier) |
 
 ### After the wedding
 
@@ -51,6 +55,11 @@ One question each time it opens: **what needs me today?**
 | Opened but not answered | Separates "opened and stopped" from "never opened". | 1 |
 | Kitchen & service sheets | Final numbers, menu counts, per-table allergy sheet. Export first, venue handoff later. | 1 |
 | Change log | Who changed which answer, and when. | 2 |
+| Witness link | One private link for the witnesses: programme sign-ups, group photos, the newspaper. The couple sees only counts. | 1 (Atelier) |
+| Wedding newspaper | Stories and photos from friends by link, printed by the witnesses as an A4 newspaper. | 1 (extra) |
+| Chase service | The team contacts every unanswered household two weeks before the deadline. | 1 (extra) |
+| Own domain | Personal links on the couple's domain. | 1 (extra) |
+| Keep the memories | Photos and newspaper kept a year longer, guest data still deleted on schedule. | 1 (extra) |
 | Broadcast | One message to everyone or a segment. | 2 |
 | Roles | Parents, witnesses and the planner get access to chosen parts only. | 2 |
 | Witness mode | A hidden area for the witnesses that the couple can't see. | 2 |

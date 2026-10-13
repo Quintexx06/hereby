@@ -316,6 +316,20 @@ questions come last. A fixed bottom bar says how many answers are open and
 holds "Antwort senden", disabled until nothing is missing. The invitation
 then shows "Danke für eure Antwort", who is coming and "Antwort ändern".
 
+### «Der Abend» (`components/evening/*`, `components/invitation/Evening*`, `pages/witness/*`)
+
+Couple side: «Der Abend» is a ledger of the day's tools (Tischplan,
+Einlagen, Gruppenfotos, Heimweg, Hochzeitszeitung), each its own settings
+page in the editorial system; without Atelier each shows the lock note and
+the way to the plans. Guest side (`evening-guest.css`, text only, rule 2):
+the household's table as a card with the couple's line per person, the way
+home as a list with a quiet countdown pill in the last six hours, and a
+called group photo as the one loud block (primary ground) for 20 minutes.
+The offer to sign something up appears only after the reply. The witness
+page has no app shell: one column, decisions as pill buttons, declined
+items fade. Printed sheets (running order, newspaper) follow the kitchen
+sheet: system sans, night ink on white, printed from the browser.
+
 ### Invitation opening (`components/invitation/InvitationOpening`)
 
 The guest's first second: the couple's names and date rise (450ms, ease-out)

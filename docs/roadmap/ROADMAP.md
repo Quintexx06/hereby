@@ -91,7 +91,9 @@ Every `code` item, before it is ticked:
 | 1.11 | "Opened but not answered" segment | code | [x] | Dashboard separates never opened / opened, not answered / answered |
 | 1.12 | Kitchen and service sheets as an export | code | [x] | PDF/Excel export: counts per menu, allergies per table, children |
 | 1.13 | Performance budget enforced: guest pages < 2s on mobile data | code | [x] | CI check (Lighthouse, throttled 4G) fails the build above the budget |
-| 1.14 | Legal review of guest data before the first paid wedding | human | [ ] | Written sign-off from a Swiss data-protection lawyer |
+| 1.14 | Legal review of guest data before the first paid wedding (incl. table mates and kept memories, ADR 0011) | human | [ ] | Written sign-off from a Swiss data-protection lawyer |
+| 1.15 | «Der Abend» for Atelier: table mates, way home, group photo call-up, programme sign-ups with the witness link ([spec](../specs/2026-10-13-evening-and-extras-design.md)) | code | [x] | Gated on Atelier, tested; guest strings in all four languages; nothing before the reply |
+| 1.16 | Extras: wedding newspaper, «Wir fassen nach», own domain, keep the memories ([spec](../specs/2026-10-13-evening-and-extras-design.md), [ADR 0011](../decisions/0011-kept-memories.md)) | code | [x] | Bought through Stripe or included in Couture; guest data still deleted on schedule |
 
 **Gate →** 10 sites live, and 85% of guests answer without a manual chase.
 
@@ -148,6 +150,7 @@ needs an approved spec with its own acceptance criteria before work starts.
 
 | Date       | Change |
 | ---------- | ------ |
+| 2026-10-13 | 1.15 and 1.16 done: Atelier becomes «the evening runs itself» (Tischplan with a line per guest for their table mates, Heimweg with a countdown and a mail 30 min before the last connections, Gruppenfotos called by the witnesses, Einlagen offered after the reply and run by the witnesses on their private link, the couple sees only counts). Extras on any plan through Stripe: Hochzeitszeitung (contribution link, printed by the witnesses), «Wir fassen nach» (team list with phone numbers), own domain (personal links on it, only its guests answer there), «Erinnerungen behalten» per year with guest data still deleted on schedule (ADR 0011) |
 | 2026-10-13 | Landing: visitors type their names and date into the studio's example site (hero, monogram, URL follow; nothing stored). The main action is «Kostenlos starten» everywhere instead of «Demo anfragen», which led to sign-up anyway; 0.3 no longer needs a demo-request form. Header wordmark replays the footer's entrance on hover |
 | 2026-10-13 | Landing studio becomes a full example wedding site with photos; accent chips recolour only accents (no section re-theme, no auto-switching tabs) |
 | 2026-10-12 | 3.8 (couples): building is free, a plan opens the personal links. «Freischalten» page with Signature CHF 290, Atelier CHF 590 (memories), Couture from CHF 1,490 on request; Stripe Checkout in CHF (cards, TWINT) without an SDK, confirmed by a signed webhook and on return; upgrades pay the difference; the team unlocks invoices in the admin. Closed links answer 404 to guests (the couple can still try them) and send no reminders; weddings already live became Signature. Guest photos get a private `memories` disk on the server's volume in Switzerland |
