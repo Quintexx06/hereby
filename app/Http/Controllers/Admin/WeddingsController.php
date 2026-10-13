@@ -33,6 +33,8 @@ class WeddingsController extends Controller
                     'status' => $wedding->status,
                     'plan' => $wedding->plan,
                     'published' => $wedding->isPublished(),
+                    'domain' => $wedding->custom_domain,
+                    'domain_connected' => $wedding->connectedDomain() !== null,
                     'setup_step' => $wedding->setup_step,
                     'date' => $wedding->wedding_date?->toDateString(),
                     'households' => (int) $wedding->households_count,

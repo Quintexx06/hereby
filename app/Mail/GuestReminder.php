@@ -3,6 +3,7 @@
 namespace App\Mail;
 
 use App\Models\Household;
+use App\Support\PersonalLink;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -47,7 +48,7 @@ class GuestReminder extends Mailable implements ShouldQueue
         return new Content(markdown: 'mail.guest-reminder', with: [
             'couple' => $this->household->wedding->couple_names,
             'deadline' => $this->deadline(),
-            'link' => route('invitation.show', $this->household),
+            'link' => PersonalLink::to($this->household),
             'stop' => $this->stopUrl(),
         ]);
     }

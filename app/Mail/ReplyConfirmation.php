@@ -6,6 +6,7 @@ use App\Enums\ResponseStatus;
 use App\Models\Event;
 use App\Models\Guest;
 use App\Models\Household;
+use App\Support\PersonalLink;
 use App\Support\WeddingCalendar;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -46,7 +47,7 @@ class ReplyConfirmation extends Mailable implements ShouldQueue
         return new Content(markdown: 'mail.reply-confirmation', with: [
             'couple' => $household->wedding->couple_names,
             'deadline' => $household->wedding->rsvp_deadline?->copy()->settings(['locale' => $this->locale])->isoFormat('LL'),
-            'link' => route('invitation.show', $household),
+            'link' => PersonalLink::to($household),
             'events' => $household->events->sortBy('starts_at')->map(fn (Event $event): array => [
                 'name' => $event->name ?? __("invitation.event_types.{$event->type->value}"),
                 'people' => $household->guests

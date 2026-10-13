@@ -1,12 +1,14 @@
 <script setup lang="ts">
-import { Head, useForm } from '@inertiajs/vue3';
+import { Head, Link, useForm } from '@inertiajs/vue3';
 import AddonCard from '@/components/extras/AddonCard.vue';
+import DomainForm from '@/components/extras/DomainForm.vue';
 import PageMasthead from '@/components/PageMasthead.vue';
 import { dashboardPage } from '@/content/dashboard';
 import { extrasPage as copy } from '@/content/extras';
 import type { AddonKey, AddonOffer } from '@/content/extras';
 import { dashboard } from '@/routes';
 import { store } from '@/routes/weddings/extras';
+import { edit as newspaper } from '@/routes/weddings/newspaper';
 
 const props = defineProps<{
     wedding: {
@@ -15,6 +17,8 @@ const props = defineProps<{
         plan: string | null;
         evening: boolean;
         memories_kept_until: string | null;
+        domain: { name: string | null; connected: boolean } | null;
+        newspaper: boolean;
     };
     addons: AddonOffer[];
     checkoutReady: boolean;
@@ -63,5 +67,18 @@ function buy(addon: AddonKey): void {
         <p v-if="form.errors.addon" class="text-sm text-destructive">
             {{ form.errors.addon }}
         </p>
+
+        <Link
+            v-if="wedding.newspaper"
+            :href="newspaper(wedding.id)"
+            class="text-action hit-area self-start"
+        >
+            Zur Hochzeitszeitung
+        </Link>
+        <DomainForm
+            v-if="wedding.domain"
+            :wedding-id="wedding.id"
+            :domain="wedding.domain"
+        />
     </div>
 </template>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Invitations;
 
 use App\Http\Controllers\Controller;
 use App\Models\Household;
+use App\Support\PersonalLink;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -24,7 +25,7 @@ class StopRemindersController extends Controller
         return Inertia::render('invitation/RemindersStopped', [
             'theme' => $household->wedding->theme,
             'couple' => $household->wedding->couple_names,
-            'link' => route('invitation.show', $household),
+            'link' => PersonalLink::to($household),
         ]);
     }
 }

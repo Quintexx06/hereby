@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
 import { computed } from 'vue';
+import AdminDomain from '@/components/admin/AdminDomain.vue';
 import AdminUnlock from '@/components/admin/AdminUnlock.vue';
 import { adminCopy as copy } from '@/content/admin';
 import { lookStyles, steps } from '@/content/setup';
@@ -49,6 +50,7 @@ const answeredShare = computed(() =>
                 }}
             </p>
             <AdminUnlock v-if="!isDraft" :wedding="wedding" />
+            <AdminDomain :wedding="wedding" />
         </div>
 
         <p class="admin-cell">

@@ -209,6 +209,7 @@ class Wedding extends Model
             'memories_kept_until' => 'date',
             'seating_published_at' => 'datetime',
             'guest_data_deleted_at' => 'datetime',
+            'custom_domain_verified_at' => 'datetime',
             'way_home' => 'array',
             'way_home_sent' => 'array',
             'setup_step' => SetupStep::class,

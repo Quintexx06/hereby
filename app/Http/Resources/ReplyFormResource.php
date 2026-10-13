@@ -5,6 +5,7 @@ namespace App\Http\Resources;
 use App\Models\EventResponse;
 use App\Models\Guest;
 use App\Models\Household;
+use App\Support\PersonalLink;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -30,8 +31,8 @@ class ReplyFormResource extends JsonResource
             'wedding' => new WeddingResource($wedding),
             'open' => $wedding->acceptsReplies(),
             'links' => [
-                'invitation' => route('invitation.show', $this->resource),
-                'reply' => route('invitation.reply', $this->resource),
+                'invitation' => PersonalLink::to($this->resource),
+                'reply' => PersonalLink::to($this->resource, 'invitation.reply'),
             ],
             'answered' => $this->responded_at !== null,
             'guests' => $this->guests->where('is_plus_one', false)->values()->map(fn (Guest $guest): array => [

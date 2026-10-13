@@ -14,6 +14,8 @@ use Illuminate\Support\Carbon;
  *
  * @property Carbon|null $memories_kept_until Photos and newspaper stay until then (ADR 0011).
  * @property Carbon|null $guest_data_deleted_at When guest data went while the memories stayed.
+ * @property string|null $custom_domain The couple's own address, e.g. anna-und-luca.ch.
+ * @property Carbon|null $custom_domain_verified_at When the team connected it.
  * @property Carbon|null $seating_published_at When guests started seeing their table mates.
  * @property list<array{label: string, place: string|null, time: string}>|null $way_home The night's last connections.
  * @property list<string>|null $way_home_sent Connections whose reminder went out.
@@ -55,6 +57,14 @@ trait HasAddons
         }
 
         return $addon->isRepeatable() || ! $this->hasAddon($addon);
+    }
+
+    /**
+     * The couple's own domain once the team has connected it; null before.
+     */
+    public function connectedDomain(): ?string
+    {
+        return $this->custom_domain_verified_at !== null ? $this->custom_domain : null;
     }
 
     /**

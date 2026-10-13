@@ -71,3 +71,14 @@ export const newspaperPage = {
     witnessHint:
         'Dort lesen sie die Geschichten, entfernen, was nicht passt, und drucken die Zeitung.',
 };
+
+export const domainCopy = {
+    title: 'Eure Domain',
+    label: 'Domain',
+    placeholder: 'anna-und-luca.ch',
+    hint: 'Kauft die Domain bei einem Anbieter eurer Wahl und tragt sie hier ein. Wir melden uns mit den DNS-Angaben und verbinden sie für euch.',
+    pending: 'Wartet auf Verbindung. Bis dahin laufen eure Links über hereby.',
+    connected: 'Verbunden. Alle persönlichen Links laufen über eure Domain.',
+    save: 'Domain speichern',
+    saved: 'Gespeichert',
+};

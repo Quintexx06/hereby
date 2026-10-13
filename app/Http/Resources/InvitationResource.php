@@ -8,6 +8,7 @@ use App\Enums\ResponseStatus;
 use App\Models\EventResponse;
 use App\Models\Guest;
 use App\Models\Household;
+use App\Support\PersonalLink;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -41,9 +42,9 @@ class InvitationResource extends JsonResource
             'evening' => app(BuildEvening::class)->handle($this->resource),
             // Null in the couple's preview, where the sample household has no link.
             'links' => $this->exists ? [
-                'invitation' => route('invitation.show', $this->resource),
-                'reply' => route('invitation.reply', $this->resource),
-                'calendar' => route('invitation.calendar', $this->resource),
+                'invitation' => PersonalLink::to($this->resource),
+                'reply' => PersonalLink::to($this->resource, 'invitation.reply'),
+                'calendar' => PersonalLink::to($this->resource, 'invitation.calendar'),
             ] : null,
             'reply' => [
                 'answered' => $this->responded_at !== null,

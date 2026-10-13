@@ -3,6 +3,7 @@
 namespace App\Mail;
 
 use App\Models\Household;
+use App\Support\PersonalLink;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -40,7 +41,7 @@ class WayHomeReminder extends Mailable implements ShouldQueue
         return new Content(markdown: 'mail.way-home-reminder', with: [
             'couple' => $this->household->wedding->couple_names,
             'departure' => $this->departure,
-            'link' => route('invitation.show', $this->household),
+            'link' => PersonalLink::to($this->household),
         ]);
     }
 }

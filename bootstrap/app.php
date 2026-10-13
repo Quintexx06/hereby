@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Middleware\HandleInertiaRequests;
+use App\Http\Middleware\ServeConnectedDomains;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -19,6 +20,9 @@ return Application::configure(basePath: dirname(__DIR__))
         // Behind Coolify's proxy (Traefik/Caddy): trust its X-Forwarded-* headers so
         // URLs, signed links (reminder opt-out) and secure cookies use https.
         $middleware->trustProxies(at: '*');
+
+        // A couple's own domain serves only its guests' pages (spec 2026-10-13).
+        $middleware->append(ServeConnectedDomains::class);
 
         $middleware->web(append: [
             HandleInertiaRequests::class,

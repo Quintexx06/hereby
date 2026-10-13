@@ -19,7 +19,7 @@ class WeddingCalendar
     {
         $household->loadMissing(['wedding', 'events', 'guests.responses']);
         $wedding = $household->wedding;
-        $link = route('invitation.show', $household);
+        $link = PersonalLink::to($household);
 
         $lines = [
             'BEGIN:VCALENDAR',

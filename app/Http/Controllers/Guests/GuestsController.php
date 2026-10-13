@@ -8,6 +8,7 @@ use App\Models\Event;
 use App\Models\Guest;
 use App\Models\Household;
 use App\Models\Wedding;
+use App\Support\PersonalLink;
 use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -39,7 +40,7 @@ class GuestsController extends Controller
                 'locale' => $household->locale,
                 'plus_one_allowed' => $household->plus_one_allowed,
                 'reply_status' => $household->replyStatus(),
-                'link' => route('invitation.show', $household),
+                'link' => PersonalLink::to($household, wedding: $wedding),
                 'event_ids' => $household->events->modelKeys(),
                 'guests' => $household->guests->map(fn (Guest $guest): array => [
                     'id' => $guest->id,

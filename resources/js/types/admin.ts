@@ -10,6 +10,8 @@ export type AdminWedding = {
     status: 'draft' | 'active';
     plan: PlanKey | null;
     published: boolean;
+    domain: string | null;
+    domain_connected: boolean;
     setup_step: SetupStepKey | null;
     date: string | null;
     households: number;
