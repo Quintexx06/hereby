@@ -446,7 +446,8 @@ preview panel is its one moment.
 Layout and motion, independent of the accent (any template × any theme).
 The first screens are the landing studio's, filled with the couple's own
 photos (up to four, uploaded in «Inhalte», cover first; spec
-2026-10-13-couple-photos). Each still stands without a photo.
+2026-10-13-couple-photos). A tap on a photo there sets the spot every crop
+keeps in view (the dot). Each still stands without a photo.
 
 | Template | First screen                                                                | Without a photo                         | Story                          | Signature motion                                                 |
 | -------- | --------------------------------------------------------------------------- | --------------------------------------- | ------------------------------ | ---------------------------------------------------------------- |

@@ -100,6 +100,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
             });
             Route::put('hochzeit/{wedding}/fotos/{couplePhoto}/titelbild', [CouplePhotoController::class, 'cover'])
                 ->name('weddings.photos.cover');
+            Route::put('hochzeit/{wedding}/fotos/{couplePhoto}/fokus', [CouplePhotoController::class, 'focus'])
+                ->name('weddings.photos.focus');
             Route::delete('hochzeit/{wedding}/fotos/{couplePhoto}', [CouplePhotoController::class, 'destroy'])
                 ->name('weddings.photos.destroy');
             Route::put('hochzeit/{wedding}/inhalte/{contentBlock:id}', [ContentBlockController::class, 'update'])->name('weddings.content.update');

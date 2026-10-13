@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { router, usePage } from '@inertiajs/vue3';
-import { ImagePlus, Star, Trash2 } from '@lucide/vue';
+import { ImagePlus } from '@lucide/vue';
 import { computed, ref } from 'vue';
+import CouplePhotoTile from '@/components/content/CouplePhotoTile.vue';
 import { Spinner } from '@/components/ui/spinner';
 import { couplePhotosCopy as copy } from '@/content/content';
-import { cover, destroy, store } from '@/routes/weddings/photos';
+import { store } from '@/routes/weddings/photos';
 import type { CouplePhoto } from '@/types';
 
 const MAX = 4;
@@ -44,14 +45,6 @@ async function upload(event: Event): Promise<void> {
     }
     emit('changed');
 }
-
-function act(request: { url: string; method: string }): void {
-    router.visit(request.url, {
-        method: request.method as 'put' | 'delete',
-        preserveScroll: true,
-        onSuccess: () => emit('changed'),
-    });
-}
 </script>
 
 <!-- The couple's own photos for the top of their site: up to four, first is the cover. -->
@@ -66,40 +59,14 @@ function act(request: { url: string; method: string }): void {
             </p>
         </div>
         <ul class="couple-photos">
-            <li
+            <CouplePhotoTile
                 v-for="(photo, index) in photos"
                 :key="photo.id"
-                class="couple-photo"
-            >
-                <img
-                    :src="photo.url"
-                    :alt="copy.alt(index)"
-                    class="size-full object-cover"
-                    loading="lazy"
-                />
-                <span v-if="index === 0" class="couple-photo-badge">
-                    <Star class="size-3" aria-hidden="true" /> {{ copy.cover }}
-                </span>
-                <div class="couple-photo-actions">
-                    <button
-                        v-if="index > 0"
-                        type="button"
-                        class="couple-photo-action"
-                        @click="act(cover([weddingId, photo.id]))"
-                    >
-                        <Star class="size-4" aria-hidden="true" />
-                        {{ copy.makeCover }}
-                    </button>
-                    <button
-                        type="button"
-                        class="couple-photo-action"
-                        :aria-label="copy.remove"
-                        @click="act(destroy([weddingId, photo.id]))"
-                    >
-                        <Trash2 class="size-4" aria-hidden="true" />
-                    </button>
-                </div>
-            </li>
+                :wedding-id="weddingId"
+                :photo="photo"
+                :index="index"
+                @changed="emit('changed')"
+            />
             <li v-if="room > 0">
                 <label class="couple-photo-add">
                     <Spinner v-if="uploading" />

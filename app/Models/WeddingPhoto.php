@@ -23,6 +23,8 @@ use Illuminate\Support\Str;
  * @property int $position
  * @property int $width
  * @property int $height
+ * @property int $focus_x Percent from the left that must stay in view.
+ * @property int $focus_y Percent from the top that must stay in view.
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  */
@@ -36,7 +38,20 @@ class WeddingPhoto extends Model
     public const int TOKEN_LENGTH = 40;
 
     /** @var list<string> */
-    protected $fillable = ['position'];
+    protected $fillable = ['position', 'focus_x', 'focus_y'];
+
+    /** @var array<string, int> */
+    protected $attributes = ['focus_x' => 50, 'focus_y' => 50];
+
+    /**
+     * Where a template's crop centres: [x, y] in percent.
+     *
+     * @return array{int, int}
+     */
+    public function focus(): array
+    {
+        return [$this->focus_x, $this->focus_y];
+    }
 
     /**
      * @return BelongsTo<Wedding, $this>

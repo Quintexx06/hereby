@@ -6,7 +6,7 @@
 @layer components {
     /* Full-bleed track; padding lets the first and last window sit centred. */
     .showcase-track {
-        @apply mx-[calc(50%-50vw)] flex snap-x snap-mandatory gap-5 overflow-x-auto px-[max(1rem,calc(50vw-34rem))] pb-2 sm:gap-8;
+        @apply relative mx-[calc(50%-50vw)] flex snap-x snap-mandatory gap-5 overflow-x-auto px-[max(1rem,calc(50vw-34rem))] pb-2 sm:gap-8;
         scrollbar-width: none;
     }
 

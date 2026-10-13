@@ -9,7 +9,7 @@ const { eager = false } = defineProps<{
 }>();
 </script>
 
-<!-- One of the couple's photos: a web copy, sized, so nothing jumps. -->
+<!-- One of the couple's photos: a web copy, sized so nothing jumps, cropped around their chosen spot. -->
 <template>
     <img
         :src="photo.url"
@@ -20,5 +20,6 @@ const { eager = false } = defineProps<{
         :fetchpriority="eager ? 'high' : 'auto'"
         decoding="async"
         class="object-cover"
+        :style="{ objectPosition: `${photo.focus[0]}% ${photo.focus[1]}%` }"
     />
 </template>

@@ -232,6 +232,15 @@
         @apply relative aspect-[3/4] overflow-hidden rounded-xl bg-muted;
     }
 
+    /* The whole photo is the target: a tap marks the spot that stays in view. */
+    .couple-photo-focus {
+        @apply relative block size-full cursor-crosshair outline-none focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring;
+    }
+
+    .couple-photo-dot {
+        @apply pointer-events-none absolute size-5 -translate-1/2 rounded-full border-2 border-porcelain-50 bg-brand/70 shadow-[0_0_0_4px_rgb(0_0_0/0.15)] transition-[left,top] duration-200 ease-out;
+    }
+
     .couple-photo-badge {
         @apply absolute top-2 left-2 inline-flex items-center gap-1 rounded-full bg-background/90 px-2 py-0.5 text-xs font-medium;
     }

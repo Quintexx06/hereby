@@ -33,13 +33,17 @@ something else.
    and night ink; a theme sets only the accent (`--brand`, `--primary`,
    `--ring`, `--brand-muted`), as the landing's accent chips do.
 
+4. **Focal point.** A tap on a photo in «Inhalte» marks the spot that must
+   stay in view (usually their faces); every template crops around it
+   (`object-position`). Centre by default.
+
 ## Out of scope
 
-Cropping and focal points, captions, more than four photos, video.
+Free cropping, captions, more than four photos, video.
 
 ## Tests
 
 Upload (owner only, image only, at most four, resized, stored under the
-wedding), cover, delete (file gone), serving by token (unknown token 404,
+wedding), cover, focal point (0–100, owner only), delete (file gone), serving by token (unknown token 404,
 noindex), photos in the invitation payload in order, removal with the
 wedding.

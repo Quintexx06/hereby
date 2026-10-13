@@ -38,6 +38,7 @@ class ContentBlockController extends Controller
             'photos' => $wedding->couplePhotos->map(fn (WeddingPhoto $photo): array => [
                 'id' => $photo->id,
                 'url' => route('wedding-photos.show', $photo->token),
+                'focus' => $photo->focus(),
             ]),
             'events' => $wedding->events()->orderBy('starts_at')->get()->map(fn (Event $event): array => [
                 'id' => $event->id,

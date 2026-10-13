@@ -32,7 +32,13 @@ export type EventType =
     | 'other';
 
 /** One of the couple's own photos, cover first (WeddingResource). */
-export type WeddingPhoto = { url: string; width: number; height: number };
+export type WeddingPhoto = {
+    url: string;
+    width: number;
+    height: number;
+    /** The spot that must stay in view when cropped: [x, y] in percent. */
+    focus: [number, number];
+};
 
 export type Wedding = {
     coupleNames: string;

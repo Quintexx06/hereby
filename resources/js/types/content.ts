@@ -22,7 +22,7 @@ export type ContentWedding = {
 };
 
 /** One of the couple's photos on Inhalte, cover first. */
-export type CouplePhoto = { id: number; url: string };
+export type CouplePhoto = { id: number; url: string; focus: [number, number] };
 
 export type ContentEvent = {
     id: number;

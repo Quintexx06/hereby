@@ -28,6 +28,7 @@ class WeddingResource extends JsonResource
                 'url' => route('wedding-photos.show', $photo->token),
                 'width' => $photo->width,
                 'height' => $photo->height,
+                'focus' => $photo->focus(),
             ])->values(),
         ];
     }

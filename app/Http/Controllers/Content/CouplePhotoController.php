@@ -8,6 +8,7 @@ use App\Models\Wedding;
 use App\Models\WeddingPhoto;
 use App\Support\WebImage;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -59,6 +60,21 @@ class CouplePhotoController extends Controller
         });
 
         Inertia::flash('toast', ['type' => 'success', 'message' => 'Titelbild gewählt.']);
+
+        return back();
+    }
+
+    /**
+     * The spot that must stay in view when a template crops the photo.
+     */
+    public function focus(Request $request, Wedding $wedding, WeddingPhoto $couplePhoto): RedirectResponse
+    {
+        $spot = $request->validate([
+            'x' => ['required', 'integer', 'between:0,100'],
+            'y' => ['required', 'integer', 'between:0,100'],
+        ]);
+
+        $couplePhoto->update(['focus_x' => $spot['x'], 'focus_y' => $spot['y']]);
 
         return back();
     }

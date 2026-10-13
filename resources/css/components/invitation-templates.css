@@ -173,8 +173,9 @@
         color: var(--band-accent);
     }
 
+    /* Inset like the strip above it, so the rule ends where the photos do. */
     .panorama-meta {
-        @apply mx-auto flex w-full max-w-6xl flex-col justify-between gap-6 border-t border-foreground px-5 pt-6 sm:flex-row sm:items-end sm:px-8;
+        @apply mx-auto flex w-[calc(100%-1.5rem)] max-w-[calc(72rem-1.5rem)] flex-col justify-between gap-6 border-t border-foreground pt-6 sm:w-[calc(100%-2.5rem)] sm:max-w-[calc(72rem-2.5rem)] sm:flex-row sm:items-end;
     }
 
     .panorama-date {

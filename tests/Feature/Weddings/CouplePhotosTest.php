@@ -92,6 +92,22 @@ class CouplePhotosTest extends TestCase
         Storage::disk(WeddingPhoto::DISK)->assertMissing($first->path);
     }
 
+    public function test_the_couple_sets_the_spot_that_must_stay_in_view(): void
+    {
+        $wedding = Wedding::factory()->create();
+        $photo = WeddingPhoto::factory()->for($wedding)->create();
+        $route = route('weddings.photos.focus', [$wedding, $photo]);
+
+        $this->assertSame([50, 50], [$photo->fresh()?->focus_x, $photo->fresh()?->focus_y]);
+
+        $this->actingAs($wedding->owner)->put($route, ['x' => 30, 'y' => 20])->assertRedirect();
+        $this->assertSame([30, 20], [$photo->fresh()?->focus_x, $photo->fresh()?->focus_y]);
+
+        $this->actingAs($wedding->owner)->put($route, ['x' => 130, 'y' => -5])->assertSessionHasErrors(['x', 'y']);
+        $this->actingAs(User::factory()->create())->put($route, ['x' => 10, 'y' => 10])->assertForbidden();
+        $this->assertSame([30, 20], [$photo->fresh()?->focus_x, $photo->fresh()?->focus_y]);
+    }
+
     public function test_photos_are_served_by_their_token_and_kept_out_of_search(): void
     {
         $wedding = Wedding::factory()->create();
@@ -108,6 +124,7 @@ class CouplePhotosTest extends TestCase
     {
         $wedding = Wedding::factory()->create();
         $cover = WeddingPhoto::factory()->for($wedding)->create(['position' => 0, 'width' => 1600, 'height' => 1067]);
+        $cover->forceFill(['focus_x' => 40, 'focus_y' => 25])->save();
         WeddingPhoto::factory()->for($wedding)->create(['position' => 1]);
         $household = Household::factory()->for($wedding)->create();
 
@@ -115,11 +132,12 @@ class CouplePhotosTest extends TestCase
             ->assertInertia(fn (Assert $page) => $page
                 ->has('invitation.wedding.photos', 2)
                 ->where('invitation.wedding.photos.0.url', route('wedding-photos.show', $cover->token))
-                ->where('invitation.wedding.photos.0.width', 1600));
+                ->where('invitation.wedding.photos.0.width', 1600)
+                ->where('invitation.wedding.photos.0.focus', [40, 25]));
 
         $this->actingAs($wedding->owner)
             ->get(route('weddings.content.index', $wedding))
-            ->assertInertia(fn (Assert $page) => $page->has('photos', 2)->where('photos.0.id', $cover->id));
+            ->assertInertia(fn (Assert $page) => $page->has('photos', 2)->where('photos.0.id', $cover->id)->where('photos.0.focus', [40, 25]));
     }
 
     public function test_photos_leave_with_the_wedding(): void
