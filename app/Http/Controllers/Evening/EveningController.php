@@ -26,6 +26,7 @@ class EveningController extends Controller
                     'seated' => (clone $guests)->whereNotNull('guests.table_name')->count(),
                     'guests' => $guests->count(),
                 ],
+                'wayHome' => count($wedding->way_home ?? []),
             ],
         ]);
     }

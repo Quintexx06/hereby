@@ -19,4 +19,12 @@
     .seating-input {
         @apply h-11 w-full min-w-0 rounded-xl border border-input bg-background px-3 text-sm transition-colors duration-150 ease-out outline-none placeholder:text-muted-foreground/70 focus:border-ring;
     }
+
+    .way-home-row {
+        @apply grid items-end gap-3 border-t border-rule pt-5 md:grid-cols-[minmax(0,1fr)_minmax(0,14rem)_8rem_auto];
+    }
+
+    .way-home-remove {
+        @apply grid size-11 cursor-pointer place-items-center justify-self-end rounded-full text-muted-foreground transition-colors duration-150 ease-out hover:bg-muted hover:text-foreground;
+    }
 }

@@ -14,3 +14,6 @@ Schedule::command('model:prune', ['--model' => [Wedding::class]])->dailyAt('03:1
 
 // Reminders 14, 7 and 2 days before each RSVP deadline (roadmap 1.10).
 Schedule::command('hereby:send-reminders')->dailyAt('10:07')->timezone('Europe/Zurich');
+
+// The night's last connections, half an hour ahead (spec 2026-10-13).
+Schedule::command('hereby:send-way-home')->everyFiveMinutes()->withoutOverlapping();

@@ -8,9 +8,11 @@ import { dashboardPage } from '@/content/dashboard';
 import { eveningPage as copy } from '@/content/evening';
 import { dashboard } from '@/routes';
 import { edit as seating } from '@/routes/weddings/seating';
+import { edit as wayHome } from '@/routes/weddings/way-home';
 
 type EveningStatus = {
     seating: { published: boolean; seated: number; guests: number };
+    wayHome: number;
 };
 
 const props = defineProps<{
@@ -35,6 +37,12 @@ const rows = computed(() => [
         href: seating(props.wedding.id),
         ...copy.sections.seating,
         status: copy.seatingStatus(props.status.seating),
+    },
+    {
+        key: 'wayHome',
+        href: wayHome(props.wedding.id),
+        ...copy.sections.wayHome,
+        status: copy.wayHomeStatus(props.status.wayHome),
     },
 ]);
 </script>

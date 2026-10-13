@@ -47,5 +47,9 @@ return [
         'table' => 'Tavolo :name',
         'you' => 'Voi',
         'mates' => 'Al vostro tavolo',
+        'way_home_heading' => 'Il ritorno',
+        'from' => 'da :place',
+        'in' => 'tra :minutes min',
+        'gone' => 'partito',
     ],
 ];

@@ -200,6 +200,8 @@ class Wedding extends Model
             'paid_at' => 'datetime',
             'memories_kept_until' => 'date',
             'seating_published_at' => 'datetime',
+            'way_home' => 'array',
+            'way_home_sent' => 'array',
             'setup_step' => SetupStep::class,
             'setup_completed_at' => 'datetime',
             'celebration' => Celebration::class,

@@ -4,6 +4,7 @@ namespace App\Actions\Evening;
 
 use App\Models\Guest;
 use App\Models\Household;
+use App\Support\WayHome;
 use Illuminate\Support\Collection;
 
 /**
@@ -14,7 +15,7 @@ use Illuminate\Support\Collection;
 class BuildEvening
 {
     /**
-     * @return array{tables: list<array{name: string, yours: list<string>, mates: list<array{name: string, note: string|null}>}>}|null
+     * @return array{tables: list<array{name: string, yours: list<string>, mates: list<array{name: string, note: string|null}>}>, wayHome: list<array{label: string, place: string|null, departsAt: string}>}|null
      */
     public function handle(Household $household): ?array
     {
@@ -26,6 +27,11 @@ class BuildEvening
 
         return [
             'tables' => $wedding->seating_published_at !== null && $household->exists ? $this->tables($household) : [],
+            'wayHome' => array_map(fn (array $connection): array => [
+                'label' => $connection['label'],
+                'place' => $connection['place'],
+                'departsAt' => $connection['departs']->toIso8601String(),
+            ], WayHome::connections($wedding)),
         ];
     }
 

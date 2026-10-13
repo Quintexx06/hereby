@@ -78,6 +78,7 @@ export type EveningTable = {
 /** «Der Abend» on the personal link; null without Atelier. */
 export type Evening = {
     tables: EveningTable[];
+    wayHome: { label: string; place: string | null; departsAt: string }[];
 };
 
 export type ContentBlockType =
