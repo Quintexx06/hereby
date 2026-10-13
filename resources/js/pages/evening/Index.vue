@@ -78,26 +78,33 @@ const rows = computed(() => [
 
         <EveningLocked v-if="!unlocked" :wedding-id="wedding.id" />
 
-        <section class="ledger-section">
-            <Link
-                v-for="row in rows"
-                :key="row.key"
-                :href="row.href"
-                class="ledger-link group"
-            >
-                <span class="grid gap-1 sm:grid-cols-[12rem_minmax(0,1fr)]">
-                    <span class="text-lg font-semibold">{{ row.title }}</span>
-                    <span class="flex flex-col gap-0.5">
-                        <span class="text-muted-foreground">{{
-                            row.body
+        <section aria-labelledby="evening-tools" class="ledger-section">
+            <h2 id="evening-tools" class="ledger-title">{{ copy.tools }}</h2>
+            <div>
+                <Link
+                    v-for="row in rows"
+                    :key="row.key"
+                    :href="row.href"
+                    class="ledger-link group"
+                >
+                    <span class="grid gap-1 sm:grid-cols-[12rem_minmax(0,1fr)]">
+                        <span class="text-lg font-semibold">{{
+                            row.title
                         }}</span>
-                        <span v-if="unlocked && row.status" class="caption">{{
-                            row.status
-                        }}</span>
+                        <span class="flex flex-col gap-0.5">
+                            <span class="text-muted-foreground">{{
+                                row.body
+                            }}</span>
+                            <span
+                                v-if="unlocked && row.status"
+                                class="caption"
+                                >{{ row.status }}</span
+                            >
+                        </span>
                     </span>
-                </span>
-                <ArrowRight class="ledger-arrow" aria-hidden="true" />
-            </Link>
+                    <ArrowRight class="ledger-arrow" aria-hidden="true" />
+                </Link>
+            </div>
         </section>
     </div>
 </template>

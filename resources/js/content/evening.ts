@@ -6,6 +6,7 @@ export const eveningPage = {
     locked: 'Der Abend ist Teil von Atelier und Couture. Eure Gäste sehen dann ihren Tisch, ihren Heimweg und den Aufruf zum Gruppenfoto.',
     unlock: 'Pakete ansehen',
     open: 'Öffnen',
+    tools: 'Für den Tag',
     sections: {
         seating: {
             title: 'Tischplan',
