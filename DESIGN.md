@@ -212,7 +212,10 @@ Each one is a motion pattern with a product reason, not decoration:
   venue, guests' snapshots as casually tilted prints). Three accent chips
   (Ivory, Rosé, Alpine) recolour only the accents inside the site
   (`--showcase-ink` in `components/showcase.css`); the section and the site's
-  ground stay porcelain. No autoplay, no tabs.
+  ground stay porcelain. No autoplay, no tabs. Above it, one sentence with
+  blanks (`ShowcaseCoupleForm`, `useShowcaseCouple`): visitors type their
+  names and date and the site's hero, monogram and URL become theirs. Nothing
+  is stored or sent.
 - **Hiermit gestrichen.** (`StruckSection`, `StruckRow`): what we leave out
   (Passwörter, Vorlagen, Werbung…), struck through by a blush line as each
   row scrolls in. A custom icon pops out of the struck word (spring, never from

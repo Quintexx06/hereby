@@ -21,7 +21,7 @@
 
 | Now  | Next | Blocked |
 | ---- | ---- | ------- |
-| 0.2 Demo site for one real venue (`code`) · 0.3 demo-request form (`code`) | 0.3 Impressum & Datenschutz (`human` + `code`) | 0.6 designer, 0.8 hosting (`human`) |
+| 0.2 Demo site for one real venue (`code`) | 0.3 Impressum & Datenschutz (`human` + `code`) | 0.6 designer, 0.8 hosting (`human`) |
 
 `/roadmap` recomputes this table from the statuses below.
 
@@ -63,7 +63,7 @@ Every `code` item, before it is ticked:
 | --- | ---- | ----- | ------ | --------- |
 | 0.1 | Visit TrauDich! Zurich (17–18 Oct): venues, planners, couples | human | [ ] | 15+ conversations logged; 5 venue contacts with a follow-up date |
 | 0.2 | **One demo site for one real venue**, by hand, at full visual quality, on this codebase | code | [ ] | A real venue's events, rooms and transport on the guest page; opens < 2s on 4G; venue has seen it |
-| 0.3 | Landing page in German for the demo and the prepay ask ([analysis](../marketing/landing-page.md)) | code | [~] | `/` in de-CH with a working demo request form (stored, emailed to us); no English left on the page. **Done:** German page, SEO, FAQ data. **Open:** demo-request form, company details in Impressum/Datenschutz (drafts at /impressum and /datenschutz) and legal review, production domain |
+| 0.3 | Landing page in German for the demo and the prepay ask ([analysis](../marketing/landing-page.md)) | code | [~] | `/` in de-CH whose main action works; no English left on the page. **Done:** German page, SEO, FAQ data; the main action is «Kostenlos starten» to sign-up (build free, pay to send), so no demo-request form. **Open:** company details in Impressum/Datenschutz (drafts at /impressum and /datenschutz) and legal review, production domain |
 | 0.4 | Interview 20 engaged couples; ask 5 to prepay | human | [ ] | 20 interview notes in a shared doc; prepay link sent to every fit |
 | 0.5 | Pitch 10 venues with the demo and the preview-on-the-tour idea | human | [ ] | 10 pitches done; objections listed; 2 pilot agreements signed |
 | 0.6 | `[?]` Find the designer who sets the look; their themes replace the starter themes | human | [?] | Designer contracted; scope of the first 3 themes agreed |
@@ -148,6 +148,7 @@ needs an approved spec with its own acceptance criteria before work starts.
 
 | Date       | Change |
 | ---------- | ------ |
+| 2026-10-13 | Landing: visitors type their names and date into the studio's example site (hero, monogram, URL follow; nothing stored). The main action is «Kostenlos starten» everywhere instead of «Demo anfragen», which led to sign-up anyway; 0.3 no longer needs a demo-request form. Header wordmark replays the footer's entrance on hover |
 | 2026-10-13 | Landing studio becomes a full example wedding site with photos; accent chips recolour only accents (no section re-theme, no auto-switching tabs) |
 | 2026-10-12 | 3.8 (couples): building is free, a plan opens the personal links. «Freischalten» page with Signature CHF 290, Atelier CHF 590 (memories), Couture from CHF 1,490 on request; Stripe Checkout in CHF (cards, TWINT) without an SDK, confirmed by a signed webhook and on return; upgrades pay the difference; the team unlocks invoices in the admin. Closed links answer 404 to guests (the couple can still try them) and send no reminders; weddings already live became Signature. Guest photos get a private `memories` disk on the server's volume in Switzerland |
 | 2026-10-12 | Landing studio as a wide browser window with big template tabs and three colour dots. App: page transitions (View Transitions on Inertia visits), sidebar wordmark letters drop on hover, masthead scenes fade out above the rule, the flutes no longer overlap. Team «Hochzeiten» in one column: «Paar anlegen» in the masthead (side sheet), first steps as a strip, weddings as a table. Proposal for the paywall and «Erinnerungen» (photos, voice wishes, film) awaiting approval |

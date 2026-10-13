@@ -19,7 +19,7 @@ export const hero = {
     titleYes: 'Ja.',
     statement: 'Die Hochzeitswebsite, die jeden Gast persönlich einlädt.',
     lede: 'Ein eigener Link für jeden Haushalt, in seiner Sprache. Eure Gäste antworten in unter einer Minute, und wir richten alles in 48 Stunden für euch ein.',
-    primaryCta: 'Demo anfragen',
+    primaryCta: 'Kostenlos starten',
     secondaryCta: 'So funktioniert’s',
     skip: 'Vorhang öffnen',
     photo: photo.heroVeil,
@@ -145,9 +145,14 @@ export const marquee = [
 
 export const studio = {
     title: 'Gestaltet, nicht zusammengeklickt.',
-    lede: 'So sieht eine fertige Hochzeitswebsite von Hereby aus: eure Fotos, euer Programm, eure Anreise. Wählt eine Akzentfarbe, der Rest bleibt ruhig.',
+    lede: 'So sieht eine fertige Hochzeitswebsite von Hereby aus: eure Fotos, euer Programm, eure Anreise. Setzt eure Namen ein und wählt eine Akzentfarbe, der Rest bleibt ruhig.',
     pickerLabel: 'Akzentfarbe der Beispielseite',
     example: 'Beispielseite mit Demo-Daten',
+    tryLead: 'Probiert es mit euren Namen:',
+    tryJoin: 'am',
+    firstLabel: 'Erster Vorname',
+    secondLabel: 'Zweiter Vorname',
+    dateLabel: 'Hochzeitsdatum',
     accents: [
         { slug: 'ivory', name: 'Ivory', mood: 'Porzellan, Tinte, Kerzenlicht' },
         { slug: 'rose', name: 'Rosé', mood: 'Puder, Himbeere, Pfingstrose' },
@@ -158,11 +163,10 @@ export const studio = {
         },
     ],
     site: {
-        url: 'anna-und-luca.hereby.ch',
-        monogram: 'A & L',
+        couple: { first: 'Anna', second: 'Luca', date: '2027-06-19' },
+        place: 'Vitznau',
         nav: ['Programm', 'Anreise', 'Fotos'],
         action: 'Jetzt antworten',
-        date: 'Samstag, 19. Juni 2027 · Vitznau',
         welcome:
             'Wir sagen Ja am Vierwaldstättersee. Kommt vorbei, bringt gute Schuhe mit und bleibt bis zum letzten Schiff.',
         programmeTitle: 'Programm',
@@ -228,8 +232,8 @@ export const faq = {
 
 export const closing = {
     title: 'Euer Sommer 2027 beginnt mit einer Einladung.',
-    lede: 'Erzählt uns in zwanzig Minuten von eurem Tag. Zwei Tage später steht eure Hochzeitswebsite.',
-    cta: 'Demo anfragen',
+    lede: 'Baut eure Hochzeitswebsite kostenlos. Bezahlt erst, wenn die Einladungen an eure Gäste gehen.',
+    cta: 'Kostenlos starten',
     photo: photo.sparklers,
 } as const;
 

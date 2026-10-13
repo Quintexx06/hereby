@@ -6,6 +6,14 @@ import { studio } from '@/content/landing';
 defineProps<{
     /** Accent slug; only accent colours follow it, never the page ground. */
     accent: string;
+    /** The couple as the visitor typed them (or the demo couple). */
+    couple: {
+        first: string;
+        second: string;
+        monogram: string;
+        url: string;
+        date: string;
+    };
 }>();
 
 const site = studio.site;
@@ -18,12 +26,12 @@ const site = studio.site;
             <span class="flex gap-1.5">
                 <span v-for="dot in 3" :key="dot" class="showcase-bar-dot" />
             </span>
-            <span class="showcase-url">{{ site.url }}</span>
+            <span class="showcase-url">{{ couple.url }}</span>
         </div>
 
         <div class="showcase-site" data-theme="ivory" :data-accent="accent">
             <div class="showcase-nav">
-                <span class="showcase-monogram">{{ site.monogram }}</span>
+                <span class="showcase-monogram">{{ couple.monogram }}</span>
                 <span class="hidden gap-6 text-sm md:flex">
                     <span v-for="link in site.nav" :key="link">{{ link }}</span>
                 </span>
@@ -38,10 +46,12 @@ const site = studio.site;
                 />
                 <div class="showcase-hero-text">
                     <p class="showcase-names">
-                        Anna <span class="showcase-amp">&amp;</span> Luca
+                        {{ couple.first }}
+                        <span class="showcase-amp">&amp;</span>
+                        {{ couple.second }}
                     </p>
                     <p class="text-sm font-medium sm:text-base">
-                        {{ site.date }}
+                        {{ couple.date }} · {{ site.place }}
                     </p>
                 </div>
             </div>
