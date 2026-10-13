@@ -7,6 +7,7 @@ import {
     LifeBuoy,
     ListChecks,
     NotebookPen,
+    Sparkles,
     Users,
     UtensilsCrossed,
 } from '@lucide/vue';
@@ -14,6 +15,7 @@ import { dashboard, home } from '@/routes';
 import { index as adminInquiries } from '@/routes/admin/inquiries';
 import { index as adminWeddings } from '@/routes/admin/weddings';
 import { index as content } from '@/routes/weddings/content';
+import { show as extras } from '@/routes/weddings/extras';
 import { index as guests } from '@/routes/weddings/guests';
 import { index as kitchen } from '@/routes/weddings/kitchen';
 import { index as memories } from '@/routes/weddings/memories';
@@ -57,6 +59,11 @@ export function mainNavItems(wedding: SharedWedding | null): NavItem[] {
             title: 'Erinnerungen',
             href: memories(wedding.id),
             icon: Images,
+        });
+        items.push({
+            title: 'Extras',
+            href: extras(wedding.id),
+            icon: Sparkles,
         });
     }
 

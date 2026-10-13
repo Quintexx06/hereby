@@ -1,0 +1,66 @@
+<?php
+
+namespace App\Models\Concerns;
+
+use App\Enums\Addon;
+use App\Enums\Plan;
+use App\Models\WeddingAddon;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
+
+/**
+ * What a wedding may use beyond its plan: «Der Abend» with Atelier and up,
+ * and the extras bought one by one (spec 2026-10-13).
+ *
+ * @property Carbon|null $memories_kept_until Photos and newspaper stay until then (ADR 0011).
+ */
+trait HasAddons
+{
+    /**
+     * @return HasMany<WeddingAddon, $this>
+     */
+    public function addons(): HasMany
+    {
+        return $this->hasMany(WeddingAddon::class);
+    }
+
+    /**
+     * Table mates, way home, group photos and programme sign-ups.
+     */
+    public function includesEvening(): bool
+    {
+        return $this->plan !== null && $this->plan->rank() >= Plan::Atelier->rank();
+    }
+
+    public function hasAddon(Addon $addon): bool
+    {
+        if ($addon === Addon::KeepMemories) {
+            return $this->memories_kept_until !== null && ! $this->memories_kept_until->isPast();
+        }
+
+        return $addon->includedIn($this->plan) || $this->addons->contains('addon', $addon);
+    }
+
+    /**
+     * Only with a paid plan that allows it, and once unless bought per year.
+     */
+    public function canBuy(Addon $addon): bool
+    {
+        if ($this->plan === null || $this->plan->rank() < $addon->requires()->rank()) {
+            return false;
+        }
+
+        return $addon->isRepeatable() || ! $this->hasAddon($addon);
+    }
+
+    /**
+     * One more year for the memories, counted from when they would go.
+     */
+    public function keepMemoriesAnotherYear(): void
+    {
+        $retentionEnd = $this->wedding_date?->copy()->addMonths(config()->integer('hereby.retention_months'));
+        $from = collect([$retentionEnd, $this->memories_kept_until, now()->startOfDay()])->filter()->max();
+
+        $this->forceFill(['memories_kept_until' => $from->copy()->addYear()])->save();
+    }
+}

@@ -45,6 +45,23 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Extras
+    |--------------------------------------------------------------------------
+    |
+    | One-time prices in Rappen for what can be bought on top of a plan
+    | (spec 2026-10-13). «Erinnerungen behalten» is per year.
+    |
+    */
+
+    'addons' => [
+        'newspaper' => (int) env('HEREBY_PRICE_NEWSPAPER', 14900),
+        'chase_service' => (int) env('HEREBY_PRICE_CHASE_SERVICE', 19000),
+        'custom_domain' => (int) env('HEREBY_PRICE_CUSTOM_DOMAIN', 4900),
+        'keep_memories' => (int) env('HEREBY_PRICE_KEEP_MEMORIES', 3900),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Memories
     |--------------------------------------------------------------------------
     |

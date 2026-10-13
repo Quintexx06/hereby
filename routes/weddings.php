@@ -5,6 +5,7 @@ use App\Http\Controllers\Billing\PublishController;
 use App\Http\Controllers\Content\ContentBlockController;
 use App\Http\Controllers\Content\PreviewInvitationController;
 use App\Http\Controllers\Content\ReorderContentBlocksController;
+use App\Http\Controllers\Extras\ExtrasController;
 use App\Http\Controllers\Guests\GuestsController;
 use App\Http\Controllers\Guests\HouseholdController;
 use App\Http\Controllers\Guests\PreviewGuestImportController;
@@ -51,6 +52,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('hochzeit/{wedding}/freischalten', [PublishController::class, 'show'])->name('weddings.publish.show');
         Route::post('hochzeit/{wedding}/freischalten', [PublishController::class, 'store'])->name('weddings.publish.store');
         Route::get('hochzeit/{wedding}/freischalten/zurueck', [PublishController::class, 'confirm'])->name('weddings.publish.return');
+
+        Route::get('hochzeit/{wedding}/extras', [ExtrasController::class, 'show'])->name('weddings.extras.show');
+        Route::post('hochzeit/{wedding}/extras', [ExtrasController::class, 'store'])->name('weddings.extras.store');
+        Route::get('hochzeit/{wedding}/extras/zurueck', [ExtrasController::class, 'confirm'])->name('weddings.extras.return');
 
         Route::get('hochzeit/{wedding}/kueche', [KitchenController::class, 'index'])->name('weddings.kitchen.index');
         Route::get('hochzeit/{wedding}/kueche/blatt', [KitchenController::class, 'sheet'])->name('weddings.kitchen.sheet');

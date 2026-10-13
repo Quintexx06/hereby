@@ -11,6 +11,7 @@ use App\Enums\SetupStep;
 use App\Enums\WeddingStatus;
 use App\Enums\WeddingTemplate;
 use App\Enums\WeddingTheme;
+use App\Models\Concerns\HasAddons;
 use App\Models\Concerns\HasMemories;
 use Database\Factories\WeddingFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
@@ -75,7 +76,7 @@ use Illuminate\Support\Collection;
 class Wedding extends Model
 {
     /** @use HasFactory<WeddingFactory> */
-    use HasFactory, HasMemories, Prunable;
+    use HasAddons, HasFactory, HasMemories, Prunable;
 
     /**
      * @return BelongsTo<User, $this>
@@ -197,6 +198,7 @@ class Wedding extends Model
             'status' => WeddingStatus::class,
             'plan' => Plan::class,
             'paid_at' => 'datetime',
+            'memories_kept_until' => 'date',
             'setup_step' => SetupStep::class,
             'setup_completed_at' => 'datetime',
             'celebration' => Celebration::class,
