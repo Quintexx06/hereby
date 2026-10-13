@@ -27,9 +27,7 @@ class EnsureWeddingHasMemories
             abort(404);
         }
 
-        $languages = WeddingLanguages::of($wedding);
-        $short = array_combine(array_map(fn (string $locale): string => substr($locale, 0, 2), $languages), $languages);
-        App::setLocale($short[(string) $request->getPreferredLanguage(array_keys($short))] ?? $wedding->default_locale->value);
+        App::setLocale(WeddingLanguages::preferredBy($request, $wedding));
 
         return $next($request);
     }

@@ -85,4 +85,16 @@ return [
         'offer_body' => 'Un discorso, un gioco o una canzone? Iscrivetelo presso i testimoni.',
         'offer_cta' => 'Iscrivere qualcosa',
     ],
+    'newspaper' => [
+        'title' => 'Per il giornale delle nozze',
+        'lede' => 'Scrivete una storia su :couple: come li conoscete, cosa avete vissuto insieme, cosa augurate loro. I testimoni ne faranno un giornale.',
+        'author' => 'Il vostro nome',
+        'headline' => 'Titolo',
+        'headline_placeholder' => 'Come tutto è cominciato in Islanda',
+        'body' => 'La vostra storia',
+        'photo' => 'Una foto (facoltativa)',
+        'submit' => 'Inviare la storia',
+        'sent' => 'Grazie! La vostra storia è presso i testimoni.',
+        'more' => 'Scrivere un’altra storia',
+    ],
 ];

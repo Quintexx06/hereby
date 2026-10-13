@@ -85,4 +85,16 @@ return [
         'offer_body' => 'Un discours, un jeu ou une chanson ? Inscrivez-le auprès des témoins.',
         'offer_cta' => 'Inscrire quelque chose',
     ],
+    'newspaper' => [
+        'title' => 'Pour le journal du mariage',
+        'lede' => 'Écrivez une histoire sur :couple : comment vous les connaissez, ce que vous avez vécu, ce que vous leur souhaitez. Les témoins en feront un journal.',
+        'author' => 'Votre nom',
+        'headline' => 'Titre',
+        'headline_placeholder' => 'Comment tout a commencé en Islande',
+        'body' => 'Votre histoire',
+        'photo' => 'Une photo (facultatif)',
+        'submit' => 'Envoyer l’histoire',
+        'sent' => 'Merci ! Votre histoire est chez les témoins.',
+        'more' => 'Écrire une autre histoire',
+    ],
 ];

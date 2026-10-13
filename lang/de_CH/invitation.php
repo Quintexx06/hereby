@@ -85,4 +85,16 @@ return [
         'offer_body' => 'Eine Rede, ein Spiel oder ein Lied? Meldet es bei den Trauzeugen an.',
         'offer_cta' => 'Einlage anmelden',
     ],
+    'newspaper' => [
+        'title' => 'Für die Hochzeitszeitung',
+        'lede' => 'Schreibt eine Geschichte über :couple: wie ihr euch kennt, was ihr erlebt habt, was ihr ihnen wünscht. Die Trauzeugen machen daraus eine Zeitung.',
+        'author' => 'Euer Name',
+        'headline' => 'Überschrift',
+        'headline_placeholder' => 'Wie alles in Island begann',
+        'body' => 'Eure Geschichte',
+        'photo' => 'Ein Foto dazu (freiwillig)',
+        'submit' => 'Geschichte senden',
+        'sent' => 'Danke! Eure Geschichte ist bei den Trauzeugen.',
+        'more' => 'Noch eine Geschichte schreiben',
+    ],
 ];

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Invitations\DownloadCalendarController;
+use App\Http\Controllers\Invitations\NewspaperController;
 use App\Http\Controllers\Invitations\ProgrammeController;
 use App\Http\Controllers\Invitations\SaveReplyController;
 use App\Http\Controllers\Invitations\ShowInvitationController;
@@ -8,11 +9,14 @@ use App\Http\Controllers\Invitations\ShowReplyController;
 use App\Http\Controllers\Invitations\StopRemindersController;
 use App\Http\Controllers\Memories\GuestUploadController;
 use App\Http\Controllers\Witness\GroupPhotoCallController;
+use App\Http\Controllers\Witness\NewspaperController as WitnessNewspaperController;
 use App\Http\Controllers\Witness\ProgrammeController as WitnessProgrammeController;
 use App\Http\Controllers\Witness\WitnessController;
 use App\Http\Middleware\EnsureWeddingHasEvening;
 use App\Http\Middleware\EnsureWeddingHasMemories;
+use App\Http\Middleware\EnsureWeddingHasNewspaper;
 use App\Http\Middleware\EnsureWeddingIsPublished;
+use App\Http\Middleware\EnsureWitnessLinkIsOpen;
 use App\Http\Middleware\PreventIndexing;
 use App\Http\Middleware\UseHouseholdLocale;
 use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
@@ -59,16 +63,39 @@ Route::middleware([PreventIndexing::class, EnsureWeddingHasMemories::class])->gr
 | The witnesses' private link (spec 2026-10-13): the couple shares it, the
 | token is the credential. The evening's offers, decided and ordered there.
 */
-Route::middleware(['throttle:invitations', PreventIndexing::class, EnsureWeddingHasEvening::class])
+Route::middleware(['throttle:invitations', PreventIndexing::class, EnsureWitnessLinkIsOpen::class])
     ->scopeBindings()
     ->group(function () {
         Route::get('trauzeugen/{wedding:witness_token}', [WitnessController::class, 'show'])->name('witness.show');
-        Route::patch('trauzeugen/{wedding:witness_token}/einlagen/{programmeItem}', [WitnessProgrammeController::class, 'update'])
-            ->name('witness.programme.update');
-        Route::put('trauzeugen/{wedding:witness_token}/einlagen', [WitnessProgrammeController::class, 'reorder'])
-            ->name('witness.programme.reorder');
-        Route::get('trauzeugen/{wedding:witness_token}/ablauf', [WitnessProgrammeController::class, 'print'])
-            ->name('witness.programme.print');
-        Route::post('trauzeugen/{wedding:witness_token}/gruppenfotos/{groupPhoto}/aufruf', GroupPhotoCallController::class)
-            ->name('witness.group-photos.call');
+
+        Route::middleware(EnsureWeddingHasEvening::class)->group(function () {
+            Route::patch('trauzeugen/{wedding:witness_token}/einlagen/{programmeItem}', [WitnessProgrammeController::class, 'update'])
+                ->name('witness.programme.update');
+            Route::put('trauzeugen/{wedding:witness_token}/einlagen', [WitnessProgrammeController::class, 'reorder'])
+                ->name('witness.programme.reorder');
+            Route::get('trauzeugen/{wedding:witness_token}/ablauf', [WitnessProgrammeController::class, 'print'])
+                ->name('witness.programme.print');
+            Route::post('trauzeugen/{wedding:witness_token}/gruppenfotos/{groupPhoto}/aufruf', GroupPhotoCallController::class)
+                ->name('witness.group-photos.call');
+        });
+
+        Route::middleware(EnsureWeddingHasNewspaper::class)->group(function () {
+            Route::get('trauzeugen/{wedding:witness_token}/zeitung', [WitnessNewspaperController::class, 'print'])
+                ->name('witness.newspaper.print');
+            Route::get('trauzeugen/{wedding:witness_token}/zeitung/{newspaperArticle}/foto', [WitnessNewspaperController::class, 'photo'])
+                ->name('witness.newspaper.photo');
+            Route::delete('trauzeugen/{wedding:witness_token}/zeitung/{newspaperArticle}', [WitnessNewspaperController::class, 'destroy'])
+                ->name('witness.newspaper.destroy');
+        });
     });
+
+/*
+| «Hochzeitszeitung»: one contribution link per wedding, for friends. The
+| token is the credential; open with the newspaper extra or Couture.
+*/
+Route::middleware(['throttle:invitations', PreventIndexing::class, EnsureWeddingHasNewspaper::class])->group(function () {
+    Route::get('zeitung/{wedding:newspaper_token}', [NewspaperController::class, 'show'])->name('invitation.newspaper.show');
+    Route::post('zeitung/{wedding:newspaper_token}', [NewspaperController::class, 'store'])
+        ->middleware('throttle:photo-uploads')
+        ->name('invitation.newspaper.store');
+});

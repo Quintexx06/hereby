@@ -8,6 +8,7 @@ import { dashboardPage } from '@/content/dashboard';
 import { eveningPage as copy } from '@/content/evening';
 import { dashboard } from '@/routes';
 import { edit as groupPhotos } from '@/routes/weddings/group-photos';
+import { edit as newspaper } from '@/routes/weddings/newspaper';
 import { edit as programme } from '@/routes/weddings/programme';
 import { edit as seating } from '@/routes/weddings/seating';
 import { edit as wayHome } from '@/routes/weddings/way-home';
@@ -60,6 +61,12 @@ const rows = computed(() => [
         ...copy.sections.wayHome,
         status: copy.wayHomeStatus(props.status.wayHome),
     },
+    {
+        key: 'newspaper',
+        href: newspaper(props.wedding.id),
+        ...copy.sections.newspaper,
+        status: '',
+    },
 ]);
 </script>
 
@@ -84,7 +91,7 @@ const rows = computed(() => [
                         <span class="text-muted-foreground">{{
                             row.body
                         }}</span>
-                        <span v-if="unlocked" class="caption">{{
+                        <span v-if="unlocked && row.status" class="caption">{{
                             row.status
                         }}</span>
                     </span>

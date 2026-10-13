@@ -19,6 +19,10 @@ export const eveningPage = {
             title: 'Gruppenfotos',
             body: 'Wer auf welches Foto gehört. Die Trauzeugen rufen die Gruppen am Tag auf.',
         },
+        newspaper: {
+            title: 'Hochzeitszeitung',
+            body: 'Geschichten und Fotos eurer Freunde, gedruckt von den Trauzeugen. Ein Extra.',
+        },
         wayHome: {
             title: 'Heimweg',
             body: 'Die letzten Verbindungen der Nacht. Eure Gäste bekommen eine halbe Stunde vorher eine Mail.',

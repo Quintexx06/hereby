@@ -85,4 +85,16 @@ return [
         'offer_body' => 'A speech, a game or a song? Sign it up with the witnesses.',
         'offer_cta' => 'Sign something up',
     ],
+    'newspaper' => [
+        'title' => 'For the wedding newspaper',
+        'lede' => 'Write a story about :couple: how you know them, what you lived through together, what you wish them. The witnesses turn it into a newspaper.',
+        'author' => 'Your name',
+        'headline' => 'Headline',
+        'headline_placeholder' => 'How it all began in Iceland',
+        'body' => 'Your story',
+        'photo' => 'A photo to go with it (optional)',
+        'submit' => 'Send story',
+        'sent' => 'Thank you! Your story is with the witnesses.',
+        'more' => 'Write another story',
+    ],
 ];

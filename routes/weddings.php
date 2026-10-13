@@ -11,6 +11,7 @@ use App\Http\Controllers\Evening\ProgrammeController;
 use App\Http\Controllers\Evening\SeatingController;
 use App\Http\Controllers\Evening\WayHomeController;
 use App\Http\Controllers\Extras\ExtrasController;
+use App\Http\Controllers\Extras\NewspaperController;
 use App\Http\Controllers\Guests\GuestsController;
 use App\Http\Controllers\Guests\HouseholdController;
 use App\Http\Controllers\Guests\PreviewGuestImportController;
@@ -71,6 +72,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::get('hochzeit/{wedding}/gruppenfotos', [GroupPhotosController::class, 'edit'])->name('weddings.group-photos.edit');
         Route::put('hochzeit/{wedding}/gruppenfotos', [GroupPhotosController::class, 'update'])->name('weddings.group-photos.update');
+
+        Route::get('hochzeit/{wedding}/zeitung', [NewspaperController::class, 'edit'])->name('weddings.newspaper.edit');
 
         Route::get('hochzeit/{wedding}/extras', [ExtrasController::class, 'show'])->name('weddings.extras.show');
         Route::post('hochzeit/{wedding}/extras', [ExtrasController::class, 'store'])->name('weddings.extras.store');

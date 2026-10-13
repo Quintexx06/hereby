@@ -3,7 +3,7 @@
 export const witnessPage = {
     title: 'Für die Trauzeugen',
     lede: (couple: string) =>
-        `Was die Gäste für den Abend von ${couple} vorbereiten. Ihr entscheidet und bringt es in eine Reihenfolge. Das Brautpaar sieht nur, wie viele Einlagen es sind.`,
+        `Was die Gäste für ${couple} vorbereiten. Ihr entscheidet und bringt es in eine Reihenfolge. Das Brautpaar sieht nur, wie viel es ist.`,
     private:
         'Dieser Link ist privat. Teilt ihn nur mit den anderen Trauzeugen.',
     programme: 'Einlagen',
@@ -25,6 +25,14 @@ export const witnessPage = {
     call: 'Aufrufen',
     callAgain: 'Nochmals aufrufen',
     calledAt: (time: string) => `Aufgerufen um ${time}`,
+    newspaper: 'Hochzeitszeitung',
+    newspaperHint:
+        'Die Geschichten der Gäste. Entfernt, was nicht passt, und druckt die Zeitung.',
+    newspaperEmpty: 'Noch keine Geschichten.',
+    newspaperPrint: 'Zeitung drucken',
+    remove: 'Entfernen',
+    removeConfirm: 'Diese Geschichte wirklich entfernen?',
+    by: (name: string) => `von ${name}`,
     kinds: {
         speech: 'Rede',
         game: 'Spiel',

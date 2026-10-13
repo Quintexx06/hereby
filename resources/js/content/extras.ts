@@ -54,3 +54,20 @@ export const addons: Record<
         perYear: true,
     },
 };
+
+export const newspaperPage = {
+    title: 'Hochzeitszeitung',
+    lede: 'Eure Freunde schreiben Geschichten und schicken Fotos über einen Link. Die Trauzeugen stellen die Zeitung zusammen und drucken sie. Ihr seht nur, wie viele Geschichten schon da sind: Den Rest lest ihr am Fest.',
+    locked: 'Die Hochzeitszeitung ist ein Extra, in Couture schon dabei.',
+    unlock: 'Zu den Extras',
+    count: (n: number) =>
+        n === 0
+            ? 'Noch keine Geschichten'
+            : `${n} ${n === 1 ? 'Geschichte' : 'Geschichten'} eingegangen`,
+    contributeLabel: 'Link für eure Freunde und Familie',
+    contributeHint:
+        'Ohne Konto. Schickt ihn an alle, die etwas über euch erzählen können.',
+    witnessLabel: 'Link für eure Trauzeugen',
+    witnessHint:
+        'Dort lesen sie die Geschichten, entfernen, was nicht passt, und drucken die Zeitung.',
+};

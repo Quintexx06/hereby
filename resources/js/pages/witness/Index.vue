@@ -5,6 +5,8 @@ import { computed } from 'vue';
 import WitnessGroups from '@/components/witness/WitnessGroups.vue';
 import type { WitnessGroup } from '@/components/witness/WitnessGroups.vue';
 import WitnessItem from '@/components/witness/WitnessItem.vue';
+import WitnessNewspaper from '@/components/witness/WitnessNewspaper.vue';
+import type { WitnessArticle } from '@/components/witness/WitnessNewspaper.vue';
 import type { WitnessProgrammeItem } from '@/components/witness/WitnessItem.vue';
 import { witnessPage as copy } from '@/content/witness';
 
@@ -14,9 +16,16 @@ const props = defineProps<{
         date: string | null;
         budget: number | null;
     };
+    evening: boolean;
+    newspaper: boolean;
     programme: WitnessProgrammeItem[];
     groups: WitnessGroup[];
-    links: { reorder: string; print: string };
+    articles: WitnessArticle[];
+    links: {
+        reorder: string | null;
+        print: string | null;
+        newspaper: string | null;
+    };
 }>();
 
 const minutes = computed(() =>
@@ -29,6 +38,10 @@ const over = computed(
 );
 
 function move(index: number, direction: -1 | 1): void {
+    if (!props.links.reorder) {
+        return;
+    }
+
     const ids = props.programme.map((item) => item.id);
     [ids[index], ids[index + direction]] = [ids[index + direction], ids[index]];
     router.put(props.links.reorder, { ids }, { preserveScroll: true });
@@ -50,7 +63,7 @@ function move(index: number, direction: -1 | 1): void {
             <p class="publish-note">{{ copy.private }}</p>
         </header>
 
-        <section class="flex flex-col gap-5">
+        <section v-if="evening" class="flex flex-col gap-5">
             <div class="flex flex-wrap items-end justify-between gap-4">
                 <div>
                     <h2 class="title">{{ copy.programme }}</h2>
@@ -60,6 +73,7 @@ function move(index: number, direction: -1 | 1): void {
                     </p>
                 </div>
                 <a
+                    v-if="links.print"
                     :href="links.print"
                     target="_blank"
                     class="text-action hit-area"
@@ -83,6 +97,11 @@ function move(index: number, direction: -1 | 1): void {
             </ol>
         </section>
 
-        <WitnessGroups :groups="groups" />
+        <WitnessGroups v-if="evening" :groups="groups" />
+        <WitnessNewspaper
+            v-if="newspaper && links.newspaper"
+            :articles="articles"
+            :print-url="links.newspaper"
+        />
     </main>
 </template>
