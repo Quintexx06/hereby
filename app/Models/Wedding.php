@@ -167,6 +167,8 @@ class Wedding extends Model
      * Weddings past the retention window, and drafts abandoned for as long.
      * Deleting them cascades to every household, guest and answer at the
      * database level; one by one, so each wedding's photos go with it.
+     * Kept memories (ADR 0011) wait until their year is over; their guest
+     * data is deleted on time by StripGuestData.
      *
      * @return Builder<static>
      */
@@ -175,7 +177,11 @@ class Wedding extends Model
         $cutoff = now()->subMonths(config()->integer('hereby.retention_months'))->startOfDay();
 
         return static::query()
-            ->where('wedding_date', '<', $cutoff)
+            ->where(fn (Builder $query) => $query
+                ->where('wedding_date', '<', $cutoff)
+                ->where(fn (Builder $kept) => $kept
+                    ->whereNull('memories_kept_until')
+                    ->orWhere('memories_kept_until', '<', now()->toDateString())))
             ->orWhere(fn (Builder $query) => $query
                 ->where('status', WeddingStatus::Draft)
                 ->where('updated_at', '<', $cutoff));
@@ -202,6 +208,7 @@ class Wedding extends Model
             'paid_at' => 'datetime',
             'memories_kept_until' => 'date',
             'seating_published_at' => 'datetime',
+            'guest_data_deleted_at' => 'datetime',
             'way_home' => 'array',
             'way_home_sent' => 'array',
             'setup_step' => SetupStep::class,

@@ -13,6 +13,7 @@ use Illuminate\Support\Carbon;
  * and the extras bought one by one (spec 2026-10-13).
  *
  * @property Carbon|null $memories_kept_until Photos and newspaper stay until then (ADR 0011).
+ * @property Carbon|null $guest_data_deleted_at When guest data went while the memories stayed.
  * @property Carbon|null $seating_published_at When guests started seeing their table mates.
  * @property list<array{label: string, place: string|null, time: string}>|null $way_home The night's last connections.
  * @property list<string>|null $way_home_sent Connections whose reminder went out.

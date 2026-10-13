@@ -16,3 +16,4 @@ Template: `NNNN-title.md` with **Status**, **Context**, **Decision** and **Conse
 | [0008](0008-something-blue.md)     | ~~"Something blue"~~ (superseded by 0009) |
 | [0009](0009-vorhang-auf.md)        | "Vorhang auf": Archivo, night & blush (rosé), photography, three.js veil |
 | [0010](0010-swiss-address-search.md) | Venue addresses from the federal address register |
+| [0011](0011-kept-memories.md)      | Kept memories: guest data still goes on schedule |
