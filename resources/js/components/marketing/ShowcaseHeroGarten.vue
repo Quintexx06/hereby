@@ -1,14 +1,20 @@
 <script setup lang="ts">
 import ResponsivePhoto from '@/components/marketing/ResponsivePhoto.vue';
+import ShowcaseScene from '@/components/marketing/ShowcaseScene.vue';
 import type { ShowcaseCoupleSite } from '@/composables/useShowcaseCouple';
 import { studio } from '@/content/landing';
 
-defineProps<{ couple: ShowcaseCoupleSite }>();
+defineProps<{ couple: ShowcaseCoupleSite; active: boolean }>();
 </script>
 
 <!-- Garten: the photo under an arch, a branch on either side, centred names. -->
 <template>
     <div class="sc-garten-hero">
+        <ShowcaseScene
+            scene="petals"
+            :active="active"
+            class="sc-scene-petals"
+        />
         <svg
             v-for="side in ['left', 'right']"
             :key="side"

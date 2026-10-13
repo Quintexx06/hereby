@@ -1,14 +1,16 @@
 <script setup lang="ts">
 import ResponsivePhoto from '@/components/marketing/ResponsivePhoto.vue';
+import ShowcaseScene from '@/components/marketing/ShowcaseScene.vue';
 import type { ShowcaseCoupleSite } from '@/composables/useShowcaseCouple';
 import { studio } from '@/content/landing';
 
-defineProps<{ couple: ShowcaseCoupleSite }>();
+defineProps<{ couple: ShowcaseCoupleSite; active: boolean }>();
 </script>
 
 <!-- Panorama: the names run past as a band; the photos go wall to wall. -->
 <template>
     <div class="sc-panorama-hero">
+        <ShowcaseScene scene="bokeh" :active="active" class="sc-scene-bokeh" />
         <div class="sc-panorama-band" aria-hidden="true">
             <span v-for="copy in 2" :key="copy" class="sc-panorama-run">
                 <span v-for="n in 3" :key="n">

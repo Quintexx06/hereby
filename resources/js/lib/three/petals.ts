@@ -13,10 +13,17 @@ const seeded = (seed: number) => () => {
 /**
  * Rose petals drifting down through the margin, each turning on its own
  * axis and swaying side to side; they wrap round to the top. Decorative.
+ * `count`, `size` and `spread` let a wider canvas carry more, smaller
+ * petals across its width.
  */
 export function createPetals(
     canvas: HTMLCanvasElement,
     animate: boolean,
+    {
+        count = 22,
+        size = 1,
+        spread = 1,
+    }: { count?: number; size?: number; spread?: number } = {},
 ): ThreeScene {
     const { renderer, scene, camera, dispose } = createStudio(canvas);
     camera.position.set(0, 0, 7);
@@ -29,11 +36,11 @@ export function createPetals(
     const random = seeded(7);
     const field = new Group();
 
-    const petals = Array.from({ length: 22 }, (_, index) => {
+    const petals = Array.from({ length: count }, (_, index) => {
         const mesh = new Mesh(geometry, materials[index % materials.length]);
-        mesh.scale.setScalar(0.32 + random() * 0.3);
+        mesh.scale.setScalar((0.32 + random() * 0.3) * size);
         const state = {
-            x: (random() - 0.5) * 4.4,
+            x: (random() - 0.5) * 4.4 * spread,
             y: (random() - 0.5) * 4,
             z: (random() - 0.5) * 2.5,
             fall: 0.18 + random() * 0.22,

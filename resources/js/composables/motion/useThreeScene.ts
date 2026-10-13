@@ -1,5 +1,5 @@
 import type { Ref } from 'vue';
-import { onBeforeUnmount, onMounted, ref } from 'vue';
+import { onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { prefersReducedMotion } from '@/lib/motion';
 import type { SceneFactory, ThreeScene } from '@/lib/three/studio';
 import { supportsWebGL } from '@/lib/three/support';
@@ -8,17 +8,29 @@ import { supportsWebGL } from '@/lib/three/support';
  * Mounts a decorative 3D scene only when its section nears the viewport
  * (three.js is downloaded then, not before), follows the pointer and the
  * section's scroll progress, and pauses off screen. Under reduced motion
- * the scene renders one still frame.
+ * the scene renders one still frame. `enabled` (optional) holds it back
+ * further, e.g. for a carousel slide that isn't the one in front.
  */
 export function useThreeScene(
     canvas: Ref<HTMLCanvasElement | null>,
     section: Ref<HTMLElement | null>,
     load: () => Promise<SceneFactory>,
+    enabled: Ref<boolean> = ref(true),
 ) {
     const isReady = ref(false);
     let instance: ThreeScene | null = null;
     let nearby: IntersectionObserver | undefined;
     let cancelled = false;
+    let mounting = false;
+    let visible = false;
+
+    const update = () => {
+        if (visible && enabled.value && !instance && !mounting) {
+            mounting = true;
+            void mount();
+        }
+        instance?.setActive(visible && enabled.value);
+    };
 
     const onPointer = (event: PointerEvent) =>
         instance?.setPointer(
@@ -44,6 +56,7 @@ export function useThreeScene(
         }
 
         instance = create(canvas.value, !prefersReducedMotion());
+        instance.setActive(visible && enabled.value);
         isReady.value = true;
         window.addEventListener('pointermove', onPointer, { passive: true });
         window.addEventListener('scroll', onScroll, { passive: true });
@@ -57,16 +70,15 @@ export function useThreeScene(
 
         nearby = new IntersectionObserver(
             ([entry]) => {
-                const visible = Boolean(entry?.isIntersecting);
-                if (visible && !instance) {
-                    void mount();
-                }
-                instance?.setActive(visible);
+                visible = Boolean(entry?.isIntersecting);
+                update();
             },
             { rootMargin: '300px 0px' },
         );
         nearby.observe(section.value);
     });
+
+    watch(enabled, update);
 
     onBeforeUnmount(() => {
         cancelled = true;

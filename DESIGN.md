@@ -214,7 +214,13 @@ Each one is a motion pattern with a product reason, not decoration:
   the arrows; the template's name and mood sit between them. Nothing moves
   on its own. Atelier sets the names over the photo, Garten puts the photo
   under an arch between two drawn twigs, Panorama runs the names as a band
-  over a strip of photos. Above, one sentence with blanks
+  over a strip of photos. Each has its own 3D layer (`ShowcaseScene`, scenes
+  from `lib/three`): Atelier's wedding rings turn in the photo's corner,
+  Garten's rose petals fall through the arch (smaller and more of them, via
+  `createPetals` options), Panorama's bokeh drifts behind the band in a
+  light tint of the accent. three.js loads only when a slide comes to the
+  front, and only the front slide renders (`useThreeScene`'s `enabled`).
+  Above, one sentence with blanks
   (`ShowcaseCoupleForm`, `useShowcaseCouple`) puts the visitor's names and
   date into all three, and three accent chips recolour only their accents
   (`--showcase-ink`); the ground stays porcelain. Classes are `sc-*` so the

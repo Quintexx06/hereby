@@ -9,6 +9,8 @@ import { studio } from '@/content/landing';
 defineProps<{
     /** Which of the three templates this window shows. */
     template: string;
+    /** The slide in front: only its 3D layer renders. */
+    active: boolean;
     /** Accent slug; only accent colours follow it, never the page ground. */
     accent: string;
     /** The couple as the visitor typed them (or the demo couple). */
@@ -52,7 +54,11 @@ const heroes: Record<string, unknown> = {
                 <span class="showcase-action">{{ studio.site.action }}</span>
             </div>
 
-            <component :is="heroes[template]" :couple="couple" />
+            <component
+                :is="heroes[template]"
+                :couple="couple"
+                :active="active"
+            />
             <ShowcaseDetails />
         </div>
     </figure>

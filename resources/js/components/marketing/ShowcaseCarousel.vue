@@ -72,6 +72,7 @@ function go(next: number): void {
             >
                 <ShowcaseWindow
                     :template="template.slug"
+                    :active="slideIndex === index"
                     :accent="accent"
                     :couple="couple"
                 />
