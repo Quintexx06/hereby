@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { Head, Link } from '@inertiajs/vue3';
+import { Head } from '@inertiajs/vue3';
 import CopyLink from '@/components/CopyLink.vue';
+import LockedPreview from '@/components/locked/LockedPreview.vue';
 import PageMasthead from '@/components/PageMasthead.vue';
 import { dashboardPage } from '@/content/dashboard';
 import { newspaperPage as copy } from '@/content/extras';
@@ -31,12 +32,13 @@ defineOptions({
     <div class="app-page gap-10">
         <PageMasthead :title="copy.title" :lede="copy.lede" />
 
-        <div v-if="!unlocked" class="flex max-w-3xl flex-col items-start gap-5">
-            <p class="publish-note">{{ copy.locked }}</p>
-            <Link :href="extras(wedding.id)" class="text-action hit-area">
-                {{ copy.unlock }}
-            </Link>
-        </div>
+        <LockedPreview
+            v-if="!unlocked"
+            kind="newspaper"
+            :note="copy.locked"
+            :action="copy.unlock"
+            :href="extras(wedding.id).url"
+        />
 
         <template v-else>
             <p class="caption">{{ copy.count(articles) }}</p>

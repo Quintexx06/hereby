@@ -80,3 +80,37 @@
         @apply border-brand/50 text-brand;
     }
 }
+
+/* A locked feature: its demo preview, blurred, under the unlock card. */
+@layer components {
+    .locked-preview {
+        @apply relative isolate overflow-hidden rounded-[1.25rem] border border-rule bg-card p-5 sm:p-8;
+    }
+
+    .locked-preview-stage {
+        @apply pointer-events-none blur-[6px] transition-[filter] duration-300 ease-out select-none;
+        mask-image: linear-gradient(to bottom, black 55%, transparent);
+    }
+
+    @media (hover: hover) {
+        .locked-preview:hover .locked-preview-stage {
+            @apply blur-[4px];
+        }
+    }
+
+    .locked-preview-overlay {
+        @apply absolute inset-0 grid place-items-center p-5;
+    }
+
+    .locked-preview-card {
+        @apply flex max-w-md flex-col items-start gap-5 rounded-[1rem] border border-rule bg-background/90 p-6 shadow-[0_24px_60px_-28px_rgb(30_14_10/0.5)] backdrop-blur-sm;
+    }
+
+    .locked-preview-tile {
+        @apply flex flex-col gap-4 rounded-[1rem] border border-rule bg-background p-5;
+    }
+
+    .locked-preview-chip {
+        @apply shrink-0 rounded-full bg-brand/10 px-3 py-1 text-xs font-medium text-brand;
+    }
+}

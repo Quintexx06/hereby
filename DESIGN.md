@@ -210,12 +210,17 @@ Each one is a motion pattern with a product reason, not decoration:
 - **Studio** (`StudioSection`, `ShowcaseCarousel`, `ShowcaseWindow`,
   `ShowcaseHero*`, `ShowcaseDetails`): the three templates (Atelier, Garten,
   Panorama) as finished sites in browser windows of fixed height that scroll
-  inside, side by side in a full-bleed scroll-snap track: swipe, or step with
-  the arrows; the template's name and mood sit between them. Nothing moves
+  inside, side by side in a full-bleed scroll-snap track that loops endlessly
+  (`useLoopingTrack`: three copies, the visitor always rests in the middle
+  one and is moved there invisibly when the track settles) and opens with
+  Garten in the middle, its neighbours peeking: swipe, or step with the
+  arrows; the template's name and mood sit between them. Nothing moves
   on its own. Atelier sets the names over the photo, Garten puts the photo
   under an arch between two drawn twigs, Panorama runs the names as a band
   over a strip of photos. Each has its own 3D layer (`ShowcaseScene`, scenes
-  from `lib/three`): Atelier's wedding rings turn in the photo's corner,
+  from `lib/three`): Atelier's sparkler draws a heart of light over the photo, as in a long
+  exposure, with sparks spraying off its tip (`lib/three/sparkler.ts`; the
+  rings stay the intro's own),
   Garten's rose petals fall through the arch (smaller and more of them, via
   `createPetals` options), Panorama's bokeh drifts behind the band in a
   light tint of the accent. three.js loads only when a slide comes to the
@@ -225,6 +230,9 @@ Each one is a motion pattern with a product reason, not decoration:
   date into all three, and three accent chips recolour only their accents
   (`--showcase-ink`); the ground stays porcelain. Classes are `sc-*` so the
   real templates' styles never leak in.
+- **Premium** (`PremiumSection`, after the studio, on `.stage`): what Atelier
+  and Couture add to the day, as eight cards with Hereby icons and a tier
+  pill (Couture in the brand colour). No prices, nothing marked «bald».
 - **Hiermit gestrichen.** (`StruckSection`, `StruckRow`): what we leave out
   (Passwörter, Vorlagen, Werbung…), struck through by a blush line as each
   row scrolls in. A custom icon pops out of the struck word (spring, never from
@@ -330,7 +338,9 @@ then shows "Danke für eure Antwort", who is coming and "Antwort ändern".
 Couple side: «Der Abend» is a ledger of the day's tools (Tischplan,
 Einlagen, Gruppenfotos, Heimweg, Hochzeitszeitung), each its own settings
 page in the editorial system; without Atelier each shows the lock note and
-the way to the plans. Guest side (`evening-guest.css`, text only, rule 2):
+the way to the plans on a card over a blurred demo of the page
+(`LockedPreview`, demo data in `content/locked-previews.ts`, never real
+guests); Erinnerungen and the Hochzeitszeitung do the same. Guest side (`evening-guest.css`, text only, rule 2):
 the household's table as a card with the couple's line per person, the way
 home as a list with a quiet countdown pill in the last six hours, and a
 called group photo as the one loud block (primary ground) for 20 minutes.

@@ -42,7 +42,11 @@ const form = useForm<{ groups: GroupPhotoDraft[] }>({
     <div class="app-page gap-10">
         <PageMasthead :title="copy.title" :lede="copy.lede" />
 
-        <EveningLocked v-if="!unlocked" :wedding-id="wedding.id" />
+        <EveningLocked
+            v-if="!unlocked"
+            :wedding-id="wedding.id"
+            preview="groupPhotos"
+        />
 
         <form
             v-else

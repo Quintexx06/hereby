@@ -14,7 +14,7 @@ import type { ThreeScene } from '@/lib/three/studio';
 const COUNT = 90;
 
 /** A soft round sprite: a radial gradient drawn once on a small canvas. */
-function glowTexture(): CanvasTexture {
+export function glowTexture(): CanvasTexture {
     const canvas = document.createElement('canvas');
     canvas.width = canvas.height = 64;
     const context = canvas.getContext('2d')!;

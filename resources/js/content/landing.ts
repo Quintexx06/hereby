@@ -210,6 +210,64 @@ export const studio = {
     },
 } as const;
 
+/** The paid side, without prices: only what ships today (rule 5). */
+export const premium = {
+    titleLead: 'Und dann',
+    titleAccent: 'der Abend.',
+    lede: 'Mit Atelier und Couture endet eure Seite nicht bei der Antwort. Sie führt durch den Tag, gibt den Trauzeugen das Programm in die Hand und bringt alle sicher heim.',
+    items: [
+        {
+            icon: 'dinner',
+            name: 'Tischplan',
+            line: 'Jeder Gast sieht seinen Tisch und wer neben ihm sitzt, mit einer Zeile von euch.',
+            tier: 'Atelier',
+        },
+        {
+            icon: 'music',
+            name: 'Einlagen',
+            line: 'Reden, Spiele, Lieder: Gäste melden sich an, die Trauzeugen stimmen ab.',
+            tier: 'Atelier',
+        },
+        {
+            icon: 'megaphone',
+            name: 'Gruppenfotos',
+            line: 'Wer auf welches Foto gehört. Die Trauzeugen rufen die Gruppen am Tag auf.',
+            tier: 'Atelier',
+        },
+        {
+            icon: 'clock',
+            name: 'Heimweg',
+            line: 'Eine halbe Stunde vor der letzten Verbindung eine Mail an alle, die noch feiern.',
+            tier: 'Atelier',
+        },
+        {
+            icon: 'template',
+            name: 'Hochzeitszeitung',
+            line: 'Geschichten und Fotos eurer Freunde, gedruckt von den Trauzeugen, in eurem Design.',
+            tier: 'Couture',
+        },
+        {
+            icon: 'calendar',
+            name: 'Wir fassen nach',
+            line: 'Zwei Wochen vor der Frist melden wir uns bei allen, die noch nicht geantwortet haben.',
+            tier: 'Couture',
+        },
+        {
+            icon: 'link',
+            name: 'Eigene Domain',
+            line: 'Eure Seite unter eurer Adresse, etwa anna-und-luca.ch. Wir verbinden sie.',
+            tier: 'Couture',
+        },
+        {
+            icon: 'forever',
+            name: 'Erinnerungen behalten',
+            line: 'Gästedaten löschen wir nach einem Jahr. Fotos und Grüsse bleiben ein Jahr länger.',
+            tier: 'Extra',
+        },
+    ],
+    note: 'Was mit Couture kommt, gibt es auch einzeln als Extra. Eure Gäste sehen nie einen Preis.',
+} as const;
+
 export const struck = {
     titleLead: 'Hiermit',
     titleAccent: 'gestrichen.',

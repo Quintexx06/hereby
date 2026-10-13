@@ -76,7 +76,11 @@ const rows = computed(() => [
     <div class="app-page gap-10">
         <PageMasthead :title="copy.title" :lede="copy.lede" scene="ribbon" />
 
-        <EveningLocked v-if="!unlocked" :wedding-id="wedding.id" />
+        <EveningLocked
+            v-if="!unlocked"
+            :wedding-id="wedding.id"
+            preview="programme"
+        />
 
         <section aria-labelledby="evening-tools" class="ledger-section">
             <h2 id="evening-tools" class="ledger-title">{{ copy.tools }}</h2>

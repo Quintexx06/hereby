@@ -1,17 +1,18 @@
 <script setup lang="ts">
-import { Link } from '@inertiajs/vue3';
+import LockedPreview from '@/components/locked/LockedPreview.vue';
+import type { LockedPreviewKind } from '@/components/locked/LockedPreview.vue';
 import { eveningPage as copy } from '@/content/evening';
 import { show as publish } from '@/routes/weddings/publish';
 
-defineProps<{ weddingId: number }>();
+defineProps<{ weddingId: number; preview: LockedPreviewKind }>();
 </script>
 
-<!-- Without Atelier: what the evening would be, and where to get it. -->
+<!-- Without Atelier: what the evening would be, blurred, and where to get it. -->
 <template>
-    <div class="flex max-w-3xl flex-col items-start gap-5">
-        <p class="publish-note">{{ copy.locked }}</p>
-        <Link :href="publish(weddingId)" class="text-action hit-area">
-            {{ copy.unlock }}
-        </Link>
-    </div>
+    <LockedPreview
+        :kind="preview"
+        :note="copy.locked"
+        :action="copy.unlock"
+        :href="publish(weddingId).url"
+    />
 </template>

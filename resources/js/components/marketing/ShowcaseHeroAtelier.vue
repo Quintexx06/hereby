@@ -10,7 +10,11 @@ defineProps<{ couple: ShowcaseCoupleSite; active: boolean }>();
 <!-- Atelier: the names set large over the couple's photo. -->
 <template>
     <div class="showcase-hero">
-        <ShowcaseScene scene="rings" :active="active" class="sc-scene-rings" />
+        <ShowcaseScene
+            scene="sparkler"
+            :active="active"
+            class="sc-scene-sparkler"
+        />
         <ResponsivePhoto
             :photo="studio.site.photos.hero"
             sizes="(min-width: 1280px) 64rem, 90vw"

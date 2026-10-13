@@ -39,7 +39,11 @@ const form = useForm({ programme_minutes: props.summary.budget });
     <div class="app-page gap-10">
         <PageMasthead :title="copy.title" :lede="copy.lede" />
 
-        <EveningLocked v-if="!unlocked" :wedding-id="wedding.id" />
+        <EveningLocked
+            v-if="!unlocked"
+            :wedding-id="wedding.id"
+            preview="programme"
+        />
 
         <template v-else>
             <p class="caption">{{ copy.summary(summary) }}</p>

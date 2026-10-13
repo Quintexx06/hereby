@@ -1,50 +1,27 @@
 <script setup lang="ts">
 import { ChevronLeft, ChevronRight } from '@lucide/vue';
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 import ShowcaseWindow from '@/components/marketing/ShowcaseWindow.vue';
+import { useLoopingTrack } from '@/composables/motion/useLoopingTrack';
 import type { ShowcaseCoupleSite } from '@/composables/useShowcaseCouple';
 import { studio } from '@/content/landing';
-import { prefersReducedMotion } from '@/lib/motion';
 
 defineProps<{ accent: string; couple: ShowcaseCoupleSite }>();
 
 const templates = studio.templates;
-const track = ref<HTMLElement | null>(null);
-const slides = ref<HTMLElement[]>([]);
-const index = ref(0);
-const active = computed(() => templates[index.value]);
-
-/* The slide nearest the middle of the track is the one in view. */
-function onScroll(): void {
-    const el = track.value;
-    if (!el) {
-        return;
-    }
-
-    const middle = el.scrollLeft + el.clientWidth / 2;
-    const distances = slides.value.map((slide) =>
-        Math.abs(slide.offsetLeft + slide.offsetWidth / 2 - middle),
-    );
-    index.value = distances.indexOf(Math.min(...distances));
-}
-
-function go(next: number): void {
-    const el = track.value;
-    const slide = slides.value[(next + templates.length) % templates.length];
-    if (!el || !slide) {
-        return;
-    }
-
-    el.scrollTo({
-        left: slide.offsetLeft - (el.clientWidth - slide.offsetWidth) / 2,
-        behavior: prefersReducedMotion() ? 'auto' : 'smooth',
-    });
-}
+/* Three copies for the endless loop; only the middle one is real to AT. */
+const loop = [0, 1, 2].flatMap((copy) =>
+    templates.map((template) => ({ template, copy })),
+);
+/* Starts with the middle template in the middle, its neighbours peeking. */
+const { track, slides, index, current, jumping, onScroll, go } =
+    useLoopingTrack(templates.length, Math.floor(templates.length / 2));
+const active = computed(() => templates[current.value]);
 </script>
 
 <!--
-    The three templates side by side: swipe or use the arrows; each window
-    scrolls on its own. Nothing moves until the visitor does.
+    The three templates side by side, endlessly: swipe or use the arrows;
+    each window scrolls on its own. Nothing moves until the visitor does.
 -->
 <template>
     <div
@@ -56,18 +33,21 @@ function go(next: number): void {
         <div
             ref="track"
             class="showcase-track"
+            :data-jumping="jumping"
             @scroll.passive="onScroll"
-            @keydown.left.prevent="go(index - 1)"
-            @keydown.right.prevent="go(index + 1)"
+            @keydown.left.prevent="go(-1)"
+            @keydown.right.prevent="go(1)"
         >
             <div
-                v-for="(template, slideIndex) in templates"
-                :key="template.slug"
-                ref="slides"
+                v-for="({ template, copy }, slideIndex) in loop"
+                :key="`${copy}-${template.slug}`"
+                :ref="(el) => (slides[slideIndex] = el as HTMLElement)"
                 class="showcase-slide"
                 role="group"
                 aria-roledescription="slide"
                 :aria-label="template.name"
+                :aria-hidden="copy !== 1 || undefined"
+                :inert="copy !== 1 && slideIndex !== index"
                 :data-active="slideIndex === index"
             >
                 <ShowcaseWindow
@@ -84,7 +64,7 @@ function go(next: number): void {
                 type="button"
                 class="showcase-arrow"
                 :aria-label="studio.previous"
-                @click="go(index - 1)"
+                @click="go(-1)"
             >
                 <ChevronLeft class="size-5" />
             </button>
@@ -103,7 +83,7 @@ function go(next: number): void {
                         v-for="(template, dotIndex) in templates"
                         :key="template.slug"
                         class="showcase-dot"
-                        :data-active="dotIndex === index"
+                        :data-active="dotIndex === current"
                     />
                 </div>
             </div>
@@ -111,7 +91,7 @@ function go(next: number): void {
                 type="button"
                 class="showcase-arrow"
                 :aria-label="studio.next"
-                @click="go(index + 1)"
+                @click="go(1)"
             >
                 <ChevronRight class="size-5" />
             </button>

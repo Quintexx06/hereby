@@ -40,7 +40,11 @@ const MAX = 6;
     <div class="app-page gap-10">
         <PageMasthead :title="copy.title" :lede="copy.lede" />
 
-        <EveningLocked v-if="!unlocked" :wedding-id="wedding.id" />
+        <EveningLocked
+            v-if="!unlocked"
+            :wedding-id="wedding.id"
+            preview="wayHome"
+        />
 
         <form
             v-else

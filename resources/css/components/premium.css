@@ -1,0 +1,31 @@
+/*
+ * The premium section (landing): what Atelier and Couture add to the day,
+ * as cards on night. Hover lifts a card a little; nothing moves on its own.
+ */
+@layer components {
+    .premium-grid {
+        @apply grid gap-4 sm:grid-cols-2 lg:grid-cols-4;
+    }
+
+    .premium-card {
+        @apply flex flex-col gap-4 rounded-[1.25rem] border border-rule bg-card p-6 transition-[translate,border-color] duration-200 ease-out;
+    }
+
+    @media (hover: hover) {
+        .premium-card:hover {
+            @apply -translate-y-1 border-brand/40;
+        }
+    }
+
+    .premium-name {
+        @apply pt-2 font-display text-xl font-bold tracking-[-0.02em];
+    }
+
+    .premium-tier {
+        @apply rounded-full border border-rule px-3 py-1 text-xs font-medium text-muted-foreground;
+    }
+
+    .premium-tier[data-tier='Couture'] {
+        @apply border-brand/40 text-brand;
+    }
+}

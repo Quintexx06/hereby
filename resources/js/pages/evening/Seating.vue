@@ -74,7 +74,11 @@ function save(): void {
     <div class="app-page gap-10">
         <PageMasthead :title="copy.title" :lede="copy.lede" />
 
-        <EveningLocked v-if="!unlocked" :wedding-id="wedding.id" />
+        <EveningLocked
+            v-if="!unlocked"
+            :wedding-id="wedding.id"
+            preview="seating"
+        />
 
         <form v-else class="flex flex-col gap-8" @submit.prevent="save">
             <SwitchRow

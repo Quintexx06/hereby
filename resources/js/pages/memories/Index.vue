@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Head, Link } from '@inertiajs/vue3';
+import LockedPreview from '@/components/locked/LockedPreview.vue';
 import PhotoGrid from '@/components/memories/PhotoGrid.vue';
 import UploadLink from '@/components/memories/UploadLink.vue';
 import PageMasthead from '@/components/PageMasthead.vue';
@@ -34,12 +35,13 @@ defineOptions({
     <div class="app-page gap-10">
         <PageMasthead :title="copy.title" :lede="copy.lede" scene="ribbon" />
 
-        <div v-if="!unlocked" class="flex max-w-3xl flex-col items-start gap-5">
-            <p class="publish-note">{{ copy.locked }}</p>
-            <Link :href="publish(wedding.id)" class="text-action hit-area">
-                {{ copy.unlock }}
-            </Link>
-        </div>
+        <LockedPreview
+            v-if="!unlocked"
+            kind="photos"
+            :note="copy.locked"
+            :action="copy.unlock"
+            :href="publish(wedding.id).url"
+        />
 
         <template v-else>
             <UploadLink v-if="uploadLink" :link="uploadLink" />

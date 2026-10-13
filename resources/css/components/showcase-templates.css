@@ -18,6 +18,11 @@
         @apply w-[88vw] max-w-[68rem] shrink-0 snap-center transition-[opacity,scale] duration-500 ease-out;
     }
 
+    /* The endless loop's teleport must not replay the fade and scale. */
+    .showcase-track[data-jumping='true'] .showcase-slide {
+        @apply transition-none;
+    }
+
     .showcase-slide[data-active='false'] {
         @apply scale-[0.96] opacity-55;
     }
@@ -131,9 +136,9 @@
         @apply pointer-events-none absolute;
     }
 
-    /* Atelier: the rings turn in the photo's upper right, clear of the names. */
-    .sc-scene-rings {
-        @apply top-0 right-0 z-[1] h-[62%] w-[55%] sm:w-[40%];
+    /* Atelier: the sparkler draws its heart in the photo's sky, above the names. */
+    .sc-scene-sparkler {
+        @apply inset-x-0 top-0 z-[1] h-[70%];
     }
 
     /* Garten: petals fall through the arch and over the names. */

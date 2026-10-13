@@ -8,6 +8,7 @@ import GuestSection from '@/components/marketing/GuestSection.vue';
 import HeroSection from '@/components/marketing/HeroSection.vue';
 import IntroSection from '@/components/marketing/IntroSection.vue';
 import MarqueeBand from '@/components/marketing/MarqueeBand.vue';
+import PremiumSection from '@/components/marketing/PremiumSection.vue';
 import StepsSection from '@/components/marketing/StepsSection.vue';
 import StruckSection from '@/components/marketing/StruckSection.vue';
 import StudioSection from '@/components/marketing/StudioSection.vue';
@@ -36,6 +37,7 @@ defineProps<{
     <ActsSection />
     <MarqueeBand />
     <StudioSection />
+    <PremiumSection />
     <StruckSection />
     <FaqSection :items="faq" />
     <ClosingSection />

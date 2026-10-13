@@ -3,7 +3,7 @@ import { ref, toRef } from 'vue';
 import { useThreeScene } from '@/composables/motion/useThreeScene';
 import type { SceneFactory } from '@/lib/three/studio';
 
-export type ShowcaseSceneName = 'rings' | 'petals' | 'bokeh';
+export type ShowcaseSceneName = 'sparkler' | 'petals' | 'bokeh';
 
 const props = defineProps<{
     scene: ShowcaseSceneName;
@@ -13,8 +13,8 @@ const props = defineProps<{
 
 /* Each design loads only its own scene, and only once its slide is in front. */
 const loaders: Record<ShowcaseSceneName, () => Promise<SceneFactory>> = {
-    rings: () =>
-        import('@/lib/three/wedding-rings').then((m) => m.createWeddingRings),
+    sparkler: () =>
+        import('@/lib/three/sparkler').then((m) => m.createSparkler),
     /* A wide window: more petals, smaller, spread across it. */
     petals: () =>
         import('@/lib/three/petals').then(
