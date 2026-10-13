@@ -84,6 +84,10 @@ export function petalMaterial(color: number): MeshPhysicalMaterial {
     });
 }
 
+/** The camera's distance on a canvas at least FIT_ASPECT wide. */
+const DISTANCE = 5.6;
+const FIT_ASPECT = 0.95;
+
 /**
  * Three roses (cherry, oxblood, coral) turning slowly on their own stems,
  * the cluster swaying with the pointer and scroll. Decorative only.
@@ -93,7 +97,7 @@ export function createRoses(
     animate: boolean,
 ): ThreeScene {
     const { renderer, scene, camera, dispose } = createStudio(canvas);
-    camera.position.set(0, 0, 5.6);
+    camera.position.set(0, 0, DISTANCE);
     camera.lookAt(0, 0, 0);
 
     const geometry = petalGeometry();
@@ -127,6 +131,8 @@ export function createRoses(
     let scroll = 0;
 
     const loop = createLoop((time) => {
+        /* A narrow canvas would crop the cluster's sides: step back to fit. */
+        camera.position.z = DISTANCE * Math.max(1, FIT_ASPECT / camera.aspect);
         heads.forEach(({ head, speed }, index) => {
             head.rotation.y = time * speed + index * 1.7;
         });

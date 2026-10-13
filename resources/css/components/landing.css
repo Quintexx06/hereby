@@ -313,14 +313,18 @@
         @apply font-display text-[clamp(2rem,3.2vw,3rem)] leading-[1.02] font-semibold tracking-[-0.035em] [overflow-wrap:anywhere] hyphens-auto;
     }
 
-    /* One card holds the heading and the roses, filling its column. */
+    /*
+     * One card holds the heading and the roses. Its size never follows the
+     * answers: it stays put beside the list while it grows (sticky), so the
+     * roses neither stretch nor jump when a question opens.
+     */
     .faq-card {
-        @apply flex flex-col gap-12 rounded-[1.75rem] border border-rule bg-card p-7 sm:p-10 lg:min-h-full;
+        @apply flex flex-col gap-12 rounded-[1.75rem] border border-rule bg-card p-7 sm:p-10 lg:sticky lg:top-28 lg:self-start;
     }
 
-    /* Roses fill the card's open space below the heading. */
+    /* The canvas sits inside, absolutely, so it never feeds back into layout. */
     .roses-stage {
-        @apply relative -my-4 h-56 w-full sm:h-72 lg:h-auto lg:min-h-72 lg:flex-1;
+        @apply relative -my-4 h-56 w-full sm:h-72 lg:h-[26rem];
     }
 
     /* FAQ: native details/summary; answers open smoothly where supported. */

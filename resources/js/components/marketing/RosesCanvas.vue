@@ -14,7 +14,7 @@ const { isReady } = useThreeScene(canvas, stage, () =>
     <div ref="stage" class="roses-stage" aria-hidden="true">
         <canvas
             ref="canvas"
-            class="h-full w-full transition-opacity duration-700 ease-out"
+            class="absolute inset-0 size-full transition-opacity duration-700 ease-out"
             :class="isReady ? 'opacity-100' : 'opacity-0'"
         />
     </div>
