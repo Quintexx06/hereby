@@ -7,12 +7,14 @@ import PageMasthead from '@/components/PageMasthead.vue';
 import { dashboardPage } from '@/content/dashboard';
 import { eveningPage as copy } from '@/content/evening';
 import { dashboard } from '@/routes';
+import { edit as programme } from '@/routes/weddings/programme';
 import { edit as seating } from '@/routes/weddings/seating';
 import { edit as wayHome } from '@/routes/weddings/way-home';
 
 type EveningStatus = {
     seating: { published: boolean; seated: number; guests: number };
     wayHome: number;
+    programme: { total: number; accepted: number };
 };
 
 const props = defineProps<{
@@ -37,6 +39,12 @@ const rows = computed(() => [
         href: seating(props.wedding.id),
         ...copy.sections.seating,
         status: copy.seatingStatus(props.status.seating),
+    },
+    {
+        key: 'programme',
+        href: programme(props.wedding.id),
+        ...copy.sections.programme,
+        status: copy.programmeStatus(props.status.programme),
     },
     {
         key: 'wayHome',

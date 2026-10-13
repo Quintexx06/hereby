@@ -35,7 +35,8 @@ class AccessControlTest extends TestCase
         $stranger = User::factory()->create();
         $routes = $this->routesWhere(fn (RoutingRoute $route): bool => str_contains($route->uri(), '{wedding}')
             && ! str_starts_with($route->uri(), 'admin/')
-            && ! $route->named('invitation.*'));
+            // Guest and witness links carry their own token instead of a login.
+            && ! $route->named('invitation.*', 'witness.*'));
 
         $this->assertNotEmpty($routes);
 

@@ -11,11 +11,19 @@ export const eveningPage = {
             title: 'Tischplan',
             body: 'Wer neben wem sitzt, mit einer Zeile zu jeder Person.',
         },
+        programme: {
+            title: 'Einlagen',
+            body: 'Reden, Spiele und Lieder eurer Gäste. Die Trauzeugen stimmen sie über ihren eigenen Link ab.',
+        },
         wayHome: {
             title: 'Heimweg',
             body: 'Die letzten Verbindungen der Nacht. Eure Gäste bekommen eine halbe Stunde vorher eine Mail.',
         },
     },
+    programmeStatus: (s: { total: number; accepted: number }) =>
+        s.total === 0
+            ? 'Noch keine Einlagen'
+            : `${s.total} angemeldet · ${s.accepted} im Programm`,
     wayHomeStatus: (count: number) =>
         count === 0
             ? 'Noch keine Verbindung'
@@ -57,5 +65,22 @@ export const wayHomePage = {
     add: 'Verbindung hinzufügen',
     remove: 'Entfernen',
     save: 'Heimweg speichern',
+    saved: 'Gespeichert',
+};
+
+export const programmePage = {
+    title: 'Einlagen',
+    lede: 'Eure Gäste melden Reden, Spiele und Lieder über ihre persönliche Einladung an, nachdem sie geantwortet haben. Was geplant ist, bleibt eine Überraschung: Das entscheiden eure Trauzeugen über ihren eigenen Link. Ihr seht nur, wie viele es sind.',
+    linkLabel: 'Link für eure Trauzeugen',
+    linkHint:
+        'Ohne Konto und privat. Gebt ihn nur euren Trauzeugen; dort entscheiden sie über die Einlagen und drucken den Ablauf.',
+    renew: 'Neuen Link erstellen',
+    renewHint: 'Der alte Link funktioniert danach nicht mehr.',
+    summary: (s: { total: number; accepted: number; minutes: number }) =>
+        `${s.total} angemeldet · ${s.accepted} im Programm · ${s.minutes} Minuten`,
+    budget: 'Zeitrahmen für die Einlagen, in Minuten',
+    budgetHint:
+        'Die Trauzeugen sehen, wie viel davon schon verplant ist. Leer lassen für keinen Rahmen.',
+    save: 'Zeitrahmen speichern',
     saved: 'Gespeichert',
 };

@@ -1,11 +1,15 @@
 <?php
 
 use App\Http\Controllers\Invitations\DownloadCalendarController;
+use App\Http\Controllers\Invitations\ProgrammeController;
 use App\Http\Controllers\Invitations\SaveReplyController;
 use App\Http\Controllers\Invitations\ShowInvitationController;
 use App\Http\Controllers\Invitations\ShowReplyController;
 use App\Http\Controllers\Invitations\StopRemindersController;
 use App\Http\Controllers\Memories\GuestUploadController;
+use App\Http\Controllers\Witness\ProgrammeController as WitnessProgrammeController;
+use App\Http\Controllers\Witness\WitnessController;
+use App\Http\Middleware\EnsureWeddingHasEvening;
 use App\Http\Middleware\EnsureWeddingHasMemories;
 use App\Http\Middleware\EnsureWeddingIsPublished;
 use App\Http\Middleware\PreventIndexing;
@@ -27,6 +31,14 @@ Route::middleware(['throttle:invitations', PreventIndexing::class, EnsureWedding
         ->middleware('signed')
         ->withoutMiddleware(PreventRequestForgery::class)
         ->name('invitation.reminders.stop');
+
+    // «Etwas vorbereiten?»: offers for the evening (Atelier and up, spec 2026-10-13).
+    Route::middleware(EnsureWeddingHasEvening::class)->scopeBindings()->group(function () {
+        Route::get('i/{household}/einlage', [ProgrammeController::class, 'show'])->name('invitation.programme');
+        Route::post('i/{household}/einlage', [ProgrammeController::class, 'store'])->name('invitation.programme.store');
+        Route::delete('i/{household}/einlage/{programmeItem}', [ProgrammeController::class, 'destroy'])
+            ->name('invitation.programme.destroy');
+    });
 });
 
 /*
@@ -41,3 +53,19 @@ Route::middleware([PreventIndexing::class, EnsureWeddingHasMemories::class])->gr
         ->middleware('throttle:photo-uploads')
         ->name('invitation.memories.store');
 });
+
+/*
+| The witnesses' private link (spec 2026-10-13): the couple shares it, the
+| token is the credential. The evening's offers, decided and ordered there.
+*/
+Route::middleware(['throttle:invitations', PreventIndexing::class, EnsureWeddingHasEvening::class])
+    ->scopeBindings()
+    ->group(function () {
+        Route::get('trauzeugen/{wedding:witness_token}', [WitnessController::class, 'show'])->name('witness.show');
+        Route::patch('trauzeugen/{wedding:witness_token}/einlagen/{programmeItem}', [WitnessProgrammeController::class, 'update'])
+            ->name('witness.programme.update');
+        Route::put('trauzeugen/{wedding:witness_token}/einlagen', [WitnessProgrammeController::class, 'reorder'])
+            ->name('witness.programme.reorder');
+        Route::get('trauzeugen/{wedding:witness_token}/ablauf', [WitnessProgrammeController::class, 'print'])
+            ->name('witness.programme.print');
+    });

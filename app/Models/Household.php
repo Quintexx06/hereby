@@ -102,6 +102,16 @@ class Household extends Model
     }
 
     /**
+     * What the household offered for the evening (spec 2026-10-13).
+     *
+     * @return HasMany<ProgrammeItem, $this>
+     */
+    public function programmeItems(): HasMany
+    {
+        return $this->hasMany(ProgrammeItem::class)->orderBy('id');
+    }
+
+    /**
      * Where the household stands; needs `has_answered` from withExists().
      */
     public function replyStatus(): ReplyStatus

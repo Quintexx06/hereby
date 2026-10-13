@@ -15,7 +15,7 @@ use Illuminate\Support\Collection;
 class BuildEvening
 {
     /**
-     * @return array{tables: list<array{name: string, yours: list<string>, mates: list<array{name: string, note: string|null}>}>, wayHome: list<array{label: string, place: string|null, departsAt: string}>}|null
+     * @return array{tables: list<array{name: string, yours: list<string>, mates: list<array{name: string, note: string|null}>}>, wayHome: list<array{label: string, place: string|null, departsAt: string}>, offerUrl: string|null}|null
      */
     public function handle(Household $household): ?array
     {
@@ -32,6 +32,10 @@ class BuildEvening
                 'place' => $connection['place'],
                 'departsAt' => $connection['departs']->toIso8601String(),
             ], WayHome::connections($wedding)),
+            // Offers come after the reply, never before it (rule 1).
+            'offerUrl' => $household->exists && $household->responded_at !== null
+                ? route('invitation.programme', $household)
+                : null,
         ];
     }
 

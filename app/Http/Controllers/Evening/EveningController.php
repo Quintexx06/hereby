@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Evening;
 
+use App\Enums\ProgrammeStatus;
 use App\Http\Controllers\Controller;
 use App\Models\Wedding;
 use Inertia\Inertia;
@@ -27,6 +28,10 @@ class EveningController extends Controller
                     'guests' => $guests->count(),
                 ],
                 'wayHome' => count($wedding->way_home ?? []),
+                'programme' => [
+                    'total' => $wedding->programmeItems()->count(),
+                    'accepted' => $wedding->programmeItems()->where('status', ProgrammeStatus::Accepted)->count(),
+                ],
             ],
         ]);
     }

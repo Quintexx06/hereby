@@ -12,6 +12,7 @@ use App\Enums\WeddingStatus;
 use App\Enums\WeddingTemplate;
 use App\Enums\WeddingTheme;
 use App\Models\Concerns\HasAddons;
+use App\Models\Concerns\HasEvening;
 use App\Models\Concerns\HasMemories;
 use Database\Factories\WeddingFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
@@ -76,7 +77,7 @@ use Illuminate\Support\Collection;
 class Wedding extends Model
 {
     /** @use HasFactory<WeddingFactory> */
-    use HasAddons, HasFactory, HasMemories, Prunable;
+    use HasAddons, HasEvening, HasFactory, HasMemories, Prunable;
 
     /**
      * @return BelongsTo<User, $this>

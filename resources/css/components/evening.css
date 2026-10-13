@@ -27,4 +27,25 @@
     .way-home-remove {
         @apply grid size-11 cursor-pointer place-items-center justify-self-end rounded-full text-muted-foreground transition-colors duration-150 ease-out hover:bg-muted hover:text-foreground;
     }
+
+    /* The witnesses' private page: no app shell, one column. */
+    .witness-page {
+        @apply mx-auto flex min-h-svh w-full max-w-3xl flex-col gap-12 bg-background px-5 py-12 text-foreground sm:py-20;
+    }
+
+    .witness-item {
+        @apply flex flex-col gap-3 border-t border-rule py-5 sm:flex-row sm:items-center sm:justify-between;
+    }
+
+    .witness-item[data-status='declined'] {
+        @apply opacity-55;
+    }
+
+    .witness-action {
+        @apply inline-flex h-10 cursor-pointer items-center rounded-full border border-rule px-4 text-sm font-medium transition-colors duration-150 ease-out hover:border-foreground disabled:cursor-default disabled:border-foreground disabled:bg-foreground disabled:text-background;
+    }
+
+    .witness-move {
+        @apply grid size-10 cursor-pointer place-items-center rounded-full text-muted-foreground transition-colors duration-150 ease-out hover:bg-muted hover:text-foreground disabled:opacity-30;
+    }
 }
