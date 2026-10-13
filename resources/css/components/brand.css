@@ -9,6 +9,27 @@
         @apply text-brand;
     }
 
+    /* Header wordmark: its own lower edge is the floor the letters rise out of. */
+    .wordmark-stage {
+        @apply -my-1 inline-flex overflow-hidden py-1;
+    }
+
+    .wordmark-rise,
+    .wordmark-drop-in {
+        @apply inline-block;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+        .wordmark-stage[data-playing='true'] .wordmark-rise {
+            animation: wordmark-rise 700ms cubic-bezier(0.16, 1, 0.3, 1)
+                calc(var(--i) * 45ms) both;
+        }
+
+        .wordmark-stage[data-playing='true'] .wordmark-drop-in {
+            animation: wordmark-drop-in 640ms linear 330ms both;
+        }
+    }
+
     /* Letters that can fall through the line and back in (sidebar logo). */
     .wordmark-drop {
         @apply inline-flex overflow-hidden py-1;
@@ -54,6 +75,41 @@
 }
 
 /* Out through the bottom, in again from above: the footer's letters arriving. */
+/* The footer's entrance, at logo scale (see useFooterReveal). */
+@keyframes wordmark-rise {
+    from {
+        transform: translateY(105%) rotate(6deg);
+    }
+}
+
+@keyframes wordmark-drop-in {
+    0% {
+        transform: translateY(-120%);
+        opacity: 0;
+        animation-timing-function: ease-in;
+    }
+    50% {
+        transform: translateY(0);
+        opacity: 1;
+        animation-timing-function: ease-out;
+    }
+    70% {
+        transform: translateY(-28%);
+        animation-timing-function: ease-in;
+    }
+    85% {
+        transform: translateY(0);
+        animation-timing-function: ease-out;
+    }
+    93% {
+        transform: translateY(-8%);
+        animation-timing-function: ease-in;
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
 @keyframes letter-drop {
     0% {
         transform: translateY(0);
