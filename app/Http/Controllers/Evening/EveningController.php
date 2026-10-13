@@ -28,6 +28,7 @@ class EveningController extends Controller
                     'guests' => $guests->count(),
                 ],
                 'wayHome' => count($wedding->way_home ?? []),
+                'groupPhotos' => $wedding->groupPhotos()->count(),
                 'programme' => [
                     'total' => $wedding->programmeItems()->count(),
                     'accepted' => $wedding->programmeItems()->where('status', ProgrammeStatus::Accepted)->count(),

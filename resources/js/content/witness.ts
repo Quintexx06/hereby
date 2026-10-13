@@ -18,6 +18,13 @@ export const witnessPage = {
             ? `${minutes} von ${budget} Minuten verplant`
             : `${minutes} Minuten verplant`,
     over: 'Mehr als der Zeitrahmen des Brautpaars.',
+    groups: 'Gruppenfotos',
+    groupsHint:
+        'Tippt auf «Aufrufen», wenn eine Gruppe dran ist: Die Gäste bekommen eine Mail und sehen es auf ihrer Einladung.',
+    groupsEmpty: 'Das Brautpaar hat noch keine Gruppenfotos eingetragen.',
+    call: 'Aufrufen',
+    callAgain: 'Nochmals aufrufen',
+    calledAt: (time: string) => `Aufgerufen um ${time}`,
     kinds: {
         speech: 'Rede',
         game: 'Spiel',

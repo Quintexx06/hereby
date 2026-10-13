@@ -51,6 +51,8 @@ return [
         'from' => 'depuis :place',
         'in' => 'dans :minutes min',
         'gone' => 'parti',
+        'call_heading' => 'Photo de groupe : c’est à vous',
+        'call_place' => 'Rendez-vous : :place',
     ],
     'programme' => [
         'title' => 'Vous préparez quelque chose ?',

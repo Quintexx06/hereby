@@ -6,6 +6,7 @@ use App\Http\Controllers\Content\ContentBlockController;
 use App\Http\Controllers\Content\PreviewInvitationController;
 use App\Http\Controllers\Content\ReorderContentBlocksController;
 use App\Http\Controllers\Evening\EveningController;
+use App\Http\Controllers\Evening\GroupPhotosController;
 use App\Http\Controllers\Evening\ProgrammeController;
 use App\Http\Controllers\Evening\SeatingController;
 use App\Http\Controllers\Evening\WayHomeController;
@@ -67,6 +68,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('hochzeit/{wedding}/einlagen', [ProgrammeController::class, 'edit'])->name('weddings.programme.edit');
         Route::put('hochzeit/{wedding}/einlagen', [ProgrammeController::class, 'update'])->name('weddings.programme.update');
         Route::post('hochzeit/{wedding}/einlagen/link', [ProgrammeController::class, 'renew'])->name('weddings.programme.renew');
+
+        Route::get('hochzeit/{wedding}/gruppenfotos', [GroupPhotosController::class, 'edit'])->name('weddings.group-photos.edit');
+        Route::put('hochzeit/{wedding}/gruppenfotos', [GroupPhotosController::class, 'update'])->name('weddings.group-photos.update');
 
         Route::get('hochzeit/{wedding}/extras', [ExtrasController::class, 'show'])->name('weddings.extras.show');
         Route::post('hochzeit/{wedding}/extras', [ExtrasController::class, 'store'])->name('weddings.extras.store');

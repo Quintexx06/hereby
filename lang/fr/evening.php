@@ -9,4 +9,10 @@ return [
         'from' => 'Départ : :place',
         'cta' => 'Voir l’invitation',
     ],
+    'group_photo' => [
+        'subject' => 'Photo de groupe : :title',
+        'heading' => 'C’est à vous',
+        'body' => 'On a besoin de vous maintenant pour la photo de groupe « :title ».',
+        'place' => 'Rendez-vous : :place',
+    ],
 ];

@@ -13,6 +13,19 @@ const { t } = useTrans();
 <!-- «Der Abend» on the personal link (Atelier and up); nothing otherwise. -->
 <template>
     <template v-if="evening">
+        <section v-if="evening.call" class="evening-call" role="status">
+            <p class="evening-card-title">
+                {{ t('invitation.evening.call_heading') }}
+            </p>
+            <p class="text-lg font-semibold">{{ evening.call.title }}</p>
+            <p v-if="evening.call.place">
+                {{
+                    t('invitation.evening.call_place', {
+                        place: evening.call.place,
+                    })
+                }}
+            </p>
+        </section>
         <EveningTables v-if="evening.tables.length" :tables="evening.tables" />
         <EveningWayHome
             v-if="evening.wayHome.length"

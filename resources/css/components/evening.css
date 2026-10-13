@@ -48,4 +48,12 @@
     .witness-move {
         @apply grid size-10 cursor-pointer place-items-center rounded-full text-muted-foreground transition-colors duration-150 ease-out hover:bg-muted hover:text-foreground disabled:opacity-30;
     }
+
+    .group-photo-who {
+        @apply rounded-xl border border-rule px-4 py-3;
+    }
+
+    .group-photo-households {
+        @apply mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3;
+    }
 }

@@ -51,6 +51,8 @@ return [
         'from' => 'da :place',
         'in' => 'tra :minutes min',
         'gone' => 'partito',
+        'call_heading' => 'Foto di gruppo: tocca a voi',
+        'call_place' => 'Ritrovo: :place',
     ],
     'programme' => [
         'title' => 'Preparate qualcosa?',

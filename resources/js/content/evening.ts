@@ -15,6 +15,10 @@ export const eveningPage = {
             title: 'Einlagen',
             body: 'Reden, Spiele und Lieder eurer Gäste. Die Trauzeugen stimmen sie über ihren eigenen Link ab.',
         },
+        groupPhotos: {
+            title: 'Gruppenfotos',
+            body: 'Wer auf welches Foto gehört. Die Trauzeugen rufen die Gruppen am Tag auf.',
+        },
         wayHome: {
             title: 'Heimweg',
             body: 'Die letzten Verbindungen der Nacht. Eure Gäste bekommen eine halbe Stunde vorher eine Mail.',
@@ -24,6 +28,10 @@ export const eveningPage = {
         s.total === 0
             ? 'Noch keine Einlagen'
             : `${s.total} angemeldet · ${s.accepted} im Programm`,
+    groupPhotosStatus: (count: number) =>
+        count === 0
+            ? 'Noch keine Gruppen'
+            : `${count} ${count === 1 ? 'Gruppe' : 'Gruppen'}`,
     wayHomeStatus: (count: number) =>
         count === 0
             ? 'Noch keine Verbindung'
@@ -82,5 +90,23 @@ export const programmePage = {
     budgetHint:
         'Die Trauzeugen sehen, wie viel davon schon verplant ist. Leer lassen für keinen Rahmen.',
     save: 'Zeitrahmen speichern',
+    saved: 'Gespeichert',
+};
+
+export const groupPhotosPage = {
+    title: 'Gruppenfotos',
+    lede: 'Listet eure Gruppenfotos und wählt, wer auf welches gehört. Am Tag tippen eure Trauzeugen auf «Aufrufen»: Die Gäste bekommen eine Mail und sehen es auf ihrer Einladung. Niemand muss mehr durch den Saal rufen.',
+    title_: 'Foto',
+    titlePlaceholder: 'Familie Meier',
+    place: 'Treffpunkt',
+    placePlaceholder: 'Beim Steg',
+    who: (count: number) =>
+        count === 0
+            ? 'Haushalte wählen'
+            : `${count} ${count === 1 ? 'Haushalt' : 'Haushalte'}`,
+    add: 'Gruppenfoto hinzufügen',
+    remove: 'Entfernen',
+    empty: 'Noch keine Gäste. Fügt sie unter «Gäste» hinzu.',
+    save: 'Gruppenfotos speichern',
     saved: 'Gespeichert',
 };

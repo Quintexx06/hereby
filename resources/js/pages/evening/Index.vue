@@ -7,6 +7,7 @@ import PageMasthead from '@/components/PageMasthead.vue';
 import { dashboardPage } from '@/content/dashboard';
 import { eveningPage as copy } from '@/content/evening';
 import { dashboard } from '@/routes';
+import { edit as groupPhotos } from '@/routes/weddings/group-photos';
 import { edit as programme } from '@/routes/weddings/programme';
 import { edit as seating } from '@/routes/weddings/seating';
 import { edit as wayHome } from '@/routes/weddings/way-home';
@@ -14,6 +15,7 @@ import { edit as wayHome } from '@/routes/weddings/way-home';
 type EveningStatus = {
     seating: { published: boolean; seated: number; guests: number };
     wayHome: number;
+    groupPhotos: number;
     programme: { total: number; accepted: number };
 };
 
@@ -45,6 +47,12 @@ const rows = computed(() => [
         href: programme(props.wedding.id),
         ...copy.sections.programme,
         status: copy.programmeStatus(props.status.programme),
+    },
+    {
+        key: 'groupPhotos',
+        href: groupPhotos(props.wedding.id),
+        ...copy.sections.groupPhotos,
+        status: copy.groupPhotosStatus(props.status.groupPhotos),
     },
     {
         key: 'wayHome',

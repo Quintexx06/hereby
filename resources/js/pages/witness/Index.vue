@@ -2,6 +2,8 @@
 import { Head, router } from '@inertiajs/vue3';
 import { Printer } from '@lucide/vue';
 import { computed } from 'vue';
+import WitnessGroups from '@/components/witness/WitnessGroups.vue';
+import type { WitnessGroup } from '@/components/witness/WitnessGroups.vue';
 import WitnessItem from '@/components/witness/WitnessItem.vue';
 import type { WitnessProgrammeItem } from '@/components/witness/WitnessItem.vue';
 import { witnessPage as copy } from '@/content/witness';
@@ -13,6 +15,7 @@ const props = defineProps<{
         budget: number | null;
     };
     programme: WitnessProgrammeItem[];
+    groups: WitnessGroup[];
     links: { reorder: string; print: string };
 }>();
 
@@ -79,5 +82,7 @@ function move(index: number, direction: -1 | 1): void {
                 />
             </ol>
         </section>
+
+        <WitnessGroups :groups="groups" />
     </main>
 </template>

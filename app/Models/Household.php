@@ -102,6 +102,16 @@ class Household extends Model
     }
 
     /**
+     * The group photos the household belongs in.
+     *
+     * @return BelongsToMany<GroupPhoto, $this>
+     */
+    public function groupPhotos(): BelongsToMany
+    {
+        return $this->belongsToMany(GroupPhoto::class);
+    }
+
+    /**
      * What the household offered for the evening (spec 2026-10-13).
      *
      * @return HasMany<ProgrammeItem, $this>

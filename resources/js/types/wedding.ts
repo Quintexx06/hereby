@@ -79,6 +79,7 @@ export type EveningTable = {
 export type Evening = {
     tables: EveningTable[];
     wayHome: { label: string; place: string | null; departsAt: string }[];
+    call: { title: string; place: string | null } | null;
     offerUrl: string | null;
 };
 

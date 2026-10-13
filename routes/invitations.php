@@ -7,6 +7,7 @@ use App\Http\Controllers\Invitations\ShowInvitationController;
 use App\Http\Controllers\Invitations\ShowReplyController;
 use App\Http\Controllers\Invitations\StopRemindersController;
 use App\Http\Controllers\Memories\GuestUploadController;
+use App\Http\Controllers\Witness\GroupPhotoCallController;
 use App\Http\Controllers\Witness\ProgrammeController as WitnessProgrammeController;
 use App\Http\Controllers\Witness\WitnessController;
 use App\Http\Middleware\EnsureWeddingHasEvening;
@@ -68,4 +69,6 @@ Route::middleware(['throttle:invitations', PreventIndexing::class, EnsureWedding
             ->name('witness.programme.reorder');
         Route::get('trauzeugen/{wedding:witness_token}/ablauf', [WitnessProgrammeController::class, 'print'])
             ->name('witness.programme.print');
+        Route::post('trauzeugen/{wedding:witness_token}/gruppenfotos/{groupPhoto}/aufruf', GroupPhotoCallController::class)
+            ->name('witness.group-photos.call');
     });

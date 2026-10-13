@@ -2,6 +2,7 @@
 
 namespace App\Actions\Evening;
 
+use App\Models\GroupPhoto;
 use App\Models\Guest;
 use App\Models\Household;
 use App\Support\WayHome;
@@ -15,7 +16,7 @@ use Illuminate\Support\Collection;
 class BuildEvening
 {
     /**
-     * @return array{tables: list<array{name: string, yours: list<string>, mates: list<array{name: string, note: string|null}>}>, wayHome: list<array{label: string, place: string|null, departsAt: string}>, offerUrl: string|null}|null
+     * @return array{tables: list<array{name: string, yours: list<string>, mates: list<array{name: string, note: string|null}>}>, wayHome: list<array{label: string, place: string|null, departsAt: string}>, call: array{title: string, place: string|null}|null, offerUrl: string|null}|null
      */
     public function handle(Household $household): ?array
     {
@@ -32,11 +33,27 @@ class BuildEvening
                 'place' => $connection['place'],
                 'departsAt' => $connection['departs']->toIso8601String(),
             ], WayHome::connections($wedding)),
+            'call' => $household->exists ? $this->call($household) : null,
             // Offers come after the reply, never before it (rule 1).
             'offerUrl' => $household->exists && $household->responded_at !== null
                 ? route('invitation.programme', $household)
                 : null,
         ];
+    }
+
+    /**
+     * A group photo the witnesses just called this household to.
+     *
+     * @return array{title: string, place: string|null}|null
+     */
+    private function call(Household $household): ?array
+    {
+        $group = $household->groupPhotos()
+            ->where('called_at', '>=', now()->subMinutes(GroupPhoto::CALL_MINUTES))
+            ->latest('called_at')
+            ->first();
+
+        return $group ? ['title' => $group->title, 'place' => $group->place] : null;
     }
 
     /**
