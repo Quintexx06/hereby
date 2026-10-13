@@ -1,0 +1,129 @@
+/*
+ * Studio showcase: a finished couple's site in a browser window. The visitor
+ * picks an accent; only accent tokens change. The site wears Ivory (always
+ * light, like a guest site), so the ground stays porcelain.
+ * Accent inks are the wedding themes' hues, darkened to keep AA on porcelain.
+ */
+@layer components {
+    [data-accent='ivory'] {
+        --showcase-ink: var(--color-night-900);
+    }
+
+    [data-accent='rose'] {
+        --showcase-ink: oklch(0.47 0.13 355);
+    }
+
+    [data-accent='alpine'] {
+        --showcase-ink: oklch(0.47 0.1 235);
+    }
+
+    /* Picker: a pill per accent with a dot of its ink. */
+    .accent-chip {
+        @apply inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-full border border-rule bg-card px-4 text-sm font-medium text-muted-foreground transition-[color,border-color,scale] duration-200 ease-out hover:text-foreground active:scale-[0.97] aria-checked:border-foreground aria-checked:text-foreground;
+    }
+
+    .accent-dot {
+        @apply size-3 rounded-full;
+        background: var(--showcase-ink);
+    }
+
+    .showcase-window {
+        @apply mx-auto w-full max-w-6xl overflow-hidden rounded-[1.5rem] border border-rule bg-card text-card-foreground shadow-[0_50px_100px_-50px_rgb(30_14_10/0.5)];
+    }
+
+    .showcase-bar {
+        @apply flex items-center gap-4 border-b border-rule bg-muted/60 px-4 py-3;
+    }
+
+    .showcase-bar-dot {
+        @apply size-2.5 rounded-full bg-foreground/15;
+    }
+
+    .showcase-url {
+        @apply mx-auto truncate rounded-full bg-background px-4 py-1 text-xs text-muted-foreground;
+    }
+
+    /* Inside the site, accents (and only accents) follow the chosen ink. */
+    .showcase-site {
+        --brand: var(--showcase-ink);
+        --primary: var(--showcase-ink);
+        --primary-foreground: var(--color-porcelain-50);
+        @apply bg-background;
+    }
+
+    .showcase-site .text-brand,
+    .showcase-action,
+    .showcase-monogram,
+    .showcase-amp {
+        transition:
+            color 300ms var(--ease-out),
+            background-color 300ms var(--ease-out);
+    }
+
+    .showcase-nav {
+        @apply flex items-center justify-between gap-4 px-5 py-4 sm:px-8;
+    }
+
+    .showcase-monogram {
+        @apply font-display text-lg font-bold tracking-[-0.03em] text-brand;
+    }
+
+    .showcase-action {
+        @apply rounded-full bg-primary px-4 py-2 text-xs font-medium text-primary-foreground sm:text-sm;
+    }
+
+    .showcase-hero {
+        @apply relative mx-3 overflow-hidden rounded-[1rem] sm:mx-5;
+    }
+
+    .showcase-hero-photo {
+        @apply aspect-[4/5] w-full object-cover sm:aspect-[16/8];
+    }
+
+    .showcase-hero-text {
+        @apply absolute inset-x-0 bottom-0 flex flex-col gap-2 bg-gradient-to-t from-night-950/75 to-transparent p-6 pt-24 text-porcelain-50 sm:p-10 sm:pt-32;
+    }
+
+    .showcase-names {
+        @apply font-display text-[clamp(2.75rem,7vw,5.5rem)] leading-[0.9] font-bold tracking-[-0.05em];
+        font-stretch: 112%;
+    }
+
+    .showcase-amp {
+        color: color-mix(in oklch, var(--showcase-ink) 35%, white);
+    }
+
+    .showcase-body {
+        @apply grid gap-12 px-5 py-10 sm:px-10 sm:py-14 lg:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] lg:gap-16;
+    }
+
+    .showcase-welcome {
+        @apply max-w-[34ch] font-display text-[clamp(1.375rem,2.4vw,1.875rem)] leading-[1.2] font-medium tracking-[-0.02em];
+    }
+
+    .showcase-label {
+        @apply mb-3 text-sm font-semibold text-muted-foreground;
+    }
+
+    .showcase-event {
+        @apply grid grid-cols-[3.5rem_minmax(0,8rem)_1fr] border-t border-rule py-3 text-sm sm:text-base;
+    }
+
+    .showcase-venue-photo {
+        @apply aspect-[4/3] w-full rounded-[0.75rem] object-cover;
+    }
+
+    .showcase-gallery {
+        @apply flex flex-col items-center gap-6 border-t border-rule pt-10 lg:col-span-2;
+    }
+
+    /* Prints with a white border, dropped casually on the table. */
+    .showcase-snapshot {
+        @apply block w-[30%] max-w-48 bg-porcelain-50 p-1.5 pb-6 shadow-[0_18px_30px_-18px_rgb(30_14_10/0.55)] transition-transform duration-300 ease-out hover:-translate-y-1 sm:p-2 sm:pb-8;
+        rotate: var(--tilt);
+    }
+
+    .showcase-reply {
+        @apply inline-flex items-center gap-2 rounded-full border border-rule bg-card px-4 py-2 text-sm;
+    }
+}

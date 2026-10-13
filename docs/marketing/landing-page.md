@@ -86,7 +86,7 @@ the message hierarchy of this page.
 | 3 | Für Gäste: *Ein Link pro Haushalt. In seiner Sprache.* | Show the mechanism | Live phone preview in DE/FR/IT/EN, real seeded data, labelled as an example. |
 | 4 | Ablauf: *20 Min. · 48 Std. · 60 Sek.* | Lower effort anxiety | The durations are the information, so they are the largest type. |
 | 5 | Ein Tag in fünf Akten | Show event-aware invitations and the venue (logistics, kitchen numbers) | Pinned horizontal track, one act per scroll step; demo data labelled as an example. Replaces the generic "Location" band. |
-| 6 | Marquee + Template studio | "Design is the product", proven live | The three real templates in one wide browser window; big tabs switch the template (auto-tour until clicked); three small colour dots recolour it. |
+| 6 | Marquee + Studio | "Design is the product", proven live | A finished example site in a browser window, with real wedding photos; accent chips recolour only its accents, the page ground never changes. |
 | 7 | Hiermit gestrichen. | Objection handling and keyword coverage (Passwort, Vorlage, Werbung, Sprache) | Replaces the comparison table: struck-through words with what we do instead. |
 | 8 | FAQ | Long-tail SEO and last objections | Native `<details>`, FAQPage structured data. |
 | 9 | Closing: *Euer Sommer 2027 beginnt mit einer Einladung.* | One action, with urgency from the season | The veil drifts back in (bookend to the hero). Same CTA label everywhere: **Demo anfragen**. |

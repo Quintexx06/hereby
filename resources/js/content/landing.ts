@@ -144,32 +144,43 @@ export const marquee = [
 ] as const;
 
 export const studio = {
-    title: 'Drei Vorlagen. Jede mit eigener Bühne.',
-    lede: 'Jede Vorlage hat ihre eigene Bewegung und ihren eigenen Auftritt. Wechselt durch: so sieht der erste Moment eurer Gäste aus. Die Farben passt ihr danach an.',
-    hint: 'Vorlage wählen',
-    colours: 'Farbwelt',
-    templates: [
+    title: 'Gestaltet, nicht zusammengeklickt.',
+    lede: 'So sieht eine fertige Hochzeitswebsite von Hereby aus: eure Fotos, euer Programm, eure Anreise. Wählt eine Akzentfarbe, der Rest bleibt ruhig.',
+    pickerLabel: 'Akzentfarbe der Beispielseite',
+    example: 'Beispielseite mit Demo-Daten',
+    accents: [
+        { slug: 'ivory', name: 'Ivory', mood: 'Porzellan, Tinte, Kerzenlicht' },
+        { slug: 'rose', name: 'Rosé', mood: 'Puder, Himbeere, Pfingstrose' },
         {
-            slug: 'atelier',
-            name: 'Atelier',
-            mood: 'Grosse Schrift, eure Geschichte als gezeichneter Weg',
-        },
-        {
-            slug: 'garten',
-            name: 'Garten',
-            mood: 'Torbögen, Zweige, die wachsen, fallende Blüten',
-        },
-        {
-            slug: 'panorama',
-            name: 'Panorama',
-            mood: 'Namen als Laufband, Lichter in 3D, der Tag zum Seitwärtsscrollen',
+            slug: 'alpine',
+            name: 'Alpine',
+            mood: 'Gletscherweiss, Seeblau, Arve',
         },
     ],
-    themes: [
-        { slug: 'ivory', name: 'Ivory' },
-        { slug: 'rose', name: 'Rosé' },
-        { slug: 'alpine', name: 'Alpine' },
-    ],
+    site: {
+        url: 'anna-und-luca.hereby.ch',
+        monogram: 'A & L',
+        nav: ['Programm', 'Anreise', 'Fotos'],
+        action: 'Jetzt antworten',
+        date: 'Samstag, 19. Juni 2027 · Vitznau',
+        welcome:
+            'Wir sagen Ja am Vierwaldstättersee. Kommt vorbei, bringt gute Schuhe mit und bleibt bis zum letzten Schiff.',
+        programmeTitle: 'Programm',
+        events: [
+            { time: '15:30', name: 'Apéro', place: 'Seeterrasse' },
+            { time: '18:30', name: 'Abendessen', place: 'Grand Salon' },
+            { time: '22:00', name: 'Fest', place: 'Bootshaus' },
+        ],
+        travelTitle: 'Anreise',
+        travel: 'Ab Luzern mit dem Schiff in 55 Minuten. Das letzte fährt um 00:40.',
+        galleryTitle: 'Fotos von euch',
+        replyNote: 'Heidi, Peter und Lina haben zugesagt',
+        photos: {
+            hero: photo.sparklers,
+            venue: photo.lakeJetty,
+            gallery: [photo.veilKiss, photo.tableCandles, photo.bouquet],
+        },
+    },
 } as const;
 
 export const struck = {
