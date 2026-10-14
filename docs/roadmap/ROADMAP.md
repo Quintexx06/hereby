@@ -21,7 +21,7 @@
 
 | Now  | Next | Blocked |
 | ---- | ---- | ------- |
-| 0.2 Demo site for one real venue (`code`) | 0.3 Impressum & Datenschutz (`human` + `code`) | 0.6 designer, 0.8 hosting (`human`) |
+| 0.2 Demo site for one real venue: last connections from the SBB timetable (`code`) | 0.3 street address and providers in Impressum & Datenschutz, then legal review (`human`) | 0.8 confirm hosting location and sign the data-processing agreements (`human`) |
 
 `/roadmap` recomputes this table from the statuses below.
 
@@ -63,12 +63,12 @@ Every `code` item, before it is ticked:
 | --- | ---- | ----- | ------ | --------- |
 | 0.1 | Visit TrauDich! Zurich (17–18 Oct): venues, planners, couples | human | [ ] | 15+ conversations logged; 5 venue contacts with a follow-up date |
 | 0.2 | **One demo site for one real venue**, by hand, at full visual quality, on this codebase | code | [ ] | A real venue's events, rooms and transport on the guest page; opens < 2s on 4G; venue has seen it |
-| 0.3 | Landing page in German for the demo and the prepay ask ([analysis](../marketing/landing-page.md)) | code | [~] | `/` in de-CH whose main action works; no English left on the page. **Done:** German page, SEO, FAQ data; the main action is «Kostenlos starten» to sign-up (build free, pay to send), so no demo-request form. **Open:** company details in Impressum/Datenschutz (drafts at /impressum and /datenschutz) and legal review, production domain |
+| 0.3 | Landing page in German for the demo and the prepay ask ([analysis](../marketing/landing-page.md)) | code | [~] | `/` in de-CH whose main action works; no English left on the page. **Done:** German page, SEO, FAQ data; the main action is «Kostenlos starten» to sign-up (build free, pay to send), so no demo-request form. Operator (Martin Brunner, Zürich, info@hereby.ch) filled in and the privacy policy covers every feature built so far; live on Coolify. **Open:** street address and PLZ, hosting and mail provider with location, log retention, then the legal review |
 | 0.4 | Interview 20 engaged couples; ask 5 to prepay | human | [ ] | 20 interview notes in a shared doc; prepay link sent to every fit |
 | 0.5 | Pitch 10 venues with the demo and the preview-on-the-tour idea | human | [ ] | 10 pitches done; objections listed; 2 pilot agreements signed |
-| 0.6 | `[?]` Find the designer who sets the look; their themes replace the starter themes | human | [?] | Designer contracted; scope of the first 3 themes agreed |
+| 0.6 | ~~Find the designer who sets the look~~: the founder accepted the current templates and themes for launch (2026-10-14); a designer stays optional | human | [x] | Designer contracted; scope of the first 3 themes agreed |
 | 0.7 | Test the five competing tools hands-on and list their bugs | human | [ ] | One page per tool: price, RSVP time on a phone, bugs with screenshots |
-| 0.8 | `[?]` Swiss hosting provider chosen ([ADR 0007](../decisions/0007-data-protection.md)) | human | [?] | Provider chosen, data-processing agreement signed, ADR updated |
+| 0.8 | Swiss hosting provider chosen ([ADR 0007](../decisions/0007-data-protection.md)); the app runs live on Coolify, provider and location to confirm | human | [~] | Provider chosen, data-processing agreement signed, ADR updated |
 
 **Gate →** 5 couples prepaid at CHF 390+, and 2 venues signed for a pilot.
 
@@ -84,7 +84,7 @@ Every `code` item, before it is ticked:
 | 1.4  | **60-second RSVP**: per person and event, menu, allergies, children's meal, shuttle, stay, song; asks only what applies | code | [~] | Median completion < 60s in a timed test with 5 people on phones; no account; dietary notes encrypted |
 | 1.5  | Edit until the deadline, with an email summary and a calendar (.ics) entry | code | [x] | Answers editable until the deadline, locked after; summary email + .ics sent on every save |
 | 1.6  | Language per guest: German and English content | code | [ ] | Every guest string in de-CH and en, native-reviewed |
-| 1.7  | Collection of **three designs** (designer-made themes) | code | [ ] | 3 themes from the designer replace Alpine/Riviera; each passes WCAG AA |
+| 1.7  | Collection of **three designs**: the three templates (Atelier, Garten, Panorama) with five themes, accepted by the founder for launch (2026-10-14) | code | [x] | Each passes WCAG AA; a designer collection can replace them later |
 | 1.8  | Travel and stay pages, filled in by hand | code | [x] | Transport, parking, shuttle and room blocks per wedding, shown per event access |
 | 1.9  | Couple dashboard: today view, live counts, household list (+ Excel import) | code | [x] | Import of a 120-row Excel works; counts match the database; "what needs me today" on top |
 | 1.10 | Smart reminders 14 / 7 / 2 days before the deadline (email first) | code | [x] | Queued per household that hasn't answered; contain the personal link; opt-out respected |
@@ -150,6 +150,7 @@ needs an approved spec with its own acceptance criteria before work starts.
 
 | Date       | Change |
 | ---------- | ------ |
+| 2026-10-14 | The founder accepted the current templates and themes for launch (0.6, 1.7 closed). Impressum and Datenschutz filled in for Martin Brunner, Zürich, and extended to payments, photos, newspaper, phone numbers, table notes, the chase service and kept memories. Plan cards promise only what is built: the photo wall, voice wishes and film came off until they exist (rule 5) |
 | 2026-10-13 | 0.2 built (not yet shown): demo site at the real Seehotel Kastanienbaum on Lake Lucerne for a fictional couple, Lea & Jonas (`KastanienbaumDemoSeeder`, spec 2026-10-13-venue-demo-kastanienbaum). Verified arrival (train, bus 21, summer boat to the hotel's landing stage, free parking), rooms, four parts of the day at the hotel, households in German, French and English with tables. LCP 1.2–1.3 s on throttled 4G. Open before showing it: the night's last connections from the SBB timetable, and the venue seeing it |
 | 2026-10-13 | Couple photos get a focal point (tap the faces; every template crops around it). The studio carousel steps reliably on fast clicks and slow devices (`scrollend`, aim-based steps); Panorama's rule lines up with its photos; shadcn's sidebar components removed. Checked end to end in the running app: sign-in, upload, focus, cover, preview, a personal link, the landing carousel |
 | 2026-10-13 | Guest sites look like the landing studio: couples upload up to four photos in «Inhalte» (web copies on the Swiss `memories` disk, served by unguessable token, gone with the wedding), the templates take the landing's heroes (Atelier over the cover, Garten under an arch, Panorama as a night band over a strip), and every theme is an accent on porcelain (ADR 0012). App: own nav instead of shadcn's sidebar (no layout jump on zoom), a scroll rail instead of the native page scrollbar, tidier Küche & Service, Extras with a scene per extra |

@@ -17,15 +17,19 @@ export type LegalPage = {
 const draftNote =
     'Entwurf: Angaben in [eckigen Klammern] werden vor dem Start ergänzt, und der Text wird von einer Fachperson geprüft.';
 
+const updated = 'Stand: 14. Oktober 2026';
+const operator = 'Hereby, Martin Brunner';
+const contact = 'info@hereby.ch';
+
 export const privacy: LegalPage = {
     title: 'Datenschutzerklärung',
-    updated: 'Stand: [Datum]',
+    updated,
     draftNote,
     sections: [
         {
             heading: 'Wer verantwortlich ist',
             paragraphs: [
-                'Verantwortlich für die Bearbeitung eurer Personendaten ist [Firmenname], [Strasse Nr.], [PLZ Ort], Schweiz. Fragen zum Datenschutz beantworten wir unter [datenschutz@domain.ch].',
+                `Verantwortlich für die Bearbeitung eurer Personendaten ist ${operator}, [Strasse Nr.], [PLZ] Zürich, Schweiz. Fragen zum Datenschutz beantworten wir unter ${contact}.`,
                 'Wir richten uns nach dem Schweizer Datenschutzgesetz (DSG) und, soweit anwendbar, nach der Datenschutz-Grundverordnung der EU (DSGVO).',
             ],
         },
@@ -33,43 +37,51 @@ export const privacy: LegalPage = {
             heading: 'Welche Daten wir bearbeiten',
             paragraphs: [
                 'Besuch der Website: Unser Server protokolliert technisch notwendige Angaben (IP-Adresse, Zeitpunkt, aufgerufene Seite, Browser), um die Website sicher zu betreiben und Missbrauch zu erkennen.',
-                'Fragen über das Formular: Eure E-Mail-Adresse und eure Frage. Wir nutzen sie nur, um euch zu antworten.',
-                'Konto eines Paares: Name, E-Mail-Adresse und Passwort (nur als sicherer Hash gespeichert), optional Passkeys und Zwei-Faktor-Angaben.',
-                'Gästedaten auf der persönlichen Einladung: Namen, Haushalt, Sprache, Zu- und Absagen sowie Angaben zu Menü, Allergien und Unverträglichkeiten. Diese Daten bearbeiten wir im Auftrag des Brautpaares; Allergien und Unverträglichkeiten speichern wir verschlüsselt.',
+                'Konto eines Paares: Name, E-Mail-Adresse und Passwort (nur als sicherer Hash gespeichert), optional Passkeys und Zwei-Faktor-Angaben, dazu alles, was ihr für eure Hochzeitsseite eintragt, auch eure Fotos.',
+                'Gästedaten: Namen, Haushalt, Sprache, E-Mail-Adresse und, falls das Paar sie einträgt, Telefonnummer; Zu- und Absagen sowie Angaben zu Menü, Allergien und Unverträglichkeiten. Allergien und Unverträglichkeiten speichern wir verschlüsselt. Diese Daten bearbeiten wir im Auftrag des Brautpaares.',
+                'Je nach Paket des Paares zusätzlich: der Tisch eines Gastes mit einer Zeile, die das Paar über ihn schreibt (seine Tischnachbarn sehen den Vornamen und diese Zeile, nie Nachnamen oder Allergien); Reden, Spiele oder Lieder, die Gäste für den Abend anmelden; Gruppenfotos, in die das Paar Gäste einteilt; Fotos, die Gäste hochladen; Geschichten und Fotos für die Hochzeitszeitung.',
+                'Zahlungen: Paare bezahlen über Stripe. Kartendaten und TWINT-Angaben gehen direkt an Stripe; wir erhalten nur die Bestätigung der Zahlung.',
+            ],
+        },
+        {
+            heading: 'Wozu wir E-Mails schicken',
+            paragraphs: [
+                'Gäste mit E-Mail-Adresse bekommen eine Bestätigung ihrer Antwort, Erinnerungen vor der Antwortfrist (abbestellbar mit einem Klick) und, je nach Paket, am Tag selbst eine Mail zum Gruppenfoto oder vor der letzten Verbindung nach Hause. Paare bekommen Mails zu ihrem Konto.',
+                'Hat ein Paar «Wir fassen nach» gebucht, kontaktieren wir Gäste ohne Antwort zwei Wochen vor der Frist per E-Mail oder Telefon, nur um an die Antwort zu erinnern.',
             ],
         },
         {
             heading: 'Cookies und Tracking',
             paragraphs: [
-                'Wir setzen nur technisch notwendige Cookies: für die Sitzung, den Schutz vor gefälschten Anfragen (CSRF) und die gewählte Darstellung (hell oder dunkel).',
+                'Wir setzen nur technisch notwendige Cookies: für die Sitzung, den Schutz vor gefälschten Anfragen (CSRF) und die gewählte Darstellung.',
                 'Wir verwenden keine Analyse-, Werbe- oder Tracking-Cookies und keine Social-Media-Plugins. Schriften und Bilder liefern wir von unseren eigenen Servern aus; beim Besuch werden keine Daten an Google Fonts oder ähnliche Dienste übermittelt.',
             ],
         },
         {
             heading: 'Weitergabe an Dritte',
             paragraphs: [
-                'Wir geben Personendaten nur an Dienstleister weiter, die wir für den Betrieb brauchen: Hosting ([Anbieter, Standort]) und E-Mail-Versand ([Anbieter, Standort]). Sie bearbeiten die Daten nur nach unseren Weisungen.',
+                'Wir geben Personendaten nur an Dienstleister weiter, die wir für den Betrieb brauchen: Hosting ([Anbieter, Standort]), E-Mail-Versand ([Anbieter, Standort]) und Zahlungen (Stripe Payments Europe, Irland). Sie bearbeiten die Daten nur nach unseren Weisungen.',
                 'Wir verkaufen keine Daten. Eure Gäste sehen nie Werbung oder Angebote Dritter.',
             ],
         },
         {
             heading: 'Wie lange wir Daten aufbewahren',
             paragraphs: [
-                'Gästedaten löschen wir automatisch zwölf Monate nach dem Hochzeitsdatum.',
-                'Fragen über das Formular bewahren wir bis zur Beantwortung und danach höchstens [12 Monate] auf. Server-Protokolle löschen wir nach [30 Tagen].',
-                'Konten bestehen, bis sie gelöscht werden. Ihr könnt euer Konto jederzeit in den Einstellungen löschen.',
+                'Gästedaten löschen wir automatisch zwölf Monate nach dem Hochzeitsdatum: Haushalte, Namen, Antworten, Allergien, Tische, Anmeldungen und Gruppenfotos.',
+                'Bucht ein Paar «Erinnerungen behalten», bleiben die Fotos der Gäste und die Hochzeitszeitung (mit den Namen, mit denen Gäste ihre Beiträge unterschrieben haben) jeweils ein Jahr länger; die übrigen Gästedaten löschen wir trotzdem nach zwölf Monaten.',
+                'Server-Protokolle löschen wir nach [30 Tagen]. Konten bestehen, bis sie gelöscht werden; ihr könnt euer Konto jederzeit in den Einstellungen löschen, und mit ihm alle Daten eurer Hochzeit.',
             ],
         },
         {
             heading: 'Sicherheit',
             paragraphs: [
-                'Die Verbindung ist verschlüsselt (HTTPS). Persönliche Einladungslinks sind nicht erratbar und werden von Suchmaschinen nicht erfasst. Zugriff auf Gästedaten haben nur das Brautpaar und, für den Betrieb, wir.',
+                'Die Verbindung ist verschlüsselt (HTTPS). Persönliche Einladungslinks, der Foto-Link, der Link für die Hochzeitszeitung und der Link für die Trauzeugen sind nicht erratbar und werden von Suchmaschinen nicht erfasst. Fotos sind privat und nur für das Paar sichtbar. Zugriff auf Gästedaten haben nur das Brautpaar und, für den Betrieb, wir.',
             ],
         },
         {
             heading: 'Eure Rechte',
             paragraphs: [
-                'Ihr könnt Auskunft über eure Daten verlangen, sie berichtigen oder löschen lassen, ihre Herausgabe verlangen und der Bearbeitung widersprechen. Schreibt uns dazu an [datenschutz@domain.ch].',
+                `Ihr könnt Auskunft über eure Daten verlangen, sie berichtigen oder löschen lassen, ihre Herausgabe verlangen und der Bearbeitung widersprechen. Schreibt uns dazu an ${contact}.`,
                 'Gäste wenden sich für ihre Einladungsdaten am einfachsten an das Brautpaar; wir unterstützen es dabei.',
                 'Ihr habt zudem das Recht, euch beim Eidgenössischen Datenschutz- und Öffentlichkeitsbeauftragten (EDÖB) zu beschweren.',
             ],
@@ -85,28 +97,20 @@ export const privacy: LegalPage = {
 
 export const imprint: LegalPage = {
     title: 'Impressum',
-    updated: 'Stand: [Datum]',
+    updated,
     draftNote,
     sections: [
         {
-            heading: 'Betreiberin',
+            heading: 'Betreiber',
             paragraphs: [
-                '[Firmenname]',
-                '[Strasse Nr.], [PLZ Ort], Schweiz',
-                'E-Mail: [kontakt@domain.ch]',
+                operator,
+                '[Strasse Nr.], [PLZ] Zürich, Schweiz',
+                `E-Mail: ${contact}`,
             ],
         },
         {
-            heading: 'Vertretungsberechtigte Person',
-            paragraphs: ['[Vorname Name]'],
-        },
-        {
-            heading: 'Handelsregister und UID',
-            paragraphs: [
-                'Eingetragen im Handelsregister des Kantons [Kanton]',
-                'UID: [CHE-xxx.xxx.xxx]',
-                'Mehrwertsteuernummer: [CHE-xxx.xxx.xxx MWST]',
-            ],
+            heading: 'Verantwortliche Person',
+            paragraphs: ['Martin Brunner'],
         },
         {
             heading: 'Haftung',
@@ -117,7 +121,7 @@ export const imprint: LegalPage = {
         {
             heading: 'Urheberrechte',
             paragraphs: [
-                'Texte, Gestaltung und Grafiken dieser Website gehören [Firmenname]. Die Fotos stammen von Unsplash und werden gemäss der Unsplash-Lizenz verwendet. Jede weitere Verwendung braucht unsere vorherige Zustimmung.',
+                'Texte, Gestaltung und Grafiken dieser Website gehören Martin Brunner. Die Fotos stammen von Unsplash und werden gemäss der Unsplash-Lizenz verwendet. Jede weitere Verwendung braucht unsere vorherige Zustimmung.',
             ],
         },
     ],

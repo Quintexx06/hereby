@@ -10,7 +10,7 @@ export const publishPage = {
     titlePublished: 'Eure Links sind offen.',
     lede: 'Eure Seite ist gebaut. Mit einem Paket werden die persönlichen Links eurer Gäste aktiv, einmal bezahlt, bis ein Jahr nach der Hochzeit.',
     ledePublished:
-        'Eure Gäste können antworten. Mit Atelier läuft auch der Abend von selbst, und ihr sammelt ihre Fotos und Grüsse.',
+        'Eure Gäste können antworten. Mit Atelier läuft auch der Abend von selbst, und ihr sammelt ihre Fotos.',
     buy: (price: number) => `Freischalten · ${chf(price)}`,
     upgrade: (price: number) => `Upgrade · ${chf(price)}`,
     owned: 'Gebucht',
@@ -44,18 +44,13 @@ export const plans: Record<
     },
     atelier: {
         name: 'Atelier',
-        line: 'Dazu ein Abend, der von selbst läuft, und alles, was eure Gäste euch zurücklassen.',
+        line: 'Dazu ein Abend, der von selbst läuft, und die Fotos eurer Gäste.',
         features: [
             { text: 'Alles aus Signature' },
             { text: 'Tischplan: Gäste sehen, wer mit ihnen am Tisch sitzt' },
             { text: 'Einlagen und Gruppenfotos, geführt von euren Trauzeugen' },
             { text: 'Heimweg: Erinnerung vor dem letzten Schiff' },
-            {
-                text: 'Fotos von allen: Upload-Link und QR auf den Tischen',
-                soon: true,
-            },
-            { text: 'Live-Fotowand am Abend', soon: true },
-            { text: 'Sprachgrüsse eurer Gäste', soon: true },
+            { text: 'Fotos von allen: ein Upload-Link für alle Gäste' },
         ],
     },
     couture: {
@@ -64,7 +59,6 @@ export const plans: Record<
         features: [
             { text: 'Alles aus Atelier' },
             { text: 'Hochzeitszeitung und «Wir fassen nach»' },
-            { text: 'Euer Film aus Fotos und Sprachgrüssen', soon: true },
             { text: 'Eigene Domain und gedrucktes Erinnerungsbuch' },
             { text: 'Einrichtung und Übersetzung durch uns' },
         ],
