@@ -210,62 +210,85 @@ export const studio = {
     },
 } as const;
 
-/** The paid side, without prices: only what ships today (rule 5). */
+/**
+ * The paid side, without prices: only what ships today (rule 5). Two
+ * products, told apart: the Atelier evening as moments of the night, and
+ * the extras as tickets to add one by one.
+ */
 export const premium = {
     titleLead: 'Und dann',
     titleAccent: 'der Abend.',
-    lede: 'Mit Atelier und Couture endet eure Seite nicht bei der Antwort. Sie führt durch den Tag, gibt den Trauzeugen das Programm in die Hand und bringt alle sicher heim.',
-    items: [
+    lede: 'Die Einladung ist gratis gebaut. Mit Atelier geht eure Seite weiter: Sie führt eure Gäste durch den Tag, gibt den Trauzeugen das Programm in die Hand und bringt alle sicher heim.',
+    package: {
+        badge: 'Paket Atelier',
+        title: 'Der Abend läuft von selbst',
+        hint: 'Tippt auf einen Moment, um zu sehen, was eure Gäste dann auf dem Handy sehen.',
+        cta: 'In Atelier und Couture',
+    },
+    moments: [
         {
+            key: 'groupPhoto',
+            time: '17:30',
+            icon: 'megaphone',
+            name: 'Gruppenfotos',
+            line: 'Die Trauzeugen rufen eine Gruppe auf, und genau diese Gäste bekommen Bescheid.',
+        },
+        {
+            key: 'seating',
+            time: '18:30',
             icon: 'dinner',
             name: 'Tischplan',
             line: 'Jeder Gast sieht seinen Tisch und wer neben ihm sitzt, mit einer Zeile von euch.',
-            tier: 'Atelier',
         },
         {
+            key: 'programme',
+            time: '21:00',
             icon: 'music',
             name: 'Einlagen',
-            line: 'Reden, Spiele, Lieder: Gäste melden sich an, die Trauzeugen stimmen ab.',
-            tier: 'Atelier',
+            line: 'Reden, Spiele, Lieder: Gäste melden sich an, die Trauzeugen stimmen ab. Ihr bleibt überrascht.',
         },
         {
-            icon: 'megaphone',
-            name: 'Gruppenfotos',
-            line: 'Wer auf welches Foto gehört. Die Trauzeugen rufen die Gruppen am Tag auf.',
-            tier: 'Atelier',
-        },
-        {
+            key: 'wayHome',
+            time: '00:10',
             icon: 'clock',
             name: 'Heimweg',
-            line: 'Eine halbe Stunde vor der letzten Verbindung eine Mail an alle, die noch feiern.',
-            tier: 'Atelier',
-        },
-        {
-            icon: 'template',
-            name: 'Hochzeitszeitung',
-            line: 'Geschichten und Fotos eurer Freunde, gedruckt von den Trauzeugen, in eurem Design.',
-            tier: 'Couture',
-        },
-        {
-            icon: 'calendar',
-            name: 'Wir fassen nach',
-            line: 'Zwei Wochen vor der Frist melden wir uns bei allen, die noch nicht geantwortet haben.',
-            tier: 'Couture',
-        },
-        {
-            icon: 'link',
-            name: 'Eigene Domain',
-            line: 'Eure Seite unter eurer Adresse, etwa anna-und-luca.ch. Wir verbinden sie.',
-            tier: 'Couture',
-        },
-        {
-            icon: 'forever',
-            name: 'Erinnerungen behalten',
-            line: 'Gästedaten löschen wir nach einem Jahr. Fotos und Grüsse bleiben ein Jahr länger.',
-            tier: 'Extra',
+            line: 'Eine halbe Stunde vor dem letzten Schiff eine Mail an alle, die noch tanzen.',
         },
     ],
-    note: 'Was mit Couture kommt, gibt es auch einzeln als Extra. Eure Gäste sehen nie einen Preis.',
+    extras: {
+        title: 'Zum Dazunehmen',
+        lede: 'Einzeln zu jedem Paket buchbar. In Couture ist alles dabei.',
+        add: 'Extra',
+        included: 'In Couture inklusive',
+        perYear: 'pro Jahr',
+        items: [
+            {
+                icon: 'template',
+                name: 'Hochzeitszeitung',
+                line: 'Geschichten und Fotos eurer Freunde, gedruckt von den Trauzeugen.',
+                couture: true,
+            },
+            {
+                icon: 'calendar',
+                name: 'Wir fassen nach',
+                line: 'Zwei Wochen vor der Frist melden wir uns bei allen ohne Antwort.',
+                couture: true,
+            },
+            {
+                icon: 'link',
+                name: 'Eigene Domain',
+                line: 'Eure Seite unter eurer Adresse, etwa anna-und-luca.ch.',
+                couture: true,
+            },
+            {
+                icon: 'forever',
+                name: 'Erinnerungen behalten',
+                line: 'Ab Atelier: Fotos und Zeitung ein Jahr länger. Gästedaten löschen wir trotzdem.',
+                couture: false,
+            },
+        ],
+    },
+    note: 'Eure Gäste sehen nie einen Preis. Alles bucht ihr erst, wenn eure Seite steht.',
 } as const;
 
 export const struck = {

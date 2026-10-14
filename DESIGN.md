@@ -231,9 +231,15 @@ Each one is a motion pattern with a product reason, not decoration:
   date into all three, and three accent chips recolour only their accents
   (`--showcase-ink`); the ground stays porcelain. Classes are `sc-*` so the
   real templates' styles never leak in.
-- **Premium** (`PremiumSection`, after the studio, on `.stage`): what Atelier
-  and Couture add to the day, as eight cards with Hereby icons and a tier
-  pill (Couture in the brand colour). No prices, nothing marked «bald».
+- **Premium** (`PremiumSection`, `PremiumEvening`, `PremiumScreen`,
+  `PremiumExtras`, after the studio, on `.stage`): two products, told apart.
+  The Atelier package is one framed panel with a «Paket Atelier» pill: the
+  night as a timeline (17:30 Gruppenfotos, 18:30 Tischplan, 21:00 Einlagen,
+  00:10 Heimweg) beside a guest's phone (porcelain, `data-theme="ivory"`)
+  that shows that moment's real screen; hover or tap picks a moment, nothing
+  changes on its own. The extras are tickets: a brand stub with a «+» and a
+  number, a dashed tear line and two notches, «Extra» pill, «In Couture
+  inklusive» where it applies. No prices, nothing marked «bald».
 - **Hiermit gestrichen.** (`StruckSection`, `StruckRow`): what we leave out
   (Passwörter, Vorlagen, Werbung…), struck through by a blush line as each
   row scrolls in. A custom icon pops out of the struck word (spring, never from
