@@ -237,9 +237,11 @@ Each one is a motion pattern with a product reason, not decoration:
   night as a timeline (17:30 Gruppenfotos, 18:30 Tischplan, 21:00 Einlagen,
   00:10 Heimweg) beside a guest's phone (porcelain, `data-theme="ivory"`)
   that shows that moment's real screen; hover or tap picks a moment, nothing
-  changes on its own. The extras are tickets: a brand stub with a «+» and a
-  number, a dashed tear line and two notches, «Extra» pill, «In Couture
-  inklusive» where it applies. No prices, nothing marked «bald».
+  changes on its own. The extras are four cards, each led by a large Hereby
+  icon on a soft blush disc: the icon draws itself in as its card rises
+  (staggered), its blush dot pops in last; hover lifts the card and tilts
+  the disc with a halo. A pill reads «In Couture inklusive» or «Extra».
+  No prices, nothing marked «bald».
 - **Hiermit gestrichen.** (`StruckSection`, `StruckRow`): what we leave out
   (Passwörter, Vorlagen, Werbung…), struck through by a blush line as each
   row scrolls in. A custom icon pops out of the struck word (spring, never from

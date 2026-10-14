@@ -1,7 +1,7 @@
 /*
  * The premium section (landing), on night, as two products. The Atelier
  * evening: a timeline of the night's moments beside a guest's phone that
- * shows the one picked. The extras: tickets with a torn-off stub. Nothing
+ * shows the one picked. The extras: four cards with large drawn icons. Nothing
  * moves on its own; hover and tap pick a moment.
  */
 @layer components {
@@ -98,48 +98,60 @@
         @apply bg-primary text-primary-foreground;
     }
 
-    /* Extras: tickets with a perforated stub, so they read as add-ons. */
-    .premium-tickets {
+    /* Extras: four cards, each led by a large drawn icon on a soft stage. */
+    .premium-extras {
         @apply grid gap-4 sm:grid-cols-2 xl:grid-cols-4;
     }
 
-    .premium-ticket {
-        @apply grid grid-cols-[3.25rem_minmax(0,1fr)] overflow-hidden rounded-[1.25rem] bg-card transition-[translate] duration-200 ease-out;
-        /* Two half-circle notches where the stub tears off. */
-        mask:
-            radial-gradient(
-                    circle at 3.25rem 0,
-                    transparent 0.55rem,
-                    #000 0.6rem
-                )
-                top / 100% 51% no-repeat,
-            radial-gradient(
-                    circle at 3.25rem 100%,
-                    transparent 0.55rem,
-                    #000 0.6rem
-                )
-                bottom / 100% 51% no-repeat;
+    .premium-extra {
+        @apply flex flex-col gap-6 rounded-[1.5rem] border border-rule bg-card/70 p-7 transition-[translate,border-color,background-color] duration-300 ease-out;
     }
 
-    @media (hover: hover) {
-        .premium-ticket:hover {
-            @apply -translate-y-1;
+    .premium-extra-stage {
+        @apply relative grid size-24 place-items-center rounded-full bg-brand/10 ring-1 ring-brand/20 transition-[translate,rotate,background-color] duration-500 ease-out;
+    }
+
+    /* A slow halo behind the icon once the card has arrived. */
+    .premium-extra-stage::after {
+        @apply pointer-events-none absolute inset-0 rounded-full bg-brand/20 opacity-0 blur-xl transition-opacity duration-700 ease-out content-[''];
+    }
+
+    .premium-extra-icon {
+        @apply relative z-[1] size-14;
+    }
+
+    /* The blush dot lands after the line has drawn itself. */
+    .premium-extra.reveal .hereby-icon-dot {
+        @apply scale-0;
+        transform-box: fill-box;
+        transform-origin: center;
+        transition: scale 450ms cubic-bezier(0.34, 1.56, 0.64, 1)
+            calc(var(--reveal-delay, 0ms) + 900ms);
+    }
+
+    .premium-extra.reveal[data-revealed] .hereby-icon-dot {
+        @apply scale-100;
+    }
+
+    .premium-extra-tag {
+        @apply mt-auto w-fit rounded-full border border-rule px-3 py-1 text-xs font-medium text-muted-foreground;
+    }
+
+    .premium-extra-tag[data-couture='true'] {
+        @apply border-brand/40 text-brand;
+    }
+
+    @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+        .premium-extra:hover {
+            @apply -translate-y-1 border-brand/40 bg-card;
         }
-    }
 
-    .premium-ticket-stub {
-        @apply flex flex-col items-center justify-between border-r-2 border-dashed border-rule bg-brand py-5 text-brand-foreground;
-    }
+        .premium-extra:hover .premium-extra-stage {
+            @apply -translate-y-1 -rotate-6 bg-brand/15;
+        }
 
-    .premium-ticket-number {
-        @apply font-display text-sm font-bold tabular-nums [writing-mode:vertical-rl];
-    }
-
-    .premium-tag {
-        @apply rounded-full border border-brand/50 px-2.5 py-0.5 text-xs font-semibold text-brand;
-    }
-
-    .premium-included {
-        @apply mt-auto text-xs text-muted-foreground;
+        .premium-extra:hover .premium-extra-stage::after {
+            @apply opacity-100;
+        }
     }
 }
