@@ -2,12 +2,13 @@
 import PageMasthead from '@/components/PageMasthead.vue';
 import { Head, router } from '@inertiajs/vue3';
 import { Eye, Plus } from '@lucide/vue';
-import { computed, ref } from 'vue';
+import { computed, nextTick, ref } from 'vue';
 import BlockEditor from '@/components/content/BlockEditor.vue';
 import CouplePhotos from '@/components/content/CouplePhotos.vue';
 import InvitationPreview from '@/components/content/InvitationPreview.vue';
 import { blockTypes, contentPage as copy } from '@/content/content';
 import { dashboardPage } from '@/content/dashboard';
+import { prefersReducedMotion } from '@/lib/motion';
 import { dashboard } from '@/routes';
 import { preview } from '@/routes/weddings';
 import { reorder, store } from '@/routes/weddings/content';
@@ -41,8 +42,11 @@ const missing = computed(() =>
     ),
 );
 
-/* Counts saves, so the preview beside the editor loads the new state. */
+/* Counts saves; with the order, it tells the preview to load the new state. */
 const saves = ref(0);
+const previewVersion = computed(
+    () => `${saves.value}-${props.blocks.map((block) => block.id).join('.')}`,
+);
 
 function add(type: ContentBlockType): void {
     router.post(
@@ -52,13 +56,30 @@ function add(type: ContentBlockType): void {
     );
 }
 
+/* A moved block jumps past its neighbour; follow it so it stays in sight. */
+function keepInView(blockId: number): void {
+    nextTick(() =>
+        document
+            .getElementById(`block-${blockId}`)
+            ?.closest('form')
+            ?.scrollIntoView({
+                block: 'nearest',
+                behavior: prefersReducedMotion() ? 'auto' : 'smooth',
+            }),
+    );
+}
+
 function move(index: number, direction: -1 | 1): void {
     const ids = props.blocks.map((block) => block.id);
     [ids[index], ids[index + direction]] = [ids[index + direction], ids[index]];
+    const moved = props.blocks[index].id;
     router.put(
         reorder.url(props.wedding.id),
         { ids },
-        { preserveScroll: true },
+        {
+            preserveScroll: true,
+            onSuccess: () => keepInView(moved),
+        },
     );
 }
 </script>
@@ -80,18 +101,17 @@ function move(index: number, direction: -1 | 1): void {
             </template>
         </PageMasthead>
 
-        <CouplePhotos
-            :wedding-id="wedding.id"
-            :photos="photos"
-            @changed="saves++"
-        />
-
-        <p v-if="blocks.length === 0" class="text-muted-foreground">
-            {{ copy.empty }}
-        </p>
-
         <div class="content-layout">
             <div class="flex max-w-3xl flex-col gap-6">
+                <CouplePhotos
+                    :wedding-id="wedding.id"
+                    :photos="photos"
+                    class="mb-4"
+                    @changed="saves++"
+                />
+                <p v-if="blocks.length === 0" class="text-muted-foreground">
+                    {{ copy.empty }}
+                </p>
                 <BlockEditor
                     v-for="(block, index) in blocks"
                     :key="block.id"
@@ -107,7 +127,7 @@ function move(index: number, direction: -1 | 1): void {
             <InvitationPreview
                 v-if="blocks.length || photos.length"
                 :wedding="wedding"
-                :version="saves + blocks.length"
+                :version="previewVersion"
             />
         </div>
 

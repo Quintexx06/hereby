@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed, defineAsyncComponent } from 'vue';
-import { Head } from '@inertiajs/vue3';
+import { computed, defineAsyncComponent, onMounted } from 'vue';
+import { Head, usePage } from '@inertiajs/vue3';
 import InvitationOpening from '@/components/invitation/InvitationOpening.vue';
 import StickyReply from '@/components/invitation/StickyReply.vue';
 import AtelierTemplate from '@/components/invitation/templates/AtelierTemplate.vue';
@@ -24,6 +24,18 @@ const props = defineProps<{
 }>();
 
 const { localeTag } = useTrans();
+
+/* Inside the phone on «Inhalte»: no couple bar, no desktop scrollbar. */
+const page = usePage();
+const embedded = computed(
+    () => props.preview && page.url.includes('einbetten=1'),
+);
+onMounted(() =>
+    document.documentElement.classList.toggle(
+        'preview-embedded',
+        embedded.value,
+    ),
+);
 
 /* Where the day happens: the first part with a place. */
 const place = computed(
@@ -56,7 +68,10 @@ const canReply = computed(
 <template>
     <WeddingThemeScope :theme="invitation.wedding.theme" :lang="localeTag()">
         <Head :title="invitation.wedding.coupleNames" />
-        <PreviewBanner v-if="preview" :languages="previewLanguages ?? []" />
+        <PreviewBanner
+            v-if="preview && !embedded"
+            :languages="previewLanguages ?? []"
+        />
         <InvitationOpening
             :couple="invitation.wedding.coupleNames"
             :date="formatDate(invitation.wedding.date, localeTag())"

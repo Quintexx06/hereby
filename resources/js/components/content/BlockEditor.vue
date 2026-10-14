@@ -7,8 +7,7 @@ import LanguageTabs from '@/components/content/LanguageTabs.vue';
 import MoveButtons from '@/components/content/MoveButtons.vue';
 import ConfirmButton from '@/components/guests/editor/ConfirmButton.vue';
 import InputError from '@/components/InputError.vue';
-import { Button } from '@/components/ui/button';
-import { Spinner } from '@/components/ui/spinner';
+import SaveButton from '@/components/SaveButton.vue';
 import { blockTypes, contentPage as copy } from '@/content/content';
 import { useUnsavedChanges } from '@/composables/useUnsavedChanges';
 import { firstError } from '@/lib/forms';
@@ -53,7 +52,12 @@ const filled = (locale: Locale) => {
 
 useUnsavedChanges(() => form.isDirty, copy.leaveUnsaved);
 
+/* Also on Enter in the title, and on Ctrl/Cmd+S anywhere in the block. */
 function save(): void {
+    if (!form.isDirty || form.processing) {
+        return;
+    }
+
     form.put(update.url([...route()]), {
         preserveScroll: true,
         onSuccess: () => {
@@ -65,7 +69,13 @@ function save(): void {
 </script>
 
 <template>
-    <article class="block-editor" :aria-labelledby="`block-${block.id}`">
+    <form
+        class="block-editor"
+        :aria-labelledby="`block-${block.id}`"
+        @submit.prevent="save"
+        @keydown.ctrl.s.prevent="save"
+        @keydown.meta.s.prevent="save"
+    >
         <header class="flex items-start justify-between gap-3">
             <div class="flex flex-col gap-1">
                 <h2 :id="`block-${block.id}`" class="app-section-title">
@@ -117,10 +127,13 @@ function save(): void {
 
         <footer class="flex flex-wrap items-center justify-between gap-4">
             <div class="flex items-center gap-4">
-                <Button size="pill" :disabled="form.processing" @click="save">
-                    <Spinner v-if="form.processing" />
-                    {{ copy.save }}
-                </Button>
+                <SaveButton
+                    :processing="form.processing"
+                    :dirty="form.isDirty"
+                    :saved="form.recentlySuccessful"
+                    :label="copy.save"
+                    :saved-label="copy.saved"
+                />
                 <p v-if="form.isDirty" class="field-hint" role="status">
                     {{ copy.unsaved }}
                 </p>
@@ -136,5 +149,5 @@ function save(): void {
                 "
             />
         </footer>
-    </article>
+    </form>
 </template>

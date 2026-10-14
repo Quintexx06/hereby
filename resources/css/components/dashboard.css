@@ -139,25 +139,51 @@
 /* "Inhalte": one card per block on the invitation. */
 @layer components {
     .block-editor {
-        @apply flex flex-col gap-6 rounded-lg border bg-card p-5 sm:p-7;
+        @apply flex scroll-mt-6 flex-col gap-6 rounded-lg border bg-card p-5 sm:p-7;
     }
 
     /* Editor and, on wide screens, the invitation on a phone beside it. */
     .content-layout {
-        @apply grid items-start gap-12 xl:grid-cols-[minmax(0,48rem)_20rem];
+        @apply grid items-start gap-12 xl:grid-cols-[minmax(0,1fr)_22rem] 2xl:grid-cols-[minmax(0,46rem)_22rem] 2xl:gap-20;
     }
 
     .content-preview {
-        @apply hidden flex-col gap-4 xl:sticky xl:top-6 xl:flex;
+        @apply hidden flex-col items-center gap-4 xl:sticky xl:top-6 xl:flex;
     }
 
+    /* A phone in the hand: night bezel, island, side keys, home bar. */
     .content-preview-phone {
-        @apply relative h-[39rem] w-80 overflow-hidden rounded-[2rem] border border-rule bg-card;
+        @apply relative rounded-[3rem] bg-night-950 p-2.5 shadow-[0_40px_80px_-30px_rgb(20_14_10/0.5)] ring-1 ring-night-800;
     }
 
-    /* A 390px phone drawn at 82%, so the guest layout is the real one. */
+    .content-preview-phone::before,
+    .content-preview-phone::after {
+        @apply absolute w-[3px] bg-night-800 content-[''];
+    }
+
+    .content-preview-phone::before {
+        @apply top-32 -left-[3px] h-16 rounded-l-sm;
+    }
+
+    .content-preview-phone::after {
+        @apply top-40 -right-[3px] h-20 rounded-r-sm;
+    }
+
+    .content-preview-screen {
+        @apply relative h-[717px] w-[331.5px] overflow-hidden rounded-[2.4rem] bg-background;
+    }
+
+    .content-preview-island {
+        @apply pointer-events-none absolute top-2.5 left-1/2 z-10 h-6 w-24 -translate-x-1/2 rounded-full bg-night-950;
+    }
+
+    .content-preview-home {
+        @apply pointer-events-none absolute bottom-2 left-1/2 z-10 h-1 w-28 -translate-x-1/2 rounded-full bg-porcelain-50 mix-blend-difference;
+    }
+
+    /* A 390 × 844 phone drawn at 85%, so the guest layout is the real one. */
     .content-preview-frame {
-        @apply absolute top-0 left-0 h-[761px] w-[390px] origin-top-left scale-[0.8205] border-0;
+        @apply absolute top-0 left-0 h-[844px] w-[390px] origin-top-left scale-[0.85] border-0;
     }
 
     .faq-item-field {
@@ -225,7 +251,7 @@
 /* «Eure Fotos» on Inhalte: four slots, the first is the cover. */
 @layer components {
     .couple-photos {
-        @apply grid max-w-3xl grid-cols-2 gap-3 sm:grid-cols-4;
+        @apply grid grid-cols-2 gap-3 sm:grid-cols-4;
     }
 
     .couple-photo {
@@ -253,7 +279,16 @@
         @apply inline-flex h-8 cursor-pointer items-center gap-1.5 rounded-full bg-background/90 px-2.5 text-xs font-medium transition-[background-color,scale] duration-150 ease-out hover:bg-background active:scale-95;
     }
 
+    /* Fills the empty slots, so the row reads as one set with the photos. */
+    .couple-photo-room {
+        @apply col-span-full flex sm:col-[span_var(--room)/span_var(--room)];
+    }
+
     .couple-photo-add {
-        @apply flex aspect-[3/4] cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border border-dashed border-input text-sm text-muted-foreground transition-colors duration-150 ease-out hover:border-foreground hover:text-foreground has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-ring;
+        @apply flex min-h-36 flex-1 cursor-pointer items-center justify-center gap-4 rounded-xl border bg-card p-5 transition-colors duration-150 ease-out hover:bg-muted has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-ring;
+    }
+
+    .couple-photo-add-icon {
+        @apply grid size-11 shrink-0 place-items-center rounded-full bg-muted text-foreground;
     }
 }

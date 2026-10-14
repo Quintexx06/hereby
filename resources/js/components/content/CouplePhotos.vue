@@ -67,11 +67,24 @@ async function upload(event: Event): Promise<void> {
                 :index="index"
                 @changed="emit('changed')"
             />
-            <li v-if="room > 0">
+            <li
+                v-if="room > 0"
+                class="couple-photo-room"
+                :style="{ '--room': room }"
+            >
                 <label class="couple-photo-add">
-                    <Spinner v-if="uploading" />
-                    <ImagePlus v-else class="size-6" aria-hidden="true" />
-                    <span>{{ uploading ? copy.uploading : copy.add }}</span>
+                    <span class="couple-photo-add-icon">
+                        <Spinner v-if="uploading" />
+                        <ImagePlus v-else class="size-5" aria-hidden="true" />
+                    </span>
+                    <span class="flex flex-col gap-0.5">
+                        <span class="font-medium">
+                            {{ uploading ? copy.uploading : copy.add }}
+                        </span>
+                        <span class="text-sm text-muted-foreground">
+                            {{ copy.room(room) }}
+                        </span>
+                    </span>
                     <input
                         ref="input"
                         type="file"

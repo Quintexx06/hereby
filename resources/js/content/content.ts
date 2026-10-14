@@ -8,6 +8,10 @@ export const couplePhotosCopy = {
     focus: 'Stelle wählen, die sichtbar bleibt',
     add: 'Foto hinzufügen',
     uploading: 'Wird hochgeladen …',
+    room: (count: number) =>
+        count === 1
+            ? 'Noch ein Platz frei · JPG, PNG oder WebP'
+            : `Noch ${count} Plätze frei · JPG, PNG oder WebP`,
     cover: 'Titelbild',
     makeCover: 'Als Titelbild',
     remove: 'Foto löschen',
@@ -24,6 +28,7 @@ export const contentPage = {
     previewHint:
         'So sehen es eure Gäste auf dem Handy, Stand eures letzten Speicherns.',
     save: 'Speichern',
+    saved: 'Gespeichert',
     unsaved: 'Noch nicht gespeichert',
     leaveUnsaved:
         'Ihr habt Änderungen, die noch nicht gespeichert sind. Seite trotzdem verlassen?',
