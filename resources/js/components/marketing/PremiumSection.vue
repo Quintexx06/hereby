@@ -21,8 +21,6 @@ import { premium } from '@/content/landing';
 
             <PremiumEvening />
             <PremiumExtras />
-
-            <p class="caption">{{ premium.note }}</p>
         </div>
     </section>
 </template>

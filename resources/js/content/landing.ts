@@ -288,7 +288,6 @@ export const premium = {
             },
         ],
     },
-    note: 'Eure Gäste sehen nie einen Preis. Alles bucht ihr erst, wenn eure Seite steht.',
 } as const;
 
 export const struck = {
