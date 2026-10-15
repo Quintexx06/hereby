@@ -16,7 +16,7 @@ const loop = [0, 1, 2].flatMap((copy) =>
     templates.map((template) => ({ template, copy })),
 );
 /* Starts with the middle template in the middle, its neighbours peeking. */
-const { track, slides, index, current, jumping, onScroll, go } =
+const { track, slides, index, current, jumping, moving, onScroll, go } =
     useLoopingTrack(templates.length, Math.floor(templates.length / 2));
 const active = computed(() => templates[current.value]);
 
@@ -72,7 +72,7 @@ function open(slideIndex: number, event: MouseEvent): void {
             >
                 <ShowcaseWindow
                     :template="template.slug"
-                    :active="slideIndex === index && !dialogOpen"
+                    :active="slideIndex === index && !dialogOpen && !moving"
                     :accent="accent"
                     :couple="couple"
                     preview

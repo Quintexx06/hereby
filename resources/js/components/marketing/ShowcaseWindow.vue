@@ -32,7 +32,9 @@ withDefaults(
             <span class="showcase-url" aria-hidden="true">{{
                 couple.url
             }}</span>
-            <slot name="bar" />
+            <span class="showcase-bar-end">
+                <slot name="bar" />
+            </span>
         </div>
 
         <ShowcaseSite

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
-import { X } from '@lucide/vue';
+import { ArrowRight, X } from '@lucide/vue';
 import {
     DialogClose,
     DialogContent,
@@ -25,6 +25,19 @@ defineProps<{
 
 const open = defineModel<boolean>('open', { required: true });
 
+/*
+ * Back on the carousel, focus returns to the window without scrolling the
+ * track, so the loop stays exactly where the visitor left it.
+ */
+function returnFocus(event: Event): void {
+    event.preventDefault();
+    document
+        .querySelector<HTMLElement>(
+            '.showcase-slide[data-active="true"] .showcase-open',
+        )
+        ?.focus({ preventScroll: true });
+}
+
 /* Focus the site itself, so arrow keys and space scroll it straight away. */
 function focusSite(event: Event): void {
     event.preventDefault();
@@ -44,6 +57,7 @@ function focusSite(event: Event): void {
                 class="showcase-dialog"
                 :style="{ transformOrigin: origin }"
                 @open-auto-focus="focusSite"
+                @close-auto-focus="returnFocus"
             >
                 <DialogTitle class="sr-only">{{ template.name }}</DialogTitle>
                 <DialogDescription class="sr-only">{{
@@ -59,6 +73,7 @@ function focusSite(event: Event): void {
                     <template #bar>
                         <Link :href="register()" class="showcase-start">
                             {{ studio.start }}
+                            <ArrowRight class="size-3.5" />
                         </Link>
                         <DialogClose
                             class="showcase-close"

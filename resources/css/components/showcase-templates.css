@@ -10,6 +10,11 @@
         scrollbar-width: none;
     }
 
+    /* Snapping rests while an arrow step glides, so it cannot tug mid-way. */
+    .showcase-track[data-gliding='true'] {
+        scroll-snap-type: none;
+    }
+
     .showcase-track::-webkit-scrollbar {
         display: none;
     }
@@ -31,8 +36,37 @@
         @apply flex items-center justify-center gap-6 sm:gap-10;
     }
 
+    /* Press sinks the button, release springs it back; the chevron leans
+       the way the track will go. */
     .showcase-arrow {
-        @apply grid size-12 shrink-0 cursor-pointer place-items-center rounded-full border border-rule bg-card text-foreground shadow-[0_14px_30px_-16px_rgb(30_14_10/0.45)] transition-[background-color,scale] duration-200 ease-out hover:bg-background active:scale-95;
+        @apply grid size-12 shrink-0 cursor-pointer place-items-center rounded-full border border-rule bg-card text-foreground shadow-[0_14px_30px_-16px_rgb(30_14_10/0.45)];
+        transition:
+            background-color 200ms ease,
+            border-color 200ms ease,
+            scale 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .showcase-arrow:active {
+        scale: 0.9;
+        transition-duration: 200ms, 200ms, 120ms;
+    }
+
+    .showcase-arrow svg {
+        transition: translate 300ms var(--ease-out);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+        .showcase-arrow:hover {
+            @apply border-foreground/30 bg-background;
+        }
+
+        .showcase-arrow:first-child:hover svg {
+            translate: -2px 0;
+        }
+
+        .showcase-arrow:last-child:hover svg {
+            translate: 2px 0;
+        }
     }
 
     .showcase-template-name {
@@ -51,8 +85,14 @@
     .studio-flip-enter-active,
     .studio-flip-leave-active {
         transition:
-            opacity 220ms var(--ease-out),
-            transform 220ms var(--ease-out);
+            opacity 260ms var(--ease-out),
+            transform 360ms var(--ease-drawer),
+            filter 260ms var(--ease-out);
+    }
+
+    .studio-flip-enter-from,
+    .studio-flip-leave-to {
+        filter: blur(4px);
     }
 
     .studio-flip-enter-from {

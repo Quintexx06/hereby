@@ -32,8 +32,13 @@
         @apply relative flex h-[34rem] w-full flex-col overflow-hidden rounded-[1.5rem] border border-rule bg-card text-card-foreground shadow-[0_50px_100px_-50px_rgb(30_14_10/0.5)] sm:h-[40rem] lg:h-[44rem];
     }
 
+    /* Dots left, the address in the true middle, actions right. */
     .showcase-bar {
-        @apply flex items-center gap-4 border-b border-rule bg-muted/60 px-4 py-3;
+        @apply grid grid-cols-[1fr_auto_1fr] items-center gap-4 border-b border-rule bg-muted/60 px-4 py-3;
+    }
+
+    .showcase-bar-end {
+        @apply flex items-center justify-end gap-2;
     }
 
     .showcase-bar-dot {
@@ -41,7 +46,7 @@
     }
 
     .showcase-url {
-        @apply mx-auto truncate rounded-full bg-background px-4 py-1 text-xs text-muted-foreground;
+        @apply max-w-[40vw] truncate rounded-full bg-background px-4 py-1 text-xs text-muted-foreground;
     }
 
     /* Inside the site, accents (and only accents) follow the chosen ink. */
@@ -62,8 +67,13 @@
             background-color 300ms var(--ease-out);
     }
 
+    /* Monogram, links in the true middle, the reply button at the end. */
     .showcase-nav {
-        @apply sticky top-0 z-10 flex items-center justify-between gap-4 bg-background/90 px-5 py-4 backdrop-blur-md sm:px-8;
+        @apply sticky top-0 z-10 grid grid-cols-[1fr_auto] items-center gap-4 bg-background/90 px-5 py-4 backdrop-blur-md sm:px-8 md:grid-cols-[1fr_auto_1fr];
+    }
+
+    .showcase-nav > :last-child {
+        @apply justify-self-end;
     }
 
     .showcase-monogram {
@@ -117,9 +127,12 @@
         @apply pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-card to-transparent content-[''];
     }
 
-    /* The whole slide is one button; its badge rises on hover or focus. */
+    /*
+     * The whole slide is one button; its badge rises on hover or focus, a
+     * little above the middle so it sits on the photo, not on the names.
+     */
     .showcase-open {
-        @apply absolute inset-0 z-20 flex cursor-pointer items-center justify-center rounded-[1.5rem] outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4;
+        @apply absolute inset-0 z-20 flex cursor-pointer items-center justify-center rounded-[1.5rem] pb-[14%] outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4;
     }
 
     .showcase-open-badge {
@@ -198,7 +211,7 @@
     }
 
     .showcase-start {
-        @apply hidden shrink-0 items-center rounded-full bg-foreground px-4 py-1.5 text-xs font-semibold whitespace-nowrap text-background transition-transform duration-150 ease-out active:scale-[0.97] sm:inline-flex;
+        @apply hidden shrink-0 items-center gap-1.5 rounded-full bg-brand px-4 py-2 text-xs font-semibold whitespace-nowrap text-brand-foreground shadow-[0_8px_20px_-10px_var(--brand)] transition-[scale,filter] duration-150 ease-out hover:brightness-110 active:scale-[0.97] sm:inline-flex;
     }
 
     .showcase-close {
