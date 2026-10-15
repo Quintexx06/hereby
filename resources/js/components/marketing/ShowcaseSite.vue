@@ -3,11 +3,11 @@ import ShowcaseBodyAtelier from '@/components/marketing/ShowcaseBodyAtelier.vue'
 import ShowcaseBodyGarten from '@/components/marketing/ShowcaseBodyGarten.vue';
 import ShowcaseBodyPanorama from '@/components/marketing/ShowcaseBodyPanorama.vue';
 import ShowcaseFooter from '@/components/marketing/ShowcaseFooter.vue';
+import ShowcaseNav from '@/components/marketing/ShowcaseNav.vue';
 import ShowcaseHeroAtelier from '@/components/marketing/ShowcaseHeroAtelier.vue';
 import ShowcaseHeroGarten from '@/components/marketing/ShowcaseHeroGarten.vue';
 import ShowcaseHeroPanorama from '@/components/marketing/ShowcaseHeroPanorama.vue';
 import type { ShowcaseCoupleSite } from '@/composables/useShowcaseCouple';
-import { studio } from '@/content/landing';
 
 defineProps<{
     template: string;
@@ -41,15 +41,7 @@ const bodies: Record<string, unknown> = {
         :data-preview="preview"
         :tabindex="preview ? undefined : 0"
     >
-        <div class="showcase-nav">
-            <span class="showcase-monogram">{{ couple.monogram }}</span>
-            <span class="hidden gap-6 text-sm md:flex">
-                <span v-for="link in studio.site.nav" :key="link">{{
-                    link
-                }}</span>
-            </span>
-            <span class="showcase-action">{{ studio.site.action }}</span>
-        </div>
+        <ShowcaseNav :template="template" :couple="couple" />
 
         <component :is="heroes[template]" :couple="couple" :active="active" />
         <component :is="bodies[template]" />

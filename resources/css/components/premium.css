@@ -232,7 +232,6 @@
     @media (hover: hover) and (pointer: fine) {
         .premium-extra:hover {
             @apply border-brand/25 bg-card;
-            translate: 0 -0.1875rem;
             box-shadow: 0 30px 60px -36px
                 color-mix(in oklch, var(--brand) 25%, transparent);
         }

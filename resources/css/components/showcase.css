@@ -76,6 +76,57 @@
         @apply justify-self-end;
     }
 
+    .sc-nav-links {
+        @apply hidden items-center gap-6 text-sm md:flex;
+    }
+
+    /* Atelier: a masthead. Full names, a ruled line, the reply as a text link. */
+    .sc-nav-atelier {
+        @apply border-b border-foreground/10;
+    }
+
+    .sc-nav-names {
+        @apply font-display text-base font-semibold tracking-[-0.03em] sm:text-lg;
+    }
+
+    .sc-nav-text-action {
+        @apply inline-flex items-center gap-1.5 border-b-[1.5px] border-brand pb-0.5 text-sm font-semibold text-brand;
+    }
+
+    /* Garten: links either side of a monogram in a ring, the reply outlined. */
+    .sc-nav-garten {
+        @apply grid-cols-[1fr_auto] md:grid-cols-[1fr_auto_1fr];
+    }
+
+    .sc-nav-garten > nav {
+        @apply hidden md:flex;
+    }
+
+    .sc-nav-seal {
+        @apply grid size-12 place-items-center rounded-full border border-brand/50 font-display text-sm font-bold tracking-[-0.02em] text-brand;
+    }
+
+    .sc-nav-outline {
+        @apply rounded-full border border-brand px-4 py-1.5 text-xs font-semibold text-brand sm:text-sm;
+    }
+
+    /* Panorama: a night bar floating over the page, the reply in light. */
+    .sc-nav-panorama {
+        @apply block bg-transparent px-3 py-3 backdrop-blur-none sm:px-5;
+    }
+
+    .sc-nav-bar {
+        @apply flex items-center justify-between gap-4 rounded-full bg-night-950/90 py-2 pr-2 pl-5 text-porcelain-50 backdrop-blur-md;
+    }
+
+    .sc-nav-panorama > .sc-nav-bar {
+        @apply justify-self-stretch;
+    }
+
+    .sc-nav-light {
+        @apply rounded-full bg-porcelain-50 px-4 py-1.5 text-xs font-semibold text-night-950 sm:text-sm;
+    }
+
     .showcase-monogram {
         @apply font-display text-lg font-bold tracking-[-0.03em] text-brand;
     }
