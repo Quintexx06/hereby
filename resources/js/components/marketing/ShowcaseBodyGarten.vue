@@ -1,16 +1,15 @@
 <script setup lang="ts">
 import ResponsivePhoto from '@/components/marketing/ResponsivePhoto.vue';
+import ShowcaseGartenGallery from '@/components/marketing/ShowcaseGartenGallery.vue';
 import { studio } from '@/content/landing';
 
 const site = studio.site;
-/** Prints dropped on the table, each settling at its own angle. */
-const tilts = ['-5deg', '3deg', '-2deg'];
 </script>
 
 <!--
     Garten below the hero: soft and centred. The welcome under a twig, the
-    day as a vine with leaves unfurling, the venue under an arch, prints
-    that drop and settle, and an arched card for the reply.
+    day as a vine with leaves unfurling, the venue under an arch, photos
+    framed by hand-drawn garlands, and an arched card for the reply.
 -->
 <template>
     <div class="sc-g">
@@ -78,21 +77,7 @@ const tilts = ['-5deg', '3deg', '-2deg'];
 
         <section class="sc-g-section">
             <h3 class="sc-g-heading">{{ site.galleryTitle }}</h3>
-            <div class="flex justify-center gap-3 sm:gap-5">
-                <span
-                    v-for="(photo, index) in site.photos.gallery"
-                    :key="photo.src"
-                    v-reveal="index * 110"
-                    class="sc-g-print"
-                    :style="{ '--tilt': tilts[index] }"
-                >
-                    <ResponsivePhoto
-                        :photo="photo"
-                        sizes="12rem"
-                        class="aspect-[4/5] w-full object-cover"
-                    />
-                </span>
-            </div>
+            <ShowcaseGartenGallery />
         </section>
 
         <section v-reveal class="sc-g-reply sc-rise">

@@ -242,6 +242,87 @@
         rotate: var(--tilt);
     }
 
+    /* Photos framed by hand: lines draw, then leaves open along them. */
+    .sc-g-gallery {
+        @apply flex w-full items-center justify-center gap-4 sm:gap-8;
+    }
+
+    .sc-g-frame {
+        @apply relative w-[33%] max-w-56 opacity-0;
+        transition: opacity 600ms var(--ease-out) var(--reveal-delay, 0ms);
+    }
+
+    .sc-g-frame[data-revealed] {
+        @apply opacity-100;
+    }
+
+    .sc-g-frame-wreath {
+        @apply aspect-[4/5];
+    }
+
+    .sc-g-frame-vine {
+        @apply aspect-[10/13];
+    }
+
+    .sc-g-frame-photo {
+        @apply absolute overflow-hidden;
+    }
+
+    .sc-g-frame-photo > picture {
+        @apply block size-full;
+    }
+
+    .sc-g-frame-wreath .sc-g-frame-photo {
+        @apply inset-[12%];
+    }
+
+    .sc-g-frame-vine .sc-g-frame-photo {
+        @apply inset-x-[10%] top-[8%] bottom-[4%];
+    }
+
+    .sc-g-drawing {
+        @apply pointer-events-none absolute inset-0 size-full overflow-visible;
+    }
+
+    .sc-g-line {
+        @apply fill-none stroke-brand;
+        stroke-width: 1.6;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-dasharray: 1;
+        stroke-dashoffset: 1;
+        transition: stroke-dashoffset 1800ms var(--ease-in-out)
+            var(--reveal-delay, 0ms);
+    }
+
+    .sc-g-bud {
+        @apply fill-brand/25 stroke-brand opacity-0;
+        stroke-width: 1.2;
+        transform-box: fill-box;
+        transform-origin: 0% 50%;
+        scale: 0.4;
+        transition:
+            opacity 400ms var(--ease-out),
+            scale 700ms cubic-bezier(0.34, 1.4, 0.64, 1);
+        transition-delay: calc(
+            var(--reveal-delay, 0ms) + 700ms + var(--i) * 55ms
+        );
+    }
+
+    .sc-g-rose {
+        @apply fill-none;
+        transform-origin: 50% 50%;
+    }
+
+    [data-revealed] > .sc-g-drawing .sc-g-line {
+        stroke-dashoffset: 0;
+    }
+
+    [data-revealed] > .sc-g-drawing .sc-g-bud {
+        @apply opacity-100;
+        scale: 1;
+    }
+
     .sc-g-reply {
         @apply flex w-full max-w-md flex-col items-center gap-5 rounded-t-[12rem] border border-brand/25 bg-card px-8 pt-16 pb-10;
     }
@@ -367,7 +448,8 @@
         .showcase-site .sc-rise,
         .showcase-site .sc-slide,
         .sc-g-print,
-        .sc-g-leaf {
+        .sc-g-leaf,
+        .sc-g-bud {
             translate: 0 0;
             scale: 1;
             rotate: 0deg;
@@ -388,6 +470,10 @@
 
         .sc-a-row::before {
             scale: 1;
+        }
+
+        .sc-g-line {
+            stroke-dashoffset: 0;
         }
 
         .sc-p-run {

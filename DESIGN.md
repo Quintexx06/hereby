@@ -236,7 +236,7 @@ Each one is a motion pattern with a product reason, not decoration:
   accent «Ja», a ledger whose rules draw in, the venue photo wiping up under
   an overlapping caption card, an asymmetric grid, a large close); Garten as
   a garden (a drawn sprig, a vine timeline whose leaves pop out, the venue
-  under an arch, polaroid prints that drop in tilted, an arched reply card);
+  under an arch, one print dropped on the table between two photos framed by hand (a leaf wreath with a bow, a climbing rose round an arch) whose lines draw themselves before the leaves open, an arched reply card);
   Panorama as cinema (giant welcome, dark bands with frame cards that slide
   in, a 21:9 venue that pushes in slowly, a sprocketed film strip, a
   running «Kommt ihr?» ticker). Reduced motion keeps the fades only.
