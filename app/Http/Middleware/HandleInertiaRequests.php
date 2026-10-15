@@ -3,7 +3,10 @@
 namespace App\Http\Middleware;
 
 use App\Actions\Account\BuildAccountSummary;
+use App\Enums\AdminView;
 use App\Models\Inquiry;
+use App\Models\LogEntry;
+use App\Models\Wedding;
 use App\Support\FrontendTranslations;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
@@ -60,6 +63,11 @@ class HandleInertiaRequests extends Middleware
             'adminInbox' => fn (): ?int => $request->user()?->is_admin
                 ? Inquiry::query()->whereNull('answered_at')->count()
                 : null,
+            // Team or couple view for admins (null for everyone else), and open errors in the log.
+            'adminView' => fn (): ?string => AdminView::for($request)?->value,
+            'adminIssues' => fn (): ?int => $request->user()?->is_admin
+                ? LogEntry::query()->open()->errors()->count()
+                : null,
             // A venue's, photographer's or planner's account, for their own navigation.
             'partner' => fn (): ?array => ($partner = $request->user()?->partner) ? [
                 'name' => $partner->name,
@@ -75,7 +83,9 @@ class HandleInertiaRequests extends Middleware
      */
     private function currentWedding(Request $request): ?array
     {
-        $wedding = $request->user()?->weddings()->withCount('households')->first();
+        $wedding = AdminView::for($request) === AdminView::Team
+            ? $this->routeWedding($request)
+            : $request->user()?->weddings()->withCount('households')->first();
 
         if (! $wedding) {
             return null;
@@ -91,5 +101,20 @@ class HandleInertiaRequests extends Middleware
             'plan' => $wedding->plan?->value,
             'published' => $wedding->isPublished(),
         ];
+    }
+
+    /**
+     * In the team view an admin has no wedding of their own in the nav;
+     * inside a couple's pages they see that couple's navigation.
+     */
+    private function routeWedding(Request $request): ?Wedding
+    {
+        $wedding = $request->route('wedding');
+
+        if (! $wedding instanceof Wedding) {
+            return null;
+        }
+
+        return $wedding->loadCount('households');
     }
 }

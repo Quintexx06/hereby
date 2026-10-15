@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Actions\Weddings\BuildWeddingOverview;
+use App\Enums\AdminView;
 use App\Enums\SetupStep;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -19,6 +20,11 @@ class DashboardController extends Controller
         // Venues, photographers and planners have their own start page.
         if ($request->user()?->partner_id) {
             return to_route('partner.calendar');
+        }
+
+        // Admins in the team view start on the team's list of weddings.
+        if (AdminView::for($request) === AdminView::Team) {
+            return to_route('admin.weddings.index');
         }
 
         $wedding = $request->user()->weddings()->first();

@@ -5,6 +5,7 @@ import AppLogo from '@/components/AppLogo.vue';
 import NavFooter from '@/components/NavFooter.vue';
 import NavMain from '@/components/NavMain.vue';
 import NavUser from '@/components/NavUser.vue';
+import SidebarViewSwitch from '@/components/sidebar/SidebarViewSwitch.vue';
 import SidebarWedding from '@/components/sidebar/SidebarWedding.vue';
 import {
     adminNavItems,
@@ -15,13 +16,24 @@ import {
 import { dashboard } from '@/routes';
 
 const page = usePage();
-const navItems = computed(() =>
-    page.props.partner
-        ? partnerNavItems(page.props.partner)
-        : mainNavItems(page.props.currentWedding),
-);
+const view = computed(() => page.props.adminView);
+
+/* In the team view the wedding nav shows only inside a couple's pages. */
+const navItems = computed(() => {
+    if (page.props.partner) {
+        return partnerNavItems(page.props.partner);
+    }
+
+    if (view.value === 'team' && !page.props.currentWedding) {
+        return [];
+    }
+
+    return mainNavItems(page.props.currentWedding);
+});
 const teamItems = computed(() =>
-    page.props.adminInbox === null ? [] : adminNavItems(page.props.adminInbox),
+    view.value === 'team'
+        ? adminNavItems(page.props.adminInbox ?? 0, page.props.adminIssues ?? 0)
+        : [],
 );
 </script>
 
@@ -36,9 +48,18 @@ const teamItems = computed(() =>
         </Link>
 
         <div class="app-nav-scroll">
-            <SidebarWedding />
-            <NavMain :items="navItems" label-sr="Hochzeit" />
-            <NavMain v-if="teamItems.length" label="Team" :items="teamItems" />
+            <SidebarViewSwitch v-if="view" :view="view" />
+            <template v-if="view === 'team'">
+                <NavMain label="Team" :items="teamItems" />
+                <template v-if="navItems.length">
+                    <SidebarWedding />
+                    <NavMain :items="navItems" label-sr="Hochzeit" />
+                </template>
+            </template>
+            <template v-else>
+                <SidebarWedding />
+                <NavMain :items="navItems" label-sr="Hochzeit" />
+            </template>
         </div>
 
         <div class="app-nav-foot">

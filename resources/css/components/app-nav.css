@@ -16,6 +16,11 @@
         --nav-wide: flex;
         --nav-rail: none;
         --nav-overflow: auto;
+        /* The admin view switch: side by side, stacked in the rail. */
+        --switch-cols: 1fr 1fr;
+        --switch-pill-w: calc(50% - 0.25rem);
+        --switch-pill-h: calc(100% - 0.5rem);
+        --switch-shift: 100% 0;
         @apply grid min-h-svh bg-sidebar;
         grid-template-columns: var(--nav-col) minmax(0, 1fr);
         transition: grid-template-columns 260ms var(--ease-out);
@@ -171,6 +176,10 @@
             --nav-wide: none;
             --nav-rail: flex;
             --nav-overflow: visible;
+            --switch-cols: 1fr;
+            --switch-pill-w: calc(100% - 0.5rem);
+            --switch-pill-h: calc(50% - 0.25rem);
+            --switch-shift: 0 100%;
         }
     }
 
@@ -182,6 +191,10 @@
             --nav-wide: none;
             --nav-rail: flex;
             --nav-overflow: visible;
+            --switch-cols: 1fr;
+            --switch-pill-w: calc(100% - 0.5rem);
+            --switch-pill-h: calc(50% - 0.25rem);
+            --switch-shift: 0 100%;
         }
 
         .app-frame[data-drawer='true'] {
@@ -189,6 +202,10 @@
             --nav-wide: flex;
             --nav-rail: none;
             --nav-overflow: auto;
+            --switch-cols: 1fr 1fr;
+            --switch-pill-w: calc(50% - 0.25rem);
+            --switch-pill-h: calc(100% - 0.5rem);
+            --switch-shift: 100% 0;
         }
 
         .app-frame[data-drawer='true'] .app-nav {
@@ -248,5 +265,32 @@
     .app-nav-icon,
     .app-nav-label {
         transition: none;
+    }
+}
+
+/* Admins: the team or couple view, a pill gliding under the choice. */
+@layer components {
+    .view-switch {
+        @apply relative grid gap-y-0 rounded-[1.25rem] bg-sidebar-accent/60 p-1;
+        grid-template-columns: var(--switch-cols);
+    }
+
+    .view-switch-pill {
+        @apply absolute top-1 left-1 rounded-full bg-porcelain-100;
+        width: var(--switch-pill-w);
+        height: var(--switch-pill-h);
+        transition: translate 260ms var(--ease-out);
+    }
+
+    .view-switch[data-view='couple'] .view-switch-pill {
+        translate: var(--switch-shift);
+    }
+
+    .view-switch-option {
+        @apply relative z-[1] flex h-8 cursor-pointer items-center justify-center gap-1.5 rounded-full text-sm font-medium text-sand-200 transition-colors duration-200 ease-out outline-none hover:text-porcelain-100 focus-visible:ring-2 focus-visible:ring-sidebar-ring active:scale-[0.97];
+    }
+
+    .view-switch-option[aria-checked='true'] {
+        @apply text-night-950 hover:text-night-950;
     }
 }

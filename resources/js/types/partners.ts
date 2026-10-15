@@ -64,3 +64,19 @@ export type AdminPartner = {
     website: string | null;
     town: string | null;
 };
+
+/** One distinct warning or error in the team's «Protokoll». */
+export type LogEntryRow = {
+    id: number;
+    level: string;
+    is_error: boolean;
+    message: string;
+    exception: string | null;
+    location: string | null;
+    url: string | null;
+    trace: string | null;
+    count: number;
+    first_seen: string;
+    last_seen: string;
+    resolved: boolean;
+};

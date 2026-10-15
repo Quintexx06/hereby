@@ -1,4 +1,5 @@
 import {
+    Activity,
     Building2,
     CalendarDays,
     CalendarHeart,
@@ -25,6 +26,7 @@ import { dashboard, home } from '@/routes';
 import { index as adminBriefs } from '@/routes/admin/briefs';
 import { index as adminChase } from '@/routes/admin/chase';
 import { index as adminInquiries } from '@/routes/admin/inquiries';
+import { index as adminLog } from '@/routes/admin/log';
 import { index as adminPartners } from '@/routes/admin/partners';
 import { index as adminWeddings } from '@/routes/admin/weddings';
 import { index as content } from '@/routes/weddings/content';
@@ -119,9 +121,13 @@ export function mainNavItems(wedding: SharedWedding | null): NavItem[] {
 
 /**
  * The Hereby team's own section (admins only): every wedding, the questions
- * from the landing page (badged while open) and the public site.
+ * from the landing page and open errors in the log (both badged), and the
+ * public site.
  */
-export function adminNavItems(openInquiries: number): NavItem[] {
+export function adminNavItems(
+    openInquiries: number,
+    openIssues: number,
+): NavItem[] {
     return [
         { title: 'Hochzeiten', href: adminWeddings(), icon: CalendarHeart },
         {
@@ -133,6 +139,12 @@ export function adminNavItems(openInquiries: number): NavItem[] {
         { title: 'Nachfassen', href: adminChase(), icon: PhoneCall },
         { title: 'Massanfertigung', href: adminBriefs(), icon: Gem },
         { title: 'Partner', href: adminPartners(), icon: Building2 },
+        {
+            title: 'Protokoll',
+            href: adminLog(),
+            icon: Activity,
+            badge: openIssues || undefined,
+        },
         { title: 'Website ansehen', href: home(), icon: Globe },
     ];
 }

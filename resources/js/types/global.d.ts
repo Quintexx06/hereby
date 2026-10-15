@@ -31,6 +31,10 @@ declare module '@inertiajs/core' {
             auth: Auth;
             /** Open landing questions; null unless the user is an admin. */
             adminInbox: number | null;
+            /** Which view an admin works in; null unless the user is an admin. */
+            adminView: 'team' | 'couple' | null;
+            /** Open errors in the log; null unless the user is an admin. */
+            adminIssues: number | null;
             /** A venue, photographer or planner account; null for couples. */
             partner: SharedPartner | null;
             sidebarOpen: boolean;

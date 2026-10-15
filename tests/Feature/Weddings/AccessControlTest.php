@@ -7,6 +7,7 @@ use App\Models\ContentBlock;
 use App\Models\GuestPhoto;
 use App\Models\Household;
 use App\Models\Inquiry;
+use App\Models\LogEntry;
 use App\Models\Partner;
 use App\Models\PartnerInvite;
 use App\Models\User;
@@ -101,6 +102,7 @@ class AccessControlTest extends TestCase
             'brief' => ($brief = $wedding->designBrief()->create())->id,
             'briefPhoto' => tap($brief->photos()->make()->forceFill(['path' => 'none.jpg']))->save()->id,
             'invite' => PartnerInvite::factory()->for($wedding)->create()->id,
+            'logEntry' => LogEntry::query()->create(['level' => 'error', 'fingerprint' => sha1((string) $wedding->id), 'message' => 'x', 'first_seen_at' => now(), 'last_seen_at' => now()])->id,
         ];
         $values = $this->parameters[$wedding->id];
 

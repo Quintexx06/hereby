@@ -4,7 +4,9 @@ use App\Http\Controllers\Admin\BriefsController;
 use App\Http\Controllers\Admin\ChaseController;
 use App\Http\Controllers\Admin\ConnectDomainController;
 use App\Http\Controllers\Admin\InquiriesController;
+use App\Http\Controllers\Admin\LogController;
 use App\Http\Controllers\Admin\PartnersController;
+use App\Http\Controllers\Admin\SwitchViewController;
 use App\Http\Controllers\Admin\UnlockWeddingController;
 use App\Http\Controllers\Admin\WeddingsController;
 use Illuminate\Support\Facades\Route;
@@ -14,6 +16,10 @@ use Illuminate\Support\Facades\Route;
 | pages; this area lists them, sets new ones up and answers landing questions.
 */
 Route::middleware(['auth', 'verified', 'can:admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::post('ansicht', SwitchViewController::class)->name('view');
+    Route::get('protokoll', [LogController::class, 'index'])->name('log.index');
+    Route::patch('protokoll/{logEntry}', [LogController::class, 'update'])->name('log.update');
+    Route::delete('protokoll', [LogController::class, 'destroy'])->name('log.destroy');
     Route::get('hochzeiten', [WeddingsController::class, 'index'])->name('weddings.index');
     Route::post('hochzeiten', [WeddingsController::class, 'store'])->name('weddings.store');
     Route::patch('hochzeiten/{wedding}/freischalten', UnlockWeddingController::class)->name('weddings.unlock');
