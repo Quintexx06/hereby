@@ -73,7 +73,7 @@ function submit(): void {
             </Link>
         </nav>
 
-        <form class="flex min-w-0 flex-col" novalidate @submit.prevent="submit">
+        <form class="details-form" novalidate @submit.prevent="submit">
             <p v-if="note" class="details-note">{{ note }}</p>
 
             <SetupStepBody
@@ -81,9 +81,11 @@ function submit(): void {
                 :step="step"
                 :presets="null"
                 :suggestion="null"
+                embedded
             />
 
             <SaveBar
+                class="details-savebar"
                 :processing="form.processing"
                 :dirty="form.isDirty"
                 :saved="form.recentlySuccessful"

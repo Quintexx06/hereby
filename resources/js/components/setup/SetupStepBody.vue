@@ -21,6 +21,8 @@ const props = defineProps<{
     step: SetupStepKey;
     presets: Record<Celebration, ProgrammeRow[]> | null;
     suggestion: ThemeSuggestion | null;
+    /** Inside «Eckdaten»: under the page's own title, so an H2, set smaller. */
+    embedded?: boolean;
 }>();
 
 const components = {
@@ -54,9 +56,12 @@ const stepProps = computed(() => {
             :key="step"
             class="setup-body"
             :data-wide="step === 'ablauf' || step === 'look'"
+            :data-embedded="embedded || undefined"
         >
             <div>
-                <h1 class="setup-question">{{ stepCopy[step].question }}</h1>
+                <component :is="embedded ? 'h2' : 'h1'" class="setup-question">
+                    {{ stepCopy[step].question }}
+                </component>
                 <p class="setup-helper">{{ stepCopy[step].helper }}</p>
             </div>
 

@@ -370,6 +370,41 @@
         @apply absolute inset-x-3 -bottom-px h-0.5 rounded-full bg-brand content-[''];
     }
 
+    .details-form {
+        @apply flex min-w-0 flex-col gap-8;
+    }
+
+    /* Under the tabs: no extra air, and a question set as a section title. */
+    .setup-body[data-embedded] {
+        @apply gap-8 py-0;
+    }
+
+    .setup-body[data-embedded] .setup-question {
+        @apply text-2xl sm:text-3xl;
+    }
+
+    /*
+     * The tabs' forms are short: the save button sits after the last
+     * question instead of floating over it.
+     */
+    .details-form > .details-savebar {
+        @apply static border-rule bg-transparent backdrop-blur-none;
+    }
+
+    .details-tabs {
+        mask-image: linear-gradient(
+            to right,
+            black calc(100% - 2rem),
+            transparent
+        );
+    }
+
+    @media (min-width: 640px) {
+        .details-tabs {
+            mask-image: none;
+        }
+    }
+
     .details-note {
         @apply max-w-xl rounded-lg border border-border bg-muted/40 px-4 py-3 text-sm text-muted-foreground;
     }
