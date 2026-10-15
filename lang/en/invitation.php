@@ -7,6 +7,8 @@ return [
     'marry' => 'are getting married',
     'photo_alt' => 'Photo of :couple',
     'dear' => 'Dear :names',
+    'footer_questions' => 'Questions? Get in touch with',
+    'footer_privacy' => 'Privacy',
     'letter' => 'We are getting married, and it would not be the same without you. Everything for the day is here, and one tap tells us whether you can come.',
     'scroll' => 'Continue',
     'story_heading' => 'Our story',

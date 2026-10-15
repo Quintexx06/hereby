@@ -47,6 +47,12 @@ export type Wedding = {
     theme: WeddingTheme;
     template: WeddingTemplate;
     photos: WeddingPhoto[];
+    contact: {
+        name: string | null;
+        email: string | null;
+        phone: string | null;
+    } | null;
+    privacyUrl: string;
 };
 
 export type WeddingEvent = {

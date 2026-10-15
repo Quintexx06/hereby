@@ -7,6 +7,8 @@ return [
     'marry' => 'se marient',
     'photo_alt' => 'Photo de :couple',
     'dear' => 'Chers :names',
+    'footer_questions' => 'Des questions ? Écrivez à',
+    'footer_privacy' => 'Confidentialité',
     'letter' => 'Nous nous marions, et ce ne serait pas pareil sans vous. Vous trouverez ici tout pour le jour J, et un geste suffit pour nous dire si vous serez là.',
     'scroll' => 'Continuer',
     'story_heading' => 'Notre histoire',

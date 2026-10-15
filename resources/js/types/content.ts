@@ -19,6 +19,11 @@ export type ContentWedding = {
     languages: Locale[];
     default_locale: Locale;
     venue: string | null;
+    contact: {
+        contact_name: string | null;
+        contact_email: string | null;
+        contact_phone: string | null;
+    };
 };
 
 /** One of the couple's photos on Inhalte, cover first. */

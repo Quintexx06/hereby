@@ -6,6 +6,7 @@ use App\Http\Controllers\Content\ContentBlockController;
 use App\Http\Controllers\Content\CouplePhotoController;
 use App\Http\Controllers\Content\PreviewInvitationController;
 use App\Http\Controllers\Content\ReorderContentBlocksController;
+use App\Http\Controllers\Content\WeddingContactController;
 use App\Http\Controllers\Evening\EveningController;
 use App\Http\Controllers\Evening\GroupPhotosController;
 use App\Http\Controllers\Evening\ProgrammeController;
@@ -60,6 +61,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('hochzeit/{wedding}/inhalte', [ContentBlockController::class, 'index'])->name('weddings.content.index');
         Route::post('hochzeit/{wedding}/inhalte', [ContentBlockController::class, 'store'])->name('weddings.content.store');
         Route::put('hochzeit/{wedding}/inhalte/reihenfolge', ReorderContentBlocksController::class)->name('weddings.content.reorder');
+        Route::put('hochzeit/{wedding}/inhalte/kontakt', WeddingContactController::class)->name('weddings.content.contact');
         Route::post('hochzeit/{wedding}/fotos', [CouplePhotoController::class, 'store'])
             ->middleware('throttle:photo-uploads')
             ->name('weddings.photos.store');

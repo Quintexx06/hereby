@@ -130,6 +130,27 @@
     }
 
     /* Closing: the theme's ink as a full band, one more invitation to answer. */
+    /* The footer: the couple's names, who to ask, the credit and privacy. */
+    .inv-footer {
+        @apply mt-auto flex flex-col items-center gap-5 pt-16 pb-4 text-center;
+    }
+
+    .inv-footer-couple {
+        @apply font-display text-2xl font-semibold tracking-[-0.03em];
+    }
+
+    .inv-footer-contact {
+        @apply flex flex-col items-center gap-1 text-sm not-italic;
+    }
+
+    .inv-footer-links {
+        @apply flex flex-wrap justify-center gap-x-4 gap-y-1;
+    }
+
+    .inv-footer-link {
+        @apply underline decoration-current/30 underline-offset-4 transition-colors duration-150 hover:decoration-current;
+    }
+
     .inv-closing {
         @apply flex w-screen flex-col items-center gap-6 bg-primary px-6 py-28 text-center text-primary-foreground sm:py-36;
     }

@@ -119,3 +119,15 @@ export const previewCopy = {
     banner: 'Vorschau: so sehen eure Gäste die Einladung.',
     back: 'Zurück zur Übersicht',
 };
+
+/** «Fusszeile»: who guests write to, at the bottom of every page. */
+export const footerContact = {
+    title: 'Fusszeile',
+    hint: 'Steht unten auf jeder Seite eurer Website: wer Fragen beantwortet. Oft die Trauzeugen, damit ihr selbst Ruhe habt. Darunter verlinken wir unsere Datenschutzerklärung.',
+    name: 'Name',
+    namePlaceholder: 'z. B. Lea, Trauzeugin',
+    email: 'E-Mail',
+    phone: 'Telefon (optional)',
+    save: 'Speichern',
+    saved: 'Gespeichert',
+};

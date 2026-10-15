@@ -27,9 +27,9 @@
         background: var(--showcase-ink);
     }
 
-    /* A fixed height, like a real browser: the site scrolls inside it. */
+    /* A fixed height, like a real browser: still in the carousel, scrolling in the popup. */
     .showcase-window {
-        @apply flex h-[34rem] w-full flex-col overflow-hidden rounded-[1.5rem] border border-rule bg-card text-card-foreground shadow-[0_50px_100px_-50px_rgb(30_14_10/0.5)] sm:h-[40rem] lg:h-[44rem];
+        @apply relative flex h-[34rem] w-full flex-col overflow-hidden rounded-[1.5rem] border border-rule bg-card text-card-foreground shadow-[0_50px_100px_-50px_rgb(30_14_10/0.5)] sm:h-[40rem] lg:h-[44rem];
     }
 
     .showcase-bar {
@@ -106,5 +106,146 @@
 
     .couple-field-date {
         @apply w-auto text-[0.75em] tabular-nums;
+    }
+
+    /* In the carousel the window stands still and fades out at the bottom. */
+    .showcase-window[data-preview='true'] .showcase-site {
+        @apply pointer-events-none overflow-hidden;
+    }
+
+    .showcase-window[data-preview='true']::after {
+        @apply pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-card to-transparent content-[''];
+    }
+
+    /* The whole slide is one button; its badge rises on hover or focus. */
+    .showcase-open {
+        @apply absolute inset-0 z-20 flex cursor-pointer items-center justify-center rounded-[1.5rem] outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4;
+    }
+
+    .showcase-open-badge {
+        @apply inline-flex items-center gap-2 rounded-full bg-night-950 px-5 py-3 text-sm font-semibold text-porcelain-50 opacity-0 shadow-[0_18px_40px_-16px_rgb(30_14_10/0.7)];
+        translate: 0 14px;
+        transition:
+            opacity 220ms var(--ease-out),
+            translate 380ms var(--ease-out),
+            scale 160ms var(--ease-out);
+    }
+
+    .showcase-slide[data-active='true']
+        .showcase-open:focus-visible
+        .showcase-open-badge,
+    .showcase-slide[data-active='true']
+        .showcase-open:active
+        .showcase-open-badge {
+        @apply opacity-100;
+        translate: 0 0;
+    }
+
+    .showcase-open:active .showcase-open-badge {
+        scale: 0.97;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+        .showcase-window {
+            transition: translate 450ms var(--ease-out);
+        }
+
+        .showcase-slide[data-active='true']:hover .showcase-open-badge {
+            @apply opacity-100;
+            translate: 0 0;
+        }
+
+        .showcase-slide[data-active='true']:hover .showcase-window {
+            translate: 0 -6px;
+        }
+    }
+
+    /* Touch: no hover, so the front window always shows its badge. */
+    @media (hover: none) {
+        .showcase-slide[data-active='true'] .showcase-open-badge {
+            @apply opacity-100;
+            translate: 0 0;
+        }
+    }
+
+    /* The popup: the same window, full height, growing from the click. */
+    .showcase-overlay {
+        @apply fixed inset-0 z-50 bg-night-950/60 backdrop-blur-sm;
+    }
+
+    .showcase-overlay[data-state='open'] {
+        animation: showcase-fade-in 300ms var(--ease-out);
+    }
+
+    .showcase-overlay[data-state='closed'] {
+        animation: showcase-fade-out 220ms var(--ease-out) forwards;
+    }
+
+    .showcase-dialog {
+        @apply fixed inset-2 z-50 mx-auto max-w-[76rem] outline-none sm:inset-6;
+    }
+
+    .showcase-dialog[data-state='open'] {
+        animation: showcase-dialog-in 560ms cubic-bezier(0.32, 0.72, 0, 1);
+    }
+
+    .showcase-dialog[data-state='closed'] {
+        animation: showcase-dialog-out 220ms var(--ease-out) forwards;
+    }
+
+    .showcase-window.showcase-window-full {
+        @apply h-full shadow-[0_60px_120px_-40px_rgb(0_0_0/0.6)];
+    }
+
+    .showcase-start {
+        @apply hidden shrink-0 items-center rounded-full bg-foreground px-4 py-1.5 text-xs font-semibold whitespace-nowrap text-background transition-transform duration-150 ease-out active:scale-[0.97] sm:inline-flex;
+    }
+
+    .showcase-close {
+        @apply grid size-8 shrink-0 cursor-pointer place-items-center rounded-full text-muted-foreground transition-[color,background-color,scale] duration-150 ease-out hover:bg-foreground/10 hover:text-foreground active:scale-95;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .showcase-dialog[data-state='open'] {
+            animation: showcase-fade-in 200ms ease-out;
+        }
+
+        .showcase-dialog[data-state='closed'] {
+            animation: showcase-fade-out 150ms ease-out forwards;
+        }
+
+        .showcase-open-badge {
+            translate: 0 0;
+        }
+
+        .showcase-slide[data-active='true']:hover .showcase-window {
+            translate: 0 0;
+        }
+    }
+}
+
+@keyframes showcase-fade-in {
+    from {
+        opacity: 0;
+    }
+}
+
+@keyframes showcase-fade-out {
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes showcase-dialog-in {
+    from {
+        opacity: 0;
+        transform: translateY(2%) scale(0.9);
+    }
+}
+
+@keyframes showcase-dialog-out {
+    to {
+        opacity: 0;
+        transform: scale(0.97);
     }
 }

@@ -149,6 +149,9 @@ export const studio = {
     templatesLabel: 'Vorlagen',
     previous: 'Vorherige Vorlage',
     next: 'Nächste Vorlage',
+    open: 'Ganze Seite ansehen',
+    close: 'Schliessen',
+    start: 'Mit diesem Design starten',
     templates: [
         {
             slug: 'atelier',
@@ -198,6 +201,13 @@ export const studio = {
             'Kommt vorbei, bringt gute Schuhe mit und bleibt bis zum letzten Schiff.',
         replyTitle: 'Kommt ihr?',
         replyBy: 'Bitte antwortet bis 1. Mai 2027',
+        footer: {
+            lead: 'Fragen? Meldet euch bei',
+            name: 'Lea, Trauzeugin',
+            email: 'lea@anna-und-luca.ch',
+            credit: 'Hochzeitswebsite von Hereby',
+            privacy: 'Datenschutz',
+        },
         programmeTitle: 'Programm',
         events: [
             { time: '15:30', name: 'Apéro', place: 'Seeterrasse' },

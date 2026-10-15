@@ -15,7 +15,7 @@
     }
 
     .showcase-slide {
-        @apply w-[88vw] max-w-[68rem] shrink-0 snap-center transition-[opacity,scale] duration-500 ease-out;
+        @apply relative w-[88vw] max-w-[68rem] shrink-0 snap-center transition-[opacity,scale] duration-500 ease-out;
     }
 
     /* The endless loop's teleport must not replay the fade and scale. */

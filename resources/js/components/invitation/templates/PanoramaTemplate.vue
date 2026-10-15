@@ -36,6 +36,6 @@ useGuestMotion(root, (kit) => {
         <InvitationCalendar :invitation="invitation" />
         <InvitationBlocks :blocks="invitation.blocks" story="film" />
         <InvitationClosing :invitation="invitation" />
-        <InvitationFooter />
+        <InvitationFooter :wedding="invitation.wedding" />
     </main>
 </template>

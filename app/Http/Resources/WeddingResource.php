@@ -30,6 +30,14 @@ class WeddingResource extends JsonResource
                 'height' => $photo->height,
                 'focus' => $photo->focus(),
             ])->values(),
+            // The footer: who guests ask, and Hereby's privacy policy (on the
+            // main domain, since a couple's own domain serves only guest pages).
+            'contact' => $this->contact_name || $this->contact_email || $this->contact_phone ? [
+                'name' => $this->contact_name,
+                'email' => $this->contact_email,
+                'phone' => $this->contact_phone,
+            ] : null,
+            'privacyUrl' => rtrim((string) config('app.url'), '/').'/datenschutz',
         ];
     }
 }

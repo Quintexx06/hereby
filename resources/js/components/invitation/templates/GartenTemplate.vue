@@ -39,6 +39,6 @@ useGuestMotion(root, (kit) => {
         <InvitationOrnament />
         <InvitationBlocks :blocks="invitation.blocks" story="arches" />
         <InvitationClosing :invitation="invitation" />
-        <InvitationFooter />
+        <InvitationFooter :wedding="invitation.wedding" />
     </main>
 </template>

@@ -443,6 +443,19 @@
         }
     }
 
+    /* The footer every site ends with: who to ask, credit, privacy. */
+    .sc-footer {
+        @apply mx-5 flex flex-col items-center gap-4 border-t border-foreground/15 py-12 text-center sm:mx-10;
+    }
+
+    .sc-footer-couple {
+        @apply font-display text-2xl font-semibold tracking-[-0.03em];
+    }
+
+    .sc-footer-link {
+        @apply underline decoration-current/30 underline-offset-4;
+    }
+
     /* ---------- Reduced motion: fades stay, movement goes ---------- */
     @media (prefers-reduced-motion: reduce) {
         .showcase-site .sc-rise,

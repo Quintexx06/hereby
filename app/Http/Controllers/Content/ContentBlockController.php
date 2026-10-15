@@ -16,7 +16,8 @@ use Inertia\Inertia;
 use Inertia\Response;
 
 /**
- * "Inhalte": the couple's story, venue note, dress code and FAQ.
+ * "Inhalte": the couple's story, venue note, dress code and FAQ, and the
+ * footer contact.
  */
 class ContentBlockController extends Controller
 {
@@ -28,6 +29,11 @@ class ContentBlockController extends Controller
                 'languages' => WeddingLanguages::of($wedding),
                 'default_locale' => $wedding->default_locale,
                 'venue' => $wedding->venue_name,
+                'contact' => [
+                    'contact_name' => $wedding->contact_name,
+                    'contact_email' => $wedding->contact_email,
+                    'contact_phone' => $wedding->contact_phone,
+                ],
             ],
             'blocks' => $wedding->contentBlocks->map(fn (ContentBlock $block): array => [
                 'id' => $block->id,

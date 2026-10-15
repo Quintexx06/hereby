@@ -67,6 +67,9 @@ use Illuminate\Support\Collection;
  * @property bool $asks_song
  * @property bool $sends_reminders
  * @property int|null $households_count Loaded with withCount().
+ * @property string|null $contact_name
+ * @property string|null $contact_email
+ * @property string|null $contact_phone
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  */
@@ -75,6 +78,7 @@ use Illuminate\Support\Collection;
     'default_locale', 'languages', 'theme', 'template', 'look_styles', 'look_wishes', 'celebration', 'guest_estimate',
     'venue_name', 'venue_address', 'venue_postcode', 'venue_town', 'venue_lat', 'venue_lng', 'venue_reference',
     'menu_options', 'children_menu', 'offers_shuttle', 'offers_stay', 'asks_song', 'sends_reminders',
+    'contact_name', 'contact_email', 'contact_phone',
 ])]
 class Wedding extends Model
 {

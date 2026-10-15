@@ -5,6 +5,7 @@ import { Eye, Plus } from '@lucide/vue';
 import { computed, nextTick, ref } from 'vue';
 import BlockEditor from '@/components/content/BlockEditor.vue';
 import CouplePhotos from '@/components/content/CouplePhotos.vue';
+import FooterContact from '@/components/content/FooterContact.vue';
 import InvitationPreview from '@/components/content/InvitationPreview.vue';
 import { blockTypes, contentPage as copy } from '@/content/content';
 import { dashboardPage } from '@/content/dashboard';
@@ -123,6 +124,7 @@ function move(index: number, direction: -1 | 1): void {
                     @move="(direction) => move(index, direction)"
                     @saved="saves++"
                 />
+                <FooterContact :wedding="wedding" @saved="saves++" />
             </div>
             <InvitationPreview
                 v-if="blocks.length || photos.length"

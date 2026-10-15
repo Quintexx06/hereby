@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { ChevronLeft, ChevronRight } from '@lucide/vue';
-import { computed } from 'vue';
+import { ArrowUpRight, ChevronLeft, ChevronRight } from '@lucide/vue';
+import { computed, ref } from 'vue';
+import ShowcaseDialog from '@/components/marketing/ShowcaseDialog.vue';
 import ShowcaseWindow from '@/components/marketing/ShowcaseWindow.vue';
 import { useLoopingTrack } from '@/composables/motion/useLoopingTrack';
 import type { ShowcaseCoupleSite } from '@/composables/useShowcaseCouple';
 import { studio } from '@/content/landing';
+import { dialogOrigin } from '@/lib/dialog-origin';
 
 defineProps<{ accent: string; couple: ShowcaseCoupleSite }>();
 
@@ -17,11 +19,29 @@ const loop = [0, 1, 2].flatMap((copy) =>
 const { track, slides, index, current, jumping, onScroll, go } =
     useLoopingTrack(templates.length, Math.floor(templates.length / 2));
 const active = computed(() => templates[current.value]);
+
+/* The front window opens the whole site; a peeking one comes to the front. */
+const opened = ref<(typeof templates)[number] | null>(null);
+const dialogOpen = ref(false);
+const origin = ref('50% 50%');
+
+function open(slideIndex: number, event: MouseEvent): void {
+    if (slideIndex !== index.value) {
+        go(Math.sign(slideIndex - index.value));
+
+        return;
+    }
+
+    origin.value = dialogOrigin(event);
+    opened.value = loop[slideIndex].template;
+    dialogOpen.value = true;
+}
 </script>
 
 <!--
-    The three templates side by side, endlessly: swipe or use the arrows;
-    each window scrolls on its own. Nothing moves until the visitor does.
+    The three templates side by side, endlessly: swipe or use the arrows.
+    The windows stand still; a click opens the whole site in a popup.
+    Nothing moves until the visitor does.
 -->
 <template>
     <div
@@ -52,10 +72,23 @@ const active = computed(() => templates[current.value]);
             >
                 <ShowcaseWindow
                     :template="template.slug"
-                    :active="slideIndex === index"
+                    :active="slideIndex === index && !dialogOpen"
                     :accent="accent"
                     :couple="couple"
+                    preview
                 />
+                <button
+                    type="button"
+                    class="showcase-open"
+                    :aria-label="`${template.name}: ${studio.open}`"
+                    :tabindex="slideIndex === index ? 0 : -1"
+                    @click="open(slideIndex, $event)"
+                >
+                    <span class="showcase-open-badge">
+                        {{ studio.open }}
+                        <ArrowUpRight class="size-4" />
+                    </span>
+                </button>
             </div>
         </div>
 
@@ -96,5 +129,13 @@ const active = computed(() => templates[current.value]);
                 <ChevronRight class="size-5" />
             </button>
         </div>
+
+        <ShowcaseDialog
+            v-model:open="dialogOpen"
+            :template="opened"
+            :accent="accent"
+            :couple="couple"
+            :origin="origin"
+        />
     </div>
 </template>

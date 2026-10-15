@@ -7,6 +7,8 @@ return [
     'marry' => 'heiraten',
     'photo_alt' => 'Foto von :couple',
     'dear' => 'Liebe :names',
+    'footer_questions' => 'Fragen? Meldet euch bei',
+    'footer_privacy' => 'Datenschutz',
     'letter' => 'Wir heiraten, und es wäre nicht dasselbe ohne euch. Hier findet ihr alles für den Tag, und mit einem Tippen sagt ihr uns, ob ihr dabei seid.',
     'scroll' => 'Weiter',
     'story_heading' => 'Unsere Geschichte',

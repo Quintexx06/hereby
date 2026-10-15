@@ -209,9 +209,15 @@ Each one is a motion pattern with a product reason, not decoration:
 - **Marquee** (`MarqueeBand`): Hochzeit · Mariage · Matrimonio · Wedding,
   solid and outlined; scroll speeds it up and reverses it.
 - **Studio** (`StudioSection`, `ShowcaseCarousel`, `ShowcaseWindow`,
-  `ShowcaseHero*`, `ShowcaseBody*`): the three templates (Atelier, Garten,
-  Panorama) as finished sites in browser windows of fixed height that scroll
-  inside, side by side in a full-bleed scroll-snap track that loops endlessly
+  `ShowcaseHero*`, `ShowcaseBody*`, `ShowcaseFooter`, `ShowcaseDialog`): the
+  three templates (Atelier, Garten, Panorama) as finished sites in browser
+  windows of fixed height that stand still and fade out at the bottom. On
+  hover (always on touch) a dark «Ganze Seite ansehen» pill rises into the
+  middle; a click anywhere on the front window opens the whole site in a
+  popup that grows out of the click (560 ms, drawer curve; fades only under
+  reduced motion), where it scrolls, ends in the same footer as a real
+  site, and offers «Mit diesem Design starten». A click on a peeking window
+  brings it to the front. The windows sit side by side in a full-bleed scroll-snap track that loops endlessly
   (`useLoopingTrack`: three copies, the visitor always rests in the middle
   one and is moved there invisibly when the track settles) and opens with
   Garten in the middle, its neighbours peeking: swipe, or step with the
