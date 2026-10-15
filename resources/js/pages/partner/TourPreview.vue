@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import { DatePicker } from '@/components/ui/date-picker';
 import { Head } from '@inertiajs/vue3';
+import { ref } from 'vue';
 import PageMasthead from '@/components/PageMasthead.vue';
 import PartnerCode from '@/components/partners/PartnerCode.vue';
 import { Button } from '@/components/ui/button';
@@ -18,6 +20,7 @@ defineOptions({
 const inSixMonths = new Date(Date.now() + 182 * 86_400_000)
     .toISOString()
     .slice(0, 10);
+const date = ref(inSixMonths);
 </script>
 
 <!--
@@ -48,13 +51,7 @@ const inSixMonths = new Date(Date.now() + 182 * 86_400_000)
             </div>
             <div class="grid gap-2">
                 <label for="datum" class="field-label">{{ copy.date }}</label>
-                <Input
-                    id="datum"
-                    name="datum"
-                    type="date"
-                    :default-value="inSixMonths"
-                    required
-                />
+                <DatePicker id="datum" v-model="date" name="datum" />
             </div>
             <fieldset class="chip-row sm:col-span-3">
                 <legend class="field-label mb-2">{{ copy.template }}</legend>

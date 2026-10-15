@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import { DatePicker } from '@/components/ui/date-picker';
 import { computed, ref, watch } from 'vue';
 import InputError from '@/components/InputError.vue';
-import { Input } from '@/components/ui/input';
 import { date } from '@/content/setup';
 import { useSetupForm } from '@/composables/useSetupForm';
 import { formatDate } from '@/lib/format';
@@ -41,14 +41,11 @@ const summary = computed(() => {
             <label for="wedding_date" class="field-label">{{
                 date.wedding
             }}</label>
-            <Input
+            <DatePicker
                 id="wedding_date"
                 v-model="form.wedding_date"
-                v-focus
-                type="date"
                 :min="today"
-                class="input-lg max-w-xs"
-                required
+                class="date-trigger-lg"
             />
             <p v-if="summary" class="field-hint" aria-live="polite">
                 {{ summary }}
@@ -60,14 +57,12 @@ const summary = computed(() => {
             <label for="rsvp_deadline" class="field-label">{{
                 date.deadline
             }}</label>
-            <Input
+            <DatePicker
                 id="rsvp_deadline"
                 v-model="form.rsvp_deadline"
-                type="date"
                 :min="today"
-                :max="form.wedding_date ?? undefined"
-                class="max-w-xs"
-                @input="deadlineTouched = true"
+                :max="form.wedding_date"
+                @update:model-value="deadlineTouched = true"
             />
             <p class="field-hint">{{ date.deadlineHint }}</p>
             <InputError :message="form.errors.rsvp_deadline" />

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { DatePicker } from '@/components/ui/date-picker';
 import { Head, useForm } from '@inertiajs/vue3';
 import SiteHeader from '@/components/marketing/SiteHeader.vue';
 import InputError from '@/components/InputError.vue';
@@ -119,10 +120,10 @@ const sections = [
                 <label for="enquiry-date" class="field-label">{{
                     copy.date
                 }}</label>
-                <Input
+                <DatePicker
                     id="enquiry-date"
                     v-model="form.preferred_date"
-                    type="date"
+                    placeholder="Wann ungefähr?"
                 />
                 <InputError :message="form.errors.preferred_date" />
             </div>

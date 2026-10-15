@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { DatePicker } from '@/components/ui/date-picker';
 import type { ShowcaseCouple } from '@/composables/useShowcaseCouple';
 import { studio } from '@/content/landing';
 
@@ -34,10 +35,9 @@ const date = defineModel<string>('date', { required: true });
                 spellcheck="false"
             />
             <span class="text-muted-foreground">{{ studio.tryJoin }}</span>
-            <input
+            <DatePicker
                 v-model="date"
-                type="date"
-                class="couple-field couple-field-date"
+                variant="inline"
                 :aria-label="studio.dateLabel"
             />
         </span>

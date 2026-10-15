@@ -114,9 +114,6 @@
         @apply w-[6.5ch] min-w-0 rounded-none border-b-[1.5px] border-foreground/25 bg-transparent px-0.5 pb-0.5 text-foreground transition-colors duration-200 ease-out outline-none placeholder:text-foreground/35 hover:border-foreground/50 focus:border-brand;
     }
 
-    .couple-field-date {
-        @apply w-auto text-[0.75em] tabular-nums;
-    }
 
     /* In the carousel the window stands still and fades out at the bottom. */
     .showcase-window[data-preview='true'] .showcase-site {

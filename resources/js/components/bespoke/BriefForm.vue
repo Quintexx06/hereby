@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { DatePicker } from '@/components/ui/date-picker';
 import { router, useForm, usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
 import BriefColors from '@/components/bespoke/BriefColors.vue';
@@ -16,6 +17,7 @@ const props = defineProps<{
     owned: boolean;
 }>();
 const copy = bespoke.form;
+const tomorrow = new Date(Date.now() + 86_400_000).toISOString().slice(0, 10);
 const page = usePage();
 const submitError = computed(
     () => page.props.errors?.brief ?? page.props.errors?.wishes ?? null,
@@ -88,7 +90,7 @@ function send(): void {
         </div>
         <div class="grid max-w-xs gap-2">
             <label for="ready_by" class="field-label">{{ copy.readyBy }}</label>
-            <Input id="ready_by" v-model="form.ready_by" type="date" />
+            <DatePicker id="ready_by" v-model="form.ready_by" :min="tomorrow" />
             <InputError :message="form.errors.ready_by" />
         </div>
         <div class="flex flex-wrap items-center gap-4">
