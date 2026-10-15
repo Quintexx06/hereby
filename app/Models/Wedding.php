@@ -118,6 +118,16 @@ class Wedding extends Model
     }
 
     /**
+     * Partners the couple invited by mail who have not opened their link yet.
+     *
+     * @return HasMany<PartnerInvite, $this>
+     */
+    public function partnerInvites(): HasMany
+    {
+        return $this->hasMany(PartnerInvite::class);
+    }
+
+    /**
      * The connected Showcase venue, for the one credit line guests see.
      */
     public function showcaseVenue(): ?Partner

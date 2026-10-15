@@ -7,6 +7,7 @@ import { edit as details } from '@/routes/weddings/details';
 import { index as guests } from '@/routes/weddings/guests';
 import { index as kitchen } from '@/routes/weddings/kitchen';
 import { index as memories } from '@/routes/weddings/memories';
+import { index as partners } from '@/routes/weddings/partners';
 import { edit as rsvpSettings } from '@/routes/weddings/rsvp-settings';
 
 const props = defineProps<{ weddingId: number }>();
@@ -18,6 +19,7 @@ const rows = [
     { key: 'rsvp', href: rsvpSettings(props.weddingId) },
     { key: 'kitchen', href: kitchen(props.weddingId) },
     { key: 'memories', href: memories(props.weddingId) },
+    { key: 'partners', href: partners(props.weddingId) },
 ] as const;
 </script>
 

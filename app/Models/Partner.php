@@ -65,6 +65,21 @@ class Partner extends Model
     }
 
     /**
+     * The partner a couple means, however they typed the code
+     * («kast 7q2m», «KAST-7Q2M»).
+     */
+    public static function findByCode(string $typed): ?self
+    {
+        $code = Str::upper(preg_replace('/[^A-Za-z0-9]/', '', $typed) ?? '');
+
+        if (strlen($code) !== 8) {
+            return null;
+        }
+
+        return self::query()->where('code', substr($code, 0, 4).'-'.substr($code, 4))->first();
+    }
+
+    /**
      * @return HasMany<User, $this>
      */
     public function users(): HasMany

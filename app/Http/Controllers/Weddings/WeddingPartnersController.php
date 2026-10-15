@@ -5,10 +5,11 @@ namespace App\Http\Controllers\Weddings;
 use App\Actions\Partners\ConnectPartner;
 use App\Http\Controllers\Controller;
 use App\Models\Partner;
+use App\Models\PartnerInvite;
 use App\Models\Wedding;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -19,18 +20,34 @@ use Inertia\Response;
  */
 class WeddingPartnersController extends Controller
 {
-    public function index(Wedding $wedding): Response
+    public function index(Request $request, Wedding $wedding): Response
     {
+        $partners = $wedding->partners()->orderBy('name')->get();
+        $connectedOn = DB::table('partner_wedding')->where('wedding_id', $wedding->id)->pluck('created_at', 'partner_id');
+        $suggested = Partner::findByCode($request->string('code')->value());
+
         return Inertia::render('weddings/Partners', [
             'wedding' => ['id' => $wedding->id, 'plan' => $wedding->plan],
-            'partners' => $wedding->partners()->orderBy('name')->get()->map(fn (Partner $partner): array => [
+            'partners' => $partners->map(fn (Partner $partner): array => [
                 'id' => $partner->id,
                 'name' => $partner->name,
                 'type' => $partner->type,
                 'type_label' => $partner->type->label(),
                 'town' => $partner->town,
-                'sees_numbers' => $partner->type->seesFinalNumbers(),
+                'since' => $connectedOn->has($partner->id) ? (substr((string) $connectedOn[$partner->id], 0, 10) ?: null) : null,
             ]),
+            'invites' => $wedding->partnerInvites()->valid()->latest()->get()->map(fn (PartnerInvite $invite): array => [
+                'id' => $invite->id,
+                'type' => $invite->type,
+                'name' => $invite->name,
+                'email' => $invite->email,
+            ]),
+            'suggested' => $suggested && ! $partners->contains($suggested) ? [
+                'name' => $suggested->name,
+                'type_label' => $suggested->type->label(),
+                'town' => $suggested->town,
+                'code' => $suggested->code,
+            ] : null,
         ]);
     }
 
@@ -38,8 +55,7 @@ class WeddingPartnersController extends Controller
     {
         $request->validate(['code' => ['required', 'string', 'max:20']]);
 
-        $code = Str::upper(preg_replace('/[^A-Za-z0-9]/', '', $request->string('code')->value()) ?? '');
-        $partner = Partner::query()->where('code', substr($code, 0, 4).'-'.substr($code, 4))->first();
+        $partner = Partner::findByCode($request->string('code')->value());
 
         if (! $partner) {
             throw ValidationException::withMessages(['code' => 'Diesen Code kennen wir nicht. Fragt euren Partner noch einmal.']);
@@ -49,7 +65,7 @@ class WeddingPartnersController extends Controller
 
         Inertia::flash('toast', ['type' => 'success', 'message' => "{$partner->name} ist verbunden."]);
 
-        return back();
+        return to_route('weddings.partners.index', $wedding);
     }
 
     public function destroy(Wedding $wedding, Partner $partner): RedirectResponse

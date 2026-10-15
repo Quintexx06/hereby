@@ -19,6 +19,15 @@ partner gives it to their couples; **the couple connects** on their own
 page «Partner» and can disconnect at any time. Nothing of a wedding is
 visible to a partner before the couple connects (consent, ADR 0007).
 
+**Two more ways in** (added 2026-10-15): the partner's **link**
+`/verbinden/{code}` (login keeps it as the intended page, then «Partner»
+offers one-click connect), and the couple's **invitation by mail** for a
+partner not on Hereby yet: the link `/partner/beitreten/{token}` opens a
+partner account already connected to the wedding. A partner already on
+Hereby is connected at once instead. Unused invitations are deleted after
+30 days. The team can correct every partner's name, kind, sign-in, contact
+and Showcase on «Partner» in the admin area, and resend the sign-in link.
+
 ## What each partner sees (2.4, 3.7)
 
 On `/partner`, instead of the couple's pages:

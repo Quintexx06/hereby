@@ -1,11 +1,14 @@
 <script setup lang="ts">
-import { Head, router, useForm } from '@inertiajs/vue3';
+import { Head, useForm } from '@inertiajs/vue3';
+import { Pencil } from '@lucide/vue';
+import { ref } from 'vue';
 import PageMasthead from '@/components/PageMasthead.vue';
+import PartnerEditDialog from '@/components/admin/PartnerEditDialog.vue';
 import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { adminPartners as copy } from '@/content/partners';
-import { index, store, update } from '@/routes/admin/partners';
+import { index, store } from '@/routes/admin/partners';
 import type { AdminPartner, PartnerType } from '@/types';
 
 defineOptions({
@@ -29,16 +32,10 @@ function create(): void {
     });
 }
 
-function toggleShowcase(partner: AdminPartner): void {
-    router.patch(
-        update.url(partner.id),
-        { is_showcase: !partner.is_showcase },
-        { preserveScroll: true },
-    );
-}
+const editing = ref<AdminPartner | null>(null);
 </script>
 
-<!-- The team's partners: open an account, mark a venue as Showcase. -->
+<!-- The team's partners: open an account, correct it, mark a venue as Showcase. -->
 <template>
     <Head :title="copy.title" />
 
@@ -109,19 +106,31 @@ function toggleShowcase(partner: AdminPartner): void {
                     </p>
                     <p class="caption">
                         <span class="partner-code">{{ partner.code }}</span>
-                        · {{ partner.login }}
+                        · {{ partner.login ?? copy.noLogin }}
+                        <template v-if="partner.is_showcase">
+                            ·
+                            <span class="text-brand">{{ copy.showcase }}</span>
+                        </template>
                     </p>
                 </div>
                 <button
-                    v-if="partner.type === 'venue'"
                     type="button"
-                    class="witness-action"
-                    :aria-pressed="partner.is_showcase"
-                    @click="toggleShowcase(partner)"
+                    class="witness-action gap-2"
+                    @click="editing = partner"
                 >
-                    {{ copy.showcase }}{{ partner.is_showcase ? ' ✓' : '' }}
+                    <Pencil class="size-4" aria-hidden="true" />
+                    {{ copy.edit }}
                 </button>
             </li>
         </ul>
+
+        <PartnerEditDialog
+            v-if="editing"
+            :key="editing.id"
+            :partner="editing"
+            :types="types"
+            :open="true"
+            @update:open="(value) => !value && (editing = null)"
+        />
     </div>
 </template>

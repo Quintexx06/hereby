@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\PartnerInvite;
 use App\Models\VenueEnquiry;
 use App\Models\Wedding;
 use Illuminate\Foundation\Inspiring;
@@ -13,7 +14,7 @@ Artisan::command('inspire', function () {
 // Delete guest data after the retention window (ADR 0007); weddings with
 // kept memories lose their guest data first and the rest later (ADR 0011).
 Schedule::command('hereby:strip-guest-data')->dailyAt('03:07');
-Schedule::command('model:prune', ['--model' => [Wedding::class, VenueEnquiry::class]])->dailyAt('03:17');
+Schedule::command('model:prune', ['--model' => [Wedding::class, VenueEnquiry::class, PartnerInvite::class]])->dailyAt('03:17');
 
 // Reminders 14, 7 and 2 days before each RSVP deadline (roadmap 1.10).
 Schedule::command('hereby:send-reminders')->dailyAt('10:07')->timezone('Europe/Zurich');

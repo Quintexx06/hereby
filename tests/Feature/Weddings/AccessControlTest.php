@@ -8,6 +8,7 @@ use App\Models\GuestPhoto;
 use App\Models\Household;
 use App\Models\Inquiry;
 use App\Models\Partner;
+use App\Models\PartnerInvite;
 use App\Models\User;
 use App\Models\Wedding;
 use App\Models\WeddingPhoto;
@@ -99,6 +100,7 @@ class AccessControlTest extends TestCase
             'partner' => Partner::factory()->create()->id,
             'brief' => ($brief = $wedding->designBrief()->create())->id,
             'briefPhoto' => tap($brief->photos()->make()->forceFill(['path' => 'none.jpg']))->save()->id,
+            'invite' => PartnerInvite::factory()->for($wedding)->create()->id,
         ];
         $values = $this->parameters[$wedding->id];
 

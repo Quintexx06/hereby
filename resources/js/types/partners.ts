@@ -33,7 +33,21 @@ export type ConnectedPartner = {
     type: PartnerType;
     type_label: string;
     town: string | null;
-    sees_numbers: boolean;
+    since: string | null;
+};
+
+export type PartnerInviteRow = {
+    id: number;
+    type: PartnerType;
+    name: string;
+    email: string;
+};
+
+export type SuggestedPartner = {
+    name: string;
+    type_label: string;
+    town: string | null;
+    code: string;
 };
 
 export type AdminPartner = {
@@ -45,4 +59,8 @@ export type AdminPartner = {
     login: string | null;
     weddings: number;
     is_showcase: boolean;
+    email: string | null;
+    phone: string | null;
+    website: string | null;
+    town: string | null;
 };

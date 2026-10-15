@@ -146,5 +146,9 @@ export const shortcuts = {
             title: 'Erinnerungen',
             body: 'Die Fotos eurer Gäste, über einen Link für alle.',
         },
+        partners: {
+            title: 'Partner',
+            body: 'Location, Fotograf und Planerin verbinden oder einladen.',
+        },
     },
 };

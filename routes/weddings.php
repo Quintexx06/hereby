@@ -26,6 +26,7 @@ use App\Http\Controllers\Weddings\CompleteWeddingSetupController;
 use App\Http\Controllers\Weddings\RsvpSettingsController;
 use App\Http\Controllers\Weddings\StartWeddingSetupController;
 use App\Http\Controllers\Weddings\WeddingDetailsController;
+use App\Http\Controllers\Weddings\WeddingPartnerInvitesController;
 use App\Http\Controllers\Weddings\WeddingPartnersController;
 use App\Http\Controllers\Weddings\WeddingSetupController;
 use Illuminate\Support\Facades\Route;
@@ -70,6 +71,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
             ->middleware('throttle:20,1')
             ->name('weddings.partners.store');
         Route::delete('hochzeit/{wedding}/partner/{partner}', [WeddingPartnersController::class, 'destroy'])->name('weddings.partners.destroy');
+        Route::post('hochzeit/{wedding}/partner/einladen', [WeddingPartnerInvitesController::class, 'store'])
+            ->middleware('throttle:10,1')
+            ->name('weddings.partners.invites.store');
+        Route::delete('hochzeit/{wedding}/partner/einladungen/{invite}', [WeddingPartnerInvitesController::class, 'destroy'])->name('weddings.partners.invites.destroy');
 
         Route::get('hochzeit/{wedding}/antwortformular', [RsvpSettingsController::class, 'edit'])
             ->name('weddings.rsvp-settings.edit');

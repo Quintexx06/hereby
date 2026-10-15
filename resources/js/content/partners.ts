@@ -4,8 +4,9 @@ export const partnerCalendar = {
     lede: 'Jede Hochzeit, deren Paar euch mit eurem Code verbunden hat, nach Datum. Ihr seht Zahlen und Menüs, keine Namen.',
     codeLabel: 'Euer Code für Paare',
     codeHint:
-        'Gebt ihn euren Paaren. Sie tragen ihn bei Hereby unter «Partner» ein; erst dann seht ihr ihre Hochzeit.',
-    copy: 'Kopieren',
+        'Gebt euren Paaren den Code oder schickt ihnen gleich den Link: Er führt zur Anmeldung und verbindet danach mit einem Klick.',
+    copy: 'Code kopieren',
+    copyLink: 'Link kopieren',
     copied: 'Kopiert',
     empty: 'Noch keine Hochzeit verbunden. Sobald ein Paar euren Code einträgt, erscheint es hier.',
     households: (answered: number, total: number) =>
@@ -71,17 +72,47 @@ export const tourPreview = {
 
 export const weddingPartners = {
     title: 'Partner',
-    lede: 'Verbindet eure Location, euren Fotografen oder eure Planerin mit ihrem Code. Ihr könnt das jederzeit wieder lösen.',
+    lede: 'Eure Location, euer Fotograf, eure Planerin: verbunden sehen sie, was sie brauchen, und nie mehr. Ihr könnt das jederzeit wieder lösen.',
+    roles: {
+        venue: {
+            label: 'Location',
+            sees: 'Sieht Gästezahlen, Menüs und Allergien pro Tisch. Füllt Adresse, Anreise und Zimmer auf eurer Seite aus.',
+        },
+        photographer: {
+            label: 'Fotograf:in',
+            sees: 'Legt die Fotos direkt in eure «Erinnerungen». Sieht keine Gästedaten.',
+        },
+        planner: {
+            label: 'Planer:in',
+            sees: 'Sieht die Schlussliste wie die Location, keine Kontaktdaten eurer Gäste.',
+        },
+    },
+    empty: 'Noch niemand verbunden.',
+    invite: 'Einladen',
+    since: (date: string) => `Verbunden seit ${date}`,
+    invited: 'Eingeladen',
+    withdraw: 'Zurückziehen',
+    remove: 'Lösen',
+    removeQuestion: 'Wirklich lösen?',
+    codeTitle: 'Ihr habt einen Code?',
+    codeLede:
+        'Partner bei Hereby haben einen Code aus acht Zeichen. Eintragen, verbinden, fertig.',
     code: 'Code',
     codePlaceholder: 'z. B. KAST-7Q2M',
     connect: 'Verbinden',
-    empty: 'Noch niemand verbunden.',
-    seesNumbers:
-        'Sieht Zahlen, Menüs und Allergien pro Tisch (die Schlussliste), keine Kontaktdaten.',
-    seesPhotos:
-        'Kann Fotos in eure «Erinnerungen» hochladen. Sieht keine Gästedaten.',
-    remove: 'Lösen',
-    removeQuestion: 'Wirklich lösen?',
+    inviteTitle: 'Noch nicht bei Hereby?',
+    inviteLede:
+        'Wir schicken euren Partner einen Link. Ein Passwort wählen, und eure Hochzeit ist schon verbunden. Für Partner kostenlos.',
+    inviteType: 'Wer ist es?',
+    inviteName: 'Name',
+    inviteNamePlaceholder: 'z. B. Seehotel Kastanienbaum',
+    inviteEmail: 'E-Mail',
+    inviteSend: 'Einladung senden',
+    suggestion: (name: string) =>
+        `${name} möchte sich mit eurer Hochzeit verbinden.`,
+    suggestionLede:
+        'Ihr kommt über ihren Link. Verbindet ihr, sieht der Partner nur, was oben bei seiner Rolle steht.',
+    notNow: 'Nicht jetzt',
 };
 
 export const adminPartners = {
@@ -95,6 +126,19 @@ export const adminPartners = {
     weddings: (count: number) =>
         count === 1 ? '1 Hochzeit' : `${count} Hochzeiten`,
     showcase: 'Showcase',
+    edit: 'Bearbeiten',
+    editTitle: (name: string) => `${name} bearbeiten`,
+    login: 'E-Mail für den Zugang',
+    loginHint: 'Mit dieser Adresse meldet sich der Partner an.',
+    contactEmail: 'E-Mail für Paare',
+    phone: 'Telefon',
+    website: 'Website',
+    town: 'Ort',
+    showcaseHint:
+        'Vorschau für Besichtigungen, öffentliche Seite und die Zeile im Footer.',
+    save: 'Speichern',
+    resend: 'Neuen Zugangslink senden',
+    noLogin: 'kein Zugang',
 };
 
 export const venuePage = {

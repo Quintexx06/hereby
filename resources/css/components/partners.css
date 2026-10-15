@@ -7,12 +7,62 @@
         @apply flex flex-col gap-3 border-t border-rule py-5 sm:flex-row sm:items-center sm:justify-between;
     }
 
-    .partner-connect {
-        @apply flex max-w-xl flex-col gap-3 sm:flex-row sm:items-start;
+    /* The couple's «Partner»: one card per role, then two ways in. */
+    .partner-roles {
+        @apply grid gap-4 lg:grid-cols-3;
     }
 
-    .partner-connect > button {
-        @apply sm:mt-7;
+    .partner-role {
+        @apply flex flex-col gap-4 rounded-[1.25rem] border border-rule bg-card p-6 transition-[border-color] duration-200 ease-out;
+    }
+
+    .partner-role[data-connected] {
+        @apply border-brand/35;
+    }
+
+    .partner-role-icon {
+        @apply grid size-11 shrink-0 place-items-center rounded-full bg-brand-muted text-brand;
+    }
+
+    .partner-role-list {
+        @apply flex flex-col border-t border-rule;
+    }
+
+    .partner-entry {
+        @apply flex items-center justify-between gap-3 border-b border-rule py-3;
+    }
+
+    .partner-role-add {
+        @apply mt-auto inline-flex h-11 cursor-pointer items-center justify-center gap-2 rounded-full border border-dashed border-rule text-sm font-medium transition-[border-color,background-color,scale] duration-150 ease-out hover:border-foreground/50 hover:bg-muted/50 active:scale-[0.97];
+    }
+
+    .partner-panels {
+        @apply grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)];
+    }
+
+    .partner-panel {
+        @apply relative flex min-w-0 scroll-mt-24 flex-col gap-5 rounded-[1.25rem] border border-rule p-6 sm:p-8;
+    }
+
+    .partner-panel-icon {
+        @apply size-6 text-brand;
+    }
+
+    .partner-code-input {
+        @apply h-14 font-display text-xl font-semibold tracking-[0.12em] uppercase placeholder:font-sans placeholder:text-base placeholder:font-normal placeholder:tracking-normal placeholder:normal-case;
+    }
+
+    .partner-suggestion {
+        @apply flex flex-col gap-5 rounded-[1.25rem] p-6 sm:flex-row sm:items-center;
+    }
+
+    /* The team's «Partner»: an edit dialog per partner. */
+    .partner-edit {
+        @apply grid gap-4 sm:grid-cols-2;
+    }
+
+    .partner-edit-wide {
+        @apply sm:col-span-2;
     }
 
     .partner-create,
@@ -26,6 +76,10 @@
 
     .partner-code-card {
         @apply flex flex-col gap-4 rounded-[1.25rem] border border-rule bg-card p-6 sm:flex-row sm:items-center sm:justify-between;
+    }
+
+    .partner-code-actions {
+        @apply flex flex-wrap gap-2 sm:flex-col sm:items-stretch;
     }
 
     .partner-code-value {
