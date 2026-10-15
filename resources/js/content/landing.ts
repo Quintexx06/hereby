@@ -17,8 +17,9 @@ export const hero = {
     titleLead: 'Vorhang auf',
     titleTail: 'für euer',
     titleYes: 'Ja.',
-    statement: 'Die Hochzeitswebsite, die jeden Gast persönlich einlädt.',
-    lede: 'Ein eigener Link für jeden Haushalt, in seiner Sprache. Eure Gäste antworten in unter einer Minute, und wir richten alles in 48 Stunden für euch ein.',
+    statement:
+        'Die Hochzeitswebsite aus der Schweiz, die jeden Gast persönlich einlädt.',
+    lede: 'Jeder Haushalt bekommt seinen eigenen Link: mit seinen Namen, seinen Anlässen, in seiner Sprache. Eure Gäste sagen in unter einer Minute zu, und ihr seht jede Antwort an einem Ort.',
     primaryCta: 'Kostenlos starten',
     secondaryCta: 'So funktioniert’s',
     skip: 'Vorhang öffnen',
@@ -27,17 +28,17 @@ export const hero = {
 
 export const intro = {
     title: 'Eure Gäste bekommen keine Website. Sie bekommen ihre Einladung.',
-    body: 'Eine Hochzeitshomepage für alle zeigt jedem alles: das Abendessen, zu dem nicht alle eingeladen sind, das Formular mit Fragen, die nicht passen, das Passwort, das niemand findet. Hereby dreht das um. Jeder Haushalt öffnet seine eigene Einladung, mit seinen Namen, seinen Anlässen und seiner Sprache.',
+    body: 'Eine gewöhnliche Hochzeitshomepage zeigt allen dasselbe: das Abendessen, zu dem nicht alle kommen, ein Formular voller Fragen, die nicht passen, und ein Passwort, das niemand findet. Bei Hereby öffnet jeder Haushalt seine eigene Einladung. Er sieht nur seine Anlässe, antwortet in seiner Sprache und muss sich nirgends anmelden.',
 } as const;
 
 export const guests = {
     title: 'Ein Link pro Haushalt. In seiner Sprache.',
-    lede: 'Die Familie aus Lausanne liest Französisch, die Freunde aus London Englisch. Alle sehen nur, wozu sie eingeladen sind.',
+    lede: 'Die Familie aus Lausanne liest Französisch, die Nonna im Tessin Italienisch, die Freunde aus London Englisch. Und alle sehen nur, wozu sie eingeladen sind.',
     points: [
         {
             icon: 'link',
             title: 'Kein Passwort, keine App',
-            body: 'Ein privater Link genügt. Suchmaschinen sehen ihn nie.',
+            body: 'Ein privater Link genügt, per WhatsApp, SMS oder Mail. Suchmaschinen sehen ihn nie.',
         },
         {
             icon: 'events',
@@ -47,7 +48,7 @@ export const guests = {
         {
             icon: 'clock',
             title: 'Antwort in unter 60 Sekunden',
-            body: 'Namen sind ausgefüllt. Gefragt wird nur, was für diese Gäste zählt.',
+            body: 'Namen sind ausgefüllt. Gefragt wird nur, was für diesen Haushalt zählt: Menü, Allergien, Kinder.',
         },
     ],
     previewLabel:
@@ -56,25 +57,25 @@ export const guests = {
 } as const;
 
 export const steps = {
-    title: 'Von der ersten Idee bis zur letzten Zusage.',
+    title: 'In drei Schritten zur eigenen Hochzeitswebsite.',
     items: [
         {
-            figure: '20',
+            figure: '10',
             unit: 'Min.',
-            title: 'Ein Gespräch',
-            body: 'Ihr erzählt uns von eurem Tag: Orte, Anlässe, Gäste, Sprachen. Mehr braucht es nicht.',
+            title: 'Einrichten',
+            body: 'Namen, Datum, Ort, Ablauf, Sprachen und Look: sieben kurze Fragen, und eure Seite steht. Kostenlos, ohne Kreditkarte.',
         },
         {
-            figure: '48',
-            unit: 'Std.',
-            title: 'Eure Website steht',
-            body: 'Wir gestalten und richten alles ein. Ihr prüft, wir passen an. Ohne Baukasten, ohne Vorlagen-Look.',
+            figure: '1',
+            unit: 'Link',
+            title: 'Pro Haushalt verschicken',
+            body: 'Gästeliste aus Excel oder den Kontakten übernehmen, Paket wählen, Links per WhatsApp oder Mail teilen.',
         },
         {
             figure: '60',
             unit: 'Sek.',
-            title: 'Eure Gäste antworten',
-            body: 'Jeder Haushalt öffnet seinen Link und sagt zu, auf dem Handy, in unter einer Minute.',
+            title: 'Gäste antworten',
+            body: 'Auf dem Handy, ohne Konto und ohne App. Ihr seht jede Zusage sofort, mit Menüs und Allergien für die Küche.',
         },
     ],
 } as const;
@@ -321,7 +322,8 @@ export const struck = {
         {
             word: 'Vorlagen',
             icon: 'template',
-            instead: 'Von Hand gestaltet, in 48 Stunden eingerichtet.',
+            instead:
+                'Drei gestaltete Looks mit eurer Farbe. Oder eine Seite, die wir für euch bauen.',
         },
         {
             word: 'Eine Sprache',
@@ -362,4 +364,37 @@ export const footer = {
     privacy: 'Datenschutz',
     imprint: 'Impressum',
     email: 'info@hereby.ch',
+    topicsLabel: 'Mehr über Hereby',
+} as const;
+
+/** The topic pages (lang/de_CH/pages.php): shared copy and the footer list. */
+export const topics = {
+    cta: 'Kostenlos starten',
+    examples: 'Beispiele ansehen',
+    faq: 'Häufige Fragen',
+    related: 'Weiterlesen',
+    closing:
+        'Probiert es aus: Einrichten ist kostenlos, bezahlt wird erst beim Verschicken.',
+    links: [
+        {
+            slug: 'hochzeitswebsite-erstellen',
+            label: 'Hochzeitswebsite erstellen',
+        },
+        {
+            slug: 'hochzeitseinladung-online',
+            label: 'Hochzeitseinladung online',
+        },
+        { slug: 'hochzeit-rsvp-online', label: 'Online-RSVP' },
+        { slug: 'gaesteliste-hochzeit', label: 'Gästeliste Hochzeit' },
+        {
+            slug: 'mehrsprachige-hochzeitswebsite',
+            label: 'Mehrsprachige Hochzeit',
+        },
+        {
+            slug: 'hochzeitshomepage-passwort',
+            label: 'Hochzeitshomepage ohne Passwort',
+        },
+        { slug: 'fuer-locations', label: 'Für Hochzeitslocations' },
+        { slug: 'preise', label: 'Preise' },
+    ],
 } as const;

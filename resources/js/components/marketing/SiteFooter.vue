@@ -2,8 +2,9 @@
 import { Link } from '@inertiajs/vue3';
 import { ref } from 'vue';
 import { useFooterReveal } from '@/composables/motion/useFooterReveal';
-import { footer } from '@/content/landing';
+import { footer, topics } from '@/content/landing';
 import { imprint, privacy } from '@/routes/legal';
+import { show } from '@/routes/topics';
 
 const year = new Date().getFullYear();
 const root = ref<HTMLElement | null>(null);
@@ -25,6 +26,15 @@ const { isPending } = useFooterReveal(root);
         </div>
 
         <div class="page-container">
+            <nav :aria-label="footer.topicsLabel" class="footer-topics">
+                <Link
+                    v-for="topic in topics.links"
+                    :key="topic.slug"
+                    :href="show(topic.slug)"
+                    class="link-underline"
+                    >{{ topic.label }}</Link
+                >
+            </nav>
             <div class="caption footer-legal">
                 <p>© {{ year }} Hereby. Gemacht in der Schweiz.</p>
                 <nav

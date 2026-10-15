@@ -23,7 +23,7 @@ const { couple, site } = useShowcaseCouple(studio.site.couple);
     only the accents change, the page itself stays porcelain.
 -->
 <template>
-    <section class="overflow-hidden">
+    <section id="studio" class="overflow-hidden">
         <div class="page-container section flex flex-col gap-10 sm:gap-12">
             <header v-reveal class="flex max-w-3xl reveal flex-col gap-6">
                 <h2 class="headline">{{ studio.title }}</h2>

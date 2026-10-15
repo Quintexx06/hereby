@@ -9,3 +9,23 @@ export type LandingSeo = {
     description: string;
     image_alt: string;
 };
+
+/** A topic page (lang/de_CH/pages.php), rendered by pages/topics/Show.vue. */
+export type TopicSection = {
+    title: string;
+    body?: string[];
+    points?: { title: string; body: string }[];
+};
+
+export type TopicPage = {
+    label: string;
+    h1: string;
+    lede: string;
+    sections: TopicSection[];
+};
+
+export type RelatedTopic = {
+    slug: string;
+    label: string;
+    description: string;
+};

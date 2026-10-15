@@ -399,3 +399,47 @@
         transform: rotate(1turn);
     }
 }
+
+/* Topic pages (SEO) and the footer's topic links. */
+@layer components {
+    .footer-topics {
+        @apply flex flex-wrap gap-x-8 gap-y-3 border-b border-current/15 pb-8 text-sm;
+    }
+
+    /* Topic pages (SEO): night hero, a reading column, related cards. */
+    .topic-hero {
+        @apply relative flex flex-col gap-8 pt-36 pb-20 sm:pt-44 sm:pb-24;
+    }
+
+    .topic-lede {
+        @apply max-w-2xl text-lg text-pretty text-muted-foreground sm:text-xl;
+    }
+
+    .topic-body {
+        @apply flex max-w-4xl flex-col gap-20 py-20 sm:py-28;
+    }
+
+    .topic-section {
+        @apply flex flex-col gap-6;
+    }
+
+    .topic-points {
+        @apply grid gap-x-10 gap-y-6 border-t border-rule pt-6 sm:grid-cols-2;
+    }
+
+    .topic-points li {
+        @apply flex flex-col gap-1.5;
+    }
+
+    .topic-cta {
+        @apply flex flex-col items-start gap-6 rounded-[1.5rem] p-8 sm:p-12;
+    }
+
+    .topic-related {
+        @apply grid gap-4 md:grid-cols-3;
+    }
+
+    .topic-card {
+        @apply flex h-full flex-col gap-2 rounded-[1.25rem] border border-rule bg-card p-6 transition-[border-color] duration-200 ease-out hover:border-foreground/40;
+    }
+}

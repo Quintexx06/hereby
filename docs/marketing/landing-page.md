@@ -59,7 +59,10 @@ Primary keyword: **Hochzeitswebsite Schweiz**. Secondary: **Hochzeitshomepage**
 
 ### Still to do (needs a decision or a domain)
 
-- Production domain and `APP_URL`, then submit a sitemap in Search Console.
+- ~~Production domain and `APP_URL`, then submit a sitemap in Search Console.~~
+  Done 2026-10-15: `/sitemap.xml` (landing, topic pages, Showcase venues,
+  legal) and a generated `/robots.txt` that announces it. Submit
+  `https://hereby.ch/sitemap.xml` in Search Console.
 - Impressum and Datenschutzerklärung pages (legally required in CH before launch).
 - SSR in production (`npm run build:ssr`) so the full page text is in the HTML.
 - A real demo-request form (CTAs currently go to registration; roadmap 0.3).
@@ -118,3 +121,26 @@ the Phase 0 hypotheses from `docs/product/business.md` (ab CHF 390).
 - [Hochzeitshomepage-Vergleich, trusted.de](https://trusted.de/hochzeitshomepage)
 - [Loveplanr Hochzeitswebsite](https://loveplanr.com/hochzeitswebsite/) · [yesforever.ch](https://www.yesforever.ch/) · [Vjeny](https://vjeny.com/de/hochzeitswebsite-schweiz) · [WeddingDonkey](https://www.weddingdonkey.ch/)
 - [Landing page best practices 2026 (hero clarity, 5-second test)](https://entreresource.com/landing-page-best-practices/)
+
+## 8. Topic pages (added 2026-10-15)
+
+Eight subpages, one search intent each, content in `lang/de_CH/pages.php`
+(prices read from config), rendered by `pages/topics/Show.vue` with
+server-side meta, canonical, BreadcrumbList and FAQPage data. Linked from
+every marketing footer and to each other («Weiterlesen»).
+
+| URL | Primary keyword | Intent |
+| --- | --- | --- |
+| /hochzeitswebsite-erstellen | hochzeitswebsite erstellen (schweiz) | Commercial |
+| /hochzeitseinladung-online | hochzeitseinladung online (verschicken) | Commercial |
+| /hochzeit-rsvp-online | hochzeit rsvp online, anmeldung gäste | Task |
+| /gaesteliste-hochzeit | hochzeit gästeliste online | Task |
+| /hochzeitshomepage-passwort | hochzeitshomepage mit passwort | Problem-aware |
+| /mehrsprachige-hochzeitswebsite | mehrsprachige hochzeit, zweisprachig | Commercial, local |
+| /preise | hochzeitswebsite kosten / preis | Price |
+| /fuer-locations | for venues, photographers, planners | B2B |
+
+The landing copy was rewritten at the same time to match the product as it
+ships: self-serve setup in ten minutes (not «20 Min. Gespräch, 48 Std.»),
+prices from config (not «ab CHF 390»), and the keywords RSVP, Gästeliste
+and WhatsApp where users look for them.

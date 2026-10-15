@@ -6,17 +6,22 @@
  * structured data, so the two can never disagree.
  * Keyword research and rationale: docs/marketing/landing-page.md.
  */
+use App\Support\Chf;
+
+$signature = Chf::price('plans.signature');
+$atelier = Chf::price('plans.atelier');
+
 return [
     'seo' => [
         'title' => 'Hochzeitswebsite Schweiz – persönlich für jeden Gast',
-        'description' => 'Eure Hochzeitswebsite aus der Schweiz: ein persönlicher Link pro Haushalt, Antwort in unter 60 Sekunden, vier Sprachen. In 48 Stunden für euch eingerichtet.',
+        'description' => 'Hochzeitswebsite aus der Schweiz: ein privater Link pro Haushalt, Zusage in 60 Sekunden, vier Sprachen, kein Passwort. Kostenlos einrichten.',
         'image_alt' => 'Ein Brautpaar unter dem Schleier im Abendlicht',
     ],
 
     'faq' => [
         [
             'question' => 'Was ist eine Hochzeitswebsite?',
-            'answer' => 'Eine Hochzeitswebsite (auch Hochzeitshomepage) bündelt alles, was eure Gäste wissen müssen: Programm, Orte, Anreise und Übernachtung. Und sie sammelt die Zu- und Absagen. Bei Hereby bekommt jeder Haushalt seine eigene Einladung statt einer Seite für alle.',
+            'answer' => 'Eine Hochzeitswebsite (auch Hochzeitshomepage) bündelt alles, was eure Gäste wissen müssen: Programm, Orte, Anreise und Übernachtung. Und sie sammelt die Zu- und Absagen, das RSVP. Bei Hereby bekommt jeder Haushalt seine eigene Einladung statt einer Seite für alle.',
         ],
         [
             'question' => 'Brauchen unsere Gäste ein Passwort oder eine App?',
@@ -35,12 +40,12 @@ return [
             'answer' => 'Deutsch mit Schweizer Schreibweise, Französisch, Italienisch und Englisch. Die Sprache wird pro Haushalt festgelegt, die Familie aus dem Tessin liest also Italienisch, die Freunde aus London Englisch.',
         ],
         [
-            'question' => 'Wie lange dauert es, bis unsere Hochzeitswebsite bereit ist?',
-            'answer' => 'Nach einem Gespräch von zwanzig Minuten richten wir eure Website innerhalb von 48 Stunden ein. Ihr müsst nichts zusammenklicken.',
+            'question' => 'Wie lange dauert es, eine Hochzeitswebsite zu erstellen?',
+            'answer' => 'Rund zehn Minuten: Ihr beantwortet sieben kurze Fragen zu Paar, Datum, Ort, Ablauf, Gästen, Sprachen und Look, und eure Seite steht. Texte und Fotos verfeinert ihr danach, wann ihr wollt. Lieber machen lassen? Mit der Massanfertigung bauen wir eure Seite nach euren Wünschen.',
         ],
         [
             'question' => 'Was kostet eine Hochzeitswebsite bei Hereby?',
-            'answer' => 'Ab CHF 390, einmalig. Kein Abo, keine Werbung für eure Gäste, keine versteckten Kosten.',
+            'answer' => "Einrichten ist kostenlos. Bezahlt wird einmal, wenn ihr die Einladungen verschickt: {$signature} für Signature, {$atelier} für Atelier mit Tischplan, Programm und Gästefotos. Kein Abo, kein Preis pro Gast, keine Werbung.",
         ],
         [
             'question' => 'Was passiert mit den Daten unserer Gäste?',

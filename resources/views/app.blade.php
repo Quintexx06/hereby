@@ -27,7 +27,7 @@
         <meta name="theme-color" content="#faf3f2" media="(prefers-color-scheme: light)">
         <meta name="theme-color" content="#100b0b" media="(prefers-color-scheme: dark)">
 
-        @if (($page['component'] ?? null) === 'Welcome')
+        @if (in_array($page['component'] ?? null, ['Welcome', 'topics/Show'], true))
             @include('partials.landing-seo', ['seo' => $page['props']['seo'], 'faq' => $page['props']['faq']])
         @endif
 

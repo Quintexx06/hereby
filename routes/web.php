@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Billing\StripeWebhookController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Marketing\SitemapController;
+use App\Http\Controllers\Marketing\TopicPageController;
 use App\Http\Controllers\StoreInquiryController;
 use App\Http\Controllers\VenuePageController;
 use App\Http\Controllers\WelcomeController;
@@ -14,11 +16,16 @@ Route::post('stripe/webhook', StripeWebhookController::class)
     ->withoutMiddleware(PreventRequestForgery::class)
     ->name('stripe.webhook');
 Route::post('fragen', StoreInquiryController::class)->middleware('throttle:inquiries')->name('inquiries.store');
+Route::get('sitemap.xml', SitemapController::class)->name('sitemap');
+Route::get('robots.txt', [SitemapController::class, 'robots'])->name('robots');
 
 Route::middleware(UseSwissGerman::class)->group(function () {
     Route::inertia('datenschutz', 'legal/Privacy')->name('legal.privacy');
     Route::inertia('impressum', 'legal/Imprint')->name('legal.imprint');
     Route::get('orte/{partner:slug}', [VenuePageController::class, 'show'])->name('venues.show');
+    Route::get('{slug}', TopicPageController::class)
+        ->whereIn('slug', TopicPageController::slugs())
+        ->name('topics.show');
     Route::post('orte/{partner:slug}/anfrage', [VenuePageController::class, 'store'])
         ->middleware('throttle:inquiries')
         ->name('venues.enquiry');
