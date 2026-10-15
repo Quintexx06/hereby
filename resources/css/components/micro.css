@@ -107,11 +107,6 @@
         animation-delay: 160ms;
     }
 
-    /* App pages fade up a few pixels on every visit: continuity, not a show. */
-    .app-page {
-        animation: micro-settle 200ms var(--ease-out) both;
-    }
-
     /* A finished checklist step: the tick draws itself. */
     .admin-check[data-done='true'] .admin-check-mark svg path {
         stroke-dasharray: 24;

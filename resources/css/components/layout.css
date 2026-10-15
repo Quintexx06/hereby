@@ -19,6 +19,15 @@
     /*
      * The app workspace beside the night sidebar: a framed porcelain sheet.
      */
+    /* The page body under the header: the layer page transitions move. */
+    .app-view {
+        @apply min-w-0 flex-1;
+    }
+
+    .app-workspace > .app-view {
+        @apply flex flex-col;
+    }
+
     .app-workspace {
         @apply sm:border sm:border-sidebar-border;
     }

@@ -30,13 +30,20 @@
 }
 
 /*
- * Page transitions (Inertia visits with viewTransition). The workspace is
- * its own layer so the sidebar stays put: the old page fades quickly, the
- * new one rises in with ease-out.
+ * Page transitions (Inertia visits with viewTransition). Only the page body
+ * is its own layer: sidebar, frame and header stay put, so moving between
+ * pages feels like one app. The old body steps back quickly; the new one
+ * rises in with ease-out. The group carries the page colour, so nothing
+ * darker shows through mid-fade.
  */
-.app-workspace,
-.app-focus > main {
+.app-view {
     view-transition-name: app-page;
+}
+
+::view-transition-group(app-page) {
+    background: var(--background);
+    animation-duration: 300ms;
+    animation-timing-function: var(--ease-out);
 }
 
 ::view-transition-old(app-page) {
@@ -44,26 +51,27 @@
 }
 
 ::view-transition-new(app-page) {
-    animation: page-in 300ms var(--ease-out) both;
+    animation: page-in 300ms var(--ease-out) 40ms both;
 }
 
 ::view-transition-old(root),
 ::view-transition-new(root) {
-    animation-duration: 200ms;
+    animation-duration: 180ms;
     animation-timing-function: var(--ease-out);
 }
 
 @keyframes page-out {
     to {
         opacity: 0;
+        transform: scale(0.995);
     }
 }
 
 @keyframes page-in {
     from {
         opacity: 0;
-        transform: translateY(10px);
-        filter: blur(2px);
+        transform: translateY(12px);
+        filter: blur(3px);
     }
 }
 

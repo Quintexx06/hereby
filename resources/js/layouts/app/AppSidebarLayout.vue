@@ -50,14 +50,14 @@ onBeforeUnmount(() => shell(false));
         <div class="app-nav-backdrop" aria-hidden="true" @click="close" />
         <main class="app-main app-workspace">
             <AppSidebarHeader :breadcrumbs="breadcrumbs" />
-            <slot />
+            <div class="app-view"><slot /></div>
         </main>
         <ScrollRail />
         <Toaster />
     </div>
     <div v-else class="app-focus">
         <AppFocusBar />
-        <main class="min-w-0 flex-1">
+        <main class="app-view">
             <slot />
         </main>
         <Toaster />

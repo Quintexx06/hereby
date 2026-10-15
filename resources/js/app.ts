@@ -1,4 +1,4 @@
-import { createInertiaApp } from '@inertiajs/vue3';
+import { createInertiaApp, router } from '@inertiajs/vue3';
 import { defineAsyncComponent } from 'vue';
 import { registerDirectives } from '@/directives';
 import { initializeFlashToast } from '@/lib/flashToast';
@@ -56,6 +56,16 @@ void createInertiaApp({
     progress: {
         color: 'oklch(0.8 0.09 7)',
     },
+});
+
+/*
+ * Nav links prefetch on hover so a page opens the moment it is clicked.
+ * Anything the couple saves makes those copies stale, so drop them.
+ */
+router.on('finish', (event) => {
+    if (event.detail.visit.method !== 'get') {
+        router.flushAll();
+    }
 });
 
 // This will listen for flash toast data from the server...

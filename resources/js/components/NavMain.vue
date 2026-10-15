@@ -53,6 +53,8 @@ watch(
                 <li v-for="item in items" :key="item.title">
                     <Link
                         :href="item.href"
+                        prefetch
+                        :cache-for="['5s', '30s']"
                         class="app-nav-item"
                         :data-active="isCurrentUrl(item.href)"
                         :aria-current="

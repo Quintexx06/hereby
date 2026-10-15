@@ -32,6 +32,8 @@ const rows = [
                 v-for="row in rows"
                 :key="row.key"
                 :href="row.href"
+                prefetch
+                :cache-for="['5s', '30s']"
                 class="ledger-link group"
             >
                 <span class="grid gap-1 sm:grid-cols-[12rem_minmax(0,1fr)]">
