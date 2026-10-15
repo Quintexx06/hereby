@@ -52,7 +52,8 @@ function add(type: EventType): void {
 
 <template>
     <div class="flex flex-col gap-10">
-        <fieldset class="grid gap-3 sm:grid-cols-2">
+        <!-- Without presets (Eckdaten) the rows are kept; no preset replaces them. -->
+        <fieldset v-if="presets" class="grid gap-3 sm:grid-cols-2">
             <legend class="field-label mb-3 sm:col-span-2">
                 Wann feiert ihr?
             </legend>
@@ -80,7 +81,7 @@ function add(type: EventType): void {
             <InputError :message="form.errors.celebration" />
         </fieldset>
 
-        <div v-if="form.events.length" class="flex flex-col gap-3">
+        <div v-if="form.events.length || !presets" class="flex flex-col gap-3">
             <div class="programme-list">
                 <ProgrammeRowField
                     v-for="(row, index) in form.events"

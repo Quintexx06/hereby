@@ -3,6 +3,7 @@ import { Link } from '@inertiajs/vue3';
 import { ArrowRight } from '@lucide/vue';
 import { shortcuts } from '@/content/dashboard';
 import { index as content } from '@/routes/weddings/content';
+import { edit as details } from '@/routes/weddings/details';
 import { index as guests } from '@/routes/weddings/guests';
 import { index as kitchen } from '@/routes/weddings/kitchen';
 import { index as memories } from '@/routes/weddings/memories';
@@ -12,6 +13,7 @@ const props = defineProps<{ weddingId: number }>();
 
 const rows = [
     { key: 'guests', href: guests(props.weddingId) },
+    { key: 'details', href: details([props.weddingId, 'paar']) },
     { key: 'content', href: content(props.weddingId) },
     { key: 'rsvp', href: rsvpSettings(props.weddingId) },
     { key: 'kitchen', href: kitchen(props.weddingId) },

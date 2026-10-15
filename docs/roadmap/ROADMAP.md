@@ -94,6 +94,7 @@ Every `code` item, before it is ticked:
 | 1.14 | Legal review of guest data before the first paid wedding (incl. table mates and kept memories, ADR 0011) | human | [ ] | Written sign-off from a Swiss data-protection lawyer |
 | 1.15 | «Der Abend» for Atelier: table mates, way home, group photo call-up, programme sign-ups with the witness link ([spec](../specs/2026-10-13-evening-and-extras-design.md)) | code | [x] | Gated on Atelier, tested; guest strings in all four languages; nothing before the reply |
 | 1.16 | Extras: wedding newspaper, «Wir fassen nach», own domain, keep the memories ([spec](../specs/2026-10-13-evening-and-extras-design.md), [ADR 0011](../decisions/0011-kept-memories.md)) | code | [x] | Bought through Stripe or included in Couture; guest data still deleted on schedule |
+| 1.17 | «Eckdaten»: names, date, deadline, venue, programme, languages and look editable after setup ([spec](../specs/2026-10-15-wedding-details-design.md)) | code | [x] | Each saves on its own; a moved date moves the programme; editing the programme keeps answers |
 
 **Gate →** 10 sites live, and 85% of guests answer without a manual chase.
 
@@ -150,6 +151,7 @@ needs an approved spec with its own acceptance criteria before work starts.
 
 | Date       | Change |
 | ---------- | ------ |
+| 2026-10-15 | 1.17 done: «Eckdaten» in the sidebar and on the dashboard reopens the setup questions for a live wedding, one tab at a time. Editing the programme updates events in place (answers stay, new parts go to every household), a new date moves the whole programme. Landing studio: each template gets its own body under the hero (magazine, garden with hand-drawn frames, cinema) |
 | 2026-10-14 | The founder accepted the current templates and themes for launch (0.6, 1.7 closed). Impressum and Datenschutz filled in for Martin Brunner, Zürich, and extended to payments, photos, newspaper, phone numbers, table notes, the chase service and kept memories. Plan cards promise only what is built: the photo wall, voice wishes and film came off until they exist (rule 5) |
 | 2026-10-13 | 0.2 built (not yet shown): demo site at the real Seehotel Kastanienbaum on Lake Lucerne for a fictional couple, Lea & Jonas (`KastanienbaumDemoSeeder`, spec 2026-10-13-venue-demo-kastanienbaum). Verified arrival (train, bus 21, summer boat to the hotel's landing stage, free parking), rooms, four parts of the day at the hotel, households in German, French and English with tables. LCP 1.2–1.3 s on throttled 4G. Open before showing it: the night's last connections from the SBB timetable, and the venue seeing it |
 | 2026-10-13 | Couple photos get a focal point (tap the faces; every template crops around it). The studio carousel steps reliably on fast clicks and slow devices (`scrollend`, aim-based steps); Panorama's rule lines up with its photos; shadcn's sidebar components removed. Checked end to end in the running app: sign-in, upload, focus, cover, preview, a personal link, the landing carousel |

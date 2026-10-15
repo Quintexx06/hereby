@@ -126,6 +126,10 @@ export const shortcuts = {
             title: 'Gäste',
             body: 'Gästeliste, persönliche Links und wer schon geantwortet hat.',
         },
+        details: {
+            title: 'Eckdaten',
+            body: 'Namen, Datum, Ort, Ablauf, Sprachen und Look ändern.',
+        },
         content: {
             title: 'Inhalte',
             body: 'Eure Geschichte, Anreise, Hotels, Dresscode und Fragen.',

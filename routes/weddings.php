@@ -22,6 +22,7 @@ use App\Http\Controllers\Memories\MemoriesController;
 use App\Http\Controllers\Weddings\CompleteWeddingSetupController;
 use App\Http\Controllers\Weddings\RsvpSettingsController;
 use App\Http\Controllers\Weddings\StartWeddingSetupController;
+use App\Http\Controllers\Weddings\WeddingDetailsController;
 use App\Http\Controllers\Weddings\WeddingSetupController;
 use Illuminate\Support\Facades\Route;
 
@@ -45,6 +46,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('hochzeit/{wedding}/gaeste/vorschau', PreviewGuestImportController::class)
             ->middleware('throttle:30,1')
             ->name('weddings.guests.preview');
+
+        Route::get('hochzeit/{wedding}/eckdaten/{step}', [WeddingDetailsController::class, 'show'])
+            ->name('weddings.details.edit');
+        Route::put('hochzeit/{wedding}/eckdaten/{step}', [WeddingDetailsController::class, 'update'])
+            ->name('weddings.details.update');
 
         Route::get('hochzeit/{wedding}/antwortformular', [RsvpSettingsController::class, 'edit'])
             ->name('weddings.rsvp-settings.edit');

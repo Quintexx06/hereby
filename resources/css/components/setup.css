@@ -321,3 +321,27 @@
         grid-template-areas: 'time what day remove';
     }
 }
+
+/* «Eckdaten» (pages/weddings/Details): the same questions as tabs. */
+@layer components {
+    .details-tabs {
+        @apply flex gap-1 overflow-x-auto border-b border-border;
+        scrollbar-width: none;
+    }
+
+    .details-tab {
+        @apply relative shrink-0 px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors duration-150 hover:text-foreground;
+    }
+
+    .details-tab[aria-current='page'] {
+        @apply text-foreground;
+    }
+
+    .details-tab[aria-current='page']::after {
+        @apply absolute inset-x-3 -bottom-px h-0.5 rounded-full bg-brand content-[''];
+    }
+
+    .details-note {
+        @apply max-w-xl rounded-lg border border-border bg-muted/40 px-4 py-3 text-sm text-muted-foreground;
+    }
+}

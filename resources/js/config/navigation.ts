@@ -1,6 +1,7 @@
 import {
     CalendarHeart,
     Globe,
+    HeartHandshake,
     Images,
     Inbox,
     LayoutGrid,
@@ -18,6 +19,7 @@ import { index as adminChase } from '@/routes/admin/chase';
 import { index as adminInquiries } from '@/routes/admin/inquiries';
 import { index as adminWeddings } from '@/routes/admin/weddings';
 import { index as content } from '@/routes/weddings/content';
+import { edit as details } from '@/routes/weddings/details';
 import { show as evening } from '@/routes/weddings/evening';
 import { show as extras } from '@/routes/weddings/extras';
 import { index as guests } from '@/routes/weddings/guests';
@@ -43,6 +45,11 @@ export function mainNavItems(wedding: SharedWedding | null): NavItem[] {
             href: guests(wedding.id),
             icon: Users,
             badge: wedding.households || undefined,
+        });
+        items.push({
+            title: 'Eckdaten',
+            href: details([wedding.id, 'paar']),
+            icon: HeartHandshake,
         });
         items.push({
             title: 'Inhalte',

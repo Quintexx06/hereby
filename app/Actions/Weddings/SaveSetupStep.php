@@ -9,6 +9,7 @@ use Illuminate\Support\Arr;
 /**
  * Saves one step of the setup and moves the couple's progress forward.
  * Progress never moves back: revisiting step 2 keeps steps 3–7 unlocked.
+ * The same steps edit a live wedding (Eckdaten) without losing answers.
  */
 class SaveSetupStep
 {
@@ -19,6 +20,8 @@ class SaveSetupStep
      */
     public function handle(Wedding $wedding, SetupStep $step, array $data): void
     {
+        $previousDate = $wedding->wedding_date?->copy();
+
         match ($step) {
             SetupStep::Couple => $wedding->fill([
                 ...Arr::only($data, ['partner_one', 'partner_two']),
@@ -48,6 +51,9 @@ class SaveSetupStep
         match ($step) {
             SetupStep::Programme => $this->applyProgramme->handle($wedding, $data['events']),
             SetupStep::Venue => $this->applyProgramme->syncVenue($wedding),
+            SetupStep::Date => $previousDate && $wedding->wedding_date
+                ? $this->applyProgramme->moveDate($wedding, $previousDate, $wedding->wedding_date)
+                : null,
             default => null,
         };
     }
