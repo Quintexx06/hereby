@@ -39,7 +39,7 @@ const { isPending } = useFooterReveal(root);
                 <p>© {{ year }} Hereby. Gemacht in der Schweiz.</p>
                 <nav
                     aria-label="Rechtliches"
-                    class="flex flex-wrap gap-x-8 gap-y-2"
+                    class="flex flex-wrap justify-center gap-x-8 gap-y-2"
                 >
                     <a
                         :href="`mailto:${footer.email}`"

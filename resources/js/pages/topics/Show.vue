@@ -4,6 +4,7 @@ import TopicFaq from '@/components/topics/TopicFaq.vue';
 import TopicHero from '@/components/topics/TopicHero.vue';
 import TopicRelated from '@/components/topics/TopicRelated.vue';
 import TopicSectionBlock from '@/components/topics/TopicSectionBlock.vue';
+import TopicShot from '@/components/topics/TopicShot.vue';
 import { Button } from '@/components/ui/button';
 import { topics as copy } from '@/content/landing';
 import { register } from '@/routes';
@@ -36,14 +37,21 @@ defineProps<{
         />
     </Head>
 
-    <TopicHero :label="page.label" :title="page.h1" :lede="page.lede" />
+    <TopicHero
+        :label="page.label"
+        :title="page.h1"
+        :lede="page.lede"
+        :photo="page.photo"
+    />
 
     <article class="page-container topic-body">
-        <TopicSectionBlock
-            v-for="section in page.sections"
+        <template
+            v-for="(section, index) in page.sections"
             :key="section.title"
-            :section="section"
-        />
+        >
+            <TopicSectionBlock :section="section" />
+            <TopicShot v-if="index === 0" :shot="page.shot" />
+        </template>
         <TopicFaq :items="faq" />
         <aside class="topic-cta stage">
             <p class="title max-w-[22ch] text-balance">{{ copy.closing }}</p>

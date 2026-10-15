@@ -399,12 +399,44 @@
 /* Topic pages (SEO) and the footer's topic links. */
 @layer components {
     .footer-topics {
-        @apply flex flex-wrap gap-x-8 gap-y-3 border-b border-current/15 pb-8 text-sm;
+        @apply flex flex-wrap justify-center gap-x-8 gap-y-3 pb-8 text-center text-sm;
     }
 
     /* Topic pages (SEO): night hero, a reading column, related cards. */
     .topic-hero {
-        @apply relative flex flex-col gap-8 pt-36 pb-20 sm:pt-44 sm:pb-24;
+        @apply relative grid items-center gap-12 pt-36 pb-20 sm:pt-44 sm:pb-24 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:gap-16;
+    }
+
+    .topic-hero-copy {
+        @apply flex flex-col gap-8;
+    }
+
+    .topic-hero-photo {
+        @apply aspect-[4/3] overflow-hidden rounded-[1.5rem] bg-night-900 lg:aspect-[4/5];
+    }
+
+    .topic-shot {
+        @apply flex flex-col items-center gap-4;
+    }
+
+    .topic-shot-device {
+        @apply w-full overflow-hidden border border-rule bg-card shadow-[0_30px_80px_-40px_rgb(0_0_0/0.35)];
+    }
+
+    .topic-shot[data-frame='browser'] .topic-shot-device {
+        @apply rounded-2xl;
+    }
+
+    .topic-shot[data-frame='phone'] .topic-shot-device {
+        @apply max-w-[19rem] rounded-[2.5rem] border-[6px] border-night-950;
+    }
+
+    .topic-shot-bar {
+        @apply flex gap-1.5 border-b border-rule px-4 py-3;
+    }
+
+    .topic-shot-bar span {
+        @apply size-2.5 rounded-full bg-foreground/15;
     }
 
     .topic-lede {

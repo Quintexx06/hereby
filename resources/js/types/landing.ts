@@ -17,7 +17,18 @@ export type TopicSection = {
     points?: { title: string; body: string }[];
 };
 
+export type TopicShot = {
+    src: string;
+    width: number;
+    height: number;
+    frame: 'phone' | 'browser';
+    alt: string;
+    caption: string;
+};
+
 export type TopicPage = {
+    photo: string;
+    shot: TopicShot;
     label: string;
     h1: string;
     lede: string;

@@ -15,6 +15,8 @@ $couture = Chf::price('plans.couture');
 
 return [
     'hochzeitswebsite-erstellen' => [
+        'photo' => 'sparklers',
+        'shot' => ['src' => '/images/topics/look.webp', 'width' => 1182, 'height' => 884, 'frame' => 'browser', 'alt' => 'Der Look-Schritt in Hereby: drei Vorlagen zur Auswahl', 'caption' => 'Eckdaten: Look wählen, mit drei gestalteten Vorlagen'],
         'label' => 'Hochzeitswebsite erstellen',
         'title' => 'Hochzeitswebsite erstellen – in 10 Minuten, ohne Baukasten',
         'description' => 'Eure Hochzeitswebsite in der Schweiz erstellen: sieben kurze Fragen, drei gestaltete Looks, ein persönlicher Link pro Haushalt. Kostenlos einrichten.',
@@ -56,6 +58,8 @@ return [
     ],
 
     'hochzeitseinladung-online' => [
+        'photo' => 'veilKiss',
+        'shot' => ['src' => '/images/topics/invite-de.webp', 'width' => 780, 'height' => 1560, 'frame' => 'phone', 'alt' => 'Persönliche Hochzeitseinladung auf dem Handy, mit Foto, Namen und Datum', 'caption' => 'Die Einladung von Familie Meier, so wie sie sie auf dem Handy öffnet'],
         'label' => 'Hochzeitseinladung online',
         'title' => 'Hochzeitseinladung online verschicken – pro Haushalt',
         'description' => 'Die Hochzeitseinladung online verschicken, per WhatsApp oder Mail: jeder Haushalt bekommt seinen eigenen Link, mit seinen Namen und Anlässen.',
@@ -93,6 +97,8 @@ return [
     ],
 
     'hochzeit-rsvp-online' => [
+        'photo' => 'bouquet',
+        'shot' => ['src' => '/images/topics/reply-de.webp', 'width' => 780, 'height' => 1560, 'frame' => 'phone', 'alt' => 'Online-RSVP auf dem Handy: Zusage pro Person für die Ziviltrauung', 'caption' => 'Zusagen pro Person und Anlass, mit einem Tipp'],
         'label' => 'Online-RSVP',
         'title' => 'Hochzeit RSVP online – Zu- und Absagen in 60 Sekunden',
         'description' => 'Online-RSVP für eure Hochzeit: Gäste sagen in unter einer Minute zu, wählen ihr Menü und nennen Allergien. Ihr seht jede Antwort sofort, mit Erinnerungen.',
@@ -127,6 +133,8 @@ return [
     ],
 
     'gaesteliste-hochzeit' => [
+        'photo' => 'tableCandles',
+        'shot' => ['src' => '/images/topics/guests.webp', 'width' => 1182, 'height' => 884, 'frame' => 'browser', 'alt' => 'Gästeliste in Hereby mit Haushalten, Status und Sprache', 'caption' => 'Die Gästeliste: wer geöffnet und wer geantwortet hat, in welcher Sprache'],
         'label' => 'Gästeliste Hochzeit',
         'title' => 'Gästeliste für die Hochzeit online verwalten',
         'description' => 'Eure Gästeliste für die Hochzeit an einem Ort: aus Excel oder Kontakten importieren, Zusagen, Menüs und Allergien im Blick, Zahlen für Küche und Location.',
@@ -161,6 +169,8 @@ return [
     ],
 
     'hochzeitshomepage-passwort' => [
+        'photo' => 'heroVeil',
+        'shot' => ['src' => '/images/topics/invite-de.webp', 'width' => 780, 'height' => 1560, 'frame' => 'phone', 'alt' => 'Hochzeitseinladung ohne Passwort, direkt über einen privaten Link geöffnet', 'caption' => 'Ein privater Link öffnet direkt die eigene Einladung, ohne Passwort'],
         'label' => 'Hochzeitshomepage mit Passwort?',
         'title' => 'Hochzeitshomepage mit Passwort? Private Links sind besser',
         'description' => 'Eure Hochzeitshomepage schützen, ohne Passwort: Jeder Haushalt bekommt einen privaten Link. Sicher vor Suchmaschinen und Fremden, einfach für Grosseltern.',
@@ -192,6 +202,8 @@ return [
     ],
 
     'mehrsprachige-hochzeitswebsite' => [
+        'photo' => 'lakeJetty',
+        'shot' => ['src' => '/images/topics/invite-it-programme.webp', 'width' => 780, 'height' => 1560, 'frame' => 'phone', 'alt' => 'Hochzeitseinladung auf Italienisch mit Begrüssung und Tagesablauf', 'caption' => 'Dieselbe Hochzeit auf Italienisch, für die Familie aus dem Tessin'],
         'label' => 'Mehrsprachige Hochzeit',
         'title' => 'Mehrsprachige Hochzeitswebsite in vier Sprachen',
         'description' => 'Eine Hochzeitswebsite in vier Sprachen: Deutsch, Französisch, Italienisch und Englisch, pro Haushalt gewählt. Für Hochzeiten über den Röstigraben hinaus.',
@@ -226,6 +238,8 @@ return [
     ],
 
     'preise' => [
+        'photo' => 'tableCandles',
+        'shot' => ['src' => '/images/topics/dashboard.webp', 'width' => 1182, 'height' => 884, 'frame' => 'browser', 'alt' => 'Übersicht in Hereby mit Countdown und Zahlen zu den Antworten', 'caption' => 'Eure Übersicht: Tage bis zum Fest, Haushalte, Zusagen'],
         'label' => 'Preise',
         'title' => "Preise – Hochzeitswebsite ab {$signature}, einmalig",
         'description' => "Was eine Hochzeitswebsite bei Hereby kostet: kostenlos einrichten, einmalig bezahlen ab {$signature}. Kein Abo, keine Werbung, keine Gebühr pro Gast.",
@@ -260,6 +274,8 @@ return [
     ],
 
     'fuer-locations' => [
+        'photo' => 'lakeJetty',
+        'shot' => ['src' => '/images/topics/kitchen.webp', 'width' => 1182, 'height' => 884, 'frame' => 'browser', 'alt' => 'Küche und Service in Hereby: Gästezahlen pro Anlass für die Location', 'caption' => 'Küche & Service: wer zu welchem Teil kommt, Menüs und Allergien'],
         'label' => 'Für Hochzeitslocations',
         'title' => 'Für Hochzeitslocations – Gästezahlen ohne Nachfragen',
         'description' => 'Hereby für Hochzeitslocations, Fotografen und Planer in der Schweiz: aktuelle Gästezahlen, Menüs und Allergien pro Tisch, ohne Listen per Mail.',

@@ -373,6 +373,7 @@ export const topics = {
     examples: 'Beispiele ansehen',
     faq: 'Häufige Fragen',
     related: 'Weiterlesen',
+    demo: 'Beispiel mit Demo-Daten',
     closing:
         'Probiert es aus: Einrichten ist kostenlos, bezahlt wird erst beim Verschicken.',
     links: [

@@ -11,6 +11,16 @@ use Illuminate\Support\Str;
  */
 class PageMeta
 {
+    /** A topic page shares its hero photo (public/images/landing). */
+    private const PHOTOS = [
+        'heroVeil' => ['hero-veil-1440.webp', 1440, 810],
+        'veilKiss' => ['veil-kiss.webp', 1000, 1250],
+        'lakeJetty' => ['lake-jetty-1200.webp', 1200, 900],
+        'tableCandles' => ['table-candles.webp', 1000, 1250],
+        'bouquet' => ['bouquet.webp', 1000, 1250],
+        'sparklers' => ['sparklers-1440.webp', 1440, 810],
+    ];
+
     private const LEGAL = [
         'legal/Privacy' => [
             'title' => 'Datenschutzerklärung',
@@ -40,6 +50,12 @@ class PageMeta
             'image_height' => 630,
             'type' => 'website',
         ];
+
+        $photo = self::PHOTOS[$props['page']['photo'] ?? ''] ?? null;
+
+        if ($component === 'topics/Show' && $photo) {
+            $default = [...$default, 'image' => asset("images/landing/{$photo[0]}"), 'image_width' => $photo[1], 'image_height' => $photo[2]];
+        }
 
         if (in_array($component, ['Welcome', 'topics/Show'], true) && is_array($props['seo'] ?? null)) {
             return [...$default, 'title' => (string) $props['seo']['title'], 'description' => (string) $props['seo']['description']];

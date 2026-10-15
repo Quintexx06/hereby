@@ -19,3 +19,9 @@ the site footer. Source data: `resources/js/content/landing-photos.ts`.
 These are stock photos of real people: never caption them with customer names
 or imply they are Hereby customers. Replace them with commissioned photography
 or a real couple's images (with consent) when available.
+
+## Topic page screenshots
+
+`public/images/topics/*.webp` are screenshots of Hereby itself with the
+seeded demo wedding (fictional names), captioned «Beispiel mit Demo-Daten».
+The demo couple photo in them is `veil-kiss.webp` (Nathan Dumlao, above).
