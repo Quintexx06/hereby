@@ -97,6 +97,8 @@ class AccessControlTest extends TestCase
             'couplePhoto' => WeddingPhoto::factory()->for($wedding)->create()->id,
             'size' => 'original',
             'partner' => Partner::factory()->create()->id,
+            'brief' => ($brief = $wedding->designBrief()->create())->id,
+            'briefPhoto' => tap($brief->photos()->make()->forceFill(['path' => 'none.jpg']))->save()->id,
         ];
         $values = $this->parameters[$wedding->id];
 

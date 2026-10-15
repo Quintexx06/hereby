@@ -13,6 +13,7 @@ use App\Models\Guest;
 use App\Models\Household;
 use App\Models\Partner;
 use App\Models\Wedding;
+use App\Support\TourPreviewPhoto;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Carbon;
 
@@ -55,7 +56,7 @@ class BuildTourPreview
             ->all());
 
         $wedding->setRelation('events', $events);
-        $wedding->setRelation('couplePhotos', new Collection);
+        $wedding->setRelation('couplePhotos', new Collection($venue->photos->map(TourPreviewPhoto::from(...))->all()));
         $wedding->setRelation('partners', new Collection([$venue]));
         $wedding->setRelation('contentBlocks', $this->blocks($venue));
 

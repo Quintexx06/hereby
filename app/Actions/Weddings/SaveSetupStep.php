@@ -36,6 +36,8 @@ class SaveSetupStep
                 'template' => $data['template'],
                 'look_styles' => $data['look_styles'] ?? [],
                 'look_wishes' => $data['look_wishes'] ?? null,
+                'accent_color' => isset($data['accent_color']) ? strtolower($data['accent_color']) : null,
+                'hidden_sections' => array_values($data['hidden_sections'] ?? []),
             ]),
             SetupStep::Review => null,
         };

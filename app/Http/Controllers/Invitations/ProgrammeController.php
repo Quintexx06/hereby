@@ -24,6 +24,7 @@ class ProgrammeController extends Controller
             'wedding' => [
                 'coupleNames' => $household->wedding->couple_names,
                 'theme' => $household->wedding->theme,
+                'accentColor' => $household->wedding->accent_color,
             ],
             'contact' => $household->name,
             'sent' => (bool) session('offered'),

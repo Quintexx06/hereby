@@ -7,6 +7,7 @@ import type {
     EventType,
     Locale,
     LookStyle,
+    SiteSection,
     WeddingTemplate,
     WeddingTheme,
 } from '@/types/wedding';
@@ -238,4 +239,21 @@ export const review = {
     styles: 'Stil',
     wishes: 'Eure Idee',
     open: 'Noch offen',
+};
+
+/** Look › «Feinschliff»: more freedom inside the three templates. */
+export const finish = {
+    title: 'Feinschliff',
+    hint: 'Eure eigene Farbe statt der Farbwelt, und welche Teile eure Seite zeigt. Alles, was Gäste zum Antworten brauchen, bleibt immer.',
+    colour: 'Eigene Farbe',
+    colourOff: 'Aus: die Farbwelt oben gilt.',
+    colourOn: 'An: wir stimmen sie so ab, dass sie überall gut lesbar bleibt.',
+    colourReset: 'Zurück zur Farbwelt',
+    show: 'Zeigen',
+    sections: {
+        opening: 'Eröffnung mit Vorhang beim ersten Besuch',
+        calendar: '«Haltet euch den Tag frei» mit Kalender-Links',
+        ornaments: 'Ornamente zwischen den Abschnitten',
+        closing: 'Grosser Aufruf zum Antworten am Schluss',
+    } satisfies Record<SiteSection, string>,
 };

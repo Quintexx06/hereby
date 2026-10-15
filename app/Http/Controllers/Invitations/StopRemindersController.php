@@ -24,6 +24,7 @@ class StopRemindersController extends Controller
 
         return Inertia::render('invitation/RemindersStopped', [
             'theme' => $household->wedding->theme,
+            'accentColor' => $household->wedding->accent_color,
             'couple' => $household->wedding->couple_names,
             'link' => PersonalLink::to($household),
         ]);

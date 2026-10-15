@@ -3,6 +3,7 @@ import type {
     EventType,
     Locale,
     LookStyle,
+    SiteSection,
     WeddingTemplate,
     WeddingTheme,
 } from '@/types/wedding';
@@ -59,6 +60,8 @@ export type WeddingSetup = {
     template: WeddingTemplate;
     look_styles: LookStyle[];
     look_wishes: string | null;
+    accent_color: string | null;
+    hidden_sections: SiteSection[];
     events: ProgrammeRow[];
 };
 

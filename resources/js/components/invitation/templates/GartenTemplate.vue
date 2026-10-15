@@ -11,13 +11,17 @@ import InvitationOrnament from '@/components/invitation/InvitationOrnament.vue';
 import GartenHero from '@/components/invitation/templates/GartenHero.vue';
 import { useGuestMotion } from '@/composables/motion/useGuestMotion';
 import { gartenMotion } from '@/lib/guest-motion/garten';
-import type { Invitation } from '@/types';
+import type { Invitation, SiteSection } from '@/types';
 
-defineProps<{
+const props = defineProps<{
     invitation: Invitation;
     replied: boolean;
     place: string | null;
 }>();
+
+/* Built-in parts the couple left out (Look › Feinschliff). */
+const shows = (section: SiteSection): boolean =>
+    !props.invitation.wedding.hiddenSections.includes(section);
 
 const root = ref<HTMLElement | null>(null);
 useGuestMotion(root, (kit) => {
@@ -32,13 +36,13 @@ useGuestMotion(root, (kit) => {
     <main ref="root" class="invitation-page" data-template="garten">
         <GartenHero :wedding="invitation.wedding" :place="place" />
         <InvitationLetter :invitation="invitation" :replied="replied" />
-        <InvitationOrnament />
+        <InvitationOrnament v-if="shows('ornaments')" />
         <InvitationEvents :events="invitation.events" />
         <InvitationEvening :evening="invitation.evening" />
-        <InvitationCalendar :invitation="invitation" />
-        <InvitationOrnament />
+        <InvitationCalendar v-if="shows('calendar')" :invitation="invitation" />
+        <InvitationOrnament v-if="shows('ornaments')" />
         <InvitationBlocks :blocks="invitation.blocks" story="arches" />
-        <InvitationClosing :invitation="invitation" />
+        <InvitationClosing v-if="shows('closing')" :invitation="invitation" />
         <InvitationFooter :wedding="invitation.wedding" />
     </main>
 </template>

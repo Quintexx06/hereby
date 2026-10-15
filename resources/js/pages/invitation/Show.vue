@@ -66,13 +66,18 @@ const canReply = computed(
     (layout and motion), the opening veil, and the reply bar on phones.
 -->
 <template>
-    <WeddingThemeScope :theme="invitation.wedding.theme" :lang="localeTag()">
+    <WeddingThemeScope
+        :theme="invitation.wedding.theme"
+        :accent="invitation.wedding.accentColor"
+        :lang="localeTag()"
+    >
         <Head :title="invitation.wedding.coupleNames" />
         <PreviewBanner
             v-if="preview && !embedded"
             :languages="previewLanguages ?? []"
         />
         <InvitationOpening
+            v-if="!invitation.wedding.hiddenSections.includes('opening')"
             :couple="invitation.wedding.coupleNames"
             :date="formatDate(invitation.wedding.date, localeTag())"
         />

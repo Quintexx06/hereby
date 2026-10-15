@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Partners;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Partners\UpdatePartnerProfileRequest;
 use App\Models\Partner;
+use App\Models\PartnerPhoto;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -23,6 +24,7 @@ class ProfileController extends Controller
 
         return Inertia::render('partner/Profile', [
             'isVenue' => $partner->isVenue(),
+            'photos' => $partner->isVenue() ? $partner->photos->map(fn (PartnerPhoto $photo): array => ['id' => $photo->id, 'url' => $photo->url()])->all() : [],
             'profile' => $partner->only(['name', 'email', 'phone', 'website', 'address', 'postcode', 'town', 'capacity', 'about', 'travel', 'stay']),
         ]);
     }

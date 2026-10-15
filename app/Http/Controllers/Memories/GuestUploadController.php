@@ -24,6 +24,7 @@ class GuestUploadController extends Controller
             'wedding' => [
                 'coupleNames' => $wedding->couple_names,
                 'theme' => $wedding->theme,
+                'accentColor' => $wedding->accent_color,
             ],
             'uploadUrl' => route('invitation.memories.store', $wedding),
         ]);

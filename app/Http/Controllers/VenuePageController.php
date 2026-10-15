@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\VenueEnquiryReceived;
 use App\Models\Partner;
+use App\Models\PartnerPhoto;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -31,6 +32,7 @@ class VenuePageController extends Controller
                 'travel' => $partner->travel,
                 'stay' => $partner->stay,
                 'website' => $partner->website,
+                'photos' => $partner->photos->map(fn (PartnerPhoto $photo): array => ['url' => $photo->url(), 'width' => $photo->width, 'height' => $photo->height])->all(),
             ],
         ]);
     }

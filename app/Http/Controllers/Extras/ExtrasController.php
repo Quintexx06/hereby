@@ -37,7 +37,8 @@ class ExtrasController extends Controller
                 ] : null,
                 'newspaper' => $wedding->hasAddon(Addon::Newspaper),
             ],
-            'addons' => collect(Addon::cases())->map(fn (Addon $addon): array => [
+            // «Massanfertigung» is offered on its own page.
+            'addons' => collect(Addon::cases())->reject(fn (Addon $addon): bool => $addon === Addon::Bespoke)->values()->map(fn (Addon $addon): array => [
                 'key' => $addon->value,
                 'price' => intdiv($addon->price(), 100),
                 'owned' => $wedding->hasAddon($addon),

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import InputError from '@/components/InputError.vue';
+import LookFinish from '@/components/setup/look/LookFinish.vue';
 import LookStyles from '@/components/setup/look/LookStyles.vue';
 import LookTemplates from '@/components/setup/look/LookTemplates.vue';
 import LookThemes from '@/components/setup/look/LookThemes.vue';
@@ -19,6 +20,7 @@ const form = useSetupForm();
     <div class="flex flex-col gap-12">
         <LookTemplates />
         <LookThemes :suggestion="suggestion" />
+        <LookFinish />
         <LookStyles />
 
         <div class="look-section">

@@ -6,7 +6,11 @@ import { useTrans } from '@/composables/useTrans';
 import type { WeddingTheme } from '@/types';
 
 const props = defineProps<{
-    wedding: { coupleNames: string; theme: WeddingTheme };
+    wedding: {
+        coupleNames: string;
+        theme: WeddingTheme;
+        accentColor: string | null;
+    };
     storeUrl: string;
     sent: boolean;
 }>();
@@ -37,7 +41,11 @@ function submit(): void {
     maybe a photo. No account; it goes to the witnesses, not the couple.
 -->
 <template>
-    <WeddingThemeScope :theme="wedding.theme" :lang="localeTag()">
+    <WeddingThemeScope
+        :theme="wedding.theme"
+        :accent="wedding.accentColor"
+        :lang="localeTag()"
+    >
         <Head :title="t('invitation.newspaper.title')" />
         <main class="reply-page">
             <header class="flex flex-col gap-3">

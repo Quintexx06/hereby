@@ -19,6 +19,7 @@ Prices live in `config/hereby.php` (env `HEREBY_PRICE_*`).
 | Hochzeitszeitung | CHF 149 | Friends send stories and photos by link; the witnesses print the newspaper |
 | Wir fassen nach | CHF 190 | The team calls or writes every household still unanswered two weeks before the deadline |
 | Eigene Domain | CHF 49 | Personal links on the couple's own domain, connected by the team |
+| Massanfertigung | CHF 690 (placeholder, to confirm) | The couple sends a brief (wishes, colours, mood, links, inspiration images); the team builds their site. Included in Couture ([spec](../specs/2026-10-15-bespoke-and-design-freedom.md)) |
 | Erinnerungen behalten | CHF 39 / year | Photos and the newspaper kept a year longer; guest data still goes on schedule (ADR 0011). Atelier and up |
 
 ## Venues (yearly)

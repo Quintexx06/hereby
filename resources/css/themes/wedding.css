@@ -71,4 +71,17 @@
         --ring: oklch(0.6 var(--theme-chroma) var(--theme-hue));
         --brand-muted: oklch(0.9 0.04 var(--theme-hue));
     }
+
+    /*
+     * The couple's own colour: its hue and chroma (lib/accent.ts) on the same
+     * ladder, so it keeps AA on porcelain like every theme.
+     */
+    [data-theme][data-custom-accent] {
+        --brand: oklch(0.47 var(--accent-chroma) var(--accent-hue));
+        --primary: var(--brand);
+        --ring: oklch(0.6 var(--accent-chroma) var(--accent-hue));
+        --brand-muted: oklch(
+            0.9 min(var(--accent-chroma), 0.04) var(--accent-hue)
+        );
+    }
 }

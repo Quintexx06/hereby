@@ -22,10 +22,12 @@ class WeddingResource extends JsonResource
             'date' => $this->wedding_date->toDateString(),
             'rsvpDeadline' => $this->rsvp_deadline?->toDateString(),
             'theme' => $this->theme,
+            'accentColor' => $this->accent_color,
+            'hiddenSections' => $this->hidden_sections ?? [],
             'template' => $this->template,
             // The couple's own photos, cover first (spec 2026-10-13-couple-photos).
             'photos' => $this->couplePhotos->map(fn (WeddingPhoto $photo): array => [
-                'url' => route('wedding-photos.show', $photo->token),
+                'url' => $photo->url(),
                 'width' => $photo->width,
                 'height' => $photo->height,
                 'focus' => $photo->focus(),

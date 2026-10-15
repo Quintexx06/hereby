@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\BriefsController;
 use App\Http\Controllers\Admin\ChaseController;
 use App\Http\Controllers\Admin\ConnectDomainController;
 use App\Http\Controllers\Admin\InquiriesController;
@@ -19,6 +20,8 @@ Route::middleware(['auth', 'verified', 'can:admin'])->prefix('admin')->name('adm
     Route::patch('hochzeiten/{wedding}/domain', ConnectDomainController::class)->name('weddings.domain');
     Route::get('anfragen', [InquiriesController::class, 'index'])->name('inquiries.index');
     Route::patch('anfragen/{inquiry}', [InquiriesController::class, 'update'])->name('inquiries.update');
+    Route::get('massanfertigung', [BriefsController::class, 'index'])->name('briefs.index');
+    Route::patch('massanfertigung/{brief}', [BriefsController::class, 'update'])->name('briefs.update');
     Route::get('partner', [PartnersController::class, 'index'])->name('partners.index');
     Route::post('partner', [PartnersController::class, 'store'])->name('partners.store');
     Route::patch('partner/{partner}', [PartnersController::class, 'update'])->name('partners.update');

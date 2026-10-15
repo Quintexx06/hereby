@@ -18,6 +18,7 @@ const props = defineProps<{
         travel: string | null;
         stay: string | null;
         website: string | null;
+        photos: { url: string; width: number; height: number }[];
     };
 }>();
 
@@ -53,6 +54,20 @@ const sections = [
                 </template>
             </p>
         </div>
+    </div>
+
+    <div v-if="venue.photos.length" class="page-container venue-hero pt-12">
+        <img
+            v-for="(photo, index) in venue.photos.slice(0, 3)"
+            :key="photo.url"
+            :src="photo.url"
+            :width="photo.width"
+            :height="photo.height"
+            :alt="index === 0 ? venue.name : ''"
+            :loading="index === 0 ? 'eager' : 'lazy'"
+            class="venue-hero-photo"
+            :class="{ 'venue-hero-lead': index === 0 }"
+        />
     </div>
 
     <div class="page-container venue-page">

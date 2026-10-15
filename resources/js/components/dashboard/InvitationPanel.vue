@@ -66,6 +66,7 @@ const photo: LandingPhoto = landingPhotos.tableCandles;
         <div class="invitation-panel-phone phone-frame" aria-hidden="true">
             <WeddingThemeScope
                 :theme="wedding.theme"
+                :accent="wedding.accent_color"
                 lang="de-CH"
                 :fill="false"
                 class="overflow-hidden rounded-[2.1rem]"

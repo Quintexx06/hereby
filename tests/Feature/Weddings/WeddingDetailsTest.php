@@ -106,4 +106,34 @@ class WeddingDetailsTest extends TestCase
             ->put(route('weddings.details.update', [$wedding, 'paar']), ['partner_one' => 'X', 'partner_two' => 'Y'])
             ->assertForbidden();
     }
+
+    public function test_the_couple_picks_an_own_colour_and_leaves_out_built_in_parts(): void
+    {
+        $wedding = Wedding::factory()->create();
+        $household = Household::factory()->for($wedding)->create();
+
+        $this->actingAs($wedding->owner)
+            ->put(route('weddings.details.update', [$wedding, 'look']), [
+                'theme' => 'ivory',
+                'template' => 'garten',
+                'accent_color' => '#2E7D5B',
+                'hidden_sections' => ['opening', 'ornaments'],
+            ])
+            ->assertSessionHasNoErrors();
+
+        $this->get(route('invitation.show', $household))
+            ->assertInertia(fn (Assert $page) => $page
+                ->where('invitation.wedding.accentColor', '#2e7d5b')
+                ->where('invitation.wedding.hiddenSections', ['opening', 'ornaments'])
+            );
+
+        $this->actingAs($wedding->owner)
+            ->put(route('weddings.details.update', [$wedding, 'look']), [
+                'theme' => 'ivory',
+                'template' => 'garten',
+                'accent_color' => 'grün',
+                'hidden_sections' => ['reply'],
+            ])
+            ->assertSessionHasErrors(['accent_color', 'hidden_sections.0']);
+    }
 }

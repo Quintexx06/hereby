@@ -8,6 +8,7 @@ use App\Enums\GuestEstimate;
 use App\Enums\Locale;
 use App\Enums\LookStyle;
 use App\Enums\SetupStep;
+use App\Enums\SiteSection;
 use App\Enums\WeddingTemplate;
 use App\Enums\WeddingTheme;
 use App\Models\Wedding;
@@ -75,6 +76,9 @@ class UpdateSetupStepRequest extends FormRequest
                 'look_styles' => ['nullable', 'array', 'max:'.LookStyle::MAX],
                 'look_styles.*' => ['distinct', Rule::enum(LookStyle::class)],
                 'look_wishes' => ['nullable', 'string', 'max:2000'],
+                'accent_color' => ['nullable', 'regex:/^#[0-9a-fA-F]{6}$/'],
+                'hidden_sections' => ['nullable', 'array'],
+                'hidden_sections.*' => ['distinct', Rule::enum(SiteSection::class)],
             ],
             SetupStep::Review => [],
         };

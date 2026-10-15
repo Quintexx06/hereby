@@ -12,6 +12,7 @@ export type DashboardWedding = {
     rsvp_deadline: string | null;
     venue: string | null;
     theme: WeddingTheme;
+    accent_color: string | null;
     setup_step: SetupStepKey | null;
     setup_position: number | null;
     setup_total: number;

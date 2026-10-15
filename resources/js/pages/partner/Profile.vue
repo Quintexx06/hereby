@@ -3,13 +3,18 @@ import { Head, useForm } from '@inertiajs/vue3';
 import PageMasthead from '@/components/PageMasthead.vue';
 import InputError from '@/components/InputError.vue';
 import SaveBar from '@/components/SaveBar.vue';
+import VenuePhotos from '@/components/partners/VenuePhotos.vue';
 import { Input } from '@/components/ui/input';
 import { partnerProfile as copy } from '@/content/partners';
 import { update } from '@/routes/partner/profile';
 
 type Profile = Record<keyof typeof copy.fields, string | number | null>;
 
-const props = defineProps<{ isVenue: boolean; profile: Profile }>();
+const props = defineProps<{
+    isVenue: boolean;
+    profile: Profile;
+    photos: { id: number; url: string }[];
+}>();
 
 defineOptions({
     layout: { breadcrumbs: [{ title: 'Profil', href: '' }] },
@@ -34,6 +39,8 @@ const inputType = {
 
     <div class="app-page gap-8">
         <PageMasthead :title="copy.title" :lede="copy.lede" />
+
+        <VenuePhotos v-if="isVenue" :photos="photos" />
 
         <form
             class="flex max-w-3xl flex-col gap-8"

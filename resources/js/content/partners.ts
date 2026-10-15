@@ -113,3 +113,11 @@ export const venuePage = {
     privacy:
         'Eure Angaben gehen nur an diese Location und werden nach 12 Monaten gelöscht.',
 };
+
+export const venuePhotos = {
+    title: 'Fotos',
+    hint: 'Bis zu sechs. Das erste steht oben auf eurer Seite und in jeder Vorschau für Besichtigungen.',
+    add: (room: number) => `Fotos hinzufügen (noch ${room})`,
+    uploading: 'Lädt hoch …',
+    remove: 'Foto löschen',
+};

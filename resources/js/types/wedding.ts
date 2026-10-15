@@ -40,11 +40,16 @@ export type WeddingPhoto = {
     focus: [number, number];
 };
 
+/** Built-in parts of a guest site a couple may leave out (App\\Enums\\SiteSection). */
+export type SiteSection = 'opening' | 'calendar' | 'ornaments' | 'closing';
+
 export type Wedding = {
     coupleNames: string;
     date: string;
     rsvpDeadline: string | null;
     theme: WeddingTheme;
+    accentColor: string | null;
+    hiddenSections: SiteSection[];
     template: WeddingTemplate;
     photos: WeddingPhoto[];
     contact: {

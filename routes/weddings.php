@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AddressSearchController;
+use App\Http\Controllers\Bespoke\BriefController;
+use App\Http\Controllers\Bespoke\BriefPhotoController;
 use App\Http\Controllers\Billing\PublishController;
 use App\Http\Controllers\Content\ContentBlockController;
 use App\Http\Controllers\Content\CouplePhotoController;
@@ -53,6 +55,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
             ->name('weddings.details.edit');
         Route::put('hochzeit/{wedding}/eckdaten/{step}', [WeddingDetailsController::class, 'update'])
             ->name('weddings.details.update');
+
+        Route::get('hochzeit/{wedding}/massanfertigung', [BriefController::class, 'show'])->name('weddings.bespoke.show');
+        Route::put('hochzeit/{wedding}/massanfertigung', [BriefController::class, 'update'])->name('weddings.bespoke.update');
+        Route::post('hochzeit/{wedding}/massanfertigung/senden', [BriefController::class, 'submit'])->name('weddings.bespoke.submit');
+        Route::post('hochzeit/{wedding}/massanfertigung/fotos', [BriefPhotoController::class, 'store'])
+            ->middleware('throttle:photo-uploads')
+            ->name('weddings.bespoke.photos.store');
+        Route::get('hochzeit/{wedding}/massanfertigung/fotos/{briefPhoto}', [BriefPhotoController::class, 'show'])->name('weddings.bespoke.photos.show');
+        Route::delete('hochzeit/{wedding}/massanfertigung/fotos/{briefPhoto}', [BriefPhotoController::class, 'destroy'])->name('weddings.bespoke.photos.destroy');
 
         Route::get('hochzeit/{wedding}/partner', [WeddingPartnersController::class, 'index'])->name('weddings.partners.index');
         Route::post('hochzeit/{wedding}/partner', [WeddingPartnersController::class, 'store'])

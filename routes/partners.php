@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Partners\CalendarController;
 use App\Http\Controllers\Partners\FinalNumbersController;
+use App\Http\Controllers\Partners\PartnerPhotoController;
 use App\Http\Controllers\Partners\PhotoUploadController;
 use App\Http\Controllers\Partners\ProfileController;
 use App\Http\Controllers\Partners\TourPreviewController;
@@ -16,6 +17,10 @@ Route::middleware(['auth', 'verified', EnsureUserIsPartner::class])->prefix('par
     Route::get('/', CalendarController::class)->name('calendar');
     Route::get('profil', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('profil', [ProfileController::class, 'update'])->name('profile.update');
+    Route::post('profil/fotos', [PartnerPhotoController::class, 'store'])
+        ->middleware('throttle:photo-uploads')
+        ->name('profile.photos.store');
+    Route::delete('profil/fotos/{partnerPhoto}', [PartnerPhotoController::class, 'destroy'])->name('profile.photos.destroy');
     Route::get('vorschau', TourPreviewController::class)->name('preview');
     Route::get('hochzeiten/{wedding}/blatt', FinalNumbersController::class)->name('sheet');
     Route::get('hochzeiten/{wedding}/fotos', [PhotoUploadController::class, 'show'])->name('photos.show');
@@ -23,3 +28,7 @@ Route::middleware(['auth', 'verified', EnsureUserIsPartner::class])->prefix('par
         ->middleware('throttle:photo-uploads')
         ->name('photos.store');
 });
+
+Route::get('ortsfoto/{partnerPhoto:token}', [PartnerPhotoController::class, 'show'])
+    ->middleware('throttle:invitations')
+    ->name('partner-photos.show');

@@ -61,6 +61,14 @@ class WeddingPhoto extends Model
         return $this->belongsTo(Wedding::class);
     }
 
+    /**
+     * Where the site loads it from, by token.
+     */
+    public function url(): string
+    {
+        return route('wedding-photos.show', $this->token);
+    }
+
     public static function directoryFor(int $weddingId): string
     {
         return GuestPhoto::directoryFor($weddingId).'/couple';

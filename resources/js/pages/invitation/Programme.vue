@@ -10,7 +10,11 @@ import { useTrans } from '@/composables/useTrans';
 import type { WeddingTheme } from '@/types';
 
 const props = defineProps<{
-    wedding: { coupleNames: string; theme: WeddingTheme };
+    wedding: {
+        coupleNames: string;
+        theme: WeddingTheme;
+        accentColor: string | null;
+    };
     contact: string;
     kinds: string[];
     items: ProgrammeOffer[];
@@ -47,7 +51,11 @@ function submit(): void {
     song for the evening. It goes to the witnesses, never to the couple.
 -->
 <template>
-    <WeddingThemeScope :theme="wedding.theme" :lang="localeTag()">
+    <WeddingThemeScope
+        :theme="wedding.theme"
+        :accent="wedding.accentColor"
+        :lang="localeTag()"
+    >
         <Head :title="t('invitation.programme.title')" />
         <main class="reply-page">
             <Link :href="links.invitation" class="caption inline-flex gap-1.5">

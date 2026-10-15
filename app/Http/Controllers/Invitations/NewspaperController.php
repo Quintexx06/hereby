@@ -21,7 +21,7 @@ class NewspaperController extends Controller
     public function show(Wedding $wedding): Response
     {
         return Inertia::render('invitation/Newspaper', [
-            'wedding' => ['coupleNames' => $wedding->couple_names, 'theme' => $wedding->theme],
+            'wedding' => ['coupleNames' => $wedding->couple_names, 'theme' => $wedding->theme, 'accentColor' => $wedding->accent_color],
             'storeUrl' => route('invitation.newspaper.store', $wedding->newspaperToken()),
             'sent' => (bool) session('contributed'),
         ]);

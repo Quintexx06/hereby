@@ -3,6 +3,7 @@ import {
     CalendarDays,
     CalendarHeart,
     Camera,
+    Gem,
     Handshake,
     Presentation,
     UserRound,
@@ -21,12 +22,14 @@ import {
     UtensilsCrossed,
 } from '@lucide/vue';
 import { dashboard, home } from '@/routes';
+import { index as adminBriefs } from '@/routes/admin/briefs';
 import { index as adminChase } from '@/routes/admin/chase';
 import { index as adminInquiries } from '@/routes/admin/inquiries';
 import { index as adminPartners } from '@/routes/admin/partners';
 import { index as adminWeddings } from '@/routes/admin/weddings';
 import { index as content } from '@/routes/weddings/content';
 import { edit as details } from '@/routes/weddings/details';
+import { show as bespoke } from '@/routes/weddings/bespoke';
 import { show as evening } from '@/routes/weddings/evening';
 import { show as extras } from '@/routes/weddings/extras';
 import { calendar, preview } from '@/routes/partner';
@@ -87,6 +90,11 @@ export function mainNavItems(wedding: SharedWedding | null): NavItem[] {
             icon: Images,
         });
         items.push({
+            title: 'Massanfertigung',
+            href: bespoke(wedding.id),
+            icon: Gem,
+        });
+        items.push({
             title: 'Partner',
             href: weddingPartners(wedding.id),
             icon: Handshake,
@@ -123,6 +131,7 @@ export function adminNavItems(openInquiries: number): NavItem[] {
             badge: openInquiries || undefined,
         },
         { title: 'Nachfassen', href: adminChase(), icon: PhoneCall },
+        { title: 'Massanfertigung', href: adminBriefs(), icon: Gem },
         { title: 'Partner', href: adminPartners(), icon: Building2 },
         { title: 'Website ansehen', href: home(), icon: Globe },
     ];

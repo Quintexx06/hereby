@@ -83,6 +83,16 @@ class Partner extends Model
     }
 
     /**
+     * The venue's own photos, first one on top.
+     *
+     * @return HasMany<PartnerPhoto, $this>
+     */
+    public function photos(): HasMany
+    {
+        return $this->hasMany(PartnerPhoto::class)->orderBy('position');
+    }
+
+    /**
      * @return HasMany<VenueEnquiry, $this>
      */
     public function enquiries(): HasMany

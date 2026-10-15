@@ -94,6 +94,7 @@ Every `code` item, before it is ticked:
 | 1.14 | Legal review of guest data before the first paid wedding (incl. table mates and kept memories, ADR 0011) | human | [ ] | Written sign-off from a Swiss data-protection lawyer |
 | 1.15 | «Der Abend» for Atelier: table mates, way home, group photo call-up, programme sign-ups with the witness link ([spec](../specs/2026-10-13-evening-and-extras-design.md)) | code | [x] | Gated on Atelier, tested; guest strings in all four languages; nothing before the reply |
 | 1.16 | Extras: wedding newspaper, «Wir fassen nach», own domain, keep the memories ([spec](../specs/2026-10-13-evening-and-extras-design.md), [ADR 0011](../decisions/0011-kept-memories.md)) | code | [x] | Bought through Stripe or included in Couture; guest data still deleted on schedule |
+| 1.18 | «Massanfertigung» and more freedom in the three templates: own accent colour, sections to leave out, a brief the team builds from ([spec](../specs/2026-10-15-bespoke-and-design-freedom.md), [ADR 0013](../decisions/0013-own-accent-colour.md)) | code | [x] | Brief sent and tracked by the team; any colour keeps AA; nothing a guest needs to answer can be hidden |
 | 1.17 | «Eckdaten»: names, date, deadline, venue, programme, languages and look editable after setup ([spec](../specs/2026-10-15-wedding-details-design.md)) | code | [x] | Each saves on its own; a moved date moves the programme; editing the programme keeps answers |
 
 **Gate →** 10 sites live, and 85% of guests answer without a manual chase.
@@ -124,7 +125,7 @@ needs an approved spec with its own acceptance criteria before work starts.
 | --- | ---- | ----- | ------ |
 | 3.1 | Self-serve builder with the design studio and design from a mood | code | [ ] |
 | 3.2 | AI: guest concierge, reply by message, story writer, translation, seating draft ([guardrails](../product/vision.md#ai-principles)) | code | [ ] |
-| 3.3 | Preview on the tour, venue film and enquiries (Showcase venues) ([first cut](../specs/2026-10-15-partner-accounts-design.md): tour preview, public page, enquiries, one credit line; venue film and venue photos open) | code | [~] |
+| 3.3 | Preview on the tour, venue film and enquiries (Showcase venues) ([first cut](../specs/2026-10-15-partner-accounts-design.md): tour preview with the venue's photos, public page, enquiries, one credit line; venue film open) | code | [~] |
 | 3.4 | Gifts by TWINT and QR code (no money held) | code | [ ] |
 | 3.5 | Matching print exports and wallet pass | code | [ ] |
 | 3.6 | Door-to-door travel from public transport data | code | [ ] |
@@ -151,6 +152,7 @@ needs an approved spec with its own acceptance criteria before work starts.
 
 | Date       | Change |
 | ---------- | ------ |
+| 2026-10-15 | 1.18 done: couples pick an own accent colour (any hue, kept AA on the theme ladder, ADR 0013) and leave out the opening, the calendar section, ornaments or the closing call (Look › Feinschliff). New product «Massanfertigung» (CHF 690 placeholder, included in Couture): a brief with wishes, colours, mood, links and up to twelve inspiration images; the team's list with status and a note to the couple. Venues upload photos that lead their public page and the tour preview |
 | 2026-10-15 | First cut of partner accounts (2.4, 3.3, 3.7): the team opens venue, photographer and planner accounts on «Partner»; couples connect them with the partner's code on their own «Partner» page and can let them go. Partners get a calendar of connected weddings (counts and menus, no names), venues and planners print the final numbers, photographers upload into the couple's memories, venue profiles fill an empty venue and the travel and rooms blocks. Showcase venues add a tour preview, a public page with tour requests (deleted after 12 months) and the one credit line in the guest footer |
 | 2026-10-15 | Every couple's site ends in a footer: the couple's names, who guests ask (name, mail, phone, set under «Fusszeile» on «Inhalte»), the credit line and a link to the privacy policy on the main domain. Landing studio: the windows stand still, a «Ganze Seite ansehen» pill rises on hover, and a click opens the whole site in a popup that grows from the click |
 | 2026-10-15 | 1.17 done: «Eckdaten» in the sidebar and on the dashboard reopens the setup questions for a live wedding, one tab at a time. Editing the programme updates events in place (answers stay, new parts go to every household), a new date moves the whole programme. Landing studio: each template gets its own body under the hero (magazine, garden with hand-drawn frames, cinema) |

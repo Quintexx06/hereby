@@ -40,6 +40,8 @@ class WeddingSetupResource extends JsonResource
             'languages' => $this->languages?->map(fn (Locale $locale): string => $locale->value)->values() ?? [],
             'default_locale' => $this->default_locale,
             'theme' => $this->theme,
+            'accent_color' => $this->accent_color,
+            'hidden_sections' => $this->hidden_sections ?? [],
             'template' => $this->template,
             'look_styles' => $this->look_styles?->map(fn (LookStyle $style): string => $style->value)->values() ?? [],
             'look_wishes' => $this->look_wishes,

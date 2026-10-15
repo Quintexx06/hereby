@@ -7,7 +7,11 @@ import { useTrans } from '@/composables/useTrans';
 import type { WeddingTheme } from '@/types';
 
 const props = defineProps<{
-    wedding: { coupleNames: string; theme: WeddingTheme };
+    wedding: {
+        coupleNames: string;
+        theme: WeddingTheme;
+        accentColor: string | null;
+    };
     uploadUrl: string;
 }>();
 
@@ -28,7 +32,11 @@ function pick(event: Event): void {
     account, no app, nothing to fill in (product rule 1).
 -->
 <template>
-    <WeddingThemeScope :theme="wedding.theme" :lang="localeTag()">
+    <WeddingThemeScope
+        :theme="wedding.theme"
+        :accent="wedding.accentColor"
+        :lang="localeTag()"
+    >
         <Head :title="t('memories.title', { couple: wedding.coupleNames })" />
         <main class="reply-page">
             <header class="flex flex-col gap-3">

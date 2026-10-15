@@ -58,6 +58,8 @@ return [
         'chase_service' => (int) env('HEREBY_PRICE_CHASE_SERVICE', 19000),
         'custom_domain' => (int) env('HEREBY_PRICE_CUSTOM_DOMAIN', 4900),
         'keep_memories' => (int) env('HEREBY_PRICE_KEEP_MEMORIES', 3900),
+        // The team builds the site to the couple's brief (a starting price; set it in the env).
+        'bespoke' => (int) env('HEREBY_PRICE_BESPOKE', 69000),
     ],
 
     /*
