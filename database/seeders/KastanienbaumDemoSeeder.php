@@ -72,7 +72,7 @@ class KastanienbaumDemoSeeder extends Seeder
         $this->photos($wedding);
 
         $wedding->households()->each(function (Household $household): void {
-            $this->command?->info("{$household->name}: ".route('invitation.show', $household));
+            $this->command->info("{$household->name}: ".route('invitation.show', $household));
         });
     }
 
@@ -105,7 +105,7 @@ class KastanienbaumDemoSeeder extends Seeder
      */
     private function blocks(Wedding $wedding): void
     {
-        $content = require __DIR__.'/data/kastanienbaum.php';
+        $content = $this->content();
         $order = ['story', 'venue', 'dress_code', 'travel', 'stay', 'faq'];
 
         foreach ($order as $position => $type) {
@@ -117,6 +117,16 @@ class KastanienbaumDemoSeeder extends Seeder
                     ->all(),
             ]);
         }
+    }
+
+    /**
+     * Block texts per type and language (data/kastanienbaum.php).
+     *
+     * @return array<string, array<string, array<string, mixed>>>
+     */
+    private function content(): array
+    {
+        return require __DIR__.'/data/kastanienbaum.php';
     }
 
     /**

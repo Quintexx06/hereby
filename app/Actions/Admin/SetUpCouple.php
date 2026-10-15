@@ -45,7 +45,7 @@ class SetUpCouple
         });
 
         $couple = $wedding->owner;
-        $link = route('password.reset', ['token' => Password::broker()->createToken($couple), 'email' => $couple->email]);
+        $link = route('password.reset', ['token' => Password::createToken($couple), 'email' => $couple->email]);
         Mail::to($couple->email)->queue(new CoupleInvitation($wedding->couple_names, $link));
 
         return $wedding;
