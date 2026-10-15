@@ -27,9 +27,29 @@
         @apply relative grid w-full cursor-pointer grid-cols-[4.5rem_minmax(0,1fr)] gap-4 py-4 pl-6 text-muted-foreground transition-colors duration-200 ease-out hover:text-foreground aria-selected:text-foreground;
     }
 
+    /* A soft band behind the picked moment that glides along the line. */
+    .premium-marker {
+        @apply pointer-events-none absolute top-0 -left-px w-[calc(100%+1px)] rounded-r-2xl border-l-2 border-brand bg-gradient-to-r from-brand/15 to-transparent;
+        transition:
+            transform 520ms var(--ease-drawer),
+            height 520ms var(--ease-drawer);
+    }
+
     /* The dot on the line; the picked moment's dot fills and grows. */
     .premium-moment::before {
-        @apply absolute top-[1.45rem] -left-[0.3125rem] size-2.5 rounded-full border border-rule bg-background transition-[scale,background-color,border-color] duration-200 ease-out content-[''];
+        @apply absolute top-[1.45rem] -left-[0.3125rem] size-2.5 rounded-full border border-rule bg-background content-[''];
+        transition:
+            scale 450ms cubic-bezier(0.34, 1.56, 0.64, 1),
+            background-color 250ms ease,
+            border-color 250ms ease;
+    }
+
+    .premium-moment > * {
+        transition: translate 450ms var(--ease-drawer);
+    }
+
+    .premium-moment[aria-selected='true'] > * {
+        translate: 0.375rem 0;
     }
 
     .premium-moment[aria-selected='true']::before {
@@ -63,6 +83,48 @@
 
     .premium-screen {
         @apply relative gap-3 px-5 pt-10;
+    }
+
+    /*
+     * Both screens share one cell while they cross: the new one rises from
+     * the direction of the night (--dir), the old one leaves the other way.
+     */
+    .premium-screens {
+        @apply grid overflow-hidden rounded-[2.1rem];
+    }
+
+    .premium-screens > * {
+        grid-area: 1 / 1;
+    }
+
+    .premium-screen-enter-active {
+        transition:
+            opacity 420ms var(--ease-out),
+            translate 560ms var(--ease-drawer),
+            scale 560ms var(--ease-drawer),
+            filter 420ms var(--ease-out);
+    }
+
+    .premium-screen-leave-active {
+        transition:
+            opacity 300ms var(--ease-out),
+            translate 420ms var(--ease-drawer),
+            scale 420ms var(--ease-drawer),
+            filter 300ms var(--ease-out);
+    }
+
+    .premium-screen-enter-from {
+        opacity: 0;
+        translate: 0 calc(var(--dir, 1) * 2.5rem);
+        scale: 0.97;
+        filter: blur(6px);
+    }
+
+    .premium-screen-leave-to {
+        opacity: 0;
+        translate: 0 calc(var(--dir, 1) * -1.5rem);
+        scale: 0.97;
+        filter: blur(4px);
     }
 
     .premium-screen-title {
@@ -104,11 +166,33 @@
     }
 
     .premium-extra {
-        @apply flex flex-col gap-6 rounded-[1.5rem] border border-rule bg-card/70 p-7 transition-[translate,border-color,background-color] duration-300 ease-out;
+        @apply relative isolate flex flex-col gap-6 overflow-hidden rounded-[1.5rem] border border-rule bg-card/70 p-7;
+        transition:
+            translate 500ms var(--ease-drawer),
+            border-color 300ms ease,
+            background-color 300ms ease,
+            opacity 300ms ease,
+            box-shadow 500ms var(--ease-out);
+    }
+
+    /* A soft light that follows the pointer (--x, --y set on hover). */
+    .premium-extra::before {
+        @apply pointer-events-none absolute inset-0 -z-[1] opacity-0 content-[''];
+        background: radial-gradient(
+            22rem circle at var(--x, 50%) var(--y, 0%),
+            color-mix(in oklch, var(--brand) 22%, transparent),
+            transparent 65%
+        );
+        transition: opacity 400ms ease;
     }
 
     .premium-extra-stage {
-        @apply relative grid size-24 place-items-center rounded-full bg-brand/10 ring-1 ring-brand/20 transition-[translate,rotate,background-color] duration-500 ease-out;
+        @apply relative grid size-24 place-items-center rounded-full bg-brand/10 ring-1 ring-brand/20;
+        transition:
+            translate 600ms cubic-bezier(0.34, 1.4, 0.64, 1),
+            rotate 600ms cubic-bezier(0.34, 1.4, 0.64, 1),
+            scale 600ms cubic-bezier(0.34, 1.4, 0.64, 1),
+            background-color 300ms ease;
     }
 
     /* A slow halo behind the icon once the card has arrived. */
@@ -135,23 +219,69 @@
 
     .premium-extra-tag {
         @apply mt-auto w-fit rounded-full border border-rule px-3 py-1 text-xs font-medium text-muted-foreground;
+        transition:
+            border-color 300ms ease,
+            color 300ms ease,
+            translate 500ms var(--ease-drawer);
     }
 
     .premium-extra-tag[data-couture='true'] {
         @apply border-brand/40 text-brand;
     }
 
-    @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    @media (hover: hover) and (pointer: fine) {
         .premium-extra:hover {
-            @apply -translate-y-1 border-brand/40 bg-card;
+            @apply border-brand/40 bg-card;
+            translate: 0 -0.375rem;
+            box-shadow: 0 30px 60px -30px
+                color-mix(in oklch, var(--brand) 45%, transparent);
+        }
+
+        .premium-extra:hover::before {
+            @apply opacity-100;
+        }
+
+        /* The others step back a little, so the one in hand leads. */
+        .premium-extras:has(.premium-extra:hover) .premium-extra:not(:hover) {
+            @apply opacity-60;
         }
 
         .premium-extra:hover .premium-extra-stage {
-            @apply -translate-y-1 -rotate-6 bg-brand/15;
+            @apply bg-brand/15;
+            translate: 0 -0.25rem;
+            rotate: -6deg;
+            scale: 1.06;
         }
 
         .premium-extra:hover .premium-extra-stage::after {
             @apply opacity-100;
+        }
+
+        .premium-extra:hover .premium-extra-tag {
+            @apply border-brand/40 text-foreground;
+            translate: 0.25rem 0;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .premium-extra:hover,
+        .premium-extra:hover .premium-extra-stage,
+        .premium-extra:hover .premium-extra-tag,
+        .premium-moment[aria-selected='true'] > * {
+            translate: 0 0;
+            rotate: 0deg;
+            scale: 1;
+        }
+
+        .premium-screen-enter-from,
+        .premium-screen-leave-to {
+            translate: 0 0;
+            scale: 1;
+            filter: none;
+        }
+
+        .premium-marker {
+            transition: none;
         }
     }
 }

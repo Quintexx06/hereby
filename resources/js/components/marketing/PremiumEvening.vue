@@ -1,20 +1,73 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import {
+    computed,
+    nextTick,
+    onBeforeUnmount,
+    onMounted,
+    ref,
+    watch,
+} from 'vue';
 import HerebyIcon from '@/components/brand/HerebyIcon.vue';
 import PremiumScreen from '@/components/marketing/PremiumScreen.vue';
 import { premium } from '@/content/landing';
 
 const selected = ref<string>(premium.moments[1].key);
-const active = computed(
-    () =>
-        premium.moments.find((moment) => moment.key === selected.value) ??
-        premium.moments[0],
+const position = computed(() =>
+    Math.max(
+        0,
+        premium.moments.findIndex((moment) => moment.key === selected.value),
+    ),
 );
+const active = computed(() => premium.moments[position.value]);
+
+/* Later in the night slides the new screen up, earlier slides it down. */
+const direction = ref(1);
+watch(position, (now, before) => (direction.value = now > before ? 1 : -1));
+
+/*
+ * A short hover intent, so sweeping across the list does not flick through
+ * every screen; a click or keyboard choice switches at once.
+ */
+let intent: ReturnType<typeof setTimeout> | undefined;
+function hover(key: string): void {
+    clearTimeout(intent);
+    intent = setTimeout(() => (selected.value = key), 70);
+}
+function cancel(): void {
+    clearTimeout(intent);
+}
+function pick(key: string): void {
+    clearTimeout(intent);
+    selected.value = key;
+}
+
+/* The marker glides along the line to the picked moment. */
+const timeline = ref<HTMLElement | null>(null);
+const marker = ref({ y: 0, height: 0 });
+function measure(): void {
+    const button =
+        timeline.value?.querySelectorAll<HTMLElement>('.premium-moment')[
+            position.value
+        ];
+    if (button) {
+        marker.value = { y: button.offsetTop, height: button.offsetHeight };
+    }
+}
+watch(position, () => nextTick(measure));
+onMounted(() => {
+    measure();
+    window.addEventListener('resize', measure);
+});
+onBeforeUnmount(() => {
+    clearTimeout(intent);
+    window.removeEventListener('resize', measure);
+});
 </script>
 
 <!--
     The Atelier package as one night: four moments on a timeline, and the
-    phone shows what guests see at the one picked. Moves only on a tap.
+    phone shows what guests see at the one picked. A marker glides to the
+    moment; the screens cross-fade in the direction of the night.
 -->
 <template>
     <div class="premium-package">
@@ -28,18 +81,29 @@ const active = computed(
             </div>
 
             <ol
+                ref="timeline"
                 class="premium-timeline"
                 role="tablist"
                 :aria-label="premium.package.title"
             >
+                <span
+                    class="premium-marker"
+                    aria-hidden="true"
+                    :style="{
+                        transform: `translateY(${marker.y}px)`,
+                        height: `${marker.height}px`,
+                    }"
+                />
                 <li v-for="moment in premium.moments" :key="moment.key">
                     <button
                         type="button"
                         role="tab"
                         class="premium-moment"
                         :aria-selected="moment.key === selected"
-                        @click="selected = moment.key"
-                        @mouseenter="selected = moment.key"
+                        @click="pick(moment.key)"
+                        @focus="pick(moment.key)"
+                        @mouseenter="hover(moment.key)"
+                        @mouseleave="cancel"
                     >
                         <span class="premium-time">{{ moment.time }}</span>
                         <span class="flex min-w-0 flex-col gap-1 text-left">
@@ -64,9 +128,11 @@ const active = computed(
         <figure class="premium-phone" aria-hidden="true">
             <div class="premium-glow" />
             <div class="phone-frame">
-                <Transition name="preview" mode="out-in">
-                    <PremiumScreen :key="active.key" :moment="active.key" />
-                </Transition>
+                <div class="premium-screens" :style="{ '--dir': direction }">
+                    <Transition name="premium-screen">
+                        <PremiumScreen :key="active.key" :moment="active.key" />
+                    </Transition>
+                </div>
             </div>
             <figcaption class="caption text-center">
                 {{ active.time }} · {{ active.name }}
