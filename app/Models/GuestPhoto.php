@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Storage;
  *
  * @property int $id
  * @property int $wedding_id
+ * @property int|null $partner_id Set when the wedding's photographer uploaded it.
  * @property string $path The original, on the `memories` disk.
  * @property string|null $thumbnail_path A small JPEG for the gallery, once made.
  * @property int $size Bytes of the original.
@@ -34,6 +35,14 @@ class GuestPhoto extends Model
     public function wedding(): BelongsTo
     {
         return $this->belongsTo(Wedding::class);
+    }
+
+    /**
+     * @return BelongsTo<Partner, $this>
+     */
+    public function partner(): BelongsTo
+    {
+        return $this->belongsTo(Partner::class);
     }
 
     /**

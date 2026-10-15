@@ -1,5 +1,11 @@
 import {
+    Building2,
+    CalendarDays,
     CalendarHeart,
+    Camera,
+    Handshake,
+    Presentation,
+    UserRound,
     Globe,
     HeartHandshake,
     Images,
@@ -17,17 +23,21 @@ import {
 import { dashboard, home } from '@/routes';
 import { index as adminChase } from '@/routes/admin/chase';
 import { index as adminInquiries } from '@/routes/admin/inquiries';
+import { index as adminPartners } from '@/routes/admin/partners';
 import { index as adminWeddings } from '@/routes/admin/weddings';
 import { index as content } from '@/routes/weddings/content';
 import { edit as details } from '@/routes/weddings/details';
 import { show as evening } from '@/routes/weddings/evening';
 import { show as extras } from '@/routes/weddings/extras';
+import { calendar, preview } from '@/routes/partner';
+import { edit as partnerProfile } from '@/routes/partner/profile';
+import { index as weddingPartners } from '@/routes/weddings/partners';
 import { index as guests } from '@/routes/weddings/guests';
 import { index as kitchen } from '@/routes/weddings/kitchen';
 import { index as memories } from '@/routes/weddings/memories';
 import { edit as rsvpSettings } from '@/routes/weddings/rsvp-settings';
 import { show as setup } from '@/routes/weddings/setup';
-import type { NavItem, SharedWedding } from '@/types';
+import type { NavItem, SharedPartner, SharedWedding } from '@/types';
 
 /**
  * Single source of truth for app navigation. Sidebar and header layouts
@@ -77,6 +87,11 @@ export function mainNavItems(wedding: SharedWedding | null): NavItem[] {
             icon: Images,
         });
         items.push({
+            title: 'Partner',
+            href: weddingPartners(wedding.id),
+            icon: Handshake,
+        });
+        items.push({
             title: 'Extras',
             href: extras(wedding.id),
             icon: Sparkles,
@@ -108,8 +123,34 @@ export function adminNavItems(openInquiries: number): NavItem[] {
             badge: openInquiries || undefined,
         },
         { title: 'Nachfassen', href: adminChase(), icon: PhoneCall },
+        { title: 'Partner', href: adminPartners(), icon: Building2 },
         { title: 'Website ansehen', href: home(), icon: Globe },
     ];
+}
+
+/**
+ * A venue's, photographer's or planner's own navigation: their weddings,
+ * their profile, and for Showcase venues the tour preview.
+ */
+export function partnerNavItems(partner: SharedPartner): NavItem[] {
+    const items: NavItem[] = [
+        {
+            title: 'Hochzeiten',
+            href: calendar(),
+            icon: partner.type === 'photographer' ? Camera : CalendarDays,
+        },
+        { title: 'Profil', href: partnerProfile(), icon: UserRound },
+    ];
+
+    if (partner.type === 'venue' && partner.is_showcase) {
+        items.push({
+            title: 'Vorschau für Besichtigungen',
+            href: preview(),
+            icon: Presentation,
+        });
+    }
+
+    return items;
 }
 
 export const secondaryNavItems: NavItem[] = [

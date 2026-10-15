@@ -38,6 +38,11 @@ class WeddingResource extends JsonResource
                 'phone' => $this->contact_phone,
             ] : null,
             'privacyUrl' => rtrim((string) config('app.url'), '/').'/datenschutz',
+            // The one venue credit line (rule 3), for a connected Showcase venue only.
+            'venueCredit' => ($venue = $this->showcaseVenue()) ? [
+                'name' => $venue->name,
+                'url' => rtrim((string) config('app.url'), '/').'/orte/'.$venue->slug,
+            ] : null,
         ];
     }
 }

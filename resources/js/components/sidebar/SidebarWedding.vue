@@ -11,6 +11,12 @@ import type { SetupStepKey } from '@/types';
 
 const page = usePage();
 const wedding = computed(() => page.props.currentWedding);
+const partner = computed(() => page.props.partner);
+const partnerTypes = {
+    venue: 'Location',
+    photographer: 'Fotograf:in',
+    planner: 'Planer:in',
+};
 
 const details = computed(() => {
     const current = wedding.value;
@@ -35,7 +41,10 @@ const countdown = computed(() =>
 );
 </script>
 
-<!-- Whose wedding this is: the couple's names, the date and the countdown. -->
+<!--
+    Whose wedding this is: the couple's names, the date and the countdown.
+    For a partner account, the partner's name and what it is.
+-->
 <template>
     <div v-if="wedding" class="app-nav-wide flex-col gap-1 px-3 pt-2 pb-6">
         <p
@@ -61,5 +70,16 @@ const countdown = computed(() =>
                     : sidebarWedding.linksClosed
             }}
         </Link>
+    </div>
+    <div v-else-if="partner" class="app-nav-wide flex-col gap-1 px-3 pt-2 pb-6">
+        <p
+            class="font-display text-2xl leading-tight font-semibold tracking-[-0.03em] text-balance"
+        >
+            {{ partner.name }}
+        </p>
+        <p class="text-sm text-muted-foreground">
+            {{ partnerTypes[partner.type]
+            }}{{ partner.is_showcase ? ' · Showcase' : '' }}
+        </p>
     </div>
 </template>

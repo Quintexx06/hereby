@@ -1,7 +1,11 @@
 import type { Directive } from 'vue';
 import type { Auth } from '@/types/auth';
 import type { Translations } from '@/types/i18n';
-import type { SharedWedding, AccountSummary } from '@/types/navigation';
+import type {
+    AccountSummary,
+    SharedPartner,
+    SharedWedding,
+} from '@/types/navigation';
 
 // Extend ImportMeta interface for Vite...
 declare module 'vite/client' {
@@ -27,6 +31,8 @@ declare module '@inertiajs/core' {
             auth: Auth;
             /** Open landing questions; null unless the user is an admin. */
             adminInbox: number | null;
+            /** A venue, photographer or planner account; null for couples. */
+            partner: SharedPartner | null;
             sidebarOpen: boolean;
             [key: string]: unknown;
         };

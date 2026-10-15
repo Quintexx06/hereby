@@ -7,6 +7,7 @@ use App\Models\ContentBlock;
 use App\Models\GuestPhoto;
 use App\Models\Household;
 use App\Models\Inquiry;
+use App\Models\Partner;
 use App\Models\User;
 use App\Models\Wedding;
 use App\Models\WeddingPhoto;
@@ -95,6 +96,7 @@ class AccessControlTest extends TestCase
             'photo' => GuestPhoto::factory()->for($wedding)->create()->id,
             'couplePhoto' => WeddingPhoto::factory()->for($wedding)->create()->id,
             'size' => 'original',
+            'partner' => Partner::factory()->create()->id,
         ];
         $values = $this->parameters[$wedding->id];
 

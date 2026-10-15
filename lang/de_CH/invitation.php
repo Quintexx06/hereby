@@ -9,6 +9,7 @@ return [
     'dear' => 'Liebe :names',
     'footer_questions' => 'Fragen? Meldet euch bei',
     'footer_privacy' => 'Datenschutz',
+    'footer_venue' => 'Ort des Festes: :venue',
     'letter' => 'Wir heiraten, und es wäre nicht dasselbe ohne euch. Hier findet ihr alles für den Tag, und mit einem Tippen sagt ihr uns, ob ihr dabei seid.',
     'scroll' => 'Weiter',
     'story_heading' => 'Unsere Geschichte',

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\ChaseController;
 use App\Http\Controllers\Admin\ConnectDomainController;
 use App\Http\Controllers\Admin\InquiriesController;
+use App\Http\Controllers\Admin\PartnersController;
 use App\Http\Controllers\Admin\UnlockWeddingController;
 use App\Http\Controllers\Admin\WeddingsController;
 use Illuminate\Support\Facades\Route;
@@ -18,6 +19,9 @@ Route::middleware(['auth', 'verified', 'can:admin'])->prefix('admin')->name('adm
     Route::patch('hochzeiten/{wedding}/domain', ConnectDomainController::class)->name('weddings.domain');
     Route::get('anfragen', [InquiriesController::class, 'index'])->name('inquiries.index');
     Route::patch('anfragen/{inquiry}', [InquiriesController::class, 'update'])->name('inquiries.update');
+    Route::get('partner', [PartnersController::class, 'index'])->name('partners.index');
+    Route::post('partner', [PartnersController::class, 'store'])->name('partners.store');
+    Route::patch('partner/{partner}', [PartnersController::class, 'update'])->name('partners.update');
     Route::get('nachfassen', [ChaseController::class, 'index'])->name('chase.index');
     Route::patch('nachfassen/{household:id}', [ChaseController::class, 'update'])->name('chase.update');
 });

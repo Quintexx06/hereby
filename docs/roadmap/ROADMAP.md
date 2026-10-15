@@ -108,7 +108,7 @@ needs an approved spec with its own acceptance criteria before work starts.
 | 2.1 | Day-of mode: live programme, find my table, announcements (works offline) | code | [ ] |
 | 2.2 | Photo wall with live slideshow, message capsule, one gallery ([proposal](../specs/2026-10-12-paywall-and-memories-design.md)) | code | [ ] |
 | 2.3 | Seating on the real floor plan | code | [ ] |
-| 2.4 | Venue dashboard: profile, wedding calendar, final-numbers and seating handoff | code | [ ] |
+| 2.4 | Venue dashboard: profile, wedding calendar, final-numbers and seating handoff ([first cut](../specs/2026-10-15-partner-accounts-design.md): profile entered once, calendar, final-numbers sheet; seating on the plan and sign-off open) | code | [~] |
 | 2.5 | Broadcast, roles and witness mode | code | [ ] |
 | 2.6 | Change log of guest answers | code | [ ] |
 | 2.7 | French and Italian (native review per language) | code | [ ] |
@@ -124,11 +124,11 @@ needs an approved spec with its own acceptance criteria before work starts.
 | --- | ---- | ----- | ------ |
 | 3.1 | Self-serve builder with the design studio and design from a mood | code | [ ] |
 | 3.2 | AI: guest concierge, reply by message, story writer, translation, seating draft ([guardrails](../product/vision.md#ai-principles)) | code | [ ] |
-| 3.3 | Preview on the tour, venue film and enquiries (Showcase venues) | code | [ ] |
+| 3.3 | Preview on the tour, venue film and enquiries (Showcase venues) ([first cut](../specs/2026-10-15-partner-accounts-design.md): tour preview, public page, enquiries, one credit line; venue film and venue photos open) | code | [~] |
 | 3.4 | Gifts by TWINT and QR code (no money held) | code | [ ] |
 | 3.5 | Matching print exports and wallet pass | code | [ ] |
 | 3.6 | Door-to-door travel from public transport data | code | [ ] |
-| 3.7 | Photographer and planner accounts | code | [ ] |
+| 3.7 | Photographer and planner accounts ([first cut](../specs/2026-10-15-partner-accounts-design.md): photographers upload into the couple's memories, planners see calendar and final numbers; planners editing a site open) | code | [~] |
 | 3.8 | Billing for the couple tiers and venue plans ([spec](../specs/2026-10-12-paywall-and-memories-design.md): build free, pay to send; couple tiers done, venue plans open) | code | [~] |
 
 **Gate →** 100 couples booked for 2028, and 10 paying venues.
@@ -151,6 +151,7 @@ needs an approved spec with its own acceptance criteria before work starts.
 
 | Date       | Change |
 | ---------- | ------ |
+| 2026-10-15 | First cut of partner accounts (2.4, 3.3, 3.7): the team opens venue, photographer and planner accounts on «Partner»; couples connect them with the partner's code on their own «Partner» page and can let them go. Partners get a calendar of connected weddings (counts and menus, no names), venues and planners print the final numbers, photographers upload into the couple's memories, venue profiles fill an empty venue and the travel and rooms blocks. Showcase venues add a tour preview, a public page with tour requests (deleted after 12 months) and the one credit line in the guest footer |
 | 2026-10-15 | Every couple's site ends in a footer: the couple's names, who guests ask (name, mail, phone, set under «Fusszeile» on «Inhalte»), the credit line and a link to the privacy policy on the main domain. Landing studio: the windows stand still, a «Ganze Seite ansehen» pill rises on hover, and a click opens the whole site in a popup that grows from the click |
 | 2026-10-15 | 1.17 done: «Eckdaten» in the sidebar and on the dashboard reopens the setup questions for a live wedding, one tab at a time. Editing the programme updates events in place (answers stay, new parts go to every household), a new date moves the whole programme. Landing studio: each template gets its own body under the hero (magazine, garden with hand-drawn frames, cinema) |
 | 2026-10-14 | The founder accepted the current templates and themes for launch (0.6, 1.7 closed). Impressum and Datenschutz filled in for Martin Brunner, Zürich, and extended to payments, photos, newspaper, phone numbers, table notes, the chase service and kept memories. Plan cards promise only what is built: the photo wall, voice wishes and film came off until they exist (rule 5) |

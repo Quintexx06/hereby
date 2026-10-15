@@ -1,0 +1,66 @@
+/*
+ * Partner accounts (spec 2026-10-15-partner-accounts): the couple's
+ * «Partner», the team's list, a partner's own pages and a venue's public page.
+ */
+@layer components {
+    .partner-row {
+        @apply flex flex-col gap-3 border-t border-rule py-5 sm:flex-row sm:items-center sm:justify-between;
+    }
+
+    .partner-connect {
+        @apply flex max-w-xl flex-col gap-3 sm:flex-row sm:items-start;
+    }
+
+    .partner-connect > button {
+        @apply sm:mt-7;
+    }
+
+    .partner-create,
+    .partner-tour {
+        @apply grid max-w-3xl gap-4 rounded-[1.25rem] border border-rule bg-card p-6 sm:grid-cols-3;
+    }
+
+    .partner-code {
+        @apply font-semibold tracking-wider text-foreground tabular-nums;
+    }
+
+    .partner-code-card {
+        @apply flex flex-col gap-4 rounded-[1.25rem] border border-rule bg-card p-6 sm:flex-row sm:items-center sm:justify-between;
+    }
+
+    .partner-code-value {
+        @apply font-display text-[clamp(2rem,5vw,3rem)] leading-none font-bold tracking-[0.04em] tabular-nums;
+    }
+
+    .partner-wedding {
+        @apply grid gap-3 border-t border-rule py-6 sm:grid-cols-[10rem_minmax(0,1fr)_auto] sm:items-start sm:gap-6;
+    }
+
+    .partner-wedding-date {
+        @apply font-display text-lg font-semibold tracking-[-0.02em];
+    }
+
+    .partner-events {
+        @apply flex flex-col gap-1 text-sm;
+    }
+
+    .partner-fields {
+        @apply grid gap-4 sm:grid-cols-2;
+    }
+
+    .partner-upload {
+        @apply inline-flex h-14 cursor-pointer items-center gap-2 self-start rounded-full bg-primary px-7 font-semibold text-primary-foreground transition-transform duration-150 ease-out focus-within:ring-2 focus-within:ring-ring active:scale-[0.97];
+    }
+
+    .partner-upload[data-busy='true'] {
+        @apply pointer-events-none opacity-40;
+    }
+
+    .venue-page {
+        @apply grid gap-12 py-16 lg:grid-cols-[minmax(0,1fr)_24rem] lg:gap-20;
+    }
+
+    .venue-enquiry {
+        @apply flex flex-col gap-4 self-start rounded-[1.25rem] border border-rule bg-card p-6 lg:sticky lg:top-24;
+    }
+}

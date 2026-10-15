@@ -24,7 +24,9 @@ void createInertiaApp({
     title: (title) => (title ? `${title} - ${appName}` : appName),
     layout: (name) => {
         switch (true) {
-            case name === 'Welcome' || name.startsWith('legal/'):
+            case name === 'Welcome' ||
+                name.startsWith('legal/') ||
+                name.startsWith('venues/'):
                 return MarketingLayout;
             case name.startsWith('invitation/') ||
                 name.startsWith('setup/') ||

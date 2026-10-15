@@ -40,3 +40,10 @@ export type AccountSummary = {
     two_factor: boolean;
     passkeys: number;
 };
+
+/** The signed-in venue, photographer or planner (HandleInertiaRequests). */
+export type SharedPartner = {
+    name: string;
+    type: 'venue' | 'photographer' | 'planner';
+    is_showcase: boolean;
+};

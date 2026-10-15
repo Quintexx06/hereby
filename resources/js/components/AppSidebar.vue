@@ -9,12 +9,17 @@ import SidebarWedding from '@/components/sidebar/SidebarWedding.vue';
 import {
     adminNavItems,
     mainNavItems,
+    partnerNavItems,
     secondaryNavItems,
 } from '@/config/navigation';
 import { dashboard } from '@/routes';
 
 const page = usePage();
-const navItems = computed(() => mainNavItems(page.props.currentWedding));
+const navItems = computed(() =>
+    page.props.partner
+        ? partnerNavItems(page.props.partner)
+        : mainNavItems(page.props.currentWedding),
+);
 const teamItems = computed(() =>
     page.props.adminInbox === null ? [] : adminNavItems(page.props.adminInbox),
 );

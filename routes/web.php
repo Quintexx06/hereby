@@ -3,6 +3,7 @@
 use App\Http\Controllers\Billing\StripeWebhookController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\StoreInquiryController;
+use App\Http\Controllers\VenuePageController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Middleware\UseSwissGerman;
 use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
@@ -17,6 +18,10 @@ Route::post('fragen', StoreInquiryController::class)->middleware('throttle:inqui
 Route::middleware(UseSwissGerman::class)->group(function () {
     Route::inertia('datenschutz', 'legal/Privacy')->name('legal.privacy');
     Route::inertia('impressum', 'legal/Imprint')->name('legal.imprint');
+    Route::get('orte/{partner:slug}', [VenuePageController::class, 'show'])->name('venues.show');
+    Route::post('orte/{partner:slug}/anfrage', [VenuePageController::class, 'store'])
+        ->middleware('throttle:inquiries')
+        ->name('venues.enquiry');
 });
 
 /*
@@ -31,6 +36,7 @@ Route::middleware(UseSwissGerman::class)->group(function () {
     require __DIR__.'/settings.php';
     require __DIR__.'/weddings.php';
     require __DIR__.'/admin.php';
+    require __DIR__.'/partners.php';
 });
 
 require __DIR__.'/invitations.php';

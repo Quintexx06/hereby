@@ -53,6 +53,7 @@ export type Wedding = {
         phone: string | null;
     } | null;
     privacyUrl: string;
+    venueCredit: { name: string; url: string } | null;
 };
 
 export type WeddingEvent = {

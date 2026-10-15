@@ -9,6 +9,7 @@ return [
     'dear' => 'Cari :names',
     'footer_questions' => 'Domande? Scrivete a',
     'footer_privacy' => 'Privacy',
+    'footer_venue' => 'Luogo della festa: :venue',
     'letter' => 'Ci sposiamo, e non sarebbe lo stesso senza di voi. Qui trovate tutto per il grande giorno, e con un tocco ci dite se ci sarete.',
     'scroll' => 'Continua',
     'story_heading' => 'La nostra storia',

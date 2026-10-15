@@ -44,7 +44,7 @@ class HandleInertiaRequests extends Middleware
             'locale' => fn (): string => app()->getLocale(),
             // Guest-facing strings (ADR 0006), only where guest pages render: the
             // couple's own pages are German copy in Vue and never need them.
-            'translations' => fn (): array => $request->routeIs('invitation.*', 'weddings.preview', 'weddings.guests.preview')
+            'translations' => fn (): array => $request->routeIs('invitation.*', 'weddings.preview', 'weddings.guests.preview', 'partner.preview')
                 ? FrontendTranslations::forCurrentLocale()
                 : [],
             'auth' => [
@@ -60,6 +60,12 @@ class HandleInertiaRequests extends Middleware
             'adminInbox' => fn (): ?int => $request->user()?->is_admin
                 ? Inquiry::query()->whereNull('answered_at')->count()
                 : null,
+            // A venue's, photographer's or planner's account, for their own navigation.
+            'partner' => fn (): ?array => ($partner = $request->user()?->partner) ? [
+                'name' => $partner->name,
+                'type' => $partner->type->value,
+                'is_showcase' => $partner->is_showcase,
+            ] : null,
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
         ];
     }

@@ -7,6 +7,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -21,6 +22,8 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
  * @property string $email
  * @property Carbon|null $email_verified_at
  * @property bool $is_admin The Hereby team; never mass-assignable (hereby:make-admin).
+ * @property int|null $partner_id A venue, photographer or planner account; set by the team only.
+ * @property-read Partner|null $partner
  * @property string $password
  * @property string|null $two_factor_secret
  * @property string|null $two_factor_recovery_codes
@@ -39,7 +42,7 @@ class User extends Authenticatable implements MustVerifyEmail, PasskeyUser
     /**
      * @var array<string, mixed>
      */
-    protected $attributes = ['is_admin' => false];
+    protected $attributes = ['is_admin' => false, 'partner_id' => null];
 
     /**
      * The weddings this couple owns, newest first.
@@ -75,5 +78,15 @@ class User extends Authenticatable implements MustVerifyEmail, PasskeyUser
             'password' => 'hashed',
             'two_factor_confirmed_at' => 'datetime',
         ];
+    }
+
+    /**
+     * The venue, photographer or planner this account signs in for.
+     *
+     * @return BelongsTo<Partner, $this>
+     */
+    public function partner(): BelongsTo
+    {
+        return $this->belongsTo(Partner::class);
     }
 }

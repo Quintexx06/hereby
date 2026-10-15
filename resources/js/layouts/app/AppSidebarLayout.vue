@@ -19,13 +19,15 @@ withDefaults(defineProps<Props>(), {
 
 /*
  * The sidebar only earns its place once there is something to manage: an
- * active wedding, or the team's area. Before that the page stays focused.
+ * active wedding, the team's area, or a partner's weddings. Before that the
+ * page stays focused.
  */
 const page = usePage();
 const hasSidebar = computed(
     () =>
         page.props.currentWedding?.status === 'active' ||
-        page.props.adminInbox !== null,
+        page.props.adminInbox !== null ||
+        page.props.partner !== null,
 );
 const { expanded, drawer, close } = provideAppNav(page.props.sidebarOpen);
 
