@@ -27,8 +27,12 @@
         <meta name="theme-color" content="#faf3f2" media="(prefers-color-scheme: light)">
         <meta name="theme-color" content="#100b0b" media="(prefers-color-scheme: dark)">
 
-        @if (in_array($page['component'] ?? null, ['Welcome', 'topics/Show'], true))
-            @include('partials.landing-seo', ['seo' => $page['props']['seo'], 'faq' => $page['props']['faq']])
+        {{-- Public pages carry full SEO; everything else (app, sign-in) stays out of search. --}}
+        @php($meta = \App\Support\Seo\PageMeta::for($page))
+        @if ($meta)
+            @include('partials.seo', ['meta' => $meta, 'page' => $page])
+        @else
+            <meta name="robots" content="noindex, nofollow">
         @endif
 
         {{--
@@ -56,7 +60,7 @@
             ])
         @endunless
         <x-inertia::head>
-            <title>{{ isset($page['props']['seo']['title']) ? $page['props']['seo']['title'].' - '.config('app.name') : config('app.name', 'Laravel') }}</title>
+            <title>{{ $meta ? $meta['title'].' - '.config('app.name') : config('app.name', 'Laravel') }}</title>
         </x-inertia::head>
     </head>
     <body>

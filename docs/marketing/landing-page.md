@@ -144,3 +144,23 @@ The landing copy was rewritten at the same time to match the product as it
 ships: self-serve setup in ten minutes (not «20 Min. Gespräch, 48 Std.»),
 prices from config (not «ab CHF 390»), and the keywords RSVP, Gästeliste
 and WhatsApp where users look for them.
+
+## 9. Structured data and technical SEO (2026-10-15)
+
+Every public page (landing, topic pages, legal, Showcase venues) renders its
+meta tags and one connected schema.org graph on the server
+(`App\Support\Seo\PageMeta`, `StructuredData`, `partials/seo.blade.php`):
+
+| Node | Where |
+| --- | --- |
+| Organization (logo, contact, area served CH, languages) | every public page |
+| WebSite, WebPage (or AboutPage for the imprint) | every public page |
+| BreadcrumbList | every page but the landing |
+| FAQPage | landing and topic pages, from the same array the page renders |
+| SoftwareApplication with AggregateOffer in CHF (prices from config) | landing and /preise |
+| EventVenue with PostalAddress, capacity and photos | /orte/{slug} |
+
+Plus canonical, hreflang de-CH and x-default, Open Graph and Twitter tags
+(a venue shares its own first photo), `max-image-preview:large`, and
+`noindex, nofollow` on every non-public page. Titles stay within 60
+characters and descriptions within 160 (tested).

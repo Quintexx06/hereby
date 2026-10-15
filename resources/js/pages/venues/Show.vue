@@ -14,6 +14,8 @@ const props = defineProps<{
         name: string;
         town: string | null;
         address: string | null;
+        postcode: string | null;
+        locality: string | null;
         capacity: number | null;
         about: string | null;
         travel: string | null;
@@ -43,7 +45,13 @@ const sections = [
     site. The venue in its own words, and an opt-in request for a tour.
 -->
 <template>
-    <Head :title="venue.name" />
+    <Head
+        :title="
+            venue.locality
+                ? `${venue.name} – Hochzeitslocation in ${venue.locality}`
+                : `${venue.name} – Hochzeitslocation`
+        "
+    />
     <div class="legal-band stage">
         <SiteHeader />
         <div class="page-container relative pt-36 pb-16 sm:pt-44">

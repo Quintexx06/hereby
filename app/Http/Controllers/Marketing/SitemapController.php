@@ -16,8 +16,12 @@ class SitemapController extends Controller
     public function __invoke(): Response
     {
         $urls = [
-            ['loc' => route('home'), 'priority' => '1.0'],
-            ...array_map(fn (string $slug): array => ['loc' => route('topics.show', $slug), 'priority' => '0.8'], TopicPageController::slugs()),
+            ['loc' => route('home'), 'priority' => '1.0', 'lastmod' => self::modified('landing.php')],
+            ...array_map(fn (string $slug): array => [
+                'loc' => route('topics.show', $slug),
+                'priority' => '0.8',
+                'lastmod' => self::modified('pages.php'),
+            ], TopicPageController::slugs()),
             ...Partner::query()->where('is_showcase', true)->get(['slug', 'updated_at'])->map(fn (Partner $venue): array => [
                 'loc' => route('venues.show', $venue->slug),
                 'priority' => '0.5',
@@ -28,6 +32,16 @@ class SitemapController extends Controller
         ];
 
         return response()->view('sitemap', ['urls' => $urls])->header('Content-Type', 'application/xml; charset=UTF-8');
+    }
+
+    /**
+     * When a page's copy last changed, from its language file.
+     */
+    private static function modified(string $file): ?string
+    {
+        $time = @filemtime(lang_path("de_CH/{$file}"));
+
+        return $time ? date('Y-m-d', $time) : null;
     }
 
     /**

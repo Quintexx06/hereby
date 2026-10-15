@@ -27,6 +27,8 @@ class VenuePageController extends Controller
                 'name' => $partner->name,
                 'town' => trim("{$partner->postcode} {$partner->town}") ?: null,
                 'address' => $partner->address,
+                'postcode' => $partner->postcode,
+                'locality' => $partner->town,
                 'capacity' => $partner->capacity,
                 'about' => $partner->about,
                 'travel' => $partner->travel,

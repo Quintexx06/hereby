@@ -57,7 +57,7 @@ return [
 
     'hochzeitseinladung-online' => [
         'label' => 'Hochzeitseinladung online',
-        'title' => 'Hochzeitseinladung online verschicken – persönlich pro Haushalt',
+        'title' => 'Hochzeitseinladung online verschicken – pro Haushalt',
         'description' => 'Die Hochzeitseinladung online verschicken, per WhatsApp oder Mail: jeder Haushalt bekommt seinen eigenen Link, mit seinen Namen und Anlässen.',
         'h1' => 'Die Hochzeitseinladung, die jeden Haushalt beim Namen nennt.',
         'lede' => 'Eine Online-Einladung muss sich nicht wie ein Rundschreiben anfühlen. Bei Hereby öffnet jeder Haushalt seine eigene Einladung: mit seinen Namen, nur seinen Anlässen und in seiner Sprache.',
@@ -193,7 +193,7 @@ return [
 
     'mehrsprachige-hochzeitswebsite' => [
         'label' => 'Mehrsprachige Hochzeit',
-        'title' => 'Mehrsprachige Hochzeitswebsite – Deutsch, Französisch, Italienisch',
+        'title' => 'Mehrsprachige Hochzeitswebsite in vier Sprachen',
         'description' => 'Eine Hochzeitswebsite in vier Sprachen: Deutsch, Französisch, Italienisch und Englisch, pro Haushalt gewählt. Für Hochzeiten über den Röstigraben hinaus.',
         'h1' => 'Jede Familie liest in ihrer Sprache.',
         'lede' => 'Eine Schweizer Hochzeit spricht selten nur eine Sprache. Bei Hereby legt ihr die Sprache pro Haushalt fest: Die Grosseltern im Tessin lesen Italienisch, die Familie in Lausanne Französisch, die Freunde aus London Englisch.',
@@ -261,7 +261,7 @@ return [
 
     'fuer-locations' => [
         'label' => 'Für Hochzeitslocations',
-        'title' => 'Für Hochzeitslocations – Gästezahlen und Menüs ohne Nachfragen',
+        'title' => 'Für Hochzeitslocations – Gästezahlen ohne Nachfragen',
         'description' => 'Hereby für Hochzeitslocations, Fotografen und Planer in der Schweiz: aktuelle Gästezahlen, Menüs und Allergien pro Tisch, ohne Listen per Mail.',
         'h1' => 'Für Locations, die lieber feiern als nachfragen.',
         'lede' => 'Wenn eure Paare mit Hereby planen, kommen Gästezahlen, Menüs und Allergien geordnet bei euch an. Ohne Excel per Mail, ohne Anruf drei Tage vor dem Fest.',
