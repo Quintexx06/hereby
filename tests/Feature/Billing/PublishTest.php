@@ -70,7 +70,8 @@ class PublishTest extends TestCase
             && (int) $request['line_items'][0]['price_data']['unit_amount'] === Plan::Signature->price()
             && $request['metadata']['wedding_id'] == $wedding->id
             && $request['invoice_creation']['enabled'] === 'true'
-            && $request['managed_payments']['enabled'] === 'false');
+            && $request['managed_payments']['enabled'] === 'false'
+            && $request['payment_method_types'] === ['card', 'twint']);
     }
 
     public function test_checkout_bills_the_stripe_product_of_the_plan_when_one_is_configured(): void

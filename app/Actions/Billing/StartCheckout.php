@@ -15,7 +15,9 @@ use Throwable;
 
 /**
  * Opens a Stripe Checkout page for a plan (or the upgrade to it) or an extra, one-time,
- * in CHF. Stripe offers the methods enabled in its dashboard (cards, TWINT).
+ * in CHF. Only Swiss payment methods are offered (services.stripe.payment_methods:
+ * cards, which bring Apple Pay and Google Pay, and TWINT), whatever else the
+ * Stripe dashboard has switched on (Klarna, Link, Bancontact and the like).
  */
 class StartCheckout
 {
@@ -71,6 +73,7 @@ class StartCheckout
                 'allow_promotion_codes' => 'true',
                 // Hereby is the seller, not Stripe as merchant of record (which has no TWINT).
                 'managed_payments' => ['enabled' => 'false'],
+                'payment_method_types' => self::paymentMethods(),
                 'payment_intent_data' => ['description' => "Hereby {$label} · {$wedding->couple_names}"],
                 'cancel_url' => $cancelUrl,
                 'line_items' => [[
@@ -102,6 +105,18 @@ class StartCheckout
         return is_string($product) && $product !== ''
             ? ['product' => $product]
             : ['product_data' => ['name' => "Hereby {$label} · {$wedding->couple_names}"]];
+    }
+
+    /**
+     * The payment methods Checkout may show.
+     *
+     * @return list<string>
+     */
+    private static function paymentMethods(): array
+    {
+        $methods = array_values(array_filter(array_map('trim', explode(',', (string) config('services.stripe.payment_methods')))));
+
+        return $methods !== [] ? $methods : ['card', 'twint'];
     }
 
     /**

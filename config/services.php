@@ -26,6 +26,8 @@ return [
         'api_url' => env('STRIPE_API_URL', 'https://api.stripe.com/v1'),
         // Pin the API version the integration was tested on (empty: the account's default).
         'api_version' => env('STRIPE_API_VERSION'),
+        // Payment methods Checkout offers: cards (with Apple Pay and Google Pay) and TWINT.
+        'payment_methods' => env('STRIPE_PAYMENT_METHODS', 'card,twint'),
         // Catalogue products the plans are billed under (empty: named per payment).
         'products' => [
             'signature' => env('STRIPE_PRODUCT_SIGNATURE'),
