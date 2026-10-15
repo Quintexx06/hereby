@@ -1,21 +1,16 @@
 /**
  * Privacy policy and imprint, Swiss German. They describe what the code does
  * today (no tracking, self-hosted fonts and images, encrypted dietary notes,
- * deletion 12 months after the wedding). Everything in [square brackets] is a
- * placeholder the company must fill in; a lawyer reviews both before launch
- * (roadmap 1.14).
+ * deletion 12 months after the wedding). A lawyer reviews both before
+ * launch (roadmap 1.14).
  */
 export type LegalSection = { heading: string; paragraphs: string[] };
 
 export type LegalPage = {
     title: string;
     updated: string;
-    draftNote: string;
     sections: LegalSection[];
 };
-
-const draftNote =
-    'Entwurf: Angaben in [eckigen Klammern] werden vor dem Start ergänzt, und der Text wird von einer Fachperson geprüft.';
 
 const updated = 'Stand: 14. Oktober 2026';
 const operator = 'Hereby, Martin Brunner';
@@ -24,12 +19,11 @@ const contact = 'info@hereby.ch';
 export const privacy: LegalPage = {
     title: 'Datenschutzerklärung',
     updated,
-    draftNote,
     sections: [
         {
             heading: 'Wer verantwortlich ist',
             paragraphs: [
-                `Verantwortlich für die Bearbeitung eurer Personendaten ist ${operator}, [Strasse Nr.], [PLZ] Zürich, Schweiz. Fragen zum Datenschutz beantworten wir unter ${contact}.`,
+                `Verantwortlich für die Bearbeitung eurer Personendaten ist ${operator}, Zürich, Schweiz. Fragen zum Datenschutz beantworten wir unter ${contact}.`,
                 'Wir richten uns nach dem Schweizer Datenschutzgesetz (DSG) und, soweit anwendbar, nach der Datenschutz-Grundverordnung der EU (DSGVO).',
             ],
         },
@@ -62,7 +56,7 @@ export const privacy: LegalPage = {
         {
             heading: 'Weitergabe an Dritte',
             paragraphs: [
-                'Wir geben Personendaten nur an Dienstleister weiter, die wir für den Betrieb brauchen: Hosting ([Anbieter, Standort]), E-Mail-Versand ([Anbieter, Standort]) und Zahlungen (Stripe Payments Europe, Irland). Sie bearbeiten die Daten nur nach unseren Weisungen.',
+                'Wir geben Personendaten nur an Dienstleister weiter, die wir für den Betrieb brauchen: Hosting, E-Mail-Versand und Zahlungen (Stripe Payments Europe, Irland). Sie bearbeiten die Daten nur nach unseren Weisungen. Gelangen Daten dabei ins Ausland, dann nur in Länder mit angemessenem Datenschutz oder mit geeigneten Garantien wie den Standardvertragsklauseln.',
                 'Verbindet ein Paar seine Location, seinen Fotografen oder seinen Planer mit Hereby, sieht dieser Partner nur, was das Paar damit freigibt: eine Location oder ein Planer die Zahlen, Menüs und Allergien pro Tisch für die Schlussliste, ein Fotograf nur die Möglichkeit, Fotos in die Erinnerungen des Paares hochzuladen. Das Paar kann die Verbindung jederzeit lösen.',
                 'Wir verkaufen keine Daten. Eure Gäste sehen nie Werbung oder Angebote Dritter; höchstens eine Zeile nennt den Ort des Festes.',
             ],
@@ -73,7 +67,7 @@ export const privacy: LegalPage = {
                 'Gästedaten löschen wir automatisch zwölf Monate nach dem Hochzeitsdatum: Haushalte, Namen, Antworten, Allergien, Tische, Anmeldungen und Gruppenfotos.',
                 'Bucht ein Paar «Erinnerungen behalten», bleiben die Fotos der Gäste und die Hochzeitszeitung (mit den Namen, mit denen Gäste ihre Beiträge unterschrieben haben) jeweils ein Jahr länger; die übrigen Gästedaten löschen wir trotzdem nach zwölf Monaten.',
                 'Anfragen für eine Besichtigung löschen wir zwölf Monate nach Eingang.',
-                'Server-Protokolle löschen wir nach [30 Tagen]. Konten bestehen, bis sie gelöscht werden; ihr könnt euer Konto jederzeit in den Einstellungen löschen, und mit ihm alle Daten eurer Hochzeit.',
+                'Server-Protokolle löschen wir nach 30 Tagen. Konten bestehen, bis sie gelöscht werden; ihr könnt euer Konto jederzeit in den Einstellungen löschen, und mit ihm alle Daten eurer Hochzeit.',
             ],
         },
         {
@@ -102,15 +96,10 @@ export const privacy: LegalPage = {
 export const imprint: LegalPage = {
     title: 'Impressum',
     updated,
-    draftNote,
     sections: [
         {
             heading: 'Betreiber',
-            paragraphs: [
-                operator,
-                '[Strasse Nr.], [PLZ] Zürich, Schweiz',
-                `E-Mail: ${contact}`,
-            ],
+            paragraphs: [operator, 'Zürich, Schweiz', `E-Mail: ${contact}`],
         },
         {
             heading: 'Verantwortliche Person',

@@ -20,7 +20,6 @@ defineProps<{
     </div>
 
     <article class="page-container legal-body">
-        <p class="legal-draft">{{ page.draftNote }}</p>
         <section
             v-for="section in page.sections"
             :key="section.heading"

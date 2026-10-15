@@ -300,10 +300,6 @@
         @apply flex max-w-4xl flex-col gap-12 py-20 sm:py-28;
     }
 
-    .legal-draft {
-        @apply rounded-2xl border border-brand/30 bg-brand-muted/40 px-5 py-4 text-sm text-foreground;
-    }
-
     .legal-section {
         @apply grid gap-4 border-t border-rule pt-8 md:grid-cols-[minmax(0,2fr)_minmax(0,5fr)] md:gap-10;
     }
