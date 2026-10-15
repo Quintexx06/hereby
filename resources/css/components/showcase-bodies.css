@@ -1,0 +1,397 @@
+/*
+ * The three template bodies in the studio showcase (below each hero): the
+ * same content, told three ways. Atelier is a magazine, Garten a garden,
+ * Panorama a film. Motion is scroll-led (v-reveal sets data-revealed):
+ * strong ease-out entrances, staggered, photos wiping open with clip-path.
+ * Reduced motion keeps the fades and drops every movement.
+ */
+@layer components {
+    /* ---------- Shared motion ---------- */
+    .showcase-site .sc-rise,
+    .showcase-site .sc-slide {
+        @apply opacity-0;
+        transition:
+            opacity 700ms var(--ease-out) var(--reveal-delay, 0ms),
+            translate 800ms var(--ease-out) var(--reveal-delay, 0ms);
+    }
+
+    .showcase-site .sc-rise {
+        translate: 0 14px;
+    }
+
+    .showcase-site .sc-slide {
+        translate: 28px 0;
+    }
+
+    .showcase-site [data-revealed].sc-rise,
+    .showcase-site [data-revealed].sc-slide,
+    .showcase-site [data-revealed] .sc-rise {
+        @apply opacity-100;
+        translate: 0 0;
+    }
+
+    /* A photo opens from the top edge down, settling from a slight zoom. */
+    .showcase-site .sc-wipe {
+        @apply overflow-hidden;
+        clip-path: inset(0 0 100% 0);
+        transition: clip-path 1000ms var(--ease-in-out) var(--reveal-delay, 0ms);
+    }
+
+    .showcase-site .sc-wipe img {
+        scale: 1.12;
+        transition: scale 1600ms var(--ease-out) var(--reveal-delay, 0ms);
+    }
+
+    .showcase-site .sc-wipe[data-revealed] {
+        clip-path: inset(0 0 0 0);
+    }
+
+    .showcase-site .sc-wipe[data-revealed] img {
+        scale: 1;
+    }
+
+    .sc-cover {
+        @apply size-full object-cover;
+    }
+
+    .sc-cover-picture,
+    .sc-wipe > picture {
+        @apply block size-full;
+    }
+
+    /* ---------- Atelier: a magazine ---------- */
+    .sc-a {
+        @apply flex flex-col gap-16 px-5 py-14 sm:gap-20 sm:px-12 sm:py-20;
+    }
+
+    .sc-a-quote {
+        @apply flex max-w-3xl flex-col gap-5;
+    }
+
+    .sc-a-quote-text {
+        @apply font-display text-[clamp(1.875rem,4.4vw,3.5rem)] leading-[1.02] font-semibold tracking-[-0.04em] text-balance;
+        font-stretch: 108%;
+    }
+
+    .sc-a-quote-rest {
+        @apply max-w-[38ch] text-base leading-relaxed text-muted-foreground sm:text-lg;
+    }
+
+    .sc-a-section {
+        @apply flex flex-col gap-6;
+    }
+
+    .sc-a-heading {
+        @apply font-display text-xl font-semibold tracking-[-0.02em];
+    }
+
+    /* The programme as a ledger: the rule above each row draws itself in. */
+    .sc-a-row {
+        @apply relative grid grid-cols-[5.5rem_minmax(0,1fr)] items-baseline gap-x-4 py-5 sm:grid-cols-[9rem_minmax(0,1fr)_auto];
+    }
+
+    .sc-a-row::before {
+        @apply absolute inset-x-0 top-0 h-px origin-left scale-x-0 bg-foreground/20 content-[''];
+        transition: scale 900ms var(--ease-out) var(--reveal-delay, 0ms);
+    }
+
+    .sc-a-row[data-revealed]::before {
+        @apply scale-x-100;
+    }
+
+    .sc-a-time {
+        @apply font-display text-[clamp(2rem,4vw,3.25rem)] leading-none font-semibold tracking-[-0.04em] text-brand tabular-nums;
+    }
+
+    .sc-a-event {
+        @apply font-display text-xl font-semibold sm:text-2xl;
+    }
+
+    .sc-a-place {
+        @apply col-start-2 text-sm text-muted-foreground sm:col-start-auto sm:text-right;
+    }
+
+    .sc-a-venue {
+        @apply relative pb-24 sm:pb-12;
+    }
+
+    .sc-a-venue-photo {
+        @apply aspect-[16/9] w-full object-cover;
+    }
+
+    .sc-a-venue > .sc-wipe {
+        @apply rounded-[1rem];
+    }
+
+    /* The caption card overlaps the photo's lower edge, like a magazine. */
+    .sc-a-caption {
+        @apply absolute right-4 bottom-0 left-4 flex flex-col gap-2 rounded-[1rem] bg-background p-6 shadow-[0_30px_60px_-30px_rgb(30_14_10/0.45)] sm:right-auto sm:left-8 sm:max-w-sm;
+    }
+
+    .sc-a-grid {
+        @apply grid grid-cols-2 gap-3 sm:aspect-[8/5] sm:grid-cols-[3fr_2fr] sm:grid-rows-[minmax(0,1fr)_minmax(0,1fr)] sm:gap-4;
+    }
+
+    .sc-a-tile {
+        @apply aspect-[4/5] rounded-[0.75rem] sm:aspect-auto sm:h-full sm:min-h-0;
+    }
+
+    .sc-a-tile-tall {
+        @apply col-span-2 aspect-[4/3] sm:col-span-1 sm:row-span-2 sm:aspect-auto;
+    }
+
+    .sc-a-close {
+        @apply flex flex-col items-center gap-5 border-t border-foreground/15 pt-14 text-center;
+    }
+
+    .sc-a-close-title {
+        @apply font-display text-[clamp(2.5rem,6vw,4.5rem)] leading-none font-bold tracking-[-0.05em];
+        font-stretch: 112%;
+    }
+
+    /* ---------- Garten: a garden ---------- */
+    .sc-g {
+        @apply flex flex-col items-center gap-16 px-5 py-14 text-center sm:gap-20 sm:px-10 sm:py-20;
+    }
+
+    .sc-g-welcome {
+        @apply flex max-w-xl flex-col items-center gap-5;
+    }
+
+    .sc-g-sprig {
+        @apply w-28 stroke-brand;
+        stroke-width: 1.25;
+        stroke-linecap: round;
+    }
+
+    .sc-g-welcome-text {
+        @apply font-display text-[clamp(1.375rem,2.8vw,2rem)] leading-[1.25] font-medium tracking-[-0.02em] text-balance;
+    }
+
+    .sc-g-section {
+        @apply flex w-full max-w-3xl flex-col items-center gap-8;
+    }
+
+    .sc-g-heading {
+        @apply text-center font-display text-2xl font-semibold tracking-[-0.03em];
+    }
+
+    /* The day as a vine: a stem down the middle, a leaf at every stop. */
+    .sc-g-vine {
+        @apply relative flex w-full flex-col gap-10 py-2;
+    }
+
+    .sc-g-vine::before {
+        @apply absolute top-0 bottom-0 left-4 w-px bg-brand/30 content-[''] sm:left-1/2;
+    }
+
+    .sc-g-stop {
+        @apply relative grid grid-cols-[2rem_minmax(0,1fr)] items-center gap-4 text-left sm:grid-cols-[minmax(0,1fr)_2rem_minmax(0,1fr)];
+    }
+
+    .sc-g-leaf {
+        @apply relative z-[1] size-8 fill-brand/20 stroke-brand sm:col-start-2;
+        stroke-width: 1.25;
+        opacity: 0;
+        scale: 0.6;
+        rotate: -40deg;
+        transition:
+            opacity 500ms var(--ease-out) var(--reveal-delay, 0ms),
+            scale 800ms cubic-bezier(0.34, 1.4, 0.64, 1)
+                var(--reveal-delay, 0ms),
+            rotate 800ms var(--ease-out) var(--reveal-delay, 0ms);
+    }
+
+    .sc-g-stop[data-revealed] .sc-g-leaf {
+        opacity: 1;
+        scale: 1;
+        rotate: 0deg;
+    }
+
+    .sc-g-stop:nth-child(odd) .sc-g-stop-text {
+        @apply sm:col-start-1 sm:row-start-1 sm:text-right;
+    }
+
+    .sc-g-stop:nth-child(even) .sc-g-stop-text {
+        @apply sm:col-start-3;
+    }
+
+    .sc-g-venue {
+        @apply grid w-full max-w-3xl items-center gap-8 text-left sm:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] sm:gap-12;
+    }
+
+    .sc-g-arch {
+        @apply aspect-[3/4] w-[min(70%,18rem)] justify-self-center rounded-t-full sm:w-full;
+    }
+
+    /* Prints dropped on the table: they fall a little, then settle. */
+    .sc-g-print {
+        @apply block w-[30%] max-w-48 bg-porcelain-50 p-1.5 pb-6 opacity-0 shadow-[0_18px_30px_-18px_rgb(30_14_10/0.55)] sm:p-2 sm:pb-8;
+        translate: 0 -28px;
+        rotate: calc(var(--tilt) + 8deg);
+        transition:
+            opacity 500ms var(--ease-out) var(--reveal-delay, 0ms),
+            translate 900ms cubic-bezier(0.34, 1.3, 0.64, 1)
+                var(--reveal-delay, 0ms),
+            rotate 900ms var(--ease-out) var(--reveal-delay, 0ms);
+    }
+
+    .sc-g-print[data-revealed] {
+        @apply opacity-100;
+        translate: 0 0;
+        rotate: var(--tilt);
+    }
+
+    .sc-g-reply {
+        @apply flex w-full max-w-md flex-col items-center gap-5 rounded-t-[12rem] border border-brand/25 bg-card px-8 pt-16 pb-10;
+    }
+
+    /* ---------- Panorama: a film ---------- */
+    .sc-p {
+        @apply flex flex-col gap-14 py-14 sm:gap-20 sm:py-20;
+    }
+
+    .sc-p-welcome {
+        @apply flex flex-col gap-6 px-5 sm:px-12;
+    }
+
+    .sc-p-welcome-text {
+        @apply font-display text-[clamp(2.5rem,7vw,5.5rem)] leading-[0.92] font-bold tracking-[-0.055em] text-balance;
+        font-stretch: 115%;
+    }
+
+    .sc-p-heading {
+        @apply font-display text-xl font-semibold tracking-[-0.02em];
+    }
+
+    /* Dark bands carry the programme and the filmstrip. */
+    .sc-p-band {
+        @apply mx-3 flex flex-col gap-6 rounded-[1rem] bg-night-950 px-5 py-8 text-porcelain-50 sm:mx-5 sm:px-8 sm:py-10;
+    }
+
+    .sc-p-frames {
+        @apply grid gap-3 sm:grid-cols-3;
+    }
+
+    .sc-p-frame {
+        @apply flex flex-col gap-1 rounded-[0.75rem] border border-porcelain-50/15 bg-porcelain-50/5 p-5;
+    }
+
+    .sc-p-frame-time {
+        @apply pb-3 font-display text-[clamp(2.5rem,5vw,3.75rem)] leading-none font-bold tracking-[-0.05em] tabular-nums;
+        color: color-mix(in oklch, var(--showcase-ink) 35%, white);
+    }
+
+    /* The venue in 21:9, pushing in slowly once it is on screen. */
+    .sc-p-venue {
+        @apply relative mx-3 overflow-hidden rounded-[1rem] text-porcelain-50 sm:mx-5;
+    }
+
+    .sc-p-venue-photo {
+        @apply aspect-[4/5] w-full object-cover sm:aspect-[21/9];
+        scale: 1.14;
+        transition: scale 2400ms var(--ease-out);
+    }
+
+    .sc-p-venue[data-revealed] .sc-p-venue-photo {
+        scale: 1;
+    }
+
+    .sc-p-venue-text {
+        @apply absolute inset-x-0 bottom-0 flex flex-col gap-2 bg-gradient-to-t from-night-950/85 to-transparent p-6 pt-24 sm:p-10 sm:pt-32;
+    }
+
+    /* A filmstrip: sprocket holes along both edges. */
+    .sc-p-film {
+        @apply grid grid-cols-3 gap-2 py-5;
+        background:
+            radial-gradient(
+                    circle,
+                    var(--color-porcelain-50) 0 3px,
+                    transparent 3.5px
+                )
+                top / 16px 10px repeat-x,
+            radial-gradient(
+                    circle,
+                    var(--color-porcelain-50) 0 3px,
+                    transparent 3.5px
+                )
+                bottom / 16px 10px repeat-x;
+        background-blend-mode: normal;
+    }
+
+    .sc-p-film-cell {
+        @apply aspect-[3/4] overflow-hidden rounded-sm;
+    }
+
+    .sc-p-reply {
+        @apply mx-3 overflow-hidden rounded-[1rem] bg-night-950 py-10 text-porcelain-50 sm:mx-5;
+    }
+
+    .sc-p-run {
+        @apply flex w-max gap-6 font-display text-[clamp(2.5rem,7vw,5rem)] leading-none font-bold tracking-[-0.05em] whitespace-nowrap;
+        font-stretch: 112%;
+        animation: marquee 30s linear infinite;
+    }
+
+    /* ---------- Hover, where a pointer can hover ---------- */
+    @media (hover: hover) and (pointer: fine) {
+        .sc-a-tile img,
+        .sc-p-film-cell img {
+            transition: scale 600ms var(--ease-out);
+        }
+
+        .sc-a-tile:hover img,
+        .sc-p-film-cell:hover img {
+            scale: 1.04;
+        }
+
+        .sc-g-print[data-revealed]:hover {
+            translate: 0 -6px;
+            rotate: 0deg;
+            transition-delay: 0ms;
+            transition-duration: 300ms;
+        }
+
+        .sc-p-frame {
+            transition: background-color 250ms ease;
+        }
+
+        .sc-p-frame:hover {
+            @apply bg-porcelain-50/10;
+        }
+    }
+
+    /* ---------- Reduced motion: fades stay, movement goes ---------- */
+    @media (prefers-reduced-motion: reduce) {
+        .showcase-site .sc-rise,
+        .showcase-site .sc-slide,
+        .sc-g-print,
+        .sc-g-leaf {
+            translate: 0 0;
+            scale: 1;
+            rotate: 0deg;
+        }
+
+        .sc-g-print {
+            rotate: var(--tilt);
+        }
+
+        .showcase-site .sc-wipe {
+            clip-path: none;
+        }
+
+        .showcase-site .sc-wipe img,
+        .sc-p-venue-photo {
+            scale: 1;
+        }
+
+        .sc-a-row::before {
+            scale: 1;
+        }
+
+        .sc-p-run {
+            animation: none;
+        }
+    }
+}

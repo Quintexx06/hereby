@@ -190,6 +190,14 @@ export const studio = {
         action: 'Jetzt antworten',
         welcome:
             'Wir sagen Ja am Vierwaldstättersee. Kommt vorbei, bringt gute Schuhe mit und bleibt bis zum letzten Schiff.',
+        /* The same welcome, split so a template can set «Ja» as the accent. */
+        welcomeLead: 'Wir sagen',
+        welcomeAccent: 'Ja',
+        welcomeTail: 'am Vierwaldstättersee.',
+        welcomeRest:
+            'Kommt vorbei, bringt gute Schuhe mit und bleibt bis zum letzten Schiff.',
+        replyTitle: 'Kommt ihr?',
+        replyBy: 'Bitte antwortet bis 1. Mai 2027',
         programmeTitle: 'Programm',
         events: [
             { time: '15:30', name: 'Apéro', place: 'Seeterrasse' },

@@ -209,7 +209,7 @@ Each one is a motion pattern with a product reason, not decoration:
 - **Marquee** (`MarqueeBand`): Hochzeit · Mariage · Matrimonio · Wedding,
   solid and outlined; scroll speeds it up and reverses it.
 - **Studio** (`StudioSection`, `ShowcaseCarousel`, `ShowcaseWindow`,
-  `ShowcaseHero*`, `ShowcaseDetails`): the three templates (Atelier, Garten,
+  `ShowcaseHero*`, `ShowcaseBody*`): the three templates (Atelier, Garten,
   Panorama) as finished sites in browser windows of fixed height that scroll
   inside, side by side in a full-bleed scroll-snap track that loops endlessly
   (`useLoopingTrack`: three copies, the visitor always rests in the middle
@@ -229,8 +229,18 @@ Each one is a motion pattern with a product reason, not decoration:
   Above, one sentence with blanks
   (`ShowcaseCoupleForm`, `useShowcaseCouple`) puts the visitor's names and
   date into all three, and three accent chips recolour only their accents
-  (`--showcase-ink`); the ground stays porcelain. Classes are `sc-*` so the
-  real templates' styles never leak in.
+  (`--showcase-ink`); the ground stays porcelain. Below the heroes each
+  template tells the same content (welcome, programme, travel, photos,
+  reply) in its own way, revealed on scroll inside the window
+  (`showcase-bodies.css`): Atelier as a magazine (pull quote with the
+  accent «Ja», a ledger whose rules draw in, the venue photo wiping up under
+  an overlapping caption card, an asymmetric grid, a large close); Garten as
+  a garden (a drawn sprig, a vine timeline whose leaves pop out, the venue
+  under an arch, polaroid prints that drop in tilted, an arched reply card);
+  Panorama as cinema (giant welcome, dark bands with frame cards that slide
+  in, a 21:9 venue that pushes in slowly, a sprocketed film strip, a
+  running «Kommt ihr?» ticker). Reduced motion keeps the fades only.
+  Classes are `sc-*` so the real templates' styles never leak in.
 - **Premium** (`PremiumSection`, `PremiumEvening`, `PremiumScreen`,
   `PremiumExtras`, after the studio, on `.stage`): two products, told apart.
   The Atelier package is one framed panel with a «Paket Atelier» pill: the

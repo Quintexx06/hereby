@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import ShowcaseDetails from '@/components/marketing/ShowcaseDetails.vue';
+import ShowcaseBodyAtelier from '@/components/marketing/ShowcaseBodyAtelier.vue';
+import ShowcaseBodyGarten from '@/components/marketing/ShowcaseBodyGarten.vue';
+import ShowcaseBodyPanorama from '@/components/marketing/ShowcaseBodyPanorama.vue';
 import ShowcaseHeroAtelier from '@/components/marketing/ShowcaseHeroAtelier.vue';
 import ShowcaseHeroGarten from '@/components/marketing/ShowcaseHeroGarten.vue';
 import ShowcaseHeroPanorama from '@/components/marketing/ShowcaseHeroPanorama.vue';
@@ -21,6 +23,12 @@ const heroes: Record<string, unknown> = {
     atelier: ShowcaseHeroAtelier,
     garten: ShowcaseHeroGarten,
     panorama: ShowcaseHeroPanorama,
+};
+/* Same content below every hero, each told in its template's own way. */
+const bodies: Record<string, unknown> = {
+    atelier: ShowcaseBodyAtelier,
+    garten: ShowcaseBodyGarten,
+    panorama: ShowcaseBodyPanorama,
 };
 </script>
 
@@ -59,7 +67,7 @@ const heroes: Record<string, unknown> = {
                 :couple="couple"
                 :active="active"
             />
-            <ShowcaseDetails />
+            <component :is="bodies[template]" />
         </div>
     </figure>
 </template>
