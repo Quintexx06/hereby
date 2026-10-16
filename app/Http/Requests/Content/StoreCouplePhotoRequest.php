@@ -50,7 +50,9 @@ class StoreCouplePhotoRequest extends FormRequest
             'photo.required' => 'Wählt ein Foto aus.',
             'photo.image' => 'Das ist kein Foto. Möglich sind JPG, PNG und WebP.',
             'photo.mimes' => 'Das ist kein Foto. Möglich sind JPG, PNG und WebP.',
-            'photo.max' => 'Das Foto ist zu gross.',
+            'photo.max' => 'Das Foto ist zu gross. Höchstens 20 MB.',
+            // The server dropped the file before Laravel saw it (PHP upload limit).
+            'photo.uploaded' => 'Das Foto ist zu gross für den Upload. Höchstens 20 MB.',
         ];
     }
 }

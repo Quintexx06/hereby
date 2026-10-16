@@ -59,6 +59,16 @@ class CouplePhotosTest extends TestCase
         $this->assertSame(4, $wedding->couplePhotos()->count());
     }
 
+    public function test_a_photo_the_server_dropped_for_its_size_gets_a_clear_message(): void
+    {
+        $wedding = Wedding::factory()->create();
+        $tooBig = new UploadedFile(UploadedFile::fake()->image('gross.jpg')->getPathname(), 'gross.jpg', 'image/jpeg', UPLOAD_ERR_INI_SIZE, true);
+
+        $this->actingAs($wedding->owner)
+            ->post(route('weddings.photos.store', $wedding), ['photo' => $tooBig])
+            ->assertSessionHasErrors(['photo' => 'Das Foto ist zu gross für den Upload. Höchstens 20 MB.']);
+    }
+
     public function test_only_the_couple_manages_their_photos(): void
     {
         $wedding = Wedding::factory()->create();

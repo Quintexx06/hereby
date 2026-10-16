@@ -42,6 +42,10 @@ x-env: &env
     STRIPE_API_VERSION: '${STRIPE_API_VERSION:-}'
     INERTIA_SSR_URL: 'http://ssr:13714'
     PHP_OPCACHE_ENABLE: '1'
+    # Phone photos are 3–12 MB; the app accepts up to 20 MB (HEREBY_MEMORIES_MAX_KILOBYTES),
+    # so PHP and nginx must let at least that much through, with room for the form.
+    PHP_UPLOAD_MAX_FILE_SIZE: '25M'
+    PHP_POST_MAX_SIZE: '30M'
 
 x-app: &app
     build: .
