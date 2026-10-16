@@ -113,6 +113,13 @@
         scale: 1.12;
     }
 
+    /* The foot's links («Fragen? Schreibt uns») stay still: colour only. */
+    .app-nav-foot .app-nav-item:hover .app-nav-icon,
+    .app-nav-foot .app-nav-item:focus-visible .app-nav-icon {
+        rotate: none;
+        scale: none;
+    }
+
     .app-nav-item[data-active='true'] .app-nav-icon {
         @apply text-sidebar-primary;
     }
