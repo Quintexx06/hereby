@@ -23,6 +23,8 @@ class DemoWeddingSeeder extends Seeder
         $wedding = Wedding::factory()->for(User::query()->firstOrFail(), 'owner')->create([
             'slug' => 'anna-und-luca',
             'couple_names' => 'Anna & Luca',
+            'partner_one' => 'Anna',
+            'partner_two' => 'Luca',
             'wedding_date' => '2027-06-19',
             'rsvp_deadline' => '2027-05-01',
             'default_locale' => Locale::GermanSwiss,

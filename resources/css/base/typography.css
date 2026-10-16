@@ -34,6 +34,9 @@
     .display {
         @apply font-display text-[clamp(2.5rem,6vw,5.5rem)] leading-[0.96] font-semibold tracking-[-0.04em];
         font-stretch: 106%;
+        /* Long German words («Datenschutzerklärung») break with a hyphen on phones. */
+        hyphens: auto;
+        overflow-wrap: break-word;
     }
 
     /* Section headings. */
