@@ -396,12 +396,8 @@
     }
 }
 
-/* Topic pages (SEO) and the footer's topic links. */
+/* Topic pages (SEO). */
 @layer components {
-    .footer-topics {
-        @apply flex flex-wrap justify-center gap-x-8 gap-y-3 pb-8 text-center text-sm;
-    }
-
     /* Topic pages (SEO): night hero, a reading column, related cards. */
     .topic-hero {
         @apply relative grid items-center gap-12 pt-36 pb-20 sm:pt-44 sm:pb-24 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:gap-16;

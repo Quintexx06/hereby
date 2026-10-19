@@ -364,7 +364,6 @@ export const footer = {
     privacy: 'Datenschutz',
     imprint: 'Impressum',
     email: 'info@hereby.ch',
-    topicsLabel: 'Mehr über Hereby',
 } as const;
 
 /** The topic pages (lang/de_CH/pages.php): shared copy and the footer list. */
