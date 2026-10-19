@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\PartnerType;
 use Database\Factories\PartnerFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -32,10 +33,12 @@ use Illuminate\Support\Str;
  * @property string|null $about
  * @property string|null $travel
  * @property string|null $stay
+ * @property string|null $pitch_note Team-only: a personal sentence for the pitch mail.
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  */
-#[Fillable(['type', 'name', 'email', 'phone', 'website', 'address', 'postcode', 'town', 'capacity', 'about', 'travel', 'stay'])]
+#[Fillable(['type', 'name', 'email', 'phone', 'website', 'address', 'postcode', 'town', 'capacity', 'about', 'travel', 'stay', 'pitch_note'])]
+#[Hidden(['pitch_note'])]
 class Partner extends Model
 {
     /** @use HasFactory<PartnerFactory> */

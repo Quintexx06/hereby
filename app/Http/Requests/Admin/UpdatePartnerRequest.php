@@ -35,6 +35,7 @@ class UpdatePartnerRequest extends FormRequest
             'phone' => ['sometimes', 'nullable', 'string', 'max:40'],
             'website' => ['sometimes', 'nullable', 'url', 'max:191'],
             'town' => ['sometimes', 'nullable', 'string', 'max:80'],
+            'pitch_note' => ['sometimes', 'nullable', 'string', 'max:500'],
             'is_showcase' => ['sometimes', 'boolean'],
         ];
     }

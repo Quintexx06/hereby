@@ -149,12 +149,26 @@ export const adminPartners = {
     demoCopy: 'Demo-Link kopieren',
     demoCopied: 'Kopiert',
     pitchOpen: 'Mail entwerfen',
+    pitchNote: 'Persönlicher Satz für die Mail',
+    pitchNoteHint:
+        'Nur für euch. Steht in «Mail entwerfen» gleich nach der Anrede.',
+    importTitle: 'Mehrere Interessenten auf einmal',
+    importHint:
+        'Eine Location pro Zeile: Name; Ort; E-Mail; Website; persönlicher Satz. Nur der Name ist Pflicht. Wer schon in der Liste steht, wird übersprungen.',
+    importLabel: 'Liste',
+    importSubmit: 'Interessenten anlegen',
     /** The pitch, in the team's own mail app; venues are addressed as «Sie». */
-    pitch: (venue: string, demo: string, home: string) => ({
+    pitch: (
+        venue: string,
+        demo: string,
+        home: string,
+        note?: string | null,
+    ) => ({
         subject: `Eine Hochzeitswebsite für Paare, die bei ${venue} heiraten`,
         body: [
             'Guten Tag',
             '',
+            ...(note ? [note, ''] : []),
             `Ich bin Martin von Hereby, der Hochzeitswebsite aus der Schweiz. Ich habe Ihnen eine Beispielseite gebaut, so wie Paare, die bei ${venue} heiraten, sie ihren Gästen schicken würden:`,
             '',
             demo,

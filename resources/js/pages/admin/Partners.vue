@@ -3,6 +3,7 @@ import { Head } from '@inertiajs/vue3';
 import { ref } from 'vue';
 import PageMasthead from '@/components/PageMasthead.vue';
 import PartnerCreateForm from '@/components/admin/PartnerCreateForm.vue';
+import PartnerImportForm from '@/components/admin/PartnerImportForm.vue';
 import PartnerEditDialog from '@/components/admin/PartnerEditDialog.vue';
 import PartnerRow from '@/components/admin/PartnerRow.vue';
 import { adminPartners as copy } from '@/content/partners';
@@ -32,6 +33,7 @@ const editing = ref<AdminPartner | null>(null);
         <PageMasthead :title="copy.title" :lede="copy.lede" />
 
         <PartnerCreateForm :types="types" />
+        <PartnerImportForm />
 
         <p v-if="!partners.length" class="admin-empty">{{ copy.empty }}</p>
         <ul v-else class="admin-ledger">

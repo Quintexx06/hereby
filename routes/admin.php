@@ -30,6 +30,7 @@ Route::middleware(['auth', 'verified', 'can:admin'])->prefix('admin')->name('adm
     Route::patch('massanfertigung/{brief}', [BriefsController::class, 'update'])->name('briefs.update');
     Route::get('partner', [PartnersController::class, 'index'])->name('partners.index');
     Route::post('partner', [PartnersController::class, 'store'])->name('partners.store');
+    Route::post('partner/liste', [PartnersController::class, 'import'])->name('partners.import');
     Route::patch('partner/{partner}', [PartnersController::class, 'update'])->name('partners.update');
     Route::post('partner/{partner}/zugang', [PartnersController::class, 'resend'])->name('partners.resend');
     Route::get('nachfassen', [ChaseController::class, 'index'])->name('chase.index');

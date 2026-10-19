@@ -2,7 +2,6 @@
 import { router, useForm } from '@inertiajs/vue3';
 import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
 import {
     Dialog,
     DialogContent,
@@ -10,6 +9,7 @@ import {
     DialogTitle,
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
+import PartnerVenueFields from '@/components/admin/PartnerVenueFields.vue';
 import { adminPartners as copy } from '@/content/partners';
 import { resend, update } from '@/routes/admin/partners';
 import type { AdminPartner, PartnerType } from '@/types';
@@ -29,6 +29,7 @@ const form = useForm({
     website: props.partner.website ?? '',
     town: props.partner.town ?? '',
     is_showcase: props.partner.is_showcase,
+    pitch_note: props.partner.pitch_note ?? '',
 });
 
 const fields = [
@@ -38,13 +39,23 @@ const fields = [
     { key: 'town', label: copy.town, type: 'text' },
 ] as const;
 
-function save(): void {
+function save(then?: () => void): void {
     form.transform((data) =>
         props.partner.login ? data : { ...data, login: undefined },
     ).patch(update.url(props.partner.id), {
         preserveScroll: true,
-        onSuccess: () => (open.value = false),
+        onSuccess: () => {
+            open.value = false;
+            then?.();
+        },
     });
+}
+
+/* A prospect's address may be fresh in the form: save it, then invite. */
+function sendAccess(): void {
+    save(() =>
+        router.post(resend.url(props.partner.id), {}, { preserveScroll: true }),
+    );
 }
 </script>
 
@@ -57,7 +68,7 @@ function save(): void {
             </DialogTitle>
             <DialogDescription>{{ partner.code }}</DialogDescription>
 
-            <form class="partner-edit" @submit.prevent="save">
+            <form class="partner-edit" @submit.prevent="save()">
                 <fieldset class="chip-row partner-edit-wide">
                     <legend class="field-label mb-2">{{ copy.type }}</legend>
                     <label
@@ -109,22 +120,12 @@ function save(): void {
                     />
                     <InputError :message="form.errors[field.key]" />
                 </div>
-                <label
+                <PartnerVenueFields
                     v-if="form.type === 'venue'"
-                    class="partner-edit-wide flex items-start gap-3"
-                >
-                    <Checkbox
-                        :model-value="form.is_showcase"
-                        class="mt-0.5"
-                        @update:model-value="form.is_showcase = $event === true"
-                    />
-                    <span>
-                        <span class="font-semibold">{{ copy.showcase }}</span>
-                        <span class="field-hint block">{{
-                            copy.showcaseHint
-                        }}</span>
-                    </span>
-                </label>
+                    v-model:showcase="form.is_showcase"
+                    v-model:note="form.pitch_note"
+                    :note-error="form.errors.pitch_note"
+                />
                 <div
                     class="partner-edit-wide flex flex-wrap items-center justify-between gap-4 pt-2"
                 >
@@ -132,13 +133,8 @@ function save(): void {
                         v-if="partner.login || form.email"
                         type="button"
                         class="text-action text-sm"
-                        @click="
-                            router.post(
-                                resend.url(partner.id),
-                                {},
-                                { preserveScroll: true },
-                            )
-                        "
+                        :disabled="form.processing"
+                        @click="sendAccess"
                     >
                         {{ partner.login ? copy.resend : copy.inviteLogin }}
                     </button>

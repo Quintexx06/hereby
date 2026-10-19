@@ -47,7 +47,7 @@ class HandleInertiaRequests extends Middleware
             'locale' => fn (): string => app()->getLocale(),
             // Guest-facing strings (ADR 0006), only where guest pages render: the
             // couple's own pages are German copy in Vue and never need them.
-            'translations' => fn (): array => $request->routeIs('invitation.*', 'weddings.preview', 'weddings.guests.preview', 'partner.preview')
+            'translations' => fn (): array => $request->routeIs('invitation.*', 'weddings.preview', 'weddings.guests.preview', 'partner.preview', 'venues.demo')
                 ? FrontendTranslations::forCurrentLocale()
                 : [],
             'auth' => [

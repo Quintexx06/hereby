@@ -48,6 +48,7 @@ class VenueDemoTest extends TestCase
         $this->get($url)->assertOk()->assertHeader('X-Robots-Tag', 'noindex, nofollow')
             ->assertInertia(fn (Assert $page) => $page->component('invitation/Show')
                 ->where('invitation.wedding.coupleNames', 'Anna & Luca')
+                ->where('translations.invitation.countdown', fn (string $line) => str_contains($line, 'Noch :count Tage'))
                 ->where('demo.venue', 'Hotel Belvedere')
                 ->where('demo.template', 'atelier'));
 

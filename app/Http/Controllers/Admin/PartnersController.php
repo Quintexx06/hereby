@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Actions\Partners\ImportProspects;
 use App\Actions\Partners\SetUpPartner;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\VenueDemoController;
+use App\Http\Requests\Admin\ImportProspectsRequest;
 use App\Http\Requests\Admin\StorePartnerRequest;
 use App\Http\Requests\Admin\UpdatePartnerRequest;
 use App\Models\Partner;
@@ -43,6 +45,7 @@ class PartnersController extends Controller
                     'phone' => $partner->phone,
                     'website' => $partner->website,
                     'town' => $partner->town,
+                    'pitch_note' => $partner->pitch_note,
                     'demo_url' => $partner->isVenue()
                         ? URL::temporarySignedRoute('venues.demo', now()->addDays(VenueDemoController::DAYS_VALID), ['partner' => $partner->slug])
                         : null,
@@ -59,6 +62,23 @@ class PartnersController extends Controller
         Inertia::flash('toast', ['type' => 'success', 'message' => $partner->users()->exists()
             ? "{$partner->name} angelegt. Die Einladung ist unterwegs."
             : "{$partner->name} als Interessent angelegt. Der Demo-Link steht in der Liste."]);
+
+        return back();
+    }
+
+    /**
+     * Adds a pasted list of prospect venues at once, for the pitch.
+     */
+    public function import(ImportProspectsRequest $request, ImportProspects $import): RedirectResponse
+    {
+        $result = $import->handle($request->string('lines')->toString());
+        $message = collect([
+            $result['added'] === 1 ? '1 Interessent angelegt' : "{$result['added']} Interessenten angelegt",
+            $result['skipped'] ? "{$result['skipped']} schon in der Liste" : null,
+            $result['invalid'] ? 'Zeile '.implode(', ', $result['invalid']).' nicht lesbar' : null,
+        ])->filter()->implode(', ');
+
+        Inertia::flash('toast', ['type' => $result['invalid'] ? 'error' : 'success', 'message' => "{$message}."]);
 
         return back();
     }
@@ -96,7 +116,12 @@ class PartnersController extends Controller
 
         if (! $user) {
             // A prospect said yes: its contact address becomes the sign-in.
-            abort_if(blank($partner->email) || User::query()->where('email', $partner->email)->exists(), 422, 'Tragt zuerst eine freie E-Mail-Adresse für Paare ein.');
+            if (blank($partner->email) || User::query()->where('email', $partner->email)->exists()) {
+                Inertia::flash('toast', ['type' => 'error', 'message' => 'Tragt zuerst eine E-Mail-Adresse ein, die noch kein Konto hat.']);
+
+                return back();
+            }
+
             $user = $setUp->invite($partner, (string) $partner->email);
         } else {
             $setUp->sendInvitation($user, $partner->name);

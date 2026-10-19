@@ -70,6 +70,14 @@
         @apply grid max-w-3xl gap-4 rounded-[1.25rem] border border-rule bg-card p-6 sm:grid-cols-3;
     }
 
+    .partner-import {
+        @apply max-w-3xl rounded-[1.25rem] border border-rule bg-card p-6;
+    }
+
+    .partner-import > summary {
+        @apply cursor-pointer;
+    }
+
     .partner-code {
         @apply font-semibold tracking-wider text-foreground tabular-nums;
     }

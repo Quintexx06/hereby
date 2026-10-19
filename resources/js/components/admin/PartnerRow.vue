@@ -31,6 +31,7 @@ const pitch = computed(() => {
         partner.name,
         partner.demo_url,
         window.location.origin + home().url,
+        partner.pitch_note,
     );
 
     return `mailto:${partner.email}?subject=${encodeURIComponent(mail.subject)}&body=${encodeURIComponent(mail.body)}`;

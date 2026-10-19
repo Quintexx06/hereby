@@ -63,6 +63,8 @@ export type AdminPartner = {
     phone: string | null;
     website: string | null;
     town: string | null;
+    /** Team-only: a personal sentence for the pitch mail. */
+    pitch_note: string | null;
     /** Signed, 90 days: the venue's own demo site, for the pitch. */
     demo_url: string | null;
 };
