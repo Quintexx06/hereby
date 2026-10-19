@@ -20,17 +20,45 @@ use Illuminate\Support\Str;
 class SetUpPartner
 {
     /**
-     * @param  array{type: string, name: string, email: string}  $data
+     * @param  array{type: string, name: string, email?: string|null, town?: string|null, without_login?: bool}  $data
      */
     public function handle(array $data): Partner
     {
-        $user = $this->open($data, Str::random(40));
+        // A prospect we pitch to: no sign-in and no mail until it says yes.
+        if (($data['without_login'] ?? false) || empty($data['email'])) {
+            return Partner::query()->create([
+                'type' => PartnerType::from($data['type']),
+                'name' => $data['name'],
+                'email' => isset($data['email']) ? Str::lower($data['email']) : null,
+                'town' => $data['town'] ?? null,
+            ]);
+        }
 
-        $link = route('password.reset', ['token' => Password::createToken($user), 'email' => $user->email]);
-        Mail::to($user->email)->queue(new PartnerInvitation($data['name'], $link));
+        $user = $this->open(['type' => $data['type'], 'name' => $data['name'], 'email' => $data['email']], Str::random(40));
+        $user->partner?->update(['town' => $data['town'] ?? null]);
+        $this->sendInvitation($user, $data['name']);
 
         /** @var Partner */
         return $user->partner;
+    }
+
+    /**
+     * Gives a prospect that said yes its sign-in, at its contact address.
+     */
+    public function invite(Partner $partner, string $email): User
+    {
+        $user = new User(['name' => $partner->name, 'email' => Str::lower($email), 'password' => Hash::make(Str::random(40))]);
+        $user->partner_id = $partner->id;
+        $user->forceFill(['email_verified_at' => now()])->save();
+        $this->sendInvitation($user, $partner->name);
+
+        return $user;
+    }
+
+    public function sendInvitation(User $user, string $name): void
+    {
+        $link = route('password.reset', ['token' => Password::createToken($user), 'email' => $user->email]);
+        Mail::to($user->email)->queue(new PartnerInvitation($name, $link));
     }
 
     /**

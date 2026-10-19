@@ -21,6 +21,8 @@ const props = defineProps<{
     replied: boolean;
     preview: boolean;
     previewLanguages?: string[];
+    /** A venue's sales demo (VenueDemoController): its own banner. */
+    demo?: { venue: string; template: string; more: string };
 }>();
 
 const { localeTag } = useTrans();
@@ -75,6 +77,7 @@ const canReply = computed(
         <PreviewBanner
             v-if="preview && !embedded"
             :languages="previewLanguages ?? []"
+            :demo="demo"
         />
         <InvitationOpening
             v-if="!invitation.wedding.hiddenSections.includes('opening')"

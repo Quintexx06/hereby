@@ -118,6 +118,9 @@ export const itemLabels = {
 export const previewCopy = {
     banner: 'Vorschau: so sehen eure Gäste die Einladung.',
     back: 'Zurück zur Übersicht',
+    demo: (venue: string) => `Beispiel: eine Hochzeitsseite bei ${venue}`,
+    demoMore: 'Hereby für Locations',
+    templates: { atelier: 'Atelier', garten: 'Garten', panorama: 'Panorama' },
 };
 
 /** «Fusszeile»: who guests write to, at the bottom of every page. */

@@ -25,7 +25,12 @@ class StorePartnerRequest extends FormRequest
         return [
             'type' => ['required', Rule::enum(PartnerType::class)],
             'name' => ['required', 'string', 'max:120'],
-            'email' => ['required', 'email', 'max:191', 'unique:users,email'],
+            // A prospect has no sign-in yet: its address is only for the pitch.
+            'without_login' => ['boolean'],
+            'email' => $this->boolean('without_login')
+                ? ['nullable', 'email', 'max:191']
+                : ['required', 'email', 'max:191', 'unique:users,email'],
+            'town' => ['nullable', 'string', 'max:80'],
         ];
     }
 
@@ -37,6 +42,7 @@ class StorePartnerRequest extends FormRequest
         return [
             'name.required' => 'Wie heisst der Partner?',
             'email.unique' => 'Mit dieser Adresse gibt es schon ein Konto.',
+            'email.required' => 'An welche Adresse geht der Zugang?',
         ];
     }
 }

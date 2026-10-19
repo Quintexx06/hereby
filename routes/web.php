@@ -5,8 +5,10 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Marketing\SitemapController;
 use App\Http\Controllers\Marketing\TopicPageController;
 use App\Http\Controllers\StoreInquiryController;
+use App\Http\Controllers\VenueDemoController;
 use App\Http\Controllers\VenuePageController;
 use App\Http\Controllers\WelcomeController;
+use App\Http\Middleware\PreventIndexing;
 use App\Http\Middleware\UseSwissGerman;
 use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
 use Illuminate\Support\Facades\Route;
@@ -23,6 +25,10 @@ Route::middleware(UseSwissGerman::class)->group(function () {
     Route::inertia('datenschutz', 'legal/Privacy')->name('legal.privacy');
     Route::inertia('impressum', 'legal/Imprint')->name('legal.imprint');
     Route::get('orte/{partner:slug}', [VenuePageController::class, 'show'])->name('venues.show');
+    // A signed sales demo for a venue we want to win (no account, 90 days).
+    Route::get('demo/{partner:slug}', VenueDemoController::class)
+        ->middleware(['throttle:invitations', PreventIndexing::class])
+        ->name('venues.demo');
     Route::get('{slug}', TopicPageController::class)
         ->whereIn('slug', TopicPageController::slugs())
         ->name('topics.show');

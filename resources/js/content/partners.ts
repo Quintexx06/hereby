@@ -138,7 +138,39 @@ export const adminPartners = {
         'Vorschau für Besichtigungen, öffentliche Seite und die Zeile im Footer.',
     save: 'Speichern',
     resend: 'Neuen Zugangslink senden',
+    inviteLogin: 'Zugang einrichten und Link senden',
     noLogin: 'kein Zugang',
+    prospect: 'Interessent, noch ohne Zugang',
+    prospectHint:
+        'Für die Akquise: keine Mail, kein Login. Ihr bekommt einen Demo-Link mit seiner eigenen Hochzeitsseite, 90 Tage gültig.',
+    prospectEmail: 'E-Mail für die Anfrage (optional)',
+    createProspect: 'Interessent anlegen',
+    demoOpen: 'Demo ansehen',
+    demoCopy: 'Demo-Link kopieren',
+    demoCopied: 'Kopiert',
+    pitchOpen: 'Mail entwerfen',
+    /** The pitch, in the team's own mail app; venues are addressed as «Sie». */
+    pitch: (venue: string, demo: string, home: string) => ({
+        subject: `Eine Hochzeitswebsite für Paare, die bei ${venue} heiraten`,
+        body: [
+            'Guten Tag',
+            '',
+            `Ich bin Martin von Hereby, der Hochzeitswebsite aus der Schweiz. Ich habe Ihnen eine Beispielseite gebaut, so wie Paare, die bei ${venue} heiraten, sie ihren Gästen schicken würden:`,
+            '',
+            demo,
+            '',
+            'Jeder Haushalt bekommt einen persönlichen Link und antwortet in unter einer Minute. Für Sie heisst das: Gästezahlen, Menüs und Allergien pro Tisch kommen geordnet bei Ihnen an, ohne Excel per Mail und ohne Nachfragen drei Tage vor dem Fest. Ihre Adresse, die Anreise und Ihre Zimmer stehen auf jeder Seite Ihrer Paare richtig.',
+            '',
+            `So funktioniert es für Locations: ${home}fuer-locations`,
+            `Hereby: ${home}`,
+            '',
+            'Hätten Sie Zeit für eine Viertelstunde, in der ich es Ihnen zeige? Ich komme gerne vorbei.',
+            '',
+            'Herzliche Grüsse',
+            'Martin Brunner',
+            'Hereby · info@hereby.ch',
+        ].join('\n'),
+    }),
 };
 
 export const venuePage = {

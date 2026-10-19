@@ -129,7 +129,7 @@ function save(): void {
                     class="partner-edit-wide flex flex-wrap items-center justify-between gap-4 pt-2"
                 >
                     <button
-                        v-if="partner.login"
+                        v-if="partner.login || form.email"
                         type="button"
                         class="text-action text-sm"
                         @click="
@@ -140,7 +140,7 @@ function save(): void {
                             )
                         "
                     >
-                        {{ copy.resend }}
+                        {{ partner.login ? copy.resend : copy.inviteLogin }}
                     </button>
                     <Button
                         type="submit"

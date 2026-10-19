@@ -4,14 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Actions\Partners\SetUpPartner;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\VenueDemoController;
 use App\Http\Requests\Admin\StorePartnerRequest;
 use App\Http\Requests\Admin\UpdatePartnerRequest;
-use App\Mail\PartnerInvitation;
 use App\Models\Partner;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -43,17 +43,22 @@ class PartnersController extends Controller
                     'phone' => $partner->phone,
                     'website' => $partner->website,
                     'town' => $partner->town,
+                    'demo_url' => $partner->isVenue()
+                        ? URL::temporarySignedRoute('venues.demo', now()->addDays(VenueDemoController::DAYS_VALID), ['partner' => $partner->slug])
+                        : null,
                 ]),
         ]);
     }
 
     public function store(StorePartnerRequest $request, SetUpPartner $setUp): RedirectResponse
     {
-        /** @var array{type: string, name: string, email: string} $data */
+        /** @var array{type: string, name: string, email?: string|null, town?: string|null, without_login?: bool} $data */
         $data = $request->validated();
         $partner = $setUp->handle($data);
 
-        Inertia::flash('toast', ['type' => 'success', 'message' => "{$partner->name} angelegt. Die Einladung ist unterwegs."]);
+        Inertia::flash('toast', ['type' => 'success', 'message' => $partner->users()->exists()
+            ? "{$partner->name} angelegt. Die Einladung ist unterwegs."
+            : "{$partner->name} als Interessent angelegt. Der Demo-Link steht in der Liste."]);
 
         return back();
     }
@@ -85,13 +90,19 @@ class PartnersController extends Controller
     /**
      * Sends the sign-in a fresh link to choose a password.
      */
-    public function resend(Partner $partner): RedirectResponse
+    public function resend(Partner $partner, SetUpPartner $setUp): RedirectResponse
     {
-        $user = $partner->users()->firstOrFail();
-        $link = route('password.reset', ['token' => Password::createToken($user), 'email' => $user->email]);
-        Mail::to($user->email)->queue(new PartnerInvitation($partner->name, $link));
+        $user = $partner->users()->first();
 
-        Inertia::flash('toast', ['type' => 'success', 'message' => "Neuer Link an {$user->email} unterwegs."]);
+        if (! $user) {
+            // A prospect said yes: its contact address becomes the sign-in.
+            abort_if(blank($partner->email) || User::query()->where('email', $partner->email)->exists(), 422, 'Tragt zuerst eine freie E-Mail-Adresse für Paare ein.');
+            $user = $setUp->invite($partner, (string) $partner->email);
+        } else {
+            $setUp->sendInvitation($user, $partner->name);
+        }
+
+        Inertia::flash('toast', ['type' => 'success', 'message' => "Zugangslink an {$user->email} unterwegs."]);
 
         return back();
     }
