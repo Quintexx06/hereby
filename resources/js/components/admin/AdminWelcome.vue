@@ -1,92 +1,144 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
-import { Button } from '@/components/ui/button';
+import { computed, nextTick, onBeforeUnmount, ref, watch } from 'vue';
+import TourCard from '@/components/admin/TourCard.vue';
 import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogTitle,
-} from '@/components/ui/dialog';
+    isShown,
+    placeCard,
+    shadePath,
+    useTourSpotlight,
+} from '@/composables/useTourSpotlight';
+import { findTourTarget as find } from '@/config/adminTour';
+import type { TourStep as Step } from '@/config/adminTour';
 import { adminWelcome as copy } from '@/content/admin';
-import { landingPhotos } from '@/content/landing-photos';
 
 const open = defineModel<boolean>('open', { required: true });
 const emit = defineEmits<{ finish: [] }>();
 
+/* Steps whose element is on screen now: the phone's closed nav drops out. */
+const steps = ref<Step[]>([]);
 const index = ref(0);
-const slide = computed(() => copy.slides[index.value]);
-const photo = computed(() => landingPhotos[slide.value.photo]);
-const isLast = computed(() => index.value === copy.slides.length - 1);
+const step = computed(() => steps.value[index.value]);
+const element = ref<HTMLElement | null>(null);
+const { rect, viewport, refresh } = useTourSpotlight(element);
+
+const card = ref<InstanceType<typeof TourCard> | null>(null);
+const cardSize = ref({ width: 0, height: 0 });
+const position = computed(() =>
+    placeCard(rect.value, cardSize.value, viewport.value),
+);
+
+async function show(): Promise<void> {
+    const target = find(step.value);
+    element.value = isShown(target) ? target : null;
+    refresh();
+    await nextTick();
+    const root = card.value?.root;
+    cardSize.value = {
+        width: root?.offsetWidth ?? 0,
+        height: root?.offsetHeight ?? 0,
+    };
+    root?.focus({ preventScroll: true });
+}
+
+function go(to: number): void {
+    if (to >= steps.value.length) {
+        finish();
+    } else {
+        index.value = Math.max(0, to);
+        show();
+    }
+}
 
 function finish(): void {
     open.value = false;
-    index.value = 0;
     emit('finish');
 }
 
-function next(): void {
-    if (isLast.value) {
+/* A click on a highlighted control does what it does, and ends the tour. */
+function onClick(event: MouseEvent): void {
+    if (
+        'interactive' in step.value &&
+        element.value?.contains(event.target as Node)
+    ) {
         finish();
-    } else {
-        index.value++;
     }
 }
+
+function onKey(event: KeyboardEvent): void {
+    const moves: Record<string, () => void> = {
+        Escape: finish,
+        ArrowRight: () => go(index.value + 1),
+        ArrowLeft: () => go(index.value - 1),
+    };
+    moves[event.key]?.();
+}
+
+function listen(on: boolean): void {
+    if (on) {
+        document.addEventListener('click', onClick, true);
+        document.addEventListener('keydown', onKey);
+    } else {
+        document.removeEventListener('click', onClick, true);
+        document.removeEventListener('keydown', onKey);
+    }
+}
+
+watch(open, (isOpen) => {
+    listen(isOpen);
+    element.value = null;
+
+    if (isOpen) {
+        steps.value = copy.steps.filter(
+            (candidate) => !candidate.target || isShown(find(candidate)),
+        );
+        index.value = 0;
+        nextTick(show);
+    }
+});
+
+onBeforeUnmount(() => listen(false));
 </script>
 
-<!-- First-visit tour: three photo slides, skippable, re-opened from the hero. -->
+<!--
+    First-visit tour: the page dims, a ring moves from control to control,
+    and a card beside it explains each. A highlighted button or link stays
+    clickable, so the team can try it right away.
+-->
 <template>
-    <Dialog
-        :open="open"
-        @update:open="(value) => (value ? (open = true) : finish())"
-    >
-        <DialogContent class="gap-0 overflow-hidden p-0 sm:max-w-md">
-            <Transition name="welcome-slide" mode="out-in">
-                <img
-                    :key="photo.src"
-                    :src="photo.src"
-                    :alt="photo.alt"
-                    class="admin-welcome-photo"
+    <Teleport to="body">
+        <Transition name="tour-fade">
+            <div v-if="open && step" class="tour">
+                <div
+                    class="tour-shade"
+                    :style="{
+                        clipPath: `path(evenodd, '${shadePath(rect, viewport)}')`,
+                    }"
+                    aria-hidden="true"
                 />
-            </Transition>
-            <div class="flex flex-col gap-2 p-6 pb-0">
-                <DialogTitle class="app-section-title text-2xl">
-                    {{ slide.title }}
-                </DialogTitle>
-                <DialogDescription class="text-pretty">
-                    {{ slide.text }}
-                </DialogDescription>
+                <div
+                    v-if="rect"
+                    class="tour-ring"
+                    :data-interactive="'interactive' in step"
+                    :style="{
+                        transform: `translate(${rect.x}px, ${rect.y}px)`,
+                        width: `${rect.width}px`,
+                        height: `${rect.height}px`,
+                    }"
+                    aria-hidden="true"
+                />
+                <TourCard
+                    ref="card"
+                    :step="step"
+                    :index="index"
+                    :total="steps.length"
+                    :style="{
+                        transform: `translate(${position.left}px, ${position.top}px)`,
+                    }"
+                    @back="go(index - 1)"
+                    @next="go(index + 1)"
+                    @close="finish"
+                />
             </div>
-            <div class="flex items-center justify-between gap-4 p-6">
-                <div class="flex gap-1.5" aria-hidden="true">
-                    <span
-                        v-for="(_, dot) in copy.slides"
-                        :key="dot"
-                        class="admin-welcome-dot"
-                        :data-active="dot === index"
-                    />
-                </div>
-                <div class="flex gap-2">
-                    <Button
-                        v-if="index > 0"
-                        variant="ghost"
-                        class="rounded-full"
-                        @click="index--"
-                    >
-                        {{ copy.back }}
-                    </Button>
-                    <Button
-                        v-else
-                        variant="ghost"
-                        class="rounded-full"
-                        @click="finish"
-                    >
-                        {{ copy.skip }}
-                    </Button>
-                    <Button class="rounded-full" @click="next">
-                        {{ isLast ? copy.done : copy.next }}
-                    </Button>
-                </div>
-            </div>
-        </DialogContent>
-    </Dialog>
+        </Transition>
+    </Teleport>
 </template>

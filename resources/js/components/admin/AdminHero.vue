@@ -18,7 +18,7 @@ defineEmits<{ tour: []; create: [] }>();
     <div>
         <PageMasthead :title="copy.title" :lede="copy.lede" scene="roses">
             <template #actions>
-                <Button size="pill" @click="$emit('create')">
+                <Button size="pill" data-tour="create" @click="$emit('create')">
                     <Plus class="size-4" /> {{ copy.newCoupleShort }}
                 </Button>
                 <button
@@ -31,7 +31,7 @@ defineEmits<{ tour: []; create: [] }>();
             </template>
         </PageMasthead>
 
-        <dl class="figure-row">
+        <dl class="figure-row" data-tour="stats">
             <div v-for="stat in stats" :key="stat.label" class="stat-figure">
                 <dt class="figure-label">{{ stat.label }}</dt>
                 <dd v-count-up="stat.value" class="figure-value">

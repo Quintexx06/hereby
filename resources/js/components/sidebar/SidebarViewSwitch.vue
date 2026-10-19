@@ -22,6 +22,7 @@ function choose(value: 'team' | 'couple'): void {
 <template>
     <div
         class="view-switch"
+        data-tour="view"
         role="radiogroup"
         aria-label="Ansicht"
         :data-view="view"

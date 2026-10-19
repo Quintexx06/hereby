@@ -58,28 +58,77 @@ export const inquiriesCopy = {
     emptyAnswered: 'Noch nichts beantwortet.',
 };
 
-/** First-visit tour of the team area; photos from content/landing-photos. */
+/**
+ * First-visit tour of the team area: a spotlight on the real controls, one
+ * after the other. `target` names a `data-tour` element or a nav entry;
+ * the first card has none and shows a photo from content/landing-photos.
+ */
 export const adminWelcome = {
     open: 'Rundgang',
     next: 'Weiter',
     back: 'Zurück',
     done: 'Los geht’s',
     skip: 'Überspringen',
-    slides: [
+    close: 'Rundgang schliessen',
+    progress: (step: number, total: number) => `${step} von ${total}`,
+    tryIt: 'Probiert es aus: Klickt auf das Hervorgehobene.',
+    steps: [
         {
+            target: null,
             photo: 'tableCandles',
             title: 'Willkommen im Team-Bereich',
-            text: 'Hier legt ihr Hochzeiten an, begleitet Paare durch die Einrichtung und behaltet jede Website im Blick.',
+            text: 'Hier legt ihr Hochzeiten an, begleitet Paare durch die Einrichtung und behaltet jede Website im Blick. In einer Minute zeigen wir euch, wo alles ist.',
         },
         {
-            photo: 'bouquet',
+            target: 'create',
             title: 'Ein Paar anlegen',
             text: 'Zwei Vornamen und eine E-Mail genügen. Das Paar bekommt einen Link, wählt sein Passwort, und ihr richtet die Seite gemeinsam ein.',
+            interactive: true,
         },
         {
-            photo: 'lakeJetty',
-            title: 'Anfragen im Blick',
-            text: 'Fragen von der Startseite landen unter «Anfragen». Die Zahl in der Seitenleiste zeigt, was noch offen ist.',
+            target: 'stats',
+            title: 'Die Zahlen',
+            text: 'Alle Hochzeiten, Entwürfe, aktive Seiten und die Antworten der Gäste, immer auf dem neusten Stand.',
+        },
+        {
+            target: 'checklist',
+            title: 'Erste Schritte',
+            text: 'Die Liste hakt sich selbst ab, sobald ihr etwas erledigt habt. Wenn alles steht, verschwindet sie.',
+        },
+        {
+            target: 'view',
+            title: 'Team oder Paar',
+            text: 'In der Paar-Ansicht seht und bearbeitet ihr eine Hochzeit so, wie das Paar sie sieht. Hier wechselt ihr zurück.',
+            interactive: true,
+        },
+        {
+            target: 'inquiries',
+            title: 'Anfragen',
+            text: 'Fragen von der Startseite landen hier. Die Zahl daneben zeigt, was noch offen ist.',
+            interactive: true,
+        },
+        {
+            target: 'chase',
+            title: 'Nachfassen',
+            text: 'Für Paare mit «Wir fassen nach»: Haushalte ohne Antwort, kurz bevor die Frist endet.',
+            interactive: true,
+        },
+        {
+            target: 'partners',
+            title: 'Partner',
+            text: 'Locations, Fotografen und Planer. Hier legt ihr auch Interessenten an und schickt ihnen ihre eigene Demo.',
+            interactive: true,
+        },
+        {
+            target: 'log',
+            title: 'Protokoll',
+            text: 'Warnungen und Fehler der Website. Bei einem grossen Fehler bekommt ihr zusätzlich eine Mail.',
+            interactive: true,
+        },
+        {
+            target: 'weddings',
+            title: 'Alle Hochzeiten',
+            text: 'Jede Hochzeit mit Stand, Datum und Antworten. Ein Klick auf eine Zeile öffnet sie.',
         },
     ],
 } as const;

@@ -59,7 +59,7 @@ onMounted(() => (tourOpen.value = !tourSeen.isSet.value));
             @hide="checklistHidden.set(true)"
         />
 
-        <section class="admin-list">
+        <section class="admin-list" data-tour="weddings">
             <div class="flex items-baseline justify-between gap-4">
                 <h2 class="ledger-title">{{ copy.listTitle }}</h2>
                 <button

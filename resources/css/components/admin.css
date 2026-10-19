@@ -123,22 +123,57 @@
         @apply aspect-[4/3] w-full object-cover;
     }
 
-    .admin-welcome-dot {
-        @apply h-1.5 w-1.5 rounded-full bg-foreground/20 transition-[width,background-color] duration-200 ease-out;
+    /* The team tour: dimmed page, a ring on the real control, a card beside it. */
+    .tour {
+        @apply fixed inset-0 z-50;
+        pointer-events: none;
     }
 
-    .admin-welcome-dot[data-active='true'] {
-        @apply w-5 bg-foreground;
+    .tour-shade {
+        @apply absolute inset-0 bg-foreground/55;
+        pointer-events: auto;
+        transition: clip-path 260ms var(--ease-out);
     }
 
-    .welcome-slide-enter-active,
-    .welcome-slide-leave-active {
-        transition: opacity 180ms var(--ease-out);
+    .tour-ring {
+        @apply absolute top-0 left-0 rounded-[14px] ring-2 ring-brand ring-offset-0;
+        transition:
+            transform 260ms var(--ease-out),
+            width 260ms var(--ease-out),
+            height 260ms var(--ease-out);
     }
 
-    .welcome-slide-enter-from,
-    .welcome-slide-leave-to {
+    /* Only a control the step invites you to try lets the click through. */
+    .tour-ring[data-interactive='false'] {
+        pointer-events: auto;
+    }
+
+    .tour-card {
+        @apply absolute top-0 left-0 w-[min(22rem,calc(100vw-2rem))] overflow-hidden rounded-[1.25rem] bg-card text-card-foreground shadow-xl outline-none;
+        pointer-events: auto;
+        transition: transform 260ms var(--ease-out);
+    }
+
+    .tour-close {
+        @apply absolute top-3 right-3 grid size-8 place-items-center rounded-full bg-card/90 text-foreground transition-transform duration-150 ease-out active:scale-95;
+    }
+
+    .tour-fade-enter-active,
+    .tour-fade-leave-active {
+        transition: opacity 200ms var(--ease-out);
+    }
+
+    .tour-fade-enter-from,
+    .tour-fade-leave-to {
         opacity: 0;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .tour-shade,
+        .tour-ring,
+        .tour-card {
+            transition: none;
+        }
     }
 
     /* «Protokoll»: one row per problem, errors marked in ember. */

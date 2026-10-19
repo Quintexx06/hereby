@@ -40,7 +40,11 @@ const doneCount = computed(() => steps.value.filter((s) => s.done).length);
     each tick derived from real data, never from a click.
 -->
 <template>
-    <section v-if="doneCount < steps.length" class="admin-checklist">
+    <section
+        v-if="doneCount < steps.length"
+        class="admin-checklist"
+        data-tour="checklist"
+    >
         <div class="admin-checklist-head">
             <h2 class="ledger-title">{{ copy.title }}</h2>
             <p class="text-sm text-muted-foreground tabular-nums">
