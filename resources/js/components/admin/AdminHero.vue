@@ -2,7 +2,8 @@
 import { Plus, Sparkles } from '@lucide/vue';
 import PageMasthead from '@/components/PageMasthead.vue';
 import { Button } from '@/components/ui/button';
-import { adminCopy as copy, adminWelcome } from '@/content/admin';
+import { adminCopy as copy } from '@/content/admin';
+import { tourCopy } from '@/content/tour';
 
 defineProps<{
     stats: { label: string; value: number }[];
@@ -26,7 +27,7 @@ defineEmits<{ tour: []; create: [] }>();
                     class="text-action hit-area"
                     @click="$emit('tour')"
                 >
-                    <Sparkles class="size-4" /> {{ adminWelcome.open }}
+                    <Sparkles class="size-4" /> {{ tourCopy.open }}
                 </button>
             </template>
         </PageMasthead>

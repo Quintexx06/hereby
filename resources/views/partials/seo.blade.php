@@ -28,4 +28,4 @@
 <link rel="preload" as="image" type="image/webp" href="{{ asset('images/landing/hero-veil-portrait.webp') }}" media="(max-width: 767px)" fetchpriority="high">
 <link rel="preload" as="image" type="image/webp" imagesrcset="{{ asset('images/landing/hero-veil-1440.webp') }} 1440w, {{ asset('images/landing/hero-veil-2400.webp') }} 2400w" imagesizes="100vw" media="(min-width: 768px)" fetchpriority="high">
 @endif
-<script type="application/ld+json">@json(\App\Support\Seo\StructuredData::graph($page['component'], $meta, $page['props']), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)</script>
+<script type="application/ld+json">{!! json_encode(\App\Support\Seo\StructuredData::graph($page['component'], $meta, $page['props']), JSON_HEX_TAG | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!}</script>

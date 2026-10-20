@@ -2,6 +2,7 @@
 
 use App\Http\Middleware\HandleInertiaRequests;
 use App\Http\Middleware\ServeConnectedDomains;
+use App\Http\Middleware\SetSecurityHeaders;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -23,6 +24,7 @@ return Application::configure(basePath: dirname(__DIR__))
 
         // A couple's own domain serves only its guests' pages (spec 2026-10-13).
         $middleware->append(ServeConnectedDomains::class);
+        $middleware->append(SetSecurityHeaders::class);
 
         $middleware->web(append: [
             HandleInertiaRequests::class,

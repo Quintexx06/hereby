@@ -35,7 +35,7 @@ const stats = computed(() => [
 </script>
 
 <template>
-    <dl class="figure-row" :data-count="stats.length">
+    <dl class="figure-row" :data-count="stats.length" data-tour="stats">
         <div v-for="stat in stats" :key="stat.label" class="stat-figure">
             <dt class="figure-label">{{ stat.label }}</dt>
             <dd

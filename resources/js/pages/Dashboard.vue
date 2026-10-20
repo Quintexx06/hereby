@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Head } from '@inertiajs/vue3';
+import { onMounted, ref } from 'vue';
 import DashboardDraft from '@/components/dashboard/DashboardDraft.vue';
 import DashboardHero from '@/components/dashboard/DashboardHero.vue';
 import DashboardShortcuts from '@/components/dashboard/DashboardShortcuts.vue';
@@ -10,11 +11,14 @@ import ProgrammeSummary from '@/components/dashboard/ProgrammeSummary.vue';
 import ReplySummary from '@/components/dashboard/ReplySummary.vue';
 import TodayList from '@/components/dashboard/TodayList.vue';
 import PublishBanner from '@/components/publish/PublishBanner.vue';
+import SpotlightTour from '@/components/tour/SpotlightTour.vue';
+import { useRememberedFlag } from '@/composables/useRememberedFlag';
+import { coupleTourSteps } from '@/config/tours';
 import { dashboardPage } from '@/content/dashboard';
 import { dashboard } from '@/routes';
 import type { DashboardWedding, WeddingOverview } from '@/types';
 
-defineProps<{
+const props = defineProps<{
     wedding: DashboardWedding | null;
     overview: WeddingOverview | null;
 }>();
@@ -23,6 +27,16 @@ defineOptions({
     layout: {
         breadcrumbs: [{ title: dashboardPage.title, href: dashboard() }],
     },
+});
+
+/* Once the site is live, the overview shows itself once per browser. */
+const tourSeen = useRememberedFlag('hereby.couple.tour-seen');
+const tourOpen = ref(false);
+onMounted(() => {
+    tourOpen.value =
+        !tourSeen.isSet.value &&
+        props.wedding?.status !== 'draft' &&
+        props.overview !== null;
 });
 </script>
 
@@ -37,7 +51,12 @@ defineOptions({
         />
 
         <template v-else-if="overview">
-            <DashboardHero :wedding="wedding" />
+            <DashboardHero :wedding="wedding" @tour="tourOpen = true" />
+            <SpotlightTour
+                v-model:open="tourOpen"
+                :steps="coupleTourSteps(wedding.id)"
+                @finish="tourSeen.set(true)"
+            />
             <PublishBanner class="mt-8" />
             <DashboardStats :overview="overview" />
 

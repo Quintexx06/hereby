@@ -18,6 +18,19 @@ use Illuminate\Http\Resources\Json\JsonResource;
  */
 class ReplyFormResource extends JsonResource
 {
+    /** @var array<string, string>|null Links that replace the personal ones (the venue demo). */
+    private ?array $links = null;
+
+    /**
+     * @param  array<string, string>  $links
+     */
+    public function withLinks(array $links): static
+    {
+        $this->links = $links;
+
+        return $this;
+    }
+
     /**
      * @return array<string, mixed>
      */
@@ -30,7 +43,7 @@ class ReplyFormResource extends JsonResource
             'household' => ['name' => $this->name, 'plusOneAllowed' => $this->plus_one_allowed],
             'wedding' => new WeddingResource($wedding),
             'open' => $wedding->acceptsReplies(),
-            'links' => [
+            'links' => $this->links ?? [
                 'invitation' => PersonalLink::to($this->resource),
                 'reply' => PersonalLink::to($this->resource, 'invitation.reply'),
             ],

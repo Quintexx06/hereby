@@ -1,23 +1,22 @@
 <script setup lang="ts">
 import { computed, nextTick, onBeforeUnmount, ref, watch } from 'vue';
-import TourCard from '@/components/admin/TourCard.vue';
+import TourCard from '@/components/tour/TourCard.vue';
 import {
     isShown,
     placeCard,
     shadePath,
     useTourSpotlight,
 } from '@/composables/useTourSpotlight';
-import { findTourTarget as find } from '@/config/adminTour';
-import type { TourStep as Step } from '@/config/adminTour';
-import { adminWelcome as copy } from '@/content/admin';
+import { findTourTarget as find } from '@/config/tours';
+import type { TourStep as Step } from '@/config/tours';
 
+const props = defineProps<{ steps: Step[] }>();
 const open = defineModel<boolean>('open', { required: true });
 const emit = defineEmits<{ finish: [] }>();
 
-/* Steps whose element is on screen now: the phone's closed nav drops out. */
-const steps = ref<Step[]>([]);
+const shown = ref<Step[]>([]);
 const index = ref(0);
-const step = computed(() => steps.value[index.value]);
+const step = computed(() => shown.value[index.value]);
 const element = ref<HTMLElement | null>(null);
 const { rect, viewport, refresh } = useTourSpotlight(element);
 
@@ -41,7 +40,7 @@ async function show(): Promise<void> {
 }
 
 function go(to: number): void {
-    if (to >= steps.value.length) {
+    if (to >= shown.value.length) {
         finish();
     } else {
         index.value = Math.max(0, to);
@@ -57,7 +56,7 @@ function finish(): void {
 /* A click on a highlighted control does what it does, and ends the tour. */
 function onClick(event: MouseEvent): void {
     if (
-        'interactive' in step.value &&
+        step.value?.interactive &&
         element.value?.contains(event.target as Node)
     ) {
         finish();
@@ -88,8 +87,8 @@ watch(open, (isOpen) => {
     element.value = null;
 
     if (isOpen) {
-        steps.value = copy.steps.filter(
-            (candidate) => !candidate.target || isShown(find(candidate)),
+        shown.value = props.steps.filter(
+            (candidate) => !candidate.selector || isShown(find(candidate)),
         );
         index.value = 0;
         nextTick(show);
@@ -102,7 +101,8 @@ onBeforeUnmount(() => listen(false));
 <!--
     First-visit tour: the page dims, a ring moves from control to control,
     and a card beside it explains each. A highlighted button or link stays
-    clickable, so the team can try it right away.
+    clickable, so it can be tried right away. Steps whose control is not on
+    screen (the phone's closed nav, a finished checklist) are left out.
 -->
 <template>
     <Teleport to="body">
@@ -118,7 +118,7 @@ onBeforeUnmount(() => listen(false));
                 <div
                     v-if="rect"
                     class="tour-ring"
-                    :data-interactive="'interactive' in step"
+                    :data-interactive="Boolean(step.interactive)"
                     :style="{
                         transform: `translate(${rect.x}px, ${rect.y}px)`,
                         width: `${rect.width}px`,
@@ -130,7 +130,7 @@ onBeforeUnmount(() => listen(false));
                     ref="card"
                     :step="step"
                     :index="index"
-                    :total="steps.length"
+                    :total="shown.length"
                     :style="{
                         transform: `translate(${position.left}px, ${position.top}px)`,
                     }"

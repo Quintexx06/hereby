@@ -5,15 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\Actions\Partners\ImportProspects;
 use App\Actions\Partners\SetUpPartner;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\VenueDemoController;
 use App\Http\Requests\Admin\ImportProspectsRequest;
 use App\Http\Requests\Admin\StorePartnerRequest;
 use App\Http\Requests\Admin\UpdatePartnerRequest;
 use App\Models\Partner;
 use App\Models\User;
+use App\Support\VenueDemoLinks;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -47,7 +46,7 @@ class PartnersController extends Controller
                     'town' => $partner->town,
                     'pitch_note' => $partner->pitch_note,
                     'demo_url' => $partner->isVenue()
-                        ? URL::temporarySignedRoute('venues.demo', now()->addDays(VenueDemoController::DAYS_VALID), ['partner' => $partner->slug])
+                        ? VenueDemoLinks::fresh($partner)
                         : null,
                 ]),
         ]);

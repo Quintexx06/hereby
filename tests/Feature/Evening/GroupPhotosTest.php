@@ -69,6 +69,10 @@ class GroupPhotosTest extends TestCase
         Mail::assertQueued(GroupPhotoCall::class, 1);
         Mail::assertQueued(GroupPhotoCall::class, fn (GroupPhotoCall $mail): bool => $mail->hasTo('meier@example.ch'));
 
+        // Calling again right away renews the banner but mails nobody twice.
+        $this->post(route('witness.group-photos.call', [$wedding->witnessToken(), $group]))->assertRedirect();
+        Mail::assertQueued(GroupPhotoCall::class, 1);
+
         $this->get(route('invitation.show', $meier))
             ->assertInertia(fn (Assert $page) => $page->where('invitation.evening.call', ['title' => 'Familie Meier', 'place' => 'Beim Steg']));
         $this->get(route('invitation.show', $other))

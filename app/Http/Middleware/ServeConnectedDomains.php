@@ -11,7 +11,9 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * On a couple's own domain (spec 2026-10-13) only that wedding's personal
  * links answer; Hereby's own pages, and other weddings' guests, are 404.
- * Requests on Hereby's domain pass untouched.
+ * Requests on Hereby's domain pass untouched. In production any other host
+ * is 404 too: links in mails (password reset) are built from the request's
+ * host, so a forged Host or X-Forwarded-Host must never reach the app.
  */
 class ServeConnectedDomains
 {
@@ -22,7 +24,9 @@ class ServeConnectedDomains
     {
         $host = $request->getHost();
 
-        if ($host === parse_url((string) config('app.url'), PHP_URL_HOST)) {
+        $own = parse_url((string) config('app.url'), PHP_URL_HOST);
+
+        if ($host === $own || $host === "www.{$own}" || $this->isInternal($request)) {
             return $next($request);
         }
 
@@ -32,6 +36,8 @@ class ServeConnectedDomains
             ->first(['id']);
 
         if ($wedding === null) {
+            abort_if(app()->isProduction(), 404);
+
             return $next($request);
         }
 
@@ -48,5 +54,14 @@ class ServeConnectedDomains
         }
 
         return $next($request);
+    }
+
+    /**
+     * The container's own health checks, which call it as localhost.
+     */
+    private function isInternal(Request $request): bool
+    {
+        return in_array($request->getHost(), ['localhost', '127.0.0.1'], true)
+            || $request->is('up');
     }
 }

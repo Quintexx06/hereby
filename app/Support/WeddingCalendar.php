@@ -15,11 +15,14 @@ use Illuminate\Support\Collection;
  */
 class WeddingCalendar
 {
-    public static function for(Household $household): string
+    /**
+     * @param  string|null  $link  Where the entries point back to; the personal link unless given (the venue demo).
+     */
+    public static function for(Household $household, ?string $link = null): string
     {
         $household->loadMissing(['wedding', 'events', 'guests.responses']);
         $wedding = $household->wedding;
-        $link = PersonalLink::to($household);
+        $link ??= PersonalLink::to($household);
 
         $lines = [
             'BEGIN:VCALENDAR',

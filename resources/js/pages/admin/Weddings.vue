@@ -3,10 +3,11 @@ import { Head } from '@inertiajs/vue3';
 import { computed, onMounted, ref } from 'vue';
 import AdminChecklist from '@/components/admin/AdminChecklist.vue';
 import AdminHero from '@/components/admin/AdminHero.vue';
-import AdminWelcome from '@/components/admin/AdminWelcome.vue';
 import NewCoupleForm from '@/components/admin/NewCoupleForm.vue';
 import WeddingCard from '@/components/admin/WeddingCard.vue';
+import SpotlightTour from '@/components/tour/SpotlightTour.vue';
 import { Sheet, SheetContent } from '@/components/ui/sheet';
+import { adminTourSteps } from '@/config/tours';
 import { adminChecklist, adminCopy as copy } from '@/content/admin';
 import { useRememberedFlag } from '@/composables/useRememberedFlag';
 import type { AdminWedding } from '@/types';
@@ -51,7 +52,11 @@ onMounted(() => (tourOpen.value = !tourSeen.isSet.value));
             @tour="tourOpen = true"
             @create="creating = true"
         />
-        <AdminWelcome v-model:open="tourOpen" @finish="tourSeen.set(true)" />
+        <SpotlightTour
+            v-model:open="tourOpen"
+            :steps="adminTourSteps()"
+            @finish="tourSeen.set(true)"
+        />
 
         <AdminChecklist
             v-if="!checklistHidden.isSet.value"

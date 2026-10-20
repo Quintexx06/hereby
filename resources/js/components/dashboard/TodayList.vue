@@ -19,7 +19,7 @@ const href = (key: string) =>
 </script>
 
 <template>
-    <section aria-labelledby="today" class="ledger-section">
+    <section aria-labelledby="today" class="ledger-section" data-tour="today">
         <h2 id="today" class="ledger-title">{{ active.today }}</h2>
         <p v-if="actions.length === 0" class="text-muted-foreground">
             {{ active.nothingToday }}

@@ -86,4 +86,14 @@ class KitchenSheetsTest extends TestCase
         $this->assertStringContainsString('Keine Haselnüsse', $csv);
         $this->assertStringContainsString('Risotto', $csv);
     }
+
+    public function test_a_guest_typed_formula_opens_as_text_in_excel(): void
+    {
+        Guest::query()->where('first_name', 'Heidi')->sole()->update(['dietary_notes' => '=HYPERLINK("https://evil.example")']);
+
+        $csv = $this->actingAs($this->wedding->owner)->get(route('weddings.kitchen.csv', $this->wedding))->streamedContent();
+
+        $this->assertStringContainsString("'=HYPERLINK", $csv);
+        $this->assertStringNotContainsString(';"=HYPERLINK', $csv);
+    }
 }

@@ -16,9 +16,17 @@ use Illuminate\Support\Facades\Mail;
  */
 class GroupPhotoCallController extends Controller
 {
+    /** A second call within this many minutes only renews the banner, it sends no mail. */
+    public const MAIL_COOLDOWN_MINUTES = 2;
+
     public function __invoke(Wedding $wedding, GroupPhoto $groupPhoto): RedirectResponse
     {
+        $recentlyCalled = $groupPhoto->called_at?->gt(now()->subMinutes(self::MAIL_COOLDOWN_MINUTES)) ?? false;
         $groupPhoto->forceFill(['called_at' => now()])->save();
+
+        if ($recentlyCalled) {
+            return back();
+        }
 
         $groupPhoto->households()->whereNotNull('email')->get()
             ->each(fn (Household $household) => Mail::to((string) $household->email)

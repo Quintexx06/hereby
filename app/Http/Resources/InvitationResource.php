@@ -19,6 +19,19 @@ use Illuminate\Http\Resources\Json\JsonResource;
  */
 class InvitationResource extends JsonResource
 {
+    /** @var array<string, string>|null Links that replace the personal ones (the venue demo). */
+    private ?array $links = null;
+
+    /**
+     * @param  array<string, string>  $links
+     */
+    public function withLinks(array $links): static
+    {
+        $this->links = $links;
+
+        return $this;
+    }
+
     /**
      * @return array<string, mixed>
      */
@@ -41,11 +54,11 @@ class InvitationResource extends JsonResource
             // «Der Abend» (Atelier and up); other guests only by first name and the couple's note.
             'evening' => app(BuildEvening::class)->handle($this->resource),
             // Null in the couple's preview, where the sample household has no link.
-            'links' => $this->exists ? [
+            'links' => $this->links ?? ($this->exists ? [
                 'invitation' => PersonalLink::to($this->resource),
                 'reply' => PersonalLink::to($this->resource, 'invitation.reply'),
                 'calendar' => PersonalLink::to($this->resource, 'invitation.calendar'),
-            ] : null,
+            ] : null),
             'reply' => [
                 'answered' => $this->responded_at !== null,
                 'attending' => $this->guests->filter(fn (Guest $guest): bool => $guest->responses

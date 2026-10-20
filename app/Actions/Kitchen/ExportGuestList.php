@@ -60,7 +60,7 @@ class ExportGuestList
         }
 
         foreach ($this->rows($wedding) as $row) {
-            fputcsv($handle, $row, ';', '"', '');
+            fputcsv($handle, array_map(self::defuse(...), $row), ';', '"', '');
         }
 
         rewind($handle);
@@ -68,6 +68,15 @@ class ExportGuestList
         fclose($handle);
 
         return "\u{FEFF}".$csv;
+    }
+
+    /**
+     * Guests type some of these cells (allergies, a plus-one, a song): one
+     * starting like a formula is opened by Excel as text, never run.
+     */
+    private static function defuse(string $cell): string
+    {
+        return preg_match('/^[=+\-@\t\r]/', $cell) === 1 ? "'".$cell : $cell;
     }
 
     /**

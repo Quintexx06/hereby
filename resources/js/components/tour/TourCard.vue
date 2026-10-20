@@ -2,10 +2,9 @@
 import { X } from '@lucide/vue';
 import { ref } from 'vue';
 import { Button } from '@/components/ui/button';
-import { adminWelcome as copy } from '@/content/admin';
+import type { TourStep as Step } from '@/config/tours';
 import { landingPhotos } from '@/content/landing-photos';
-
-type Step = (typeof copy.steps)[number];
+import { tourCopy as copy } from '@/content/tour';
 
 defineProps<{ step: Step; index: number; total: number }>();
 defineEmits<{ back: []; next: []; close: [] }>();
@@ -25,10 +24,10 @@ defineExpose({ root });
         tabindex="-1"
     >
         <img
-            v-if="'photo' in step"
+            v-if="step.photo"
             :src="landingPhotos[step.photo].src"
             :alt="landingPhotos[step.photo].alt"
-            class="admin-welcome-photo"
+            class="tour-photo"
         />
         <button
             type="button"
@@ -48,7 +47,7 @@ defineExpose({ root });
             <p id="tour-text" class="text-sm text-pretty text-muted-foreground">
                 {{ step.text }}
             </p>
-            <p v-if="'interactive' in step" class="text-sm font-semibold">
+            <p v-if="step.interactive" class="text-sm font-semibold">
                 {{ copy.tryIt }}
             </p>
         </div>

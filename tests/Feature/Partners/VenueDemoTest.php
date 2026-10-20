@@ -50,7 +50,10 @@ class VenueDemoTest extends TestCase
                 ->where('invitation.wedding.coupleNames', 'Anna & Luca')
                 ->where('translations.invitation.countdown', fn (string $line) => str_contains($line, 'Noch :count Tage'))
                 ->where('demo.venue', 'Hotel Belvedere')
-                ->where('demo.template', 'atelier'));
+                ->where('demo.template', 'atelier')
+                ->where('invitation.guests.0.firstName', 'Sandra')
+                ->where('invitation.wedding.photos.0.url', fn (string $url) => str_ends_with($url, '/images/landing/veil-kiss.webp'))
+                ->where('invitation.blocks', fn ($blocks) => collect($blocks)->pluck('type')->intersect(['story', 'venue', 'dress_code', 'faq'])->count() === 4));
 
         $this->get($url.'&vorlage=garten')->assertOk()->assertInertia(fn (Assert $page) => $page->where('demo.template', 'garten'));
     }
@@ -74,5 +77,48 @@ class VenueDemoTest extends TestCase
 
         $this->assertSame($prospect->id, User::query()->where('email', 'events@belvedere.example')->sole()->partner_id);
         Mail::assertQueued(PartnerInvitation::class);
+    }
+
+    public function test_a_visitor_replies_on_the_demo_like_a_guest_and_nothing_is_stored(): void
+    {
+        $venue = Partner::factory()->create(['name' => 'Hotel Belvedere']);
+        $demo = URL::temporarySignedRoute('venues.demo', now()->addDays(30), ['partner' => $venue->slug]);
+
+        $reply = '';
+        $this->get($demo)->assertInertia(function (Assert $page) use (&$reply) {
+            $reply = $page->toArray()['props']['invitation']['links']['reply'];
+        });
+        $this->assertStringContainsString('/demo/'.$venue->slug.'/antworten', $reply);
+
+        $update = '';
+        $this->get($reply)->assertOk()->assertInertia(function (Assert $page) use (&$update) {
+            $page->component('invitation/Reply')->where('reply.guests.0.firstName', 'Sandra')->where('reply.questions.menus', ['Fleisch', 'Fisch', 'Vegetarisch']);
+            $update = $page->toArray()['props']['reply']['links']['reply'];
+        });
+
+        $this->put($update, ['answers' => [['guest_id' => 1, 'event_id' => 1, 'status' => 'attending', 'menu' => null], ['guest_id' => 1, 'event_id' => 3, 'status' => 'attending', 'menu' => 'Fisch']]])
+            ->assertRedirect();
+
+        $this->followingRedirects()->put($update, ['answers' => [['event_id' => 1, 'status' => 'attending']]])
+            ->assertInertia(fn (Assert $page) => $page->where('replied', true)->where('invitation.reply.answered', true)->where('invitation.reply.attending', 1));
+
+        $this->assertDatabaseCount('event_responses', 0);
+        $this->assertDatabaseCount('households', 0);
+
+        $this->get(str_replace('/antworten', '/kalender.ics', explode('&vorlage', $reply)[0]))->assertForbidden();
+        $this->put(explode('?', $update)[0], ['answers' => []])->assertForbidden();
+    }
+
+    public function test_the_demo_calendar_downloads_and_its_links_keep_the_original_expiry(): void
+    {
+        $venue = Partner::factory()->create();
+        $expires = now()->addDays(10)->getTimestamp();
+        $demo = URL::temporarySignedRoute('venues.demo', now()->addDays(10), ['partner' => $venue->slug]);
+
+        $this->get($demo)->assertInertia(function (Assert $page) use ($expires) {
+            $calendar = $page->toArray()['props']['invitation']['links']['calendar'];
+            $this->assertStringContainsString("expires={$expires}", $calendar);
+            $this->get($calendar)->assertOk()->assertHeader('Content-Type', 'text/calendar; charset=utf-8');
+        });
     }
 }

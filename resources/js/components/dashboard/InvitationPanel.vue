@@ -29,7 +29,11 @@ const photo: LandingPhoto = landingPhotos.tableCandles;
     out of a candlelit photo, in their theme. Everything else here is numbers.
 -->
 <template>
-    <section class="invitation-panel stage" aria-labelledby="invitation-panel">
+    <section
+        class="invitation-panel stage"
+        aria-labelledby="invitation-panel"
+        data-tour="invitation"
+    >
         <img
             :src="sceneSource(photo)"
             alt=""

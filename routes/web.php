@@ -6,6 +6,7 @@ use App\Http\Controllers\Marketing\SitemapController;
 use App\Http\Controllers\Marketing\TopicPageController;
 use App\Http\Controllers\StoreInquiryController;
 use App\Http\Controllers\VenueDemoController;
+use App\Http\Controllers\VenueDemoReplyController;
 use App\Http\Controllers\VenuePageController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Middleware\PreventIndexing;
@@ -29,6 +30,11 @@ Route::middleware(UseSwissGerman::class)->group(function () {
     Route::get('demo/{partner:slug}', VenueDemoController::class)
         ->middleware(['throttle:invitations', PreventIndexing::class])
         ->name('venues.demo');
+    Route::middleware(['throttle:invitations', PreventIndexing::class])->group(function (): void {
+        Route::get('demo/{partner:slug}/antworten', [VenueDemoReplyController::class, 'show'])->name('venues.demo.reply');
+        Route::put('demo/{partner:slug}/antworten', [VenueDemoReplyController::class, 'update'])->name('venues.demo.reply.update');
+        Route::get('demo/{partner:slug}/kalender.ics', [VenueDemoReplyController::class, 'calendar'])->name('venues.demo.calendar');
+    });
     Route::get('{slug}', TopicPageController::class)
         ->whereIn('slug', TopicPageController::slugs())
         ->name('topics.show');
