@@ -30,6 +30,8 @@ return [
     'route' => 'Indicazioni stradali',
     'save_the_date' => 'Save the date',
     'countdown' => '{0} È oggi|{1} Manca 1 giorno|[2,*] Mancano :count giorni',
+    // The countdown set as a figure: the words after the number.
+    'countdown_unit' => '{0} È oggi|{1} giorno alla festa|[2,*] giorni alla festa',
     'programme_heading' => 'La giornata',
     'calendar_heading' => 'Tenetevi libera la data',
     'calendar_hint' => 'Con l’abbonamento il vostro calendario resta aggiornato se qualcosa cambia.',

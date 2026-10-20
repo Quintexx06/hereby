@@ -158,7 +158,21 @@ headings, no monospace as decoration. The heading carries itself.
   The programme is a ledger (Atelier), a vine whose sides take turns
   (Garten) or a night band of up to four frames side by side (Panorama).
   The couple's other photos form a band after the calendar
-  (`InvitationGallery`): a spread, arches, or one 21:9 frame.
+  (`InvitationGallery`): a spread, arches, or one 21:9 frame, opening like
+  a curtain as they scroll in.
+- Guest sites carry the landing's moments (`invitation-scenes.css`): Atelier
+  opens on the photo edge to edge with a sparkler drawing a heart of light
+  over it, the names at up to 11rem, the days to go as a figure with an
+  italic unit; the day is told in acts on a night band (photo, roman
+  numeral, time, the place in the accent's italic) that pins and travels
+  sideways on wide screens. Every template runs the day's parts past as a
+  band (solid and outlined italic in turn), greets the household with its
+  names in the accent's italic, and closes with the two rings turning above
+  «Kommt ihr?»; Garten's petals fall in 3D, Panorama's lights drift. The
+  couple's accent tints the practical chapters' ground and the footer
+  (`--tint`, 8% of the accent in porcelain). 3D comes through `GuestScene`:
+  only after the first scroll or touch, only near the screen, never on data
+  saver, one still frame under reduced motion.
 
 ## Elevation & Depth
 

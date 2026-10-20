@@ -14,13 +14,24 @@ const names = computed(() =>
         localeTag(),
     ),
 );
+
+/* «Liebe Sandra»: the greeting as written, the names in the accent's italic. */
+const MARK = '\u0000';
+const greeting = computed(() => {
+    const [before, after = ''] = t('invitation.dear', { names: MARK }).split(
+        MARK,
+    );
+
+    return { before, after };
+});
 </script>
 
 <!-- A few lines to this household, and the way to answer right under them. -->
 <template>
     <section id="inv-letter" class="inv-letter">
         <p class="inv-dear">
-            {{ t('invitation.dear', { names }) }}
+            {{ greeting.before }}<span class="inv-dear-names">{{ names }}</span
+            >{{ greeting.after }}
         </p>
         <p class="inv-letter-text">{{ t('invitation.letter') }}</p>
         <InvitationReply :invitation="invitation" :replied="replied" />

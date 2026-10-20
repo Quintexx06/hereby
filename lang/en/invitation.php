@@ -30,6 +30,8 @@ return [
     'route' => 'Get directions',
     'save_the_date' => 'Save the date',
     'countdown' => '{0} Today is the day|{1} 1 day to go|[2,*] :count days to go',
+    // The countdown set as a figure: the words after the number.
+    'countdown_unit' => '{0} Today is the day|{1} day to go|[2,*] days to go',
     'programme_heading' => 'The day',
     'calendar_heading' => 'Keep the day free',
     'calendar_hint' => 'Subscribe and your calendar stays up to date if anything changes.',

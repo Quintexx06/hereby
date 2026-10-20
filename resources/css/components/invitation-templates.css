@@ -79,6 +79,14 @@
         fill: var(--brand);
     }
 
+    .garten-amp {
+        @apply font-medium text-brand italic;
+    }
+
+    .garten-petals-3d {
+        @apply pointer-events-none absolute inset-0 -z-10 size-full;
+    }
+
     .garten-petals {
         @apply pointer-events-none absolute inset-0 -z-10 overflow-hidden;
     }

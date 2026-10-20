@@ -30,6 +30,8 @@ return [
     'route' => 'Route planen',
     'save_the_date' => 'Save the date',
     'countdown' => '{0} Heute ist der Tag|{1} Noch 1 Tag|[2,*] Noch :count Tage',
+    // The countdown set as a figure: the words after the number.
+    'countdown_unit' => '{0} Heute ist der Tag|{1} Tag bis zum Fest|[2,*] Tage bis zum Fest',
     'programme_heading' => 'Der Tag',
     'calendar_heading' => 'Haltet euch den Tag frei',
     'calendar_hint' => 'Mit dem Abo bleibt euer Kalender aktuell, falls sich etwas ändert.',

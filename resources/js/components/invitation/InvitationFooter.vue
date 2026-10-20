@@ -1,9 +1,17 @@
 <script setup lang="ts">
+import { computed } from 'vue';
 import { useTrans } from '@/composables/useTrans';
 import type { Wedding } from '@/types';
 
-defineProps<{ wedding: Wedding }>();
+const props = defineProps<{ wedding: Wedding }>();
 const { t } = useTrans();
+
+/* The names set large once more, the ampersand in the accent's italic. */
+const names = computed(() => {
+    const [first, ...rest] = props.wedding.coupleNames.split(/\s+&\s+/);
+
+    return { first, second: rest.join(' & ') };
+});
 </script>
 
 <!--
@@ -13,8 +21,12 @@ const { t } = useTrans();
 -->
 <template>
     <footer class="inv-footer">
-        <hr class="rule" />
-        <p class="inv-footer-couple">{{ wedding.coupleNames }}</p>
+        <p class="inv-footer-couple">
+            {{ names.first }}
+            <template v-if="names.second">
+                <span class="inv-footer-amp">&amp;</span> {{ names.second }}
+            </template>
+        </p>
         <address v-if="wedding.contact" class="inv-footer-contact">
             <span>{{ t('invitation.footer_questions') }}</span>
             <span v-if="wedding.contact.name" class="font-semibold">{{

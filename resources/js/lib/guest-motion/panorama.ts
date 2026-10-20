@@ -55,6 +55,8 @@ export function panoramaMotion(kit: typeof Kit, root: HTMLElement) {
                 start: 'top top+=8%',
                 end: () => `+=${distance()}`,
                 pin: true,
+                // The page is a flex column, where pinSpacing would default to off.
+                pinSpacing: true,
                 scrub: 0.6,
                 invalidateOnRefresh: true,
             },

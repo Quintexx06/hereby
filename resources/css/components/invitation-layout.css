@@ -33,9 +33,6 @@
         + .inv-section[data-layout='split'],
     [data-template='panorama']
         .inv-section[data-layout='split']:not([data-block='programme'])
-        + .inv-section[data-layout='split'],
-    :is([data-template='atelier'], [data-template='panorama'])
-        .inv-practical
         + .inv-section[data-layout='split'] {
         @apply lg:-mt-16;
     }

@@ -30,6 +30,8 @@ return [
     'route' => 'Itinéraire',
     'save_the_date' => 'Save the date',
     'countdown' => '{0} C’est aujourd’hui|{1} Encore 1 jour|[2,*] Encore :count jours',
+    // The countdown set as a figure: the words after the number.
+    'countdown_unit' => '{0} C’est aujourd’hui|{1} jour avant la fête|[2,*] jours avant la fête',
     'programme_heading' => 'La journée',
     'calendar_heading' => 'Réservez la date',
     'calendar_hint' => 'Avec l’abonnement, votre agenda reste à jour si quelque chose change.',

@@ -1,19 +1,17 @@
 @layer components {
     /* The page: full width; each section keeps its own measure. */
     .invitation-page {
-        @apply flex min-h-svh w-full flex-col items-center gap-28 overflow-x-clip px-5 pb-10 sm:gap-36 sm:px-8;
+        @apply flex min-h-svh w-full flex-col items-center gap-28 overflow-x-clip px-5 sm:gap-36 sm:px-8;
     }
 
-    /* Hero (Atelier): the names over the couple's photo, as on the landing. */
+    /* Hero (Atelier): the couple's photo edge to edge, as on the landing. */
     .inv-hero {
-        @apply relative flex min-h-svh w-full max-w-6xl flex-col items-center justify-center gap-6 pt-5 pb-24 sm:pt-8;
+        @apply relative w-screen max-w-none;
     }
 
-    /* The frame: the photo, or the night when there is none. */
+    /* The stage: the photo, or the night when there is none. */
     .inv-stage {
-        @apply relative isolate flex min-h-[72svh] w-full items-end overflow-hidden rounded-[1.5rem] bg-night-950 text-porcelain-50;
-        /* Rise without fading: the photo is the page's largest paint (rule 2). */
-        animation: inv-lift 900ms var(--ease-out) both;
+        @apply relative isolate flex min-h-svh w-full items-end overflow-hidden bg-night-950 text-porcelain-50;
     }
 
     .inv-stage[data-photo='false'] {
@@ -26,16 +24,23 @@
             var(--color-night-950);
     }
 
+    /* Rise without fading: the photo is the page's largest paint (rule 2). */
     .inv-stage-photo {
-        @apply absolute inset-0 -z-10 size-full;
+        @apply absolute inset-0 -z-20 size-full;
+        animation: inv-settle 1600ms var(--ease-out) both;
+    }
+
+    /* The sparkler draws its heart of light over the upper half. */
+    .inv-stage-sparkler {
+        @apply pointer-events-none absolute inset-x-0 top-0 -z-10 h-[62%] w-full lg:inset-y-0 lg:right-0 lg:left-auto lg:h-full lg:w-[58%];
     }
 
     .inv-stage-text {
-        @apply flex w-full flex-col gap-3 bg-gradient-to-t from-night-950/80 to-transparent p-6 pt-40 text-left sm:p-12 sm:pt-56;
+        @apply flex w-full flex-col gap-6 bg-gradient-to-t from-night-950/85 via-night-950/35 to-transparent px-5 pt-48 pb-10 text-left sm:px-10 sm:pb-14 lg:px-16 lg:pb-16;
     }
 
     .inv-names {
-        @apply font-display text-[clamp(3rem,10vw,8rem)] leading-[0.9] font-bold tracking-[-0.05em] text-balance [overflow-wrap:anywhere];
+        @apply font-display text-[clamp(3.5rem,12.5vw,11rem)] leading-[0.86] font-bold tracking-[-0.055em] text-balance [overflow-wrap:anywhere];
         font-stretch: 112%;
     }
 
@@ -44,12 +49,29 @@
     }
 
     .inv-amp {
-        @apply px-[0.18em];
+        @apply px-[0.12em] font-medium italic;
         color: color-mix(in oklch, var(--brand) 35%, white);
+    }
+
+    .inv-stage-foot {
+        @apply flex flex-col gap-5 border-t border-porcelain-50/30 pt-5 sm:flex-row sm:items-end sm:justify-between;
     }
 
     .inv-stage-meta {
         @apply text-base font-medium sm:text-lg;
+    }
+
+    .inv-countdown {
+        @apply flex items-baseline gap-3;
+    }
+
+    .inv-countdown-figure {
+        @apply font-display text-[clamp(3rem,7vw,6rem)] leading-none font-bold tracking-[-0.05em] tabular-nums;
+    }
+
+    .inv-countdown-unit {
+        @apply font-display text-lg font-medium italic sm:text-xl;
+        color: color-mix(in oklch, var(--brand) 35%, white);
     }
 
     .invitation-countdown {
@@ -57,7 +79,7 @@
     }
 
     .inv-scroll {
-        @apply absolute bottom-8 flex flex-col items-center gap-1 text-xs font-medium text-muted-foreground transition-colors duration-150 hover:text-foreground;
+        @apply absolute top-6 right-5 flex flex-col items-center gap-1 text-xs font-medium text-porcelain-50/75 transition-colors duration-150 hover:text-porcelain-50 sm:right-10 lg:top-auto lg:right-auto lg:bottom-8 lg:left-1/2 lg:-translate-x-1/2;
     }
 
     .inv-scroll svg {
@@ -75,6 +97,15 @@
 
     .inv-letter-text {
         @apply max-w-xl text-lg leading-relaxed text-pretty text-muted-foreground sm:text-xl;
+    }
+
+    /* A 3D layer (GuestScene) fades in once its first frame is drawn. */
+    .guest-scene {
+        @apply opacity-0 transition-opacity duration-1000 ease-out;
+    }
+
+    .guest-scene[data-ready='true'] {
+        @apply opacity-100;
     }
 
     .invitation-ornament {
@@ -145,11 +176,15 @@
     /* Closing: the theme's ink as a full band, one more invitation to answer. */
     /* The footer: the couple's names, who to ask, the credit and privacy. */
     .inv-footer {
-        @apply mt-auto flex flex-col items-center gap-5 pt-16 pb-4 text-center;
+        @apply mt-auto flex w-screen max-w-none flex-col items-center gap-5 bg-[var(--tint)] px-5 pt-20 pb-28 text-center sm:pt-28 md:pb-12;
     }
 
     .inv-footer-couple {
-        @apply font-display text-2xl font-semibold tracking-[-0.03em];
+        @apply mb-4 font-display text-[clamp(2.75rem,9vw,7.5rem)] leading-[0.9] font-bold tracking-[-0.055em] text-balance;
+    }
+
+    .inv-footer-amp {
+        @apply px-[0.12em] font-medium text-brand italic;
     }
 
     .inv-footer-contact {
@@ -165,7 +200,21 @@
     }
 
     .inv-closing {
-        @apply flex w-screen flex-col items-center gap-6 bg-primary px-6 py-28 text-center text-primary-foreground sm:py-36;
+        @apply relative isolate flex w-screen flex-col items-center gap-6 overflow-hidden bg-primary px-6 pt-10 pb-28 text-center text-primary-foreground sm:pb-36;
+    }
+
+    /* A soft glow of the accent behind the rings. */
+    .inv-closing::before {
+        @apply pointer-events-none absolute inset-x-0 top-0 -z-10 h-[70%] content-[''];
+        background: radial-gradient(
+            ellipse at 50% 30%,
+            color-mix(in oklch, var(--brand) 32%, transparent),
+            transparent 65%
+        );
+    }
+
+    .inv-closing-rings {
+        @apply pointer-events-none -mb-6 h-[min(46vw,20rem)] w-[min(92vw,34rem)];
     }
 
     .inv-closing-title {
@@ -301,9 +350,10 @@
     }
 }
 
-@keyframes inv-lift {
+/* The cover settles from a slight zoom, without fading (it is the LCP). */
+@keyframes inv-settle {
     from {
-        translate: 0 1.25rem;
+        scale: 1.08;
     }
 }
 

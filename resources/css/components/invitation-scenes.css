@@ -1,0 +1,168 @@
+/*
+ * The guest site's bigger moments (spec 2026-10-20-guest-sites-scenes):
+ * Atelier's programme as acts on a night band, the running band of the
+ * day's parts, the greeting's names in the accent's italic, and grounds
+ * tinted with the couple's accent. Colours stay theme tokens; the night
+ * band redeclares them like .stage, the accent as a light tint.
+ */
+@layer components {
+    .invitation-page {
+        --tint: color-mix(in oklch, var(--brand) 8%, var(--background));
+    }
+
+    /* «Liebe Sandra»: the names in the accent's italic. */
+    .inv-dear-names {
+        @apply font-medium text-brand italic;
+    }
+
+    /* ---------- The running band ---------- */
+    .inv-ticker {
+        @apply w-screen max-w-none overflow-hidden border-y border-rule py-6 sm:py-8;
+    }
+
+    .inv-ticker-band {
+        @apply flex w-max gap-10 whitespace-nowrap sm:gap-16;
+        animation: inv-ticker 42s linear infinite;
+    }
+
+    .inv-ticker-word {
+        @apply font-display text-[clamp(3rem,8vw,7.5rem)] leading-none font-semibold tracking-[-0.05em];
+    }
+
+    .inv-ticker-word:nth-child(even) {
+        @apply font-medium text-transparent italic;
+        -webkit-text-stroke: 1.5px var(--foreground);
+    }
+
+    .inv-ticker-dot {
+        @apply text-brand;
+        -webkit-text-stroke: 0;
+    }
+
+    /* Garten's band in the accent, on its tinted ground. */
+    [data-template='garten'] .inv-ticker {
+        @apply border-none bg-[var(--tint)];
+    }
+
+    [data-template='garten'] .inv-ticker-word {
+        @apply text-brand;
+    }
+
+    [data-template='garten'] .inv-ticker-word:nth-child(even) {
+        @apply text-transparent;
+        -webkit-text-stroke-color: var(--brand);
+    }
+
+    /* ---------- Atelier: the day in acts ---------- */
+    .inv-acts {
+        --band-accent: color-mix(in oklch, var(--brand) 35%, white);
+        --background: var(--color-night-950);
+        --foreground: var(--color-porcelain-50);
+        --rule: color-mix(in oklch, var(--color-porcelain-50) 18%, transparent);
+        --muted-foreground: color-mix(
+            in oklch,
+            var(--color-porcelain-50) 62%,
+            transparent
+        );
+        @apply relative flex w-screen max-w-none flex-col gap-12 overflow-hidden bg-background py-20 text-foreground sm:py-28 lg:gap-16;
+    }
+
+    .inv-acts > .inv-heading {
+        @apply px-5 text-left sm:px-10 lg:px-16 lg:text-[clamp(3rem,6vw,5.5rem)];
+    }
+
+    .inv-acts-track {
+        @apply flex flex-col gap-16 px-5 outline-none sm:px-10 lg:snap-x lg:snap-mandatory lg:flex-row lg:gap-12 lg:overflow-x-auto lg:px-16 lg:pb-4;
+        scrollbar-width: none;
+    }
+
+    /* Pinned by atelierMotion: the row travels as the page scrolls. */
+    .inv-acts-track.is-pinned {
+        @apply w-max snap-none overflow-visible;
+    }
+
+    .inv-act {
+        @apply grid gap-6 sm:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] sm:items-end sm:gap-8 lg:w-[min(62rem,82vw)] lg:shrink-0 lg:snap-start lg:gap-12;
+    }
+
+    .inv-act-photo {
+        @apply relative m-0 aspect-[4/3] overflow-hidden rounded-[0.75rem] sm:aspect-[4/5] lg:h-[min(62svh,36rem)] lg:w-auto;
+        background:
+            radial-gradient(
+                ellipse at 30% 20%,
+                color-mix(in oklch, var(--brand) 45%, transparent),
+                transparent 70%
+            ),
+            var(--color-night-900);
+    }
+
+    .inv-act-photo::after {
+        @apply pointer-events-none absolute inset-0 bg-gradient-to-t from-night-950/60 to-transparent to-50% content-[''];
+    }
+
+    .inv-act-numeral {
+        @apply absolute bottom-2 left-4 z-[1] font-display text-[clamp(4.5rem,11vw,9rem)] leading-none font-bold tracking-[-0.04em] text-porcelain-50/90;
+    }
+
+    .inv-act-text {
+        @apply flex flex-col gap-2 pb-2;
+    }
+
+    .inv-act-time {
+        @apply flex flex-col gap-1;
+    }
+
+    .inv-act-hour {
+        @apply font-display text-[clamp(3rem,6vw,5rem)] leading-none font-bold tracking-[-0.05em] tabular-nums;
+        color: var(--band-accent);
+    }
+
+    .inv-act-title {
+        @apply mt-3 font-display text-[clamp(2rem,4vw,3.5rem)] leading-[0.95] font-semibold tracking-[-0.04em] text-balance;
+    }
+
+    .inv-act-place {
+        @apply font-display text-lg font-medium italic sm:text-xl;
+        color: var(--band-accent);
+    }
+
+    /* ---------- Grounds in the couple's accent ---------- */
+    /* Full-bleed without a wrapper: the border image paints past the page. */
+    :is([data-template='atelier'], [data-template='panorama']) .inv-practical {
+        @apply py-16 sm:py-24;
+        border-image: conic-gradient(var(--tint) 0 0) fill 0 //0 100vw;
+    }
+
+    /* Garten: the day under a tinted garden arch. */
+    [data-template='garten'] .inv-section[data-block='programme'] {
+        @apply max-w-5xl rounded-t-[min(46vw,30rem)] bg-[var(--tint)] px-5 pt-[min(34vw,13rem)] pb-16 sm:px-10;
+    }
+
+    [data-template='garten'] .inv-practical > .inv-section {
+        @apply lg:bg-[var(--tint)];
+    }
+
+    /* ---------- The couple's photos open like a curtain (sharedMotion) ---------- */
+    .gsap-on .inv-gallery-photo {
+        animation: none;
+    }
+}
+
+@keyframes inv-ticker {
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .inv-ticker-band {
+        animation: none;
+    }
+}
+
+/* The closing band runs straight into the footer's tinted ground. */
+@layer components {
+    .inv-closing + .inv-footer {
+        @apply -mt-28 sm:-mt-36;
+    }
+}

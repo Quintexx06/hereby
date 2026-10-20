@@ -9,6 +9,7 @@ import InvitationFooter from '@/components/invitation/InvitationFooter.vue';
 import InvitationGallery from '@/components/invitation/InvitationGallery.vue';
 import InvitationLetter from '@/components/invitation/InvitationLetter.vue';
 import InvitationOrnament from '@/components/invitation/InvitationOrnament.vue';
+import InvitationTicker from '@/components/invitation/InvitationTicker.vue';
 import GartenHero from '@/components/invitation/templates/GartenHero.vue';
 import { useGuestMotion } from '@/composables/motion/useGuestMotion';
 import { gartenMotion } from '@/lib/guest-motion/garten';
@@ -41,6 +42,7 @@ useGuestMotion(root, (kit) => {
         <InvitationEvents :events="invitation.events" />
         <InvitationEvening :evening="invitation.evening" />
         <InvitationCalendar v-if="shows('calendar')" :invitation="invitation" />
+        <InvitationTicker :events="invitation.events" />
         <InvitationGallery :wedding="invitation.wedding" variant="garten" />
         <InvitationOrnament v-if="shows('ornaments')" />
         <InvitationBlocks :blocks="invitation.blocks" story="arches" />
