@@ -9,7 +9,7 @@ const { t } = useTrans();
 
 <!-- Hotels the couple recommends, each with its booking details and a link. -->
 <template>
-    <div class="flex flex-col gap-5">
+    <div class="block-venue">
         <BlockText :text="block.body" />
         <ul class="flex flex-col">
             <li
@@ -26,7 +26,7 @@ const { t } = useTrans();
                     :href="hotel.url"
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="link-underline hit-area self-start text-sm font-medium"
+                    class="block-route link-underline hit-area text-sm font-medium"
                     >{{ t('invitation.hotel_link') }}</a
                 >
             </li>

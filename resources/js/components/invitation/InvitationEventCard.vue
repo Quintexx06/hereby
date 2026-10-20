@@ -71,7 +71,7 @@ const route = computed(() => {
                 :href="route"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="link-underline hit-area mt-1 self-start text-sm font-medium"
+                class="block-route link-underline hit-area mt-1 text-sm font-medium"
                 >{{ t('invitation.route') }}</a
             >
         </div>

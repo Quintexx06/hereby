@@ -1,46 +1,47 @@
 <script setup lang="ts">
-import BlockText from '@/components/invitation/blocks/BlockText.vue';
-import FaqBlock from '@/components/invitation/blocks/FaqBlock.vue';
-import StayBlock from '@/components/invitation/blocks/StayBlock.vue';
-import StoryArches from '@/components/invitation/blocks/StoryArches.vue';
-import StoryFilm from '@/components/invitation/blocks/StoryFilm.vue';
-import StoryPath from '@/components/invitation/blocks/StoryPath.vue';
-import VenueBlock from '@/components/invitation/blocks/VenueBlock.vue';
+import { computed } from 'vue';
+import InvitationBlockSection from '@/components/invitation/InvitationBlockSection.vue';
 import InvitationOrnament from '@/components/invitation/InvitationOrnament.vue';
-import { useTrans } from '@/composables/useTrans';
 import type { InvitationBlock } from '@/types';
 
 /* Each template tells the story its own way; the rest of the blocks are shared. */
-const { story = 'path' } = defineProps<{
+const { blocks, story = 'path' } = defineProps<{
     blocks: InvitationBlock[];
     story?: 'path' | 'arches' | 'film';
 }>();
-const { t } = useTrans();
+
+/*
+ * The practical chapters (place, travel, stay, dress code) that follow each
+ * other are kept together, so a wide screen can set them side by side.
+ */
+const practical = new Set(['venue', 'travel', 'stay', 'dress_code']);
+const groups = computed(() =>
+    blocks.reduce<InvitationBlock[][]>((all, block) => {
+        const last = all.at(-1);
+
+        if (last && practical.has(block.type) && practical.has(last[0].type)) {
+            last.push(block);
+        } else {
+            all.push([block]);
+        }
+
+        return all;
+    }, []),
+);
 </script>
 
 <!-- The couple's own words as chapters of the page, each with its own room. -->
 <template>
-    <template v-for="block in blocks" :key="block.id">
-        <section
-            class="inv-section"
-            :data-block="block.type"
-            :aria-labelledby="`block-${block.id}`"
-        >
-            <h2 :id="`block-${block.id}`" class="inv-heading">
-                {{ block.title ?? t(`invitation.blocks.${block.type}`) }}
-            </h2>
-            <template v-if="block.type === 'story'">
-                <StoryArches v-if="story === 'arches'" :block="block" />
-                <StoryFilm v-else-if="story === 'film'" :block="block" />
-                <StoryPath v-else :block="block" />
-            </template>
-            <VenueBlock v-else-if="block.type === 'venue'" :block="block" />
-            <FaqBlock v-else-if="block.type === 'faq'" :block="block" />
-            <StayBlock v-else-if="block.type === 'stay'" :block="block" />
-            <div v-else class="inv-statement">
-                <BlockText :text="block.body" />
-            </div>
-        </section>
-        <InvitationOrnament v-if="block.type === 'story'" />
+    <template v-for="group in groups" :key="group[0].id">
+        <div v-if="group.length > 1" class="inv-practical">
+            <InvitationBlockSection
+                v-for="block in group"
+                :key="block.id"
+                :block="block"
+                :story="story"
+            />
+        </div>
+        <InvitationBlockSection v-else :block="group[0]" :story="story" />
+        <InvitationOrnament v-if="group[0].type === 'story'" />
     </template>
 </template>

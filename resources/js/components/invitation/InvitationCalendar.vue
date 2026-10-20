@@ -32,40 +32,49 @@ const links = computed(() => {
 
 <!-- Every guest can keep the date, before and after they reply. -->
 <template>
-    <section v-if="invitation.events.length" class="inv-section">
+    <section
+        v-if="invitation.events.length"
+        class="inv-section"
+        data-block="calendar"
+        data-layout="split"
+    >
         <h2 class="inv-heading">
             {{ t('invitation.calendar_heading') }}
         </h2>
-        <div class="calendar-options">
-            <!-- The couple's preview has no personal links: show, don't link. -->
-            <component
-                :is="links ? 'a' : 'span'"
-                :href="links?.ics"
-                :download="links ? true : undefined"
-                class="calendar-option"
-            >
-                <CalendarPlus class="size-4" aria-hidden="true" />
-                {{ t('invitation.calendar_ics') }}
-            </component>
-            <component
-                :is="links?.google ? 'a' : 'span'"
-                :href="links?.google ?? undefined"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="calendar-option"
-            >
-                <CalendarPlus class="size-4" aria-hidden="true" />
-                {{ t('invitation.calendar_google') }}
-            </component>
-            <component
-                :is="links ? 'a' : 'span'"
-                :href="links?.subscribe"
-                class="calendar-option"
-            >
-                <RefreshCw class="size-4" aria-hidden="true" />
-                {{ t('invitation.calendar_subscribe') }}
-            </component>
+        <div class="calendar-body">
+            <div class="calendar-options">
+                <!-- The couple's preview has no personal links: show, don't link. -->
+                <component
+                    :is="links ? 'a' : 'span'"
+                    :href="links?.ics"
+                    :download="links ? true : undefined"
+                    class="calendar-option"
+                >
+                    <CalendarPlus class="size-4" aria-hidden="true" />
+                    {{ t('invitation.calendar_ics') }}
+                </component>
+                <component
+                    :is="links?.google ? 'a' : 'span'"
+                    :href="links?.google ?? undefined"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="calendar-option"
+                >
+                    <CalendarPlus class="size-4" aria-hidden="true" />
+                    {{ t('invitation.calendar_google') }}
+                </component>
+                <component
+                    :is="links ? 'a' : 'span'"
+                    :href="links?.subscribe"
+                    class="calendar-option"
+                >
+                    <RefreshCw class="size-4" aria-hidden="true" />
+                    {{ t('invitation.calendar_subscribe') }}
+                </component>
+            </div>
+            <p class="calendar-hint caption">
+                {{ t('invitation.calendar_hint') }}
+            </p>
         </div>
-        <p class="caption text-center">{{ t('invitation.calendar_hint') }}</p>
     </section>
 </template>

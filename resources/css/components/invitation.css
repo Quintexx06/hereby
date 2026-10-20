@@ -121,8 +121,21 @@
         @apply font-display text-4xl leading-none font-semibold tracking-[-0.04em] text-brand tabular-nums;
     }
 
+    .calendar-body {
+        @apply flex flex-col gap-4;
+    }
+
     .calendar-options {
         @apply flex flex-wrap justify-center gap-2;
+    }
+
+    .calendar-hint {
+        @apply text-center;
+    }
+
+    /* The way to answer, under the letter (InvitationReply). */
+    .inv-reply {
+        @apply flex flex-col items-center gap-4 text-center;
     }
 
     .calendar-option {
@@ -308,6 +321,18 @@
 
     .block-text {
         @apply flex max-w-prose flex-col gap-4 text-lg leading-relaxed text-pretty;
+    }
+
+    .block-venue {
+        @apply flex flex-col gap-4;
+    }
+
+    .block-venue-name {
+        @apply font-display text-2xl font-semibold tracking-[-0.03em];
+    }
+
+    .block-route {
+        @apply self-start;
     }
 
     .block-stay {

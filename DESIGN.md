@@ -150,7 +150,15 @@ headings, no monospace as decoration. The heading carries itself.
 - Compositions are **asymmetric splits** (5:6, 7:5), full-bleed photo bands
   and rows divided by hairlines. Never a grid of equal cards.
 - More space above a heading than below it. Sections alternate light and night.
-- Guest pages remain a single mobile column (`invitation-page`).
+- Guest pages are one mobile column (`invitation-page`) that grows into a
+  spread from `lg` (`invitation-layout.css`): Atelier and Panorama set each
+  practical chapter as a 5:7 split (heading left and sticky, content right,
+  a hairline between, chapters rule to rule); Garten keeps its middle axis
+  and sets place, travel, stay and dress code as arched cards two by two.
+  The programme is a ledger (Atelier), a vine whose sides take turns
+  (Garten) or a night band of up to four frames side by side (Panorama).
+  The couple's other photos form a band after the calendar
+  (`InvitationGallery`): a spread, arches, or one 21:9 frame.
 
 ## Elevation & Depth
 

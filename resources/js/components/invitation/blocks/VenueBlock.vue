@@ -8,9 +8,9 @@ const { t } = useTrans();
 </script>
 
 <template>
-    <div class="flex flex-col gap-4">
+    <div class="block-venue">
         <div v-if="block.venue" class="flex flex-col gap-1">
-            <p v-if="block.venue.name" class="font-semibold">
+            <p v-if="block.venue.name" class="block-venue-name">
                 {{ block.venue.name }}
             </p>
             <p v-if="block.venue.address" class="text-muted-foreground">
@@ -23,7 +23,7 @@ const { t } = useTrans();
             :href="block.venue.route"
             target="_blank"
             rel="noopener noreferrer"
-            class="link-underline hit-area self-start font-medium"
+            class="block-route link-underline hit-area font-medium"
         >
             {{ t('invitation.route') }}
         </a>

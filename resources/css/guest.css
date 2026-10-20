@@ -48,6 +48,7 @@
 @import './components/brand.css';
 @import './components/invitation.css';
 @import './components/invitation-templates.css';
+@import './components/invitation-layout.css';
 @import './components/evening-guest.css';
 @import './components/micro.css';
 @import './components/setup.css';

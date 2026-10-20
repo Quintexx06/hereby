@@ -6,6 +6,7 @@ import InvitationClosing from '@/components/invitation/InvitationClosing.vue';
 import InvitationEvening from '@/components/invitation/InvitationEvening.vue';
 import InvitationEvents from '@/components/invitation/InvitationEvents.vue';
 import InvitationFooter from '@/components/invitation/InvitationFooter.vue';
+import InvitationGallery from '@/components/invitation/InvitationGallery.vue';
 import InvitationLetter from '@/components/invitation/InvitationLetter.vue';
 import PanoramaHero from '@/components/invitation/templates/PanoramaHero.vue';
 import { useGuestMotion } from '@/composables/motion/useGuestMotion';
@@ -38,6 +39,7 @@ useGuestMotion(root, (kit) => {
         <InvitationEvents :events="invitation.events" scrollable />
         <InvitationEvening :evening="invitation.evening" />
         <InvitationCalendar v-if="shows('calendar')" :invitation="invitation" />
+        <InvitationGallery :wedding="invitation.wedding" variant="panorama" />
         <InvitationBlocks :blocks="invitation.blocks" story="film" />
         <InvitationClosing v-if="shows('closing')" :invitation="invitation" />
         <InvitationFooter :wedding="invitation.wedding" />

@@ -36,10 +36,12 @@ export function panoramaMotion(kit: typeof Kit, root: HTMLElement) {
 
     const timeline = root.querySelector<HTMLElement>('.event-timeline');
     const section = timeline?.closest<HTMLElement>('.inv-section');
+    /* Wide screens show up to four parts side by side: nothing to travel. */
     if (
         timeline &&
         section &&
-        window.matchMedia('(min-width: 768px)').matches
+        window.matchMedia('(min-width: 768px)').matches &&
+        timeline.scrollWidth > timeline.clientWidth + 1
     ) {
         /* Native sideways swipe until here; now the row travels as the page scrolls. */
         timeline.classList.add('is-pinned');
