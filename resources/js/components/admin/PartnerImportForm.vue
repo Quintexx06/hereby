@@ -30,7 +30,7 @@ function submit(): void {
                 rows="6"
                 class="textarea min-h-32"
                 spellcheck="false"
-                placeholder="Hotel Beispiel; Spiez; info@beispiel.ch; https://beispiel.ch; Ihr Schloss am See …"
+                placeholder="Zum Beispiel:&#10;Hotel Seeblick; Spiez; info@hotel-seeblick.ch; https://hotel-seeblick.ch; Ihr Garten am See …&#10;Gasthof Krone; Bern"
             />
             <InputError :message="form.errors.lines" />
             <Button
