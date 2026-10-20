@@ -92,7 +92,7 @@ class VenueDemoTest extends TestCase
 
         $update = '';
         $this->get($reply)->assertOk()->assertInertia(function (Assert $page) use (&$update) {
-            $page->component('invitation/Reply')->where('reply.guests.0.firstName', 'Sandra')->where('reply.questions.menus', ['Fleisch', 'Fisch', 'Vegetarisch']);
+            $page->component('invitation/Reply')->where('reply.guests.0.firstName', 'Sandra')->where('reply.questions.menus.2.label', 'Vegetarisch');
             $update = $page->toArray()['props']['reply']['links']['reply'];
         });
 

@@ -40,7 +40,7 @@ const user = computed(() => page.props.auth.user);
 
             <div class="flex items-center gap-2 justify-self-end">
                 <Button v-if="user" as-child size="pill">
-                    <Link :href="dashboard()">Dashboard</Link>
+                    <Link :href="dashboard()">Übersicht</Link>
                 </Button>
                 <template v-else>
                     <Link

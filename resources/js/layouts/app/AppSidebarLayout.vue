@@ -53,13 +53,16 @@ onBeforeUnmount(() => shell(false));
             <div class="app-view"><slot /></div>
         </main>
         <ScrollRail />
-        <Toaster />
+        <!-- Out of the frame's grid, which would give it a row of its own. -->
+        <div class="app-toaster">
+            <Toaster container-aria-label="Benachrichtigungen" />
+        </div>
     </div>
     <div v-else class="app-focus">
         <AppFocusBar />
         <main class="app-view">
             <slot />
         </main>
-        <Toaster />
+        <Toaster container-aria-label="Benachrichtigungen" />
     </div>
 </template>

@@ -10,7 +10,7 @@ export const partnerCalendar = {
     copied: 'Kopiert',
     empty: 'Noch keine Hochzeit verbunden. Sobald ein Paar euren Code einträgt, erscheint es hier.',
     households: (answered: number, total: number) =>
-        `${answered} von ${total} Haushalten haben geantwortet`,
+        `${answered} von ${total} Haushalten ${answered === 1 ? 'hat' : 'haben'} geantwortet`,
     attending: (count: number) => `${count} Gäste kommen`,
     open: (date: string) => `Antworten offen bis ${date}`,
     closed: 'Antworten geschlossen',

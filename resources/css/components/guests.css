@@ -5,8 +5,9 @@
     }
 
     /* Chips scroll sideways on phones rather than wrapping into a wall. */
+    /* min-w-0: as a <fieldset> it would otherwise widen its card to fit. */
     .chip-row {
-        @apply -mx-5 flex gap-2 overflow-x-auto px-5 pb-1 *:shrink-0 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 sm:pb-0;
+        @apply -mx-5 flex min-w-0 gap-2 overflow-x-auto px-5 pb-1 *:shrink-0 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 sm:pb-0;
     }
 
     .chip-count {

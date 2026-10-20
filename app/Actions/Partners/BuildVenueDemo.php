@@ -38,7 +38,7 @@ class BuildVenueDemo
             'template' => $template->value,
         ]);
         $wedding = $household->wedding;
-        $wedding->menu_options = ['Fleisch', 'Fisch', 'Vegetarisch'];
+        $wedding->menu_options = [['key' => 'fleisch', 'label' => 'Fleisch'], ['key' => 'fisch', 'label' => 'Fisch'], ['key' => 'vegi', 'label' => 'Vegetarisch']];
         $wedding->offers_stay = true;
 
         $household->name = 'Familie Keller';

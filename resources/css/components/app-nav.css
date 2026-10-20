@@ -8,6 +8,10 @@
  * display values), so every rule below is written once.
  */
 @layer components {
+    .app-toaster {
+        @apply fixed top-0 left-0 size-0;
+    }
+
     .app-frame {
         --nav-full: 15.5rem;
         --nav-slim: 4.25rem;

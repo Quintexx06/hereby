@@ -9,6 +9,7 @@ import {
     DialogTitle,
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
+import PartnerEditActions from '@/components/admin/PartnerEditActions.vue';
 import PartnerVenueFields from '@/components/admin/PartnerVenueFields.vue';
 import { adminPartners as copy } from '@/content/partners';
 import { resend, update } from '@/routes/admin/partners';
@@ -53,16 +54,24 @@ function save(then?: () => void): void {
 
 /* A prospect's address may be fresh in the form: save it, then invite. */
 function sendAccess(): void {
-    save(() =>
-        router.post(resend.url(props.partner.id), {}, { preserveScroll: true }),
-    );
+    const send = () =>
+        router.post(resend.url(props.partner.id), {}, { preserveScroll: true });
+
+    if (form.isDirty) {
+        save(send);
+    } else {
+        open.value = false;
+        send();
+    }
 }
 </script>
 
 <!-- The team corrects a partner: name, kind, sign-in, contact, Showcase. -->
 <template>
     <Dialog v-model:open="open">
-        <DialogContent class="sm:max-w-xl">
+        <DialogContent
+            class="max-h-[calc(100svh-2rem)] overflow-y-auto sm:max-w-xl"
+        >
             <DialogTitle class="app-section-title text-2xl">
                 {{ copy.editTitle(partner.name) }}
             </DialogTitle>
@@ -126,27 +135,12 @@ function sendAccess(): void {
                     v-model:note="form.pitch_note"
                     :note-error="form.errors.pitch_note"
                 />
-                <div
-                    class="partner-edit-wide flex flex-wrap items-center justify-between gap-4 pt-2"
-                >
-                    <button
-                        v-if="partner.login || form.email"
-                        type="button"
-                        class="text-action text-sm"
-                        :disabled="form.processing"
-                        @click="sendAccess"
-                    >
-                        {{ partner.login ? copy.resend : copy.inviteLogin }}
-                    </button>
-                    <Button
-                        type="submit"
-                        size="pill"
-                        class="ml-auto"
-                        :disabled="form.processing"
-                    >
-                        {{ copy.save }}
-                    </Button>
-                </div>
+                <PartnerEditActions
+                    :has-login="Boolean(partner.login)"
+                    :can-invite="Boolean(partner.login || form.email)"
+                    :processing="form.processing"
+                    @invite="sendAccess"
+                />
             </form>
         </DialogContent>
     </Dialog>

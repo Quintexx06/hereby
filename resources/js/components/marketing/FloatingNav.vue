@@ -74,7 +74,7 @@ watch(
         }}</span>
 
         <Button v-if="user" as-child size="sm" class="ml-2 rounded-full px-4">
-            <Link :href="dashboard()">Dashboard</Link>
+            <Link :href="dashboard()">Übersicht</Link>
         </Button>
         <template v-else>
             <span
