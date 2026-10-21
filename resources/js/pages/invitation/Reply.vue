@@ -50,7 +50,7 @@ const lede = computed(() =>
         :lang="localeTag()"
     >
         <Head :title="`${t('rsvp.title')} ${reply.wedding.coupleNames}`" />
-        <main class="reply-page">
+        <main class="reply-page" :data-template="reply.wedding.template">
             <Link
                 :href="reply.links.invitation"
                 class="check-label self-start text-muted-foreground"

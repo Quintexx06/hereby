@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, defineAsyncComponent, onMounted } from 'vue';
 import { Head, usePage } from '@inertiajs/vue3';
+import InvitationNav from '@/components/invitation/InvitationNav.vue';
 import InvitationOpening from '@/components/invitation/InvitationOpening.vue';
 import StickyReply from '@/components/invitation/StickyReply.vue';
 import AtelierTemplate from '@/components/invitation/templates/AtelierTemplate.vue';
@@ -83,6 +84,11 @@ const canReply = computed(
             v-if="!invitation.wedding.hiddenSections.includes('opening')"
             :couple="invitation.wedding.coupleNames"
             :date="formatDate(invitation.wedding.date, localeTag())"
+        />
+        <InvitationNav
+            v-if="!embedded"
+            :invitation="invitation"
+            :can-reply="canReply"
         />
         <component
             :is="template"

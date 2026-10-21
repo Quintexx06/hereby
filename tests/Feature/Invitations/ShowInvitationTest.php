@@ -4,6 +4,7 @@ namespace Tests\Feature\Invitations;
 
 use App\Enums\EventType;
 use App\Enums\Locale;
+use App\Enums\WeddingTemplate;
 use App\Models\Event;
 use App\Models\Guest;
 use App\Models\Household;
@@ -108,5 +109,16 @@ class ShowInvitationTest extends TestCase
         $this->actingAs(User::factory()->create())
             ->get(route('dashboard'))
             ->assertInertia(fn (Assert $page) => $page->where('translations', []));
+    }
+
+    public function test_the_page_preloads_its_templates_serif(): void
+    {
+        $wedding = Wedding::factory()->create(['template' => WeddingTemplate::Garten]);
+        $household = Household::factory()->for($wedding)->create();
+
+        $html = $this->get(route('invitation.show', $household))->assertOk()->getContent();
+
+        $this->assertMatchesRegularExpression('/rel="preload" href="[^"]*cormorant-garamond-latin-wght-normal/', (string) $html);
+        $this->assertDoesNotMatchRegularExpression('/rel="preload" href="[^"]*(bodoni|fraunces)/', (string) $html);
     }
 }

@@ -13,7 +13,12 @@ const { t } = useTrans();
 </script>
 
 <template>
-    <section class="inv-section" data-block="programme" data-layout="split">
+    <section
+        id="inv-programme"
+        class="inv-section"
+        data-block="programme"
+        data-layout="split"
+    >
         <h2 class="inv-heading">
             {{ t('invitation.programme_heading') }}
         </h2>

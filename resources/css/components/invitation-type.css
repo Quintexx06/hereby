@@ -1,0 +1,188 @@
+/*
+ * Each template's voice (ADR 0014): a display serif of its own, Archivo
+ * for reading. Atelier sets Bodoni Moda like a fashion magazine (names in
+ * capitals, hairline contrast), Garten Cormorant Garamond like letterpress
+ * (italic headings, an italic ampersand), Panorama Fraunces like a film
+ * title (soft, heavy, close). The serifs are set light and at their own
+ * width, so the poster tuning of Archivo (weight, wdth, tight tracking)
+ * is undone here. Small tracked capitals mark dates and places.
+ */
+@layer components {
+    :is([data-template='atelier'], [data-voice='atelier']) {
+        --type-display:
+            'Bodoni Moda Variable', 'Bodoni 72', Didot, Georgia, serif;
+    }
+
+    :is([data-template='garten'], [data-voice='garten']) {
+        --type-display:
+            'Cormorant Garamond Variable', 'Cormorant Garamond', Garamond,
+            Georgia, serif;
+    }
+
+    :is([data-template='panorama'], [data-voice='panorama']) {
+        --type-display: 'Fraunces Variable', Georgia, serif;
+    }
+
+    /* Serif display: natural width, light, tracked near zero. */
+    [data-template]
+        :is(
+            h1,
+            h2,
+            h3,
+            .inv-names,
+            .inv-dear,
+            .inv-heading,
+            .event-time,
+            .inv-footer-couple,
+            .inv-closing-title,
+            .story-number,
+            .story-title,
+            .block-venue-name,
+            .garten-names,
+            .garten-initials,
+            .story-arch-numeral,
+            .panorama-names,
+            .panorama-date,
+            .story-frame-number,
+            .inv-ticker-word,
+            .inv-act-numeral,
+            .inv-act-hour,
+            .inv-act-title,
+            .inv-countdown-figure,
+            .title,
+            .headline
+        ) {
+        font-stretch: normal;
+        font-weight: 400;
+        letter-spacing: -0.012em;
+    }
+
+    /* Serif figures: lining and proportional, never spaced out as in tables. */
+    [data-template]
+        :is(
+            .event-time,
+            .inv-act-hour,
+            .inv-countdown-figure,
+            .story-number,
+            .story-frame-number,
+            .panorama-date
+        ) {
+        font-variant-numeric: lining-nums proportional-nums;
+    }
+
+    /* Small tracked capitals: the dates, places and quiet labels. */
+    [data-template]
+        :is(
+            .inv-stage-meta,
+            .inv-act-time .caption,
+            .inv-label,
+            .garten-kicker
+        ) {
+        @apply text-[0.72rem] font-medium tracking-[0.2em] uppercase;
+    }
+
+    /* The running band: roman and the accent's italic in turn. */
+    [data-template] .inv-ticker-word:nth-child(even) {
+        @apply text-brand italic;
+        -webkit-text-stroke: 0;
+    }
+
+    [data-template] .inv-ticker-word {
+        @apply text-[clamp(3rem,8vw,7rem)];
+    }
+
+    /* ---------- Atelier: Bodoni, like a fashion magazine ---------- */
+    [data-template='atelier'] :is(.inv-names, .inv-footer-couple) {
+        @apply tracking-[0.01em] uppercase;
+    }
+
+    [data-template='atelier'] .inv-names {
+        @apply text-[clamp(3rem,10vw,9.5rem)] leading-[0.92];
+    }
+
+    [data-template='atelier'] :is(.inv-amp, .inv-footer-amp) {
+        @apply font-normal normal-case;
+    }
+
+    [data-template='atelier'] .inv-heading {
+        @apply text-[clamp(2.5rem,5.5vw,4.75rem)] leading-[0.98];
+    }
+
+    [data-template='atelier'] .inv-dear {
+        @apply lg:text-[clamp(3.5rem,6vw,6rem)];
+    }
+
+    [data-template='atelier'] .inv-act-hour {
+        @apply text-[clamp(3rem,5.5vw,4.75rem)];
+    }
+
+    [data-template='atelier'] .inv-act-title {
+        @apply italic;
+    }
+
+    [data-template='atelier'] .inv-act-numeral {
+        @apply font-normal italic;
+    }
+
+    [data-template='atelier'] .inv-closing-title {
+        @apply tracking-[0.01em] uppercase;
+    }
+
+    /* ---------- Garten: Cormorant, like letterpress ---------- */
+    [data-template='garten'] .garten-names {
+        @apply text-[clamp(3.5rem,11vw,8rem)] leading-[0.9] font-medium;
+    }
+
+    [data-template='garten'] :is(.garten-amp, .inv-footer-amp) {
+        @apply font-normal italic;
+    }
+
+    [data-template='garten'] :is(.inv-heading, .inv-closing-title) {
+        @apply font-medium italic;
+    }
+
+    [data-template='garten'] .inv-heading {
+        @apply text-[clamp(2.75rem,6.5vw,5rem)];
+    }
+
+    [data-template='garten'] .inv-dear {
+        @apply text-4xl font-medium lg:text-7xl;
+    }
+
+    [data-template='garten'] :is(.event-time, .story-title, .block-venue-name) {
+        @apply font-medium;
+    }
+
+    [data-template='garten'] .event-time {
+        @apply text-5xl;
+    }
+
+    [data-template='garten'] .story-arch-numeral {
+        @apply italic;
+    }
+
+    /* ---------- Panorama: Fraunces, like a film title ---------- */
+    [data-template='panorama'] :is(.panorama-names, .inv-closing-title) {
+        @apply font-semibold tracking-[-0.03em];
+    }
+
+    [data-template='panorama'] .inv-dear {
+        @apply font-medium tracking-[-0.03em];
+    }
+
+    [data-template='panorama'] .inv-heading {
+        @apply font-medium tracking-[-0.025em];
+    }
+
+    [data-template='panorama'] .panorama-date {
+        @apply font-light italic;
+    }
+
+    [data-template='panorama'] :is(.event-time, .story-frame-number) {
+        @apply font-light;
+    }
+
+    [data-template='panorama'] .panorama-dot {
+        @apply italic;
+    }
+}

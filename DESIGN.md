@@ -89,9 +89,13 @@ Two surfaces, two looks (ADR 0004):
 - **Platform** (marketing, auth, dashboard): this system. Marketing is light by
   default (`.surface-light`) with `.stage` night sections; the app is always
   light (no dark mode), with the night sidebar framing the porcelain workspace.
-- **Guest sites** (`pages/invitation/*`): always porcelain and night ink,
-  as the landing studio shows them; the couple's theme sets only the accent
-  inside `WeddingThemeScope` (ADR 0012). Ivory is the house theme.
+- **Guest sites** (`pages/invitation/*`): night ink on the theme's paper
+  (Ivory cream, Rosé blush, Alpine stone, Riviera champagne, Lavanda mist)
+  with the theme's accent, inside `WeddingThemeScope` (ADR 0012, 0014).
+  Each template has its own display serif (Atelier Bodoni Moda, Garten
+  Cormorant Garamond, Panorama Fraunces; `invitation-type.css`), Archivo
+  for reading, small tracked capitals for dates and places, and a site bar
+  with the couple's monogram (`InvitationNav`). Ivory is the house theme.
 
 ## Colors
 
@@ -138,8 +142,10 @@ headlines read as one voice rather than a default grotesk.
 
 ### Named Rules
 
-**One family.** No serif anywhere (the founder chose the modern grotesk over
-Bodoni on 2026-10-07). Contrast comes from scale, weight, width and italic.
+**One family.** No serif anywhere on the platform (the founder chose the
+modern grotesk over Bodoni on 2026-10-07). Contrast comes from scale,
+weight, width and italic. Guest sites are the exception (ADR 0014): each
+template sets its names and headings in its own serif.
 
 **No labels.** No eyebrows, kickers or tracked uppercase labels above
 headings, no monospace as decoration. The heading carries itself.

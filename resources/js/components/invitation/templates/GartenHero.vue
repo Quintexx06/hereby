@@ -55,7 +55,7 @@ const petals = () =>
         <GartenBranch side="left" />
         <GartenBranch side="right" />
 
-        <p class="text-sm font-medium text-muted-foreground">
+        <p class="garten-kicker text-muted-foreground">
             {{ t('invitation.save_the_date') }}
         </p>
         <div class="garten-arch" :data-photo="cover !== null">

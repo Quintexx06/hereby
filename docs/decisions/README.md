@@ -17,5 +17,6 @@ Template: `NNNN-title.md` with **Status**, **Context**, **Decision** and **Conse
 | [0009](0009-vorhang-auf.md)        | "Vorhang auf": Archivo, night & blush (rosé), photography, three.js veil |
 | [0010](0010-swiss-address-search.md) | Venue addresses from the federal address register |
 | [0011](0011-kept-memories.md)      | Kept memories: guest data still goes on schedule |
-| [0012](0012-light-ground-themes.md)  | Guest themes are an accent on a light ground |
+| [0012](0012-light-ground-themes.md)  | Guest themes are an accent on a light ground (ground amended by 0014) |
 | [0013](0013-own-accent-colour.md)    | Couples may pick their own accent colour |
+| [0014](0014-guest-serifs-and-papers.md) | Guest sites get their own serifs and papers |

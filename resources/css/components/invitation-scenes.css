@@ -166,3 +166,68 @@
         @apply -mt-28 sm:-mt-36;
     }
 }
+
+/*
+ * The site's bar (InvitationNav), wide screens only: monogram, chapters,
+ * the reply. Clear over Atelier's photo, paper once the page moves.
+ */
+@layer components {
+    .inv-nav {
+        @apply fixed inset-x-0 top-0 z-20 hidden h-16 grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-8 px-8 text-foreground transition-[background-color,color,border-color] duration-300 ease-out md:grid lg:px-12;
+        border-bottom: 1px solid transparent;
+    }
+
+    /* Under the couple's or the demo's own bar, when there is one. */
+    [data-theme]:has(.preview-banner) .inv-nav {
+        @apply top-11;
+    }
+
+    .inv-nav[data-solid='true'] {
+        @apply border-rule bg-background/90 backdrop-blur-md;
+    }
+
+    .inv-nav[data-solid='false'] {
+        @apply text-porcelain-50;
+    }
+
+    .inv-nav-mark {
+        @apply justify-self-start;
+    }
+
+    .inv-monogram {
+        @apply font-display text-[1.875rem] leading-none whitespace-nowrap;
+    }
+
+    .inv-monogram-amp {
+        @apply px-[0.12em] text-[0.8em] text-brand italic;
+    }
+
+    .inv-nav[data-solid='false'] .inv-monogram-amp {
+        color: color-mix(in oklch, var(--brand) 35%, white);
+    }
+
+    .inv-nav-links {
+        @apply flex items-center gap-7;
+    }
+
+    .inv-nav-link {
+        @apply text-[0.72rem] font-medium tracking-[0.2em] uppercase opacity-80 transition-opacity duration-150 hover:opacity-100;
+    }
+
+    .inv-nav-reply {
+        @apply justify-self-end rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-transform duration-150 ease-out active:scale-[0.97];
+    }
+
+    .inv-nav[data-solid='false'] .inv-nav-reply {
+        @apply bg-porcelain-50 text-night-950;
+    }
+
+    /* Room for the bar where nothing lies under it. */
+    :is([data-template='garten'], [data-template='panorama']) {
+        @apply md:pt-16;
+    }
+
+    [data-template] :is(section[id], [id^='block-']) {
+        scroll-margin-top: 6rem;
+    }
+}

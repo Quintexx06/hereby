@@ -51,6 +51,11 @@
             </script>
             <style>{!! Vite::content('resources/css/guest.css') !!}</style>
             <link rel="preload" href="{{ Vite::asset('node_modules/@fontsource-variable/archivo/files/archivo-latin-wght-normal.woff2') }}" as="font" type="font/woff2" crossorigin>
+            {{-- The template's display serif (ADR 0014): the names are set in it. --}}
+            @php($guestSerif = \App\Enums\WeddingTemplate::tryFrom((string) data_get($page, 'props.invitation.wedding.template', data_get($page, 'props.reply.wedding.template', '')))?->serifFile())
+            @if ($guestSerif)
+                <link rel="preload" href="{{ Vite::asset($guestSerif) }}" as="font" type="font/woff2" crossorigin>
+            @endif
         @endif
         @unless ($leanGuestPage)
             @vite([

@@ -1,62 +1,97 @@
 /*
- * Guest-site themes (ADR 0004, amended by ADR 0012). A theme re-declares
- * semantic tokens on its scope element (`WeddingThemeScope`), so everything
- * inside a wedding site, shadcn components included, takes the couple's
- * look. Guest sites are always light: porcelain ground and night ink for
- * every theme, as the landing studio shows them; a theme sets only its
- * accent (brand, primary, ring, brand-muted). Templates decide the layout,
- * the couple's photos carry the colour, the theme signs it.
- * Every accent keeps WCAG AA (4.5:1) on porcelain, as text and as a button.
+ * Guest-site themes (ADR 0004, amended by ADR 0012 and ADR 0014). A theme
+ * re-declares semantic tokens on its scope element (`WeddingThemeScope`),
+ * so everything inside a wedding site, shadcn components included, takes
+ * the couple's look. Guest sites are always light with night ink; each
+ * theme sets its accent (brand, primary, ring, brand-muted) and, since ADR
+ * 0014, its own paper: ivory cream, rosé blush, alpine stone, riviera
+ * champagne, lavanda mist. One ladder derives card, muted and rules from
+ * the paper's lightness, chroma and hue. Templates decide the layout, the
+ * couple's photos carry the colour, the theme signs it.
+ * Every accent keeps WCAG AA (4.5:1) on its paper, as text and as a button.
  */
 @layer base {
     [data-theme] {
         @apply bg-background font-sans text-foreground;
         color-scheme: light;
-        --background: var(--color-porcelain-100);
         --foreground: var(--color-night-900);
-        --card: var(--color-porcelain-50);
         --card-foreground: var(--color-night-900);
-        --popover: var(--color-porcelain-50);
         --popover-foreground: var(--color-night-900);
         --primary: var(--color-night-900);
         --primary-foreground: var(--color-porcelain-50);
-        --muted: var(--color-sand-100);
         --muted-foreground: var(--color-sand-600);
-        --accent: var(--color-sand-100);
         --accent-foreground: var(--color-night-900);
-        --border: var(--color-sand-200);
-        --input: var(--color-sand-300);
         --ring: var(--color-blush-600);
         --brand: var(--color-blush-700);
         --brand-foreground: var(--color-porcelain-50);
         --brand-muted: var(--color-blush-200);
         --rule: color-mix(in oklch, var(--color-night-900) 14%, transparent);
+
+        /* The paper (ADR 0014): one ladder from its lightness, chroma, hue. */
+        --paper-l: 0.972;
+        --paper-c: 0.013;
+        --paper-h: 82;
+        --background: oklch(var(--paper-l) var(--paper-c) var(--paper-h));
+        --card: oklch(
+            calc(var(--paper-l) + 0.016) calc(var(--paper-c) * 0.5)
+                var(--paper-h)
+        );
+        --popover: var(--card);
+        --muted: oklch(
+            calc(var(--paper-l) - 0.04) calc(var(--paper-c) * 1.5)
+                var(--paper-h)
+        );
+        --accent: var(--muted);
+        --border: oklch(
+            calc(var(--paper-l) - 0.085) calc(var(--paper-c) * 1.7)
+                var(--paper-h)
+        );
+        --input: oklch(
+            calc(var(--paper-l) - 0.13) calc(var(--paper-c) * 1.7)
+                var(--paper-h)
+        );
     }
 
-    /* Ivory: the Hereby house style. Porcelain, night ink, blush. */
+    /* Ivory: the Hereby house style. Ivory cream, night ink, blush. */
 
     /* Rosé: peony. For garden weddings and candlelit dinners. */
     [data-theme='rose'] {
         --theme-hue: 355;
         --theme-chroma: 0.13;
+        /* Blush paper. */
+        --paper-l: 0.962;
+        --paper-c: 0.02;
+        --paper-h: 12;
     }
 
     /* Alpine: lake blue. For mountain and lake venues. */
     [data-theme='alpine'] {
         --theme-hue: 235;
         --theme-chroma: 0.1;
+        /* Stone paper, cool as the lake. */
+        --paper-l: 0.963;
+        --paper-c: 0.012;
+        --paper-h: 225;
     }
 
     /* Riviera: night-sea indigo. Ticino and the south. */
     [data-theme='riviera'] {
         --theme-hue: 265;
         --theme-chroma: 0.11;
+        /* Champagne paper, sand in the sun. */
+        --paper-l: 0.952;
+        --paper-c: 0.027;
+        --paper-h: 80;
     }
 
     /* Lavanda: lilac. Summer meadows and the Valais. */
     [data-theme='lavanda'] {
         --theme-hue: 305;
         --theme-chroma: 0.11;
+        /* Lavender mist. */
+        --paper-l: 0.962;
+        --paper-c: 0.017;
+        --paper-h: 305;
     }
 
     /* The coloured themes: one ladder, only the hue changes. */

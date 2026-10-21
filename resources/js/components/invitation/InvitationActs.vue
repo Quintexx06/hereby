@@ -36,7 +36,7 @@ const route = (event: WeddingEvent): string | null => {
 </script>
 
 <template>
-    <section class="inv-acts" data-block="programme">
+    <section id="inv-programme" class="inv-acts" data-block="programme">
         <h2 class="inv-heading">{{ t('invitation.programme_heading') }}</h2>
         <ol
             class="inv-acts-track"
