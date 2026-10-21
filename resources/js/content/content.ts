@@ -120,6 +120,8 @@ export const previewCopy = {
     back: 'Zurück zur Übersicht',
     demo: (venue: string) => `Beispiel: eine Hochzeitsseite bei ${venue}`,
     demoMore: 'Hereby für Locations',
+    sample: 'Beispielseite mit Demo-Daten',
+    sampleMore: 'Eigene Seite kostenlos starten',
     templates: { atelier: 'Atelier', garten: 'Garten', panorama: 'Panorama' },
 };
 

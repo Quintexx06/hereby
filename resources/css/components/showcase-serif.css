@@ -1,0 +1,87 @@
+/*
+ * The landing studio speaks each template's own voice, as the real guest
+ * sites do (ADR 0014, invitation-type.css): Bodoni Moda for Atelier,
+ * Cormorant Garamond for Garten, Fraunces for Panorama, on the theme's
+ * paper. Archivo's poster tuning (weight, width, tight tracking) is undone.
+ */
+@layer components {
+    .showcase-site[data-showcase='atelier'] {
+        --type-display:
+            'Bodoni Moda Variable', 'Bodoni 72', Didot, Georgia, serif;
+    }
+
+    .showcase-site[data-showcase='garten'] {
+        --type-display:
+            'Cormorant Garamond Variable', 'Cormorant Garamond', Garamond,
+            Georgia, serif;
+    }
+
+    .showcase-site[data-showcase='panorama'] {
+        --type-display: 'Fraunces Variable', Georgia, serif;
+    }
+
+    .showcase-site
+        :is(
+            .showcase-names,
+            .showcase-monogram,
+            .sc-nav-names,
+            .sc-nav-seal,
+            .sc-a-quote-text,
+            .sc-a-heading,
+            .sc-a-time,
+            .sc-a-event,
+            .sc-a-close-title,
+            .sc-g-welcome-text,
+            .sc-g-heading,
+            .sc-p-welcome-text,
+            .sc-p-heading,
+            .sc-p-frame-time,
+            .sc-p-run,
+            .sc-panorama-run,
+            .sc-footer-couple
+        ) {
+        font-stretch: normal;
+        font-weight: 400;
+        letter-spacing: -0.012em;
+        font-variant-numeric: lining-nums proportional-nums;
+    }
+
+    .showcase-amp {
+        @apply font-normal italic;
+    }
+
+    /* Atelier: capitals, like a fashion magazine's cover line. */
+    .showcase-site[data-showcase='atelier']
+        :is(.showcase-names, .sc-nav-names) {
+        @apply tracking-[0.01em] uppercase;
+    }
+
+    .showcase-site[data-showcase='atelier'] .showcase-amp {
+        @apply normal-case;
+    }
+
+    .showcase-site[data-showcase='atelier'] .sc-a-event {
+        @apply italic;
+    }
+
+    /* Garten: letterpress, the headings in italic. */
+    .showcase-site[data-showcase='garten']
+        :is(.showcase-names, .sc-g-welcome-text, .sc-footer-couple) {
+        @apply font-medium;
+    }
+
+    .showcase-site[data-showcase='garten'] :is(.sc-g-heading, .sc-nav-seal) {
+        @apply font-medium italic;
+    }
+
+    /* Panorama: a film title, heavy and close. */
+    .showcase-site[data-showcase='panorama']
+        :is(.showcase-names, .sc-p-welcome-text, .sc-p-run, .sc-panorama-run) {
+        @apply font-semibold tracking-[-0.03em];
+    }
+
+    /* «Live ansehen» under the template's name in the studio. */
+    .showcase-live {
+        @apply mt-1 inline-flex items-center gap-1.5 text-sm font-semibold underline decoration-current/30 underline-offset-4 transition-colors duration-150 hover:decoration-current;
+    }
+}

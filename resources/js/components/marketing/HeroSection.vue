@@ -85,7 +85,7 @@ const { state, revealed, usesWebgl, skip } = useVeilCurtain(canvas, photo);
                         size="pill"
                         class="border-[1.5px] border-foreground bg-transparent text-foreground hover:bg-foreground hover:text-background dark:border-foreground dark:bg-transparent dark:hover:bg-foreground"
                     >
-                        <a href="#ablauf">{{ hero.secondaryCta }}</a>
+                        <a href="#studio">{{ hero.secondaryCta }}</a>
                     </Button>
                 </div>
             </div>

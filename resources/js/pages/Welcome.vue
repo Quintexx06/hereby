@@ -31,12 +31,12 @@ defineProps<{
     </Head>
     <FloatingNav />
     <HeroSection />
+    <StudioSection />
     <IntroSection />
     <GuestSection />
     <StepsSection />
     <ActsSection />
     <MarqueeBand />
-    <StudioSection />
     <PremiumSection />
     <StruckSection />
     <FaqSection :items="faq" />

@@ -7,6 +7,7 @@
 import { landingPhotos as photo } from '@/content/landing-photos';
 
 export const nav = [
+    { label: 'Vorlagen', href: '/#studio' },
     { label: 'Für Gäste', href: '/#gaeste' },
     { label: 'Ablauf', href: '/#ablauf' },
     { label: 'Der Tag', href: '/#tag' },
@@ -18,10 +19,10 @@ export const hero = {
     titleTail: 'für euer',
     titleYes: 'Ja.',
     statement:
-        'Die Hochzeitswebsite aus der Schweiz, die jeden Gast persönlich einlädt.',
-    lede: 'Jeder Haushalt bekommt seinen eigenen Link: mit seinen Namen, seinen Anlässen, in seiner Sprache. Eure Gäste sagen in unter einer Minute zu, und ihr seht jede Antwort an einem Ort.',
+        'Premium-Hochzeitswebsites aus der Schweiz. Gestaltet wie ein Magazin, persönlich für jeden Gast.',
+    lede: 'Drei Vorlagen in echten Hochzeitsschriften, mit euren Fotos, eurem Papier und eurem Monogramm. Jeder Haushalt bekommt seinen eigenen Link und sagt in unter einer Minute zu.',
     primaryCta: 'Kostenlos starten',
-    secondaryCta: 'So funktioniert’s',
+    secondaryCta: 'Vorlagen ansehen',
     skip: 'Vorhang öffnen',
     photo: photo.heroVeil,
 } as const;
@@ -146,7 +147,8 @@ export const marquee = [
 
 export const studio = {
     title: 'Gestaltet, nicht zusammengeklickt.',
-    lede: 'Drei Vorlagen, jede mit eigenem Auftritt: eure Fotos, euer Programm, eure Anreise. Scrollt durch die Seiten, setzt eure Namen ein und wählt eine Akzentfarbe.',
+    lede: 'Drei Vorlagen, jede mit eigener Schrift und eigenem Auftritt: Atelier wie ein Modemagazin, Garten wie Letterpress, Panorama wie ein Filmtitel. Setzt eure Namen ein, wählt eine Akzentfarbe, oder öffnet eine Vorlage live.',
+    live: 'Live ansehen',
     templatesLabel: 'Vorlagen',
     previous: 'Vorherige Vorlage',
     next: 'Nächste Vorlage',
@@ -157,17 +159,17 @@ export const studio = {
         {
             slug: 'atelier',
             name: 'Atelier',
-            mood: 'Grosse Schrift über eurem Foto, ruhig und editorial',
+            mood: 'Bodoni in Versalien über eurem Foto, wie ein Modemagazin',
         },
         {
             slug: 'garten',
             name: 'Garten',
-            mood: 'Ein Torbogen, Zweige und viel Luft',
+            mood: 'Cormorant kursiv, ein Torbogen, Zweige und Rosenblätter',
         },
         {
             slug: 'panorama',
             name: 'Panorama',
-            mood: 'Eure Namen als Laufband, Fotos in voller Breite',
+            mood: 'Fraunces als Filmtitel, eure Namen als Laufband',
         },
     ],
     pickerLabel: 'Akzentfarbe der Beispielseite',
@@ -178,7 +180,7 @@ export const studio = {
     secondLabel: 'Zweiter Vorname',
     dateLabel: 'Hochzeitsdatum',
     accents: [
-        { slug: 'ivory', name: 'Ivory', mood: 'Porzellan, Tinte, Kerzenlicht' },
+        { slug: 'ivory', name: 'Ivory', mood: 'Elfenbein, Tinte, Kerzenlicht' },
         { slug: 'rose', name: 'Rosé', mood: 'Puder, Himbeere, Pfingstrose' },
         {
             slug: 'alpine',

@@ -6,6 +6,8 @@
 @import '@fontsource-variable/archivo/standard.css';
 @import '@fontsource-variable/archivo/standard-italic.css';
 
+@import './base/wedding-serifs.css';
+
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
@@ -26,6 +28,7 @@
 @import './components/showcase.css';
 @import './components/showcase-templates.css';
 @import './components/showcase-bodies.css';
+@import './components/showcase-serif.css';
 @import './components/premium.css';
 @import './components/evening.css';
 @import './components/invitation-templates.css';

@@ -80,16 +80,25 @@ All four sell **a builder**. None leads with a personal invitation per
 household, done-for-you setup, or four Swiss languages per household. That is
 the message hierarchy of this page.
 
+**Update 2026-10-21 (founder):** lead with **premium design**. The
+art-directed international builders (Riley & Grey, Minted, editorial
+Squarespace and Wix templates) win couples on look: a serif per design,
+warm paper, a monogram, live previews. Hereby now leads with "Premium-
+Hochzeitswebsites aus der Schweiz. Gestaltet wie ein Magazin, persönlich für
+jeden Gast", shows the templates right under the hero, and lets every
+template be opened live (`/beispiel/{atelier|garten|panorama}`). The
+personal link per household stays as the proof underneath.
+
 ## 5. Message hierarchy and section rationale
 
 | # | Section | Job | UX notes |
 | - | ------- | --- | -------- |
-| 1 | Hero: *Vorhang auf für euer Ja.* | Emotion and the brand moment, then what it is in one sentence | The veil reveal is the memory of the visit. Copy reveals during the opening; skippable; LCP is the photo itself, preloaded. |
-| 2 | Intro: *Eure Gäste bekommen keine Website. Sie bekommen ihre Einladung.* | Reframe the category | Names the pains of the standard site (wrong events, irrelevant fields, passwords). |
-| 3 | Für Gäste: *Ein Link pro Haushalt. In seiner Sprache.* | Show the mechanism | Live phone preview in DE/FR/IT/EN, real seeded data, labelled as an example. |
-| 4 | Ablauf: *20 Min. · 48 Std. · 60 Sek.* | Lower effort anxiety | The durations are the information, so they are the largest type. |
-| 5 | Ein Tag in fünf Akten | Show event-aware invitations and the venue (logistics, kitchen numbers) | Pinned horizontal track, one act per scroll step; demo data labelled as an example. Replaces the generic "Location" band. |
-| 6 | Marquee + Studio | "Design is the product", proven live | The three templates as finished example sites in scrollable browser windows, in a carousel (swipe or arrows, no autoplay), with real wedding photos; visitors type their names and date into them; accent chips recolour only its accents, the page ground never changes. |
+| 1 | Hero: *Vorhang auf für euer Ja.* | Emotion and the brand moment, then the promise: premium wedding websites, designed like a magazine, personal for every guest | The veil reveal is the memory of the visit. Copy reveals during the opening; skippable; LCP is the photo itself, preloaded. Secondary CTA "Vorlagen ansehen" scrolls to the studio. |
+| 2 | Studio: *Gestaltet, nicht zusammengeklickt.* | "Design is the product", proven live, first | The three templates in their own serifs on their paper (ADR 0014), in browser windows in a carousel; visitors type their names and date; accent chips recolour the accents; «Live ansehen» opens the real site for the sample couple, reply form included. |
+| 3 | Intro: *Eure Gäste bekommen keine Website. Sie bekommen ihre Einladung.* | Reframe the category | Names the pains of the standard site (wrong events, irrelevant fields, passwords). |
+| 4 | Für Gäste: *Ein Link pro Haushalt. In seiner Sprache.* | Show the mechanism | Live phone preview in DE/FR/IT/EN, real seeded data, labelled as an example. |
+| 5 | Ablauf: *10 Min. · 1 Link · 60 Sek.* | Lower effort anxiety | The durations are the information, so they are the largest type. |
+| 6 | Ein Tag in fünf Akten + Marquee | Show event-aware invitations and the venue (logistics, kitchen numbers) | Pinned horizontal track, one act per scroll step; demo data labelled as an example. |
 | 7 | Hiermit gestrichen. | Objection handling and keyword coverage (Passwort, Vorlage, Werbung, Sprache) | Replaces the comparison table: struck-through words with what we do instead. |
 | 8 | FAQ | Long-tail SEO and last objections | Native `<details>`, FAQPage structured data. |
 | 9 | Closing: *Euer Sommer 2027 beginnt mit einer Einladung.* | One action, with urgency from the season | The veil drifts back in (bookend to the hero). Same CTA label everywhere: **Kostenlos starten**. |
@@ -97,8 +106,8 @@ the message hierarchy of this page.
 
 CTA: one primary label across the page ("Kostenlos starten", to sign-up:
 building is free, couples pay to send), always a pill, top
-right and at the end of hero and closing. The secondary action ("So
-funktioniert's") scrolls; it never competes with the primary.
+right and at the end of hero and closing. The secondary action ("Vorlagen
+ansehen") scrolls to the studio; it never competes with the primary.
 
 ## 6. Claims policy
 

@@ -10,7 +10,7 @@ import PanoramaTemplate from '@/components/invitation/templates/PanoramaTemplate
 import WeddingThemeScope from '@/components/invitation/WeddingThemeScope.vue';
 import { useTrans } from '@/composables/useTrans';
 import { formatDate } from '@/lib/format';
-import type { Invitation, WeddingTemplate } from '@/types';
+import type { Invitation, InvitationDemo, WeddingTemplate } from '@/types';
 
 /* Couple-only; guests never download it. */
 const PreviewBanner = defineAsyncComponent(
@@ -22,8 +22,8 @@ const props = defineProps<{
     replied: boolean;
     preview: boolean;
     previewLanguages?: string[];
-    /** A venue's sales demo (VenueDemoController): its own banner. */
-    demo?: { venue: string; template: string; more: string };
+    /** A venue's sales demo or a public sample site: its own banner. */
+    demo?: InvitationDemo;
 }>();
 
 const { localeTag } = useTrans();

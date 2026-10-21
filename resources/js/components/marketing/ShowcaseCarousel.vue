@@ -7,6 +7,7 @@ import { useLoopingTrack } from '@/composables/motion/useLoopingTrack';
 import type { ShowcaseCoupleSite } from '@/composables/useShowcaseCouple';
 import { studio } from '@/content/landing';
 import { dialogOrigin } from '@/lib/dialog-origin';
+import { show as sampleSite } from '@/routes/samples';
 
 defineProps<{ accent: string; couple: ShowcaseCoupleSite }>();
 
@@ -19,6 +20,8 @@ const loop = [0, 1, 2].flatMap((copy) =>
 const { track, slides, index, current, jumping, moving, onScroll, go } =
     useLoopingTrack(templates.length, Math.floor(templates.length / 2));
 const active = computed(() => templates[current.value]);
+/* «Live ansehen»: the template as a whole site, with a reply that works. */
+const sample = (slug: string) => sampleSite.url(slug);
 
 /* The front window opens the whole site; a peeking one comes to the front. */
 const opened = ref<(typeof templates)[number] | null>(null);
@@ -111,6 +114,13 @@ function open(slideIndex: number, event: MouseEvent): void {
                     </p>
                 </Transition>
                 <p class="caption">{{ active.mood }}</p>
+                <a
+                    :href="sample(active.slug)"
+                    class="showcase-live"
+                    target="_blank"
+                    rel="noopener"
+                    >{{ studio.live }} <ArrowUpRight class="size-4"
+                /></a>
                 <div class="flex gap-2 pt-1" aria-hidden="true">
                     <span
                         v-for="(template, dotIndex) in templates"

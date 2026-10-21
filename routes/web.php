@@ -4,6 +4,7 @@ use App\Http\Controllers\Billing\StripeWebhookController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Marketing\SitemapController;
 use App\Http\Controllers\Marketing\TopicPageController;
+use App\Http\Controllers\SampleSiteController;
 use App\Http\Controllers\StoreInquiryController;
 use App\Http\Controllers\VenueDemoController;
 use App\Http\Controllers\VenueDemoReplyController;
@@ -27,6 +28,12 @@ Route::middleware(UseSwissGerman::class)->group(function () {
     Route::inertia('impressum', 'legal/Imprint')->name('legal.imprint');
     Route::get('orte/{partner:slug}', [VenuePageController::class, 'show'])->name('venues.show');
     // A signed sales demo for a venue we want to win (no account, 90 days).
+    Route::middleware(['throttle:invitations', PreventIndexing::class])->group(function (): void {
+        Route::get('beispiel/{template}', [SampleSiteController::class, 'show'])->name('samples.show');
+        Route::get('beispiel/{template}/antworten', [SampleSiteController::class, 'reply'])->name('samples.reply');
+        Route::put('beispiel/{template}/antworten', [SampleSiteController::class, 'update'])->name('samples.reply.update');
+        Route::get('beispiel/{template}/kalender.ics', [SampleSiteController::class, 'calendar'])->name('samples.calendar');
+    });
     Route::get('demo/{partner:slug}', VenueDemoController::class)
         ->middleware(['throttle:invitations', PreventIndexing::class])
         ->name('venues.demo');

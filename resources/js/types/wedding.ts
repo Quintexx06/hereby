@@ -78,6 +78,18 @@ export type Guest = {
     isChild: boolean;
 };
 
+/** The banner of a venue's sales demo or a public sample site. */
+export type InvitationDemo = {
+    /** The venue a demo is for; null on a sample site. */
+    venue: string | null;
+    template: WeddingTemplate;
+    /** Where the banner's last link goes: the venue page or sign-up. */
+    more: string;
+    sample?: boolean;
+    /** A sample site's own address per template. */
+    links?: Partial<Record<WeddingTemplate, string>>;
+};
+
 export type Invitation = {
     household: { name: string; plusOneAllowed: boolean };
     wedding: Wedding;

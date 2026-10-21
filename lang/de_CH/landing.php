@@ -13,8 +13,8 @@ $atelier = Chf::price('plans.atelier');
 
 return [
     'seo' => [
-        'title' => 'Hochzeitswebsite Schweiz – persönlich für jeden Gast',
-        'description' => 'Hochzeitswebsite aus der Schweiz: ein privater Link pro Haushalt, Zusage in 60 Sekunden, vier Sprachen, kein Passwort. Kostenlos einrichten.',
+        'title' => 'Premium-Hochzeitswebsite Schweiz – persönlich für jeden Gast',
+        'description' => 'Premium-Hochzeitswebsites aus der Schweiz: drei gestaltete Vorlagen, ein privater Link pro Haushalt, Zusage in 60 Sekunden, vier Sprachen. Kostenlos starten.',
         'image_alt' => 'Ein Brautpaar unter dem Schleier im Abendlicht',
     ],
 
