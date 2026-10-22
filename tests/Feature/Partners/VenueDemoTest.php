@@ -68,6 +68,32 @@ class VenueDemoTest extends TestCase
         $this->get(URL::temporarySignedRoute('venues.demo', now()->addDay(), ['partner' => $photographer->slug]))->assertNotFound();
     }
 
+    public function test_without_a_street_the_route_leads_to_the_venue_not_the_village(): void
+    {
+        $venue = Partner::factory()->create(['name' => 'Stallstube Riethof', 'address' => null, 'postcode' => null, 'town' => 'Dachsen']);
+
+        $this->get(URL::temporarySignedRoute('venues.demo', now()->addDay(), ['partner' => $venue->slug]))
+            ->assertInertia(fn (Assert $page) => $page->where('invitation.blocks', fn ($blocks) => collect($blocks)->firstWhere('type', 'venue')['venue']['route']
+                === 'https://www.google.com/maps/dir/?api=1&destination='.urlencode('Stallstube Riethof, Dachsen')));
+    }
+
+    public function test_the_team_gives_a_prospect_its_street_and_the_demo_routes_to_it(): void
+    {
+        $venue = Partner::factory()->create(['name' => 'Stallstube Riethof', 'town' => 'Dachsen']);
+        $admin = $this->admin();
+
+        $this->actingAs($admin)->patch(route('admin.partners.update', $venue), ['postcode' => '84470'])
+            ->assertSessionHasErrors('postcode');
+        $this->actingAs($admin)->patch(route('admin.partners.update', $venue), ['address' => 'Riethof 1', 'postcode' => '8447'])
+            ->assertSessionHasNoErrors();
+
+        $this->get(route('admin.partners.index'))
+            ->assertInertia(fn (Assert $page) => $page->where('partners.0.address', 'Riethof 1')->where('partners.0.postcode', '8447'));
+        $this->get(URL::temporarySignedRoute('venues.demo', now()->addDay(), ['partner' => $venue->slug]))
+            ->assertInertia(fn (Assert $page) => $page->where('invitation.blocks', fn ($blocks) => collect($blocks)->firstWhere('type', 'venue')['venue']['address']
+                === 'Riethof 1, 8447 Dachsen'));
+    }
+
     public function test_a_prospect_that_says_yes_gets_its_sign_in(): void
     {
         Mail::fake();

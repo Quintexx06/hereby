@@ -133,6 +133,8 @@ export const adminPartners = {
     contactEmail: 'E-Mail für Paare',
     phone: 'Telefon',
     website: 'Website',
+    address: 'Strasse und Nummer',
+    postcode: 'PLZ',
     town: 'Ort',
     showcaseHint:
         'Vorschau für Besichtigungen, öffentliche Seite und die Zeile im Footer.',
@@ -187,6 +189,16 @@ export const adminPartners = {
         ].join('\n'),
     }),
 };
+
+/** The contact and street fields in the team's «Bearbeiten», in order. */
+export const adminPartnerFields = [
+    { key: 'email', label: adminPartners.contactEmail, type: 'email' },
+    { key: 'phone', label: adminPartners.phone, type: 'tel' },
+    { key: 'website', label: adminPartners.website, type: 'url' },
+    { key: 'address', label: adminPartners.address, type: 'text' },
+    { key: 'postcode', label: adminPartners.postcode, type: 'text' },
+    { key: 'town', label: adminPartners.town, type: 'text' },
+] as const;
 
 export const venuePage = {
     capacity: (count: number) => `Bis ${count} Gäste`,

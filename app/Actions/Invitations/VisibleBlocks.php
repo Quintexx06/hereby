@@ -47,6 +47,7 @@ class VisibleBlocks
 
     /**
      * A plain link for directions: nothing third-party loads on the page.
+     * Without a street the venue's name leads the way, not just its town.
      *
      * @return array{name: string|null, address: string|null, route: string|null}|null
      */
@@ -59,7 +60,7 @@ class VisibleBlocks
             return null;
         }
 
-        $query = $address !== '' ? $address : (string) $wedding->venue_name;
+        $query = $wedding->venue_address ? $address : implode(', ', array_filter([$wedding->venue_name, $town]));
 
         return [
             'name' => $wedding->venue_name,

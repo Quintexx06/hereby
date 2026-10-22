@@ -62,6 +62,8 @@ export type AdminPartner = {
     email: string | null;
     phone: string | null;
     website: string | null;
+    address: string | null;
+    postcode: string | null;
     town: string | null;
     /** Team-only: a personal sentence for the pitch mail. */
     pitch_note: string | null;

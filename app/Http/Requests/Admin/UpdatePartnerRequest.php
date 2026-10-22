@@ -9,7 +9,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 /**
- * The team corrects a partner: name, kind, contact, sign-in, Showcase.
+ * The team corrects a partner: name, kind, contact, street, sign-in, Showcase.
  * Every field is optional, so the Showcase switch can send just itself.
  */
 class UpdatePartnerRequest extends FormRequest
@@ -34,6 +34,8 @@ class UpdatePartnerRequest extends FormRequest
             'email' => ['sometimes', 'nullable', 'email', 'max:191'],
             'phone' => ['sometimes', 'nullable', 'string', 'max:40'],
             'website' => ['sometimes', 'nullable', 'url', 'max:191'],
+            'address' => ['sometimes', 'nullable', 'string', 'max:200'],
+            'postcode' => ['sometimes', 'nullable', 'regex:/^\d{4}$/'],
             'town' => ['sometimes', 'nullable', 'string', 'max:80'],
             'pitch_note' => ['sometimes', 'nullable', 'string', 'max:500'],
             'is_showcase' => ['sometimes', 'boolean'],
@@ -49,6 +51,7 @@ class UpdatePartnerRequest extends FormRequest
             'name.required' => 'Wie heisst der Partner?',
             'login.unique' => 'Mit dieser Adresse gibt es schon ein Konto.',
             'website.url' => 'Bitte mit https:// davor.',
+            'postcode.regex' => 'Eine Schweizer Postleitzahl hat vier Ziffern.',
         ];
     }
 }

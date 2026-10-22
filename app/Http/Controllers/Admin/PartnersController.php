@@ -43,6 +43,8 @@ class PartnersController extends Controller
                     'email' => $partner->email,
                     'phone' => $partner->phone,
                     'website' => $partner->website,
+                    'address' => $partner->address,
+                    'postcode' => $partner->postcode,
                     'town' => $partner->town,
                     'pitch_note' => $partner->pitch_note,
                     'demo_url' => $partner->isVenue()

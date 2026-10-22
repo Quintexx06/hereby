@@ -11,7 +11,10 @@ import {
 import { Input } from '@/components/ui/input';
 import PartnerEditActions from '@/components/admin/PartnerEditActions.vue';
 import PartnerVenueFields from '@/components/admin/PartnerVenueFields.vue';
-import { adminPartners as copy } from '@/content/partners';
+import {
+    adminPartnerFields as fields,
+    adminPartners as copy,
+} from '@/content/partners';
 import { resend, update } from '@/routes/admin/partners';
 import type { AdminPartner, PartnerType } from '@/types';
 
@@ -28,17 +31,12 @@ const form = useForm({
     email: props.partner.email ?? '',
     phone: props.partner.phone ?? '',
     website: props.partner.website ?? '',
+    address: props.partner.address ?? '',
+    postcode: props.partner.postcode ?? '',
     town: props.partner.town ?? '',
     is_showcase: props.partner.is_showcase,
     pitch_note: props.partner.pitch_note ?? '',
 });
-
-const fields = [
-    { key: 'email', label: copy.contactEmail, type: 'email' },
-    { key: 'phone', label: copy.phone, type: 'tel' },
-    { key: 'website', label: copy.website, type: 'url' },
-    { key: 'town', label: copy.town, type: 'text' },
-] as const;
 
 function save(then?: () => void): void {
     form.transform((data) =>
