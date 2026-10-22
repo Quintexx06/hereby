@@ -1,122 +1,114 @@
 /*
- * Guest-site themes (ADR 0004, amended by ADR 0012 and ADR 0014). A theme
- * re-declares semantic tokens on its scope element (`WeddingThemeScope`),
- * so everything inside a wedding site, shadcn components included, takes
- * the couple's look. Guest sites are always light with night ink; each
- * theme sets its accent (brand, primary, ring, brand-muted) and, since ADR
- * 0014, its own paper: ivory cream, rosé blush, alpine stone, riviera
- * champagne, lavanda mist. One ladder derives card, muted and rules from
- * the paper's lightness, chroma and hue. Templates decide the layout, the
- * couple's photos carry the colour, the theme signs it.
- * Every accent keeps WCAG AA (4.5:1) on its paper, as text and as a button.
+ * The five designs' colours and type (ADR 0015, replacing the themes of ADR
+ * 0004, 0012, 0013 and 0014). Each design re-declares the semantic tokens on
+ * its scope element (`WeddingThemeScope`, `data-theme` = the design), so
+ * everything inside a guest page, shadcn components and the reply form
+ * included, takes the design's paper, ink, accent and faces. Raw values live
+ * in theme/designs.css. `--night` is each design's dark ground, with its own
+ * ink, muted ink and accent (`--night-*`). Every text colour keeps WCAG AA
+ * (4.5:1) on the ground it is set on.
  */
 @layer base {
     [data-theme] {
         @apply bg-background font-sans text-foreground;
         color-scheme: light;
-        --foreground: var(--color-night-900);
-        --card-foreground: var(--color-night-900);
-        --popover-foreground: var(--color-night-900);
-        --primary: var(--color-night-900);
-        --primary-foreground: var(--color-porcelain-50);
-        --muted-foreground: var(--color-sand-600);
-        --accent-foreground: var(--color-night-900);
-        --ring: var(--color-blush-600);
-        --brand: var(--color-blush-700);
-        --brand-foreground: var(--color-porcelain-50);
-        --brand-muted: var(--color-blush-200);
-        --rule: color-mix(in oklch, var(--color-night-900) 14%, transparent);
-
-        /* The paper (ADR 0014): one ladder from its lightness, chroma, hue. */
-        --paper-l: 0.972;
-        --paper-c: 0.013;
-        --paper-h: 82;
-        --background: oklch(var(--paper-l) var(--paper-c) var(--paper-h));
-        --card: oklch(
-            calc(var(--paper-l) + 0.016) calc(var(--paper-c) * 0.5)
-                var(--paper-h)
-        );
+        --card: color-mix(in oklch, var(--background) 70%, white);
+        --card-foreground: var(--foreground);
         --popover: var(--card);
-        --muted: oklch(
-            calc(var(--paper-l) - 0.04) calc(var(--paper-c) * 1.5)
-                var(--paper-h)
-        );
+        --popover-foreground: var(--foreground);
+        --muted: color-mix(in oklch, var(--foreground) 6%, var(--background));
         --accent: var(--muted);
-        --border: oklch(
-            calc(var(--paper-l) - 0.085) calc(var(--paper-c) * 1.7)
-                var(--paper-h)
-        );
-        --input: oklch(
-            calc(var(--paper-l) - 0.13) calc(var(--paper-c) * 1.7)
-                var(--paper-h)
-        );
-    }
-
-    /* Ivory: the Hereby house style. Ivory cream, night ink, blush. */
-
-    /* Rosé: peony. For garden weddings and candlelit dinners. */
-    [data-theme='rose'] {
-        --theme-hue: 355;
-        --theme-chroma: 0.13;
-        /* Blush paper. */
-        --paper-l: 0.962;
-        --paper-c: 0.02;
-        --paper-h: 12;
-    }
-
-    /* Alpine: lake blue. For mountain and lake venues. */
-    [data-theme='alpine'] {
-        --theme-hue: 235;
-        --theme-chroma: 0.1;
-        /* Stone paper, cool as the lake. */
-        --paper-l: 0.963;
-        --paper-c: 0.012;
-        --paper-h: 225;
-    }
-
-    /* Riviera: night-sea indigo. Ticino and the south. */
-    [data-theme='riviera'] {
-        --theme-hue: 265;
-        --theme-chroma: 0.11;
-        /* Champagne paper, sand in the sun. */
-        --paper-l: 0.952;
-        --paper-c: 0.027;
-        --paper-h: 80;
-    }
-
-    /* Lavanda: lilac. Summer meadows and the Valais. */
-    [data-theme='lavanda'] {
-        --theme-hue: 305;
-        --theme-chroma: 0.11;
-        /* Lavender mist. */
-        --paper-l: 0.962;
-        --paper-c: 0.017;
-        --paper-h: 305;
-    }
-
-    /* The coloured themes: one ladder, only the hue changes. */
-    [data-theme]:is(
-        [data-theme='rose'],
-        [data-theme='alpine'],
-        [data-theme='riviera'],
-        [data-theme='lavanda']
-    ) {
-        --brand: oklch(0.47 var(--theme-chroma) var(--theme-hue));
+        --accent-foreground: var(--foreground);
+        --border: var(--rule);
+        --input: var(--muted-foreground);
         --primary: var(--brand);
-        --ring: oklch(0.6 var(--theme-chroma) var(--theme-hue));
-        --brand-muted: oklch(0.9 0.04 var(--theme-hue));
+        --primary-foreground: var(--background);
+        --brand-foreground: var(--background);
+        --brand-muted: color-mix(in oklch, var(--brand) 14%, var(--background));
+        --ring: var(--brand);
+        --night: var(--foreground);
+        --night-foreground: var(--background);
+        --night-accent: var(--night-foreground);
+        --button-radius: 0;
     }
 
-    /*
-     * The couple's own colour: its hue and chroma (lib/accent.ts) on the same
-     * ladder, so it keeps AA on porcelain like every theme.
-     */
-    [data-theme][data-custom-accent] {
-        --brand: oklch(0.47 var(--accent-chroma) var(--accent-hue));
-        --primary: var(--brand);
-        --ring: oklch(0.6 var(--accent-chroma) var(--accent-hue));
-        --brand-muted: oklch(
-            0.9 min(var(--accent-chroma), 0.04) var(--accent-hue)
-        );
+    /* Salon: an engraved card. Cotton paper, velvet ink, oxblood. */
+    [data-theme='salon'] {
+        --background: var(--salon-paper);
+        --foreground: var(--salon-ink);
+        --muted-foreground: var(--salon-muted);
+        --rule: var(--salon-rule);
+        --brand: var(--salon-oxblood);
+        --night-muted: var(--salon-night-muted);
+        --night-accent: var(--salon-champagne);
+        --type-display: 'Castoro Titling', 'Trajan Pro', Georgia, serif;
+        --type-sans: 'Libre Caslon Text', 'Big Caslon', Georgia, serif;
+    }
+
+    /* Raster: the Swiss grid. Concrete, graphite, vermilion. */
+    [data-theme='raster'] {
+        --background: var(--raster-paper);
+        --foreground: var(--raster-ink);
+        --muted-foreground: var(--raster-muted);
+        --rule: var(--raster-rule);
+        --brand: var(--raster-vermilion);
+        --night: var(--raster-night);
+        --night-muted: var(--raster-night-muted);
+        --night-accent: var(--raster-night-vermilion);
+        --type-display:
+            'Schibsted Grotesk Variable', 'Helvetica Neue', Arial, sans-serif;
+        --type-sans:
+            'Schibsted Grotesk Variable', 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    /* Garten: a private-press book. Candle cream, fig, the hedge at dusk. */
+    [data-theme='garten'] {
+        --background: var(--garten-paper);
+        --foreground: var(--garten-ink);
+        --muted-foreground: var(--garten-muted);
+        --rule: var(--garten-rule);
+        --brand: var(--garten-fig);
+        --olive: var(--garten-olive);
+        --night: var(--garten-night);
+        --night-muted: var(--garten-night-muted);
+        --night-accent: var(--garten-butter);
+        --button-radius: 9999px;
+        --type-display: 'Linden Hill', 'Goudy Old Style', Georgia, serif;
+        --type-sans:
+            'Ysabeau Office Variable', 'Gill Sans', 'Optima', system-ui,
+            sans-serif;
+    }
+
+    /* Arve: stone pine and wool. Night forest, geranium. */
+    [data-theme='arve'] {
+        --background: var(--arve-paper);
+        --foreground: var(--arve-ink);
+        --muted-foreground: var(--arve-muted);
+        --rule: var(--arve-rule);
+        --brand: var(--arve-geranium);
+        --wood: var(--arve-wood);
+        --night: var(--arve-night);
+        --night-muted: var(--arve-night-muted);
+        --night-accent: var(--arve-night-wood);
+        --button-radius: 0.25rem;
+        --type-display: 'Vollkorn Variable', 'Iowan Old Style', Georgia, serif;
+        --type-sans: 'Vollkorn Variable', 'Iowan Old Style', Georgia, serif;
+    }
+
+    /* Lido: a summer lido. Lake depth, cobalt, a butter field. */
+    [data-theme='lido'] {
+        --background: var(--lido-paper);
+        --foreground: var(--lido-ink);
+        --muted-foreground: var(--lido-muted);
+        --rule: var(--lido-rule);
+        --brand: var(--lido-cobalt);
+        --butter: var(--lido-butter);
+        --tomato: var(--lido-tomato);
+        --night-muted: var(--lido-night-muted);
+        --night-accent: var(--lido-butter);
+        --button-radius: 9999px;
+        --type-display: 'Gloock', 'Didot', Georgia, serif;
+        --type-sans:
+            'Familjen Grotesk Variable', 'Helvetica Neue', Arial, sans-serif;
     }
 }

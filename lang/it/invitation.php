@@ -15,6 +15,9 @@ return [
     'story_heading' => 'La nostra storia',
     'closing_title' => 'Venite?',
     'closing_text' => 'Rispondere richiede meno di un minuto. Potete modificare la risposta fino alla scadenza.',
+    'see_you' => 'Non vediamo l’ora di vedervi',
+    'letter_heading' => 'Invito',
+    'day_parts' => ['day' => 'Durante il giorno', 'evening' => 'La sera'],
     'events_heading' => 'Il vostro invito',
     'reply_by' => 'Vi preghiamo di rispondere entro il :date',
     'blocks' => [

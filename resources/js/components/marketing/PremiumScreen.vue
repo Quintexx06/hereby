@@ -4,7 +4,7 @@ defineProps<{ moment: string }>();
 </script>
 
 <template>
-    <div class="phone-screen premium-screen" data-theme="ivory">
+    <div class="phone-screen premium-screen" data-theme="salon">
         <p class="text-[0.8125rem] text-muted-foreground">
             Für Heidi, Peter und Lina
         </p>

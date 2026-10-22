@@ -88,7 +88,7 @@ export const todayActions: Record<
 
 export const invitationPanel = {
     title: 'Eure Einladung',
-    theme: (name: string) => `Im Look «${name}»`,
+    template: (name: string) => `Im Entwurf «${name}»`,
     change: 'Look ändern',
     preview: 'Vorschau',
 };

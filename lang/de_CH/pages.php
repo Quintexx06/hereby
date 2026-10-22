@@ -16,10 +16,10 @@ $couture = Chf::price('plans.couture');
 return [
     'hochzeitswebsite-erstellen' => [
         'photo' => 'sparklers',
-        'shot' => ['src' => '/images/topics/look.webp', 'width' => 1182, 'height' => 884, 'frame' => 'browser', 'alt' => 'Der Look-Schritt in Hereby: drei Vorlagen zur Auswahl', 'caption' => 'Eckdaten: Look wählen, mit drei gestalteten Vorlagen'],
+        'shot' => ['src' => '/images/topics/look.webp', 'width' => 1182, 'height' => 884, 'frame' => 'browser', 'alt' => 'Der Look-Schritt in Hereby: fünf Entwürfe zur Auswahl', 'caption' => 'Eckdaten: einen der fünf gestalteten Entwürfe wählen'],
         'label' => 'Hochzeitswebsite erstellen',
         'title' => 'Hochzeitswebsite erstellen – in 10 Minuten, ohne Baukasten',
-        'description' => 'Eure Hochzeitswebsite in der Schweiz erstellen: sieben kurze Fragen, drei gestaltete Looks, ein persönlicher Link pro Haushalt. Kostenlos einrichten.',
+        'description' => 'Eure Hochzeitswebsite in der Schweiz erstellen: sieben kurze Fragen, fünf gestaltete Entwürfe, ein persönlicher Link pro Haushalt. Kostenlos einrichten.',
         'h1' => 'Eure Hochzeitswebsite, in zehn Minuten erstellt.',
         'lede' => 'Kein Baukasten, keine leeren Seiten. Ihr beantwortet sieben kurze Fragen, und eure Hochzeitswebsite steht: mit Programm, Anreise und Antwortformular. Einrichten ist kostenlos, bezahlt wird erst, wenn die Einladungen verschickt werden.',
         'sections' => [
@@ -32,13 +32,13 @@ return [
                     ['title' => 'Paar und Datum', 'body' => 'Eure Namen, der grosse Tag und bis wann eure Gäste antworten sollen.'],
                     ['title' => 'Ort und Ablauf', 'body' => 'Ziviltrauung, Apéro, Abendessen, Fest, Brunch: jeder Anlass mit Zeit und Ort.'],
                     ['title' => 'Gäste und Sprachen', 'body' => 'Deutsch, Französisch, Italienisch oder Englisch, pro Haushalt gewählt.'],
-                    ['title' => 'Look', 'body' => 'Atelier, Garten oder Panorama, mit euren Fotos und eurer Akzentfarbe.'],
+                    ['title' => 'Look', 'body' => 'Salon, Raster, Garten, Arve oder Lido: fertig gestaltet, gefüllt mit euren Fotos und Texten.'],
                 ],
             ],
             [
                 'title' => 'Gestaltet, nicht zusammengeklickt',
                 'body' => [
-                    'Jede Vorlage ist fertig gestaltet: Schrift, Abstände und Bewegung stimmen schon. Ihr wählt einen Look und eine Farbe, eure Fotos machen den Rest. So sieht eure Seite auch auf dem kleinsten Handy aus wie geplant.',
+                    'Jeder Entwurf ist fertig gestaltet, wie eine Papeterie-Serie: Schrift, Farben und Abstände stimmen schon. Ihr wählt einen, eure Fotos und Texte machen den Rest. So sieht eure Seite auch auf dem kleinsten Handy aus wie geplant.',
                     'Ihr habt eine ganz eigene Vorstellung? Mit der Massanfertigung schickt ihr uns eure Wünsche, Farben und Bilder, und wir bauen eure Seite für euch.',
                 ],
             ],

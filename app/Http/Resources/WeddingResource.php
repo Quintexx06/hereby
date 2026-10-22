@@ -21,9 +21,6 @@ class WeddingResource extends JsonResource
             'coupleNames' => $this->couple_names,
             'date' => $this->wedding_date->toDateString(),
             'rsvpDeadline' => $this->rsvp_deadline?->toDateString(),
-            'theme' => $this->theme,
-            'accentColor' => $this->accent_color,
-            'hiddenSections' => $this->hidden_sections ?? [],
             'template' => $this->template,
             // The couple's own photos, cover first (spec 2026-10-13-couple-photos).
             'photos' => $this->couplePhotos->map(fn (WeddingPhoto $photo): array => [

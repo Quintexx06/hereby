@@ -37,7 +37,7 @@ onBeforeUnmount(() => observer?.disconnect());
 <template>
     <Transition name="sticky-reply">
         <div v-if="visible" class="inv-sticky">
-            <Link :href="href" class="inv-closing-button w-full">{{
+            <Link :href="href" class="inv-closing-button">{{
                 t('rsvp.cta')
             }}</Link>
         </div>

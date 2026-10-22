@@ -89,13 +89,12 @@ Two surfaces, two looks (ADR 0004):
 - **Platform** (marketing, auth, dashboard): this system. Marketing is light by
   default (`.surface-light`) with `.stage` night sections; the app is always
   light (no dark mode), with the night sidebar framing the porcelain workspace.
-- **Guest sites** (`pages/invitation/*`): night ink on the theme's paper
-  (Ivory cream, Rosé blush, Alpine stone, Riviera champagne, Lavanda mist)
-  with the theme's accent, inside `WeddingThemeScope` (ADR 0012, 0014).
-  Each template has its own display serif (Atelier Bodoni Moda, Garten
-  Cormorant Garamond, Panorama Fraunces; `invitation-type.css`), Archivo
-  for reading, small tracked capitals for dates and places, and a site bar
-  with the couple's monogram (`InvitationNav`). Ivory is the house theme.
+- **Guest sites** (`pages/invitation/*`): one of five finished designs
+  (ADR 0015: Salon, Raster, Garten, Arve, Lido), each with its own faces,
+  palette and layout, inside `WeddingThemeScope` (`data-theme` = the
+  design). The couple fills in content only; no colour or font choice.
+  Every guest page (reply, programme, memories, newspaper) takes the
+  design's tokens. See «Guest designs» below.
 
 ## Colors
 
@@ -144,8 +143,9 @@ headlines read as one voice rather than a default grotesk.
 
 **One family.** No serif anywhere on the platform (the founder chose the
 modern grotesk over Bodoni on 2026-10-07). Contrast comes from scale,
-weight, width and italic. Guest sites are the exception (ADR 0014): each
-template sets its names and headings in its own serif.
+weight, width and italic. Guest sites are the exception (ADR 0015): each
+design sets its own faces, and Salon, Garten and Arve use spaced small
+capitals for dates and places, as stationery does.
 
 **No labels.** No eyebrows, kickers or tracked uppercase labels above
 headings, no monospace as decoration. The heading carries itself.
@@ -156,29 +156,11 @@ headings, no monospace as decoration. The heading carries itself.
 - Compositions are **asymmetric splits** (5:6, 7:5), full-bleed photo bands
   and rows divided by hairlines. Never a grid of equal cards.
 - More space above a heading than below it. Sections alternate light and night.
-- Guest pages are one mobile column (`invitation-page`) that grows into a
-  spread from `lg` (`invitation-layout.css`): Atelier and Panorama set each
-  practical chapter as a 5:7 split (heading left and sticky, content right,
-  a hairline between, chapters rule to rule); Garten keeps its middle axis
-  and sets place, travel, stay and dress code as arched cards two by two.
-  The programme is a ledger (Atelier), a vine whose sides take turns
-  (Garten) or a night band of up to four frames side by side (Panorama).
-  The couple's other photos form a band after the calendar
-  (`InvitationGallery`): a spread, arches, or one 21:9 frame, opening like
-  a curtain as they scroll in.
-- Guest sites carry the landing's moments (`invitation-scenes.css`): Atelier
-  opens on the photo edge to edge with a sparkler drawing a heart of light
-  over it, the names at up to 11rem, the days to go as a figure with an
-  italic unit; the day is told in acts on a night band (photo, roman
-  numeral, time, the place in the accent's italic) that pins and travels
-  sideways on wide screens. Every template runs the day's parts past as a
-  band (solid and outlined italic in turn), greets the household with its
-  names in the accent's italic, and closes with the two rings turning above
-  «Kommt ihr?»; Garten's petals fall in 3D, Panorama's lights drift. The
-  couple's accent tints the practical chapters' ground and the footer
-  (`--tint`, 8% of the accent in porcelain). 3D comes through `GuestScene`:
-  only after the first scroll or touch, only near the screen, never on data
-  saver, one still frame under reduced motion.
+- Guest pages are one mobile column (`invitation-page`) that each design
+  lays out its own way on wide screens (`resources/css/designs/*.css`): a
+  centred card and menu card (Salon), a 12-column grid with numbered
+  sections (Raster), a text block with a margin (Garten), day and evening
+  side by side (Arve), a butter field and a postcard (Lido).
 
 ## Elevation & Depth
 
@@ -236,50 +218,19 @@ Each one is a motion pattern with a product reason, not decoration:
   below `lg`. Shows the product's core idea: each household sees its acts.
 - **Marquee** (`MarqueeBand`): Hochzeit · Mariage · Matrimonio · Wedding,
   solid and outlined; scroll speeds it up and reverses it.
-- **Studio** (`StudioSection`, `ShowcaseCarousel`, `ShowcaseWindow`,
-  `ShowcaseHero*`, `ShowcaseBody*`, `ShowcaseFooter`, `ShowcaseDialog`): the
-  three templates (Atelier, Garten, Panorama) as finished sites in browser
-  windows of fixed height that stand still and fade out at the bottom. On
-  hover (always on touch) a dark «Ganze Seite ansehen» pill rises into the
-  middle; a click anywhere on the front window opens the whole site in a
-  popup that grows out of the click (560 ms, drawer curve; fades only under
-  reduced motion), where it scrolls, ends in the same footer as a real
-  site, and offers «Mit diesem Design starten». A click on a peeking window
-  brings it to the front. The windows sit side by side in a full-bleed scroll-snap track that loops endlessly
-  (`useLoopingTrack`: three copies, the visitor always rests in the middle
-  one and is moved there invisibly when the track settles) and opens with
-  Garten in the middle, its neighbours peeking: swipe, or step with the
-  arrows; the template's name and mood sit between them. Nothing moves
-  on its own. Atelier sets the names over the photo, Garten puts the photo
-  under an arch between two drawn twigs, Panorama runs the names as a band
-  over a strip of photos. Each has its own 3D layer (`ShowcaseScene`, scenes
-  from `lib/three`): Atelier's sparkler draws a heart of light over the photo, as in a long
-  exposure, with sparks spraying off its tip (`lib/three/sparkler.ts`; the
-  rings stay the intro's own),
-  Garten's rose petals fall through the arch (smaller and more of them, via
-  `createPetals` options), Panorama's bokeh drifts behind the band in a
-  light tint of the accent. three.js loads only when a slide comes to the
-  front, and only the front slide renders (`useThreeScene`'s `enabled`).
-  Above, one sentence with blanks
-  (`ShowcaseCoupleForm`, `useShowcaseCouple`) puts the visitor's names and
-  date into all three, and three accent chips recolour only their accents
-  (`--showcase-ink`); the ground stays porcelain. Below the heroes each
-  template tells the same content (welcome, programme, travel, photos,
-  reply) in its own way, revealed on scroll inside the window
-  (`showcase-bodies.css`): Atelier as a magazine (pull quote with the
-  accent «Ja», a ledger whose rules draw in, the venue photo wiping up under
-  an overlapping caption card, an asymmetric grid, a large close); Garten as
-  a garden (a drawn sprig, a vine timeline whose leaves pop out, the venue
-  under an arch, one print dropped on the table between two photos framed by hand (a leaf wreath with a bow, a climbing rose round an arch) whose lines draw themselves before the leaves open, an arched reply card);
-  Panorama as cinema (giant welcome, dark bands with frame cards that slide
-  in, a 21:9 venue that pushes in slowly, a sprocketed film strip, a
-  running «Kommt ihr?» ticker). Reduced motion keeps the fades only.
-  Classes are `sc-*` so the real templates' styles never leak in.
+- **Studio** (`StudioSection`, `studio.css`): the five designs of ADR 0015
+  as their real first screens, a tab per design (arrow keys move along
+  them). The wide screen sits in a browser window, the phone overlaps its
+  corner, the design's name and mood sit beside them with «Live ansehen»
+  (`/beispiel/{design}`). Picking a design swaps both with a 200 ms fade;
+  nothing moves on its own. The screenshots live in
+  `public/images/designs/` and are regenerated from the samples when a
+  design changes. What the landing shows is what guests get.
 - **Premium** (`PremiumSection`, `PremiumEvening`, `PremiumScreen`,
   `PremiumExtras`, after the studio, on `.stage`): two products, told apart.
   The Atelier package is one framed panel with a «Paket Atelier» pill: the
   night as a timeline (17:30 Gruppenfotos, 18:30 Tischplan, 21:00 Einlagen,
-  00:10 Heimweg) beside a guest's phone (porcelain, `data-theme="ivory"`)
+  00:10 Heimweg) beside a guest's phone (in Salon, `data-theme="salon"`)
   that shows that moment's real screen; hover or tap picks a moment, nothing
   changes on its own. The extras are four cards, each led by a large Hereby
   icon on a soft blush disc: the icon draws itself in as its card rises
@@ -493,42 +444,31 @@ roses (Übersicht, Hochzeiten), rings (Gäste), petals (Inhalte), flutes
 (Küche & Service), ribbon (Anfragen). The Antwortformular has none: its night
 preview panel is its one moment.
 
-## Guest templates (`WeddingTemplate`, `components/invitation/templates/`)
+## Guest designs (`WeddingTemplate`, ADR 0015)
 
-Layout and motion, independent of the accent (any template × any theme).
-The first screens are the landing studio's, filled with the couple's own
-photos (up to four, uploaded in «Inhalte», cover first; spec
-2026-10-13-couple-photos). A tap on a photo there sets the spot every crop
-keeps in view (the dot). Each still stands without a photo.
+Five finished designs, each a template component in
+`components/invitation/templates/<design>/`, a stylesheet in
+`resources/css/designs/`, a palette in `theme/designs.css` mapped onto the
+semantic tokens in `themes/wedding.css`, and its faces in
+`base/wedding-fonts.css`. All show the same content through shared parts
+(`InvitationLetter`, `InvitationProgramme`, `InvitationStory`,
+`InvitationPractical`, `InvitationPhotos`, `InvitationClosing`,
+`InvitationFooter`; data from `useInvitationContent`).
 
-| Template | First screen                                                                | Without a photo                         | Story                          | Signature motion                                                 |
-| -------- | --------------------------------------------------------------------------- | --------------------------------------- | ------------------------------ | ---------------------------------------------------------------- |
-| Atelier  | names set large over the cover photo in a rounded frame, date · place       | the frame at night, an accent glow      | a drawn path through chapters  | letters drift apart on scroll, path scrubbed (DrawSVG)           |
-| Garten   | the cover under an arch between hand-drawn branches, names centred below    | the arch in the accent's tint, initials | chapters in garden-gate arches | branches draw and leaves unfurl (CSS), arches open (clip-path)   |
-| Panorama | a night band: names running past, up to three photos edge to edge, the date | the band without the strip              | film strip                     | title leans with scroll speed, the day pins and travels sideways |
+| Design | Faces                              | Paper / ink / accent / dark                                    | First screen                                                           | Signature                                                                  |
+| ------ | ---------------------------------- | -------------------------------------------------------------- | ---------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| Salon  | Castoro Titling, Libre Caslon Text | cotton, velvet ink, oxblood, ink with champagne                | an engraved card on a dark table, addressed to the household, no photo | the day as a menu card; black and white photos; the reply card on the dark |
+| Raster | Schibsted Grotesk                  | concrete, graphite, vermilion, graphite                        | the date across the grid, names left, a 3:2 photo right                | numbered sections, the day as a timetable                                  |
+| Garten | Linden Hill, Ysabeau Office        | candle cream, olive ink, fig, hedge with butter                | the photo tipped in as a plate, italic names below                     | a book page: times and chapters in the margin, a drop cap, the couple sign |
+| Arve   | Vollkorn                           | wool, night-forest ink, geranium, night forest with stone pine | a wide landscape without words, black names below                      | day and evening side by side, the evening on the dark                      |
+| Lido   | Gloock, Familjen Grotesk           | lido paper, lake ink, cobalt, a butter field, lake             | names on butter beside a square postcard, the Badi stripe above        | big times, questions on butter, the reply on the lake                      |
 
-Guest-page budget (rule 2): the first screen is CSS only. GSAP
-(`useGuestMotion`) and three.js load on the guest's first scroll, touch or
-key, never in the first paint; reduced motion keeps everything still.
-
-## Wedding themes
-
-Every theme is porcelain ground and night ink (ADR 0012); a theme is its
-accent (`brand`, `primary`, `ring`, `brand-muted`), as the landing's
-accent chips show it.
-
-| Theme   | Accent              |
-| ------- | ------------------- |
-| Ivory   | Blush (house style) |
-| Rosé    | Peony               |
-| Alpine  | Lake blue           |
-| Riviera | Night-sea indigo    |
-| Lavanda | Lilac               |
-
-The coloured accents share one lightness/chroma ladder (L 0.47, AA on
-porcelain) and differ only in hue, so the collection reads as one family.
-
-Starter themes until the designer's collection lands (roadmap 0.6).
+Rules: two families at most per design, preloaded through
+`WeddingTemplate::fonts()`; every text colour AA on its ground; buttons
+take the design's corner (`--button-radius`). No 3D, tickers, parallax,
+scroll reveals or veil on guest pages; Salon's card fades in over 220 ms,
+everything else only responds to touch. Without a photo each design opens
+on type alone.
 
 ## Do's and Don'ts
 
@@ -537,5 +477,5 @@ Starter themes until the designer's collection lands (roadmap 0.6).
 - **Do** keep blush for one accent per section. **Don't** fill anything with it.
 - **Do** make claims the product can keep today. **Don't** invent customers, numbers or features.
 - **Do** credit every photo (footer + `public/images/landing/CREDITS.md`).
-- **Don't** reintroduce blue fields, cream paper, wax seals, eyebrows or section numbers.
+- **Don't** reintroduce blue fields, cream paper, wax seals, eyebrows or section numbers on the platform (the guest designs set their own, ADR 0015).
 - **Don't** use the Swiss cross or official emblems as decoration (protected by law).

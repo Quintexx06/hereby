@@ -15,6 +15,9 @@ return [
     'story_heading' => 'Unsere Geschichte',
     'closing_title' => 'Kommt ihr?',
     'closing_text' => 'Eine Antwort dauert keine Minute. Ihr könnt sie bis zur Frist jederzeit ändern.',
+    'see_you' => 'Wir freuen uns auf euch',
+    'letter_heading' => 'Einladung',
+    'day_parts' => ['day' => 'Am Tag', 'evening' => 'Am Abend'],
     'events_heading' => 'Eure Einladung',
     'reply_by' => 'Bitte antwortet bis :date',
     'blocks' => [

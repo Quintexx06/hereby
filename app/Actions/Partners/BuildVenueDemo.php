@@ -46,7 +46,7 @@ class BuildVenueDemo
         $household->forceFill(['responded_at' => $answers === null ? null : now()]);
 
         if ($wedding->couplePhotos->isEmpty()) {
-            $wedding->setRelation('couplePhotos', new Collection(array_map(StockPreviewPhoto::make(...), array_keys(StockPreviewPhoto::PHOTOS))));
+            $wedding->setRelation('couplePhotos', new Collection(array_map(StockPreviewPhoto::make(...), StockPreviewPhoto::filesFor($template))));
         }
 
         $wedding->setRelation('contentBlocks', new Collection([

@@ -6,7 +6,6 @@ use App\Enums\EventType;
 use App\Enums\Locale;
 use App\Enums\Plan;
 use App\Enums\WeddingTemplate;
-use App\Enums\WeddingTheme;
 use App\Models\Event;
 use App\Models\Household;
 use App\Models\User;
@@ -45,8 +44,7 @@ class KastanienbaumDemoSeeder extends Seeder
             'rsvp_deadline' => '2027-04-30',
             'default_locale' => Locale::GermanSwiss,
             'languages' => [Locale::GermanSwiss, Locale::French, Locale::English],
-            'theme' => WeddingTheme::Alpine,
-            'template' => WeddingTemplate::Atelier,
+            'template' => WeddingTemplate::Arve,
             'plan' => Plan::Atelier,
             'venue_name' => 'Seehotel Kastanienbaum',
             'venue_address' => 'St. Niklausenstrasse 105',

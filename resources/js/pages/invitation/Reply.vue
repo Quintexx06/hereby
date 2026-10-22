@@ -44,11 +44,7 @@ const lede = computed(() =>
     only what applies unfolds. The send button stays at the thumb.
 -->
 <template>
-    <WeddingThemeScope
-        :theme="reply.wedding.theme"
-        :accent="reply.wedding.accentColor"
-        :lang="localeTag()"
-    >
+    <WeddingThemeScope :template="reply.wedding.template" :lang="localeTag()">
         <Head :title="`${t('rsvp.title')} ${reply.wedding.coupleNames}`" />
         <main class="reply-page" :data-template="reply.wedding.template">
             <Link

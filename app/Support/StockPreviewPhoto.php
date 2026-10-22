@@ -2,6 +2,7 @@
 
 namespace App\Support;
 
+use App\Enums\WeddingTemplate;
 use App\Models\WeddingPhoto;
 
 /**
@@ -19,6 +20,21 @@ class StockPreviewPhoto extends WeddingPhoto
     ];
 
     private string $file = '';
+
+    /**
+     * The stock photos in the order a design shows them: Arve opens on its
+     * landscape, every other design on the couple.
+     *
+     * @return list<string>
+     */
+    public static function filesFor(WeddingTemplate $template): array
+    {
+        $files = array_keys(self::PHOTOS);
+
+        return $template === WeddingTemplate::Arve
+            ? ['lake-jetty-1200.webp', ...array_values(array_diff($files, ['lake-jetty-1200.webp']))]
+            : $files;
+    }
 
     public static function make(string $file): self
     {

@@ -10,9 +10,9 @@ class SampleSitesTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_every_template_has_a_public_sample_site(): void
+    public function test_every_design_has_a_public_sample_site(): void
     {
-        foreach (['atelier', 'garten', 'panorama'] as $template) {
+        foreach (['salon', 'raster', 'garten', 'arve', 'lido'] as $template) {
             $this->get("/beispiel/{$template}")
                 ->assertOk()
                 ->assertHeader('X-Robots-Tag', 'noindex, nofollow')
@@ -26,6 +26,8 @@ class SampleSitesTest extends TestCase
         }
 
         $this->get('/beispiel/barock')->assertNotFound();
+        $this->get('/beispiel/atelier')->assertRedirect('/beispiel/salon');
+        $this->get('/beispiel/panorama')->assertRedirect('/beispiel/arve');
     }
 
     public function test_a_visitor_replies_on_a_sample_and_nothing_is_stored(): void
@@ -40,6 +42,6 @@ class SampleSitesTest extends TestCase
 
         $this->assertDatabaseCount('households', 0);
         $this->assertDatabaseCount('partners', 0);
-        $this->get(route('samples.calendar', 'panorama'))->assertOk()->assertHeader('Content-Type', 'text/calendar; charset=utf-8');
+        $this->get(route('samples.calendar', 'arve'))->assertOk()->assertHeader('Content-Type', 'text/calendar; charset=utf-8');
     }
 }

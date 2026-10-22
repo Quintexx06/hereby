@@ -1,6 +1,6 @@
 # ADR 0013: Couples may pick their own accent colour
 
-Date: 2026-10-15 · Status: accepted · Extends ADR 0012
+Date: 2026-10-15 · Status: accepted · Extends ADR 0012 · **Superseded by [ADR 0015](0015-five-finished-designs.md)**
 
 ## Context
 

@@ -38,9 +38,10 @@ Couples: laptops and phones in the evening. Venues: office desktops in daylight.
 
 ## Capabilities and Constraints
 
-Built today: personal links, event-aware invitation, four locales, four
-starter themes (Ivory, Rosé, Alpine, Riviera), data deletion schedule, and a
-question form on the landing page. Everything else is on the roadmap.
+Built today: personal links, event-aware invitation, four locales, five
+finished designs (Salon, Raster, Garten, Arve, Lido; ADR 0015) that couples
+fill with their own content, data deletion schedule, and a question form on
+the landing page. Everything else is on the roadmap.
 Never claim unbuilt features or invent customers, venues or numbers.
 
 ## Brand Commitments
@@ -50,7 +51,7 @@ Never claim unbuilt features or invent customers, venues or numbers.
   the one accent, real photography, a three.js veil reveal in the hero.
 - Emotional and big, never corporate. Blue, cream paper and wax seals are retired.
 - The landing page speaks Swiss German first, addressing couples as "ihr".
-- Guest sites wear the couple's theme, not the Hereby brand.
+- Guest sites wear one of our five designs, not the Hereby brand. Couples choose a design and fill it; they never pick colours or fonts (anything beyond the five is Massanfertigung).
 - Guests never see ads or vendor offers (one venue credit line at most).
 
 ## Evidence on Hand

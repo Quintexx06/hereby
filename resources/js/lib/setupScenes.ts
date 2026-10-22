@@ -3,7 +3,7 @@ import {
     estimates,
     eventTypes,
     languages,
-    themes,
+    templates,
 } from '@/content/setup';
 import { landingPhotos } from '@/content/landing-photos';
 import type { LandingPhoto } from '@/content/landing-photos';
@@ -77,7 +77,7 @@ export function storyLine(step: SetupStepKey, form: SetupForm): string {
                 ? `${estimates[form.guest_estimate]} Gäste, auf ${form.languages.map((locale) => languages[locale]).join(' und ')}.`
                 : 'Wer feiert mit euch?';
         case 'look':
-            return `${themes[form.theme].name}: ${themes[form.theme].mood}.`;
+            return `${templates[form.template].name}: ${templates[form.template].mood}`;
         case 'uebersicht':
             return names
                 ? `${names}, der Vorhang kann aufgehen.`

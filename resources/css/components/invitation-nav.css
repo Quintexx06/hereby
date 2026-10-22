@@ -1,0 +1,62 @@
+/*
+ * The site's bar (InvitationNav), wide screens only: the couple's initials,
+ * the chapters, the reply. Clear over a dark opening, paper once the page
+ * moves. Phones keep the reply at the thumb instead (StickyReply).
+ */
+@layer components {
+    .inv-nav {
+        @apply fixed inset-x-0 top-0 z-20 hidden h-16 grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-8 px-8 font-sans text-foreground transition-[background-color,color,border-color] duration-300 ease-out md:grid lg:px-12;
+        border-bottom: 1px solid transparent;
+    }
+
+    /* Under the couple's or the demo's own bar, when there is one. */
+    [data-theme]:has(.preview-banner) .inv-nav {
+        @apply top-11;
+    }
+
+    .inv-nav[data-solid='true'] {
+        @apply border-[var(--rule)] bg-background;
+    }
+
+    .inv-nav[data-solid='false'] {
+        color: var(--night-foreground);
+    }
+
+    .inv-nav-mark {
+        @apply justify-self-start;
+    }
+
+    .inv-monogram {
+        @apply font-display text-[1.75rem] leading-none whitespace-nowrap;
+    }
+
+    .inv-monogram-amp {
+        @apply px-[0.12em] text-[0.8em] text-brand;
+    }
+
+    .inv-nav[data-solid='false'] .inv-monogram-amp {
+        color: var(--night-muted);
+    }
+
+    .inv-nav-links {
+        @apply flex items-center gap-7;
+    }
+
+    .inv-nav-link {
+        @apply text-sm font-medium opacity-80 transition-opacity duration-150 hover:opacity-100;
+    }
+
+    .inv-nav-reply {
+        @apply justify-self-end bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-transform duration-150 ease-out active:scale-[0.97];
+        border-radius: var(--button-radius);
+    }
+
+    .inv-nav[data-solid='false'] .inv-nav-reply {
+        @apply bg-[var(--night-foreground)] text-[var(--night)];
+    }
+
+    /* Room for the bar where the design opens on paper. */
+    [data-theme]:not([data-theme='salon']) .invitation-page {
+        @apply md:pt-16;
+    }
+}

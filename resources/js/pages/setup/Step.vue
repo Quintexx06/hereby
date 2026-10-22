@@ -17,7 +17,7 @@ import type {
     SetupForm,
     SetupStepKey,
     SetupStepState,
-    ThemeSuggestion,
+    TemplateSuggestion,
     WeddingSetup,
 } from '@/types/setup';
 
@@ -26,10 +26,15 @@ const props = defineProps<{
     step: SetupStepKey;
     steps: SetupStepState[];
     presets: Record<Celebration, ProgrammeRow[]> | null;
-    suggestion: ThemeSuggestion | null;
+    suggestion: TemplateSuggestion | null;
 }>();
 
 const { id, couple_names: _names, ...fields } = props.wedding;
+
+/* Until the look step is saved once, the design is still ours to suggest. */
+const lookOpen = () =>
+    !props.steps.find((item) => item.value === 'uebersicht')?.reachable;
+
 const form = useForm<SetupForm>({
     ...fields,
     // Past the venue step without a venue means "noch offen" was chosen.
@@ -38,27 +43,23 @@ const form = useForm<SetupForm>({
             props.steps.find((item) => item.value === 'ablauf')?.reachable,
         ) && !fields.venue_name,
     languages: fields.languages.length ? fields.languages : ['de_CH'],
-    theme:
-        props.suggestion && fields.theme === 'ivory'
-            ? props.suggestion.theme
-            : fields.theme,
+    template:
+        props.suggestion && lookOpen()
+            ? props.suggestion.template
+            : fields.template,
 });
 provideSetupForm(form);
 
 /*
  * Inertia keeps this page mounted from step to step, so the form carries
  * every answer along. When the look step brings a suggestion and the couple
- * hasn't picked a theme yet, start on the suggestion.
+ * hasn't chosen a design yet, start on the suggestion.
  */
 watch(
     () => props.suggestion,
     (suggestion) => {
-        if (
-            suggestion &&
-            props.wedding.theme === 'ivory' &&
-            form.theme === 'ivory'
-        ) {
-            form.theme = suggestion.theme;
+        if (suggestion && lookOpen()) {
+            form.template = suggestion.template;
         }
     },
 );

@@ -2,11 +2,10 @@
 import { Head, Link } from '@inertiajs/vue3';
 import WeddingThemeScope from '@/components/invitation/WeddingThemeScope.vue';
 import { useTrans } from '@/composables/useTrans';
-import type { WeddingTheme } from '@/types';
+import type { WeddingTemplate } from '@/types';
 
 defineProps<{
-    theme: WeddingTheme;
-    accentColor: string | null;
+    template: WeddingTemplate;
     couple: string;
     link: string;
 }>();
@@ -14,7 +13,7 @@ const { t, localeTag } = useTrans();
 </script>
 
 <template>
-    <WeddingThemeScope :theme="theme" :accent="accentColor" :lang="localeTag()">
+    <WeddingThemeScope :template="template" :lang="localeTag()">
         <Head :title="t('rsvp.reminder.stopped_title')" />
         <main class="reply-page items-center justify-center text-center">
             <p class="caption">{{ couple }}</p>

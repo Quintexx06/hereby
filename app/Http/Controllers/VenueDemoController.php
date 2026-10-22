@@ -26,7 +26,7 @@ class VenueDemoController extends Controller
         abort_unless($partner->isVenue(), 404);
 
         App::setLocale('de_CH');
-        $template = WeddingTemplate::tryFrom((string) $request->query('vorlage')) ?? WeddingTemplate::Atelier;
+        $template = WeddingTemplate::fromKey($request->query('vorlage')) ?? WeddingTemplate::Salon;
         /** @var list<array{event_id: int, status: string, menu?: string|null}>|null $answers */
         $answers = $request->session()->get('demo_answers');
         $links = VenueDemoLinks::for($partner, $template, $request->integer('expires'));

@@ -8,7 +8,7 @@ import type { Invitation } from '@/types';
 /*
  * The site's own bar on wide screens, as premium wedding sites have it: the
  * couple's monogram, the chapters of this page, and the way to answer.
- * Over Atelier's photo it starts clear and turns to paper once the page
+ * Over a dark opening it starts clear and turns to paper once the page
  * moves. Phones keep the reply bar at the thumb instead (StickyReply).
  */
 const props = defineProps<{ invitation: Invitation; canReply: boolean }>();
@@ -41,7 +41,8 @@ const links = computed(() => {
     return items;
 });
 
-const over = computed(() => props.invitation.wedding.template === 'atelier');
+/* Salon opens on its dark table: the bar starts clear over it. */
+const over = computed(() => props.invitation.wedding.template === 'salon');
 const solid = ref(!over.value);
 
 const onScroll = () => {
@@ -60,7 +61,6 @@ onBeforeUnmount(() => window.removeEventListener('scroll', onScroll));
     <nav
         class="inv-nav"
         :data-solid="solid"
-        :data-voice="invitation.wedding.template"
         :aria-label="invitation.wedding.coupleNames"
     >
         <a href="#inv-letter" class="inv-nav-mark">

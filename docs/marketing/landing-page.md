@@ -89,6 +89,15 @@ jeden Gast", shows the templates right under the hero, and lets every
 template be opened live (`/beispiel/{atelier|garten|panorama}`). The
 personal link per household stays as the proof underneath.
 
+**Update 2026-10-22 (founder):** the page builder is off (ADR 0015). Hereby
+sells **five finished designs** (Salon, Raster, Garten, Arve, Lido), each
+with its own faces, palette and layout; couples fill in photos and texts,
+anything beyond is Massanfertigung. The studio shows the five as their real
+first screens (desktop in a browser window, phone beside it, generated from
+`/beispiel/{design}` into `public/images/designs/`) with «Live ansehen».
+No hand-built mock sites, no accent picker: what the landing shows is what
+guests get. Old sample links redirect (`atelier` → Salon, `panorama` → Arve).
+
 ## 5. Message hierarchy and section rationale
 
 | # | Section | Job | UX notes |

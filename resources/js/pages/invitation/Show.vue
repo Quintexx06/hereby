@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { computed, defineAsyncComponent, onMounted } from 'vue';
 import { Head, usePage } from '@inertiajs/vue3';
+import { computed, defineAsyncComponent, onMounted } from 'vue';
 import InvitationNav from '@/components/invitation/InvitationNav.vue';
-import InvitationOpening from '@/components/invitation/InvitationOpening.vue';
 import StickyReply from '@/components/invitation/StickyReply.vue';
-import AtelierTemplate from '@/components/invitation/templates/AtelierTemplate.vue';
-import GartenTemplate from '@/components/invitation/templates/GartenTemplate.vue';
-import PanoramaTemplate from '@/components/invitation/templates/PanoramaTemplate.vue';
+import ArveTemplate from '@/components/invitation/templates/arve/ArveTemplate.vue';
+import GartenTemplate from '@/components/invitation/templates/garten/GartenTemplate.vue';
+import LidoTemplate from '@/components/invitation/templates/lido/LidoTemplate.vue';
+import RasterTemplate from '@/components/invitation/templates/raster/RasterTemplate.vue';
+import SalonTemplate from '@/components/invitation/templates/salon/SalonTemplate.vue';
 import WeddingThemeScope from '@/components/invitation/WeddingThemeScope.vue';
 import { useTrans } from '@/composables/useTrans';
-import { formatDate } from '@/lib/format';
 import type { Invitation, InvitationDemo, WeddingTemplate } from '@/types';
 
 /* Couple-only; guests never download it. */
@@ -40,20 +40,16 @@ onMounted(() =>
     ),
 );
 
-/* Where the day happens: the first part with a place. */
-const place = computed(
-    () =>
-        props.invitation.events.find((event) => event.locationName)
-            ?.locationName ?? null,
-);
-/* Layout and motion follow the couple's template; colours follow the theme. */
+/* The couple's design (ADR 0015): layout, type and colour, all ours. */
 const templates = {
-    atelier: AtelierTemplate,
+    salon: SalonTemplate,
+    raster: RasterTemplate,
     garten: GartenTemplate,
-    panorama: PanoramaTemplate,
+    arve: ArveTemplate,
+    lido: LidoTemplate,
 } satisfies Record<WeddingTemplate, unknown>;
 const template = computed(
-    () => templates[props.invitation.wedding.template] ?? AtelierTemplate,
+    () => templates[props.invitation.wedding.template] ?? SalonTemplate,
 );
 
 const canReply = computed(
@@ -64,14 +60,10 @@ const canReply = computed(
 );
 </script>
 
-<!--
-    A guest's invitation: the couple's theme (colours) around their template
-    (layout and motion), the opening veil, and the reply bar on phones.
--->
+<!-- A guest's invitation: the couple's design, and the reply bar on phones. -->
 <template>
     <WeddingThemeScope
-        :theme="invitation.wedding.theme"
-        :accent="invitation.wedding.accentColor"
+        :template="invitation.wedding.template"
         :lang="localeTag()"
     >
         <Head :title="invitation.wedding.coupleNames" />
@@ -80,22 +72,12 @@ const canReply = computed(
             :languages="previewLanguages ?? []"
             :demo="demo"
         />
-        <InvitationOpening
-            v-if="!invitation.wedding.hiddenSections.includes('opening')"
-            :couple="invitation.wedding.coupleNames"
-            :date="formatDate(invitation.wedding.date, localeTag())"
-        />
         <InvitationNav
             v-if="!embedded"
             :invitation="invitation"
             :can-reply="canReply"
         />
-        <component
-            :is="template"
-            :invitation="invitation"
-            :replied="replied"
-            :place="place"
-        />
+        <component :is="template" :invitation="invitation" :replied="replied" />
         <StickyReply
             v-if="canReply && invitation.links"
             :href="invitation.links.reply"

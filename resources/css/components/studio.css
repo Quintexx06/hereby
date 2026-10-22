@@ -1,0 +1,76 @@
+/*
+ * The landing's studio (StudioSection): the five designs of ADR 0015 as
+ * their real first screens, a tab per design. The wide screen sits in a
+ * browser window, the phone overlaps its corner; picking a design swaps
+ * both with a short fade, nothing else moves.
+ */
+@layer components {
+    .studio-tabs {
+        @apply -mx-5 flex [scrollbar-width:none] gap-1 overflow-x-auto border-b border-border px-5 sm:mx-0 sm:px-0;
+    }
+
+    .studio-tab {
+        @apply -mb-px shrink-0 border-b-2 border-transparent px-4 py-3 font-display text-lg font-semibold tracking-[-0.02em] text-muted-foreground transition-colors duration-150 hover:text-foreground aria-selected:border-foreground aria-selected:text-foreground sm:text-xl;
+    }
+
+    .studio-stage {
+        @apply grid items-end gap-12 lg:grid-cols-[minmax(0,1fr)_19rem] lg:gap-16;
+    }
+
+    .studio-shots {
+        @apply relative pr-[14%] pb-10 sm:pb-14;
+    }
+
+    .studio-window {
+        @apply m-0 overflow-hidden rounded-xl border border-border bg-card shadow-[0_40px_80px_-48px_rgb(20_14_10/0.55)];
+    }
+
+    .studio-window img,
+    .studio-phone img {
+        @apply block h-auto w-full;
+    }
+
+    .studio-bar {
+        @apply flex h-9 items-center gap-4 border-b border-border bg-muted px-4;
+    }
+
+    .studio-dots {
+        @apply h-2.5 w-11 shrink-0;
+        background: radial-gradient(
+                circle,
+                var(--border) 0 4px,
+                transparent 4.5px
+            )
+            0 0 / 0.9rem 100% repeat-x;
+    }
+
+    .studio-url {
+        @apply mx-auto truncate rounded-md bg-background px-3 py-0.5 text-xs text-muted-foreground;
+    }
+
+    .studio-phone {
+        @apply absolute right-0 bottom-0 m-0 w-[24%] overflow-hidden rounded-[1.4rem] border-[5px] border-foreground bg-foreground shadow-[0_30px_60px_-30px_rgb(20_14_10/0.6)] sm:rounded-[1.9rem] sm:border-[7px];
+    }
+
+    .studio-caption {
+        @apply flex flex-col gap-3 lg:pb-14;
+    }
+
+    .studio-name {
+        @apply font-display text-4xl font-semibold tracking-[-0.035em] sm:text-5xl;
+    }
+
+    .studio-live {
+        @apply mt-2 inline-flex items-center gap-1.5 self-start font-semibold underline decoration-current/30 underline-offset-4 transition-colors duration-150 hover:decoration-current;
+    }
+
+    .studio-swap-enter-active,
+    .studio-swap-leave-active {
+        transition: opacity 200ms var(--ease-out);
+    }
+
+    .studio-swap-enter-from,
+    .studio-swap-leave-to {
+        opacity: 0;
+    }
+}

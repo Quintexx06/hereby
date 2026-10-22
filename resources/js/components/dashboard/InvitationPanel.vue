@@ -4,7 +4,7 @@ import { computed } from 'vue';
 import WeddingThemeScope from '@/components/invitation/WeddingThemeScope.vue';
 import InvitationPreview from '@/components/marketing/InvitationPreview.vue';
 import { invitationPanel } from '@/content/dashboard';
-import { themes } from '@/content/setup';
+import { templates } from '@/content/setup';
 import { landingPhotos } from '@/content/landing-photos';
 import type { LandingPhoto } from '@/content/landing-photos';
 import { previewFromWedding } from '@/lib/preview';
@@ -26,7 +26,7 @@ const photo: LandingPhoto = landingPhotos.tableCandles;
 
 <!--
     The one night moment on the dashboard: the couple's own invitation rising
-    out of a candlelit photo, in their theme. Everything else here is numbers.
+    out of a candlelit photo, in their design. Everything else here is numbers.
 -->
 <template>
     <section
@@ -48,7 +48,7 @@ const photo: LandingPhoto = landingPhotos.tableCandles;
                 {{ invitationPanel.title }}
             </h2>
             <p class="text-sm text-muted-foreground">
-                {{ invitationPanel.theme(themes[wedding.theme].name) }}
+                {{ invitationPanel.template(templates[wedding.template].name) }}
             </p>
             <p class="mt-2 flex gap-5 text-sm font-medium">
                 <a
@@ -69,8 +69,7 @@ const photo: LandingPhoto = landingPhotos.tableCandles;
 
         <div class="invitation-panel-phone phone-frame" aria-hidden="true">
             <WeddingThemeScope
-                :theme="wedding.theme"
-                :accent="wedding.accent_color"
+                :template="wedding.template"
                 lang="de-CH"
                 :fill="false"
                 class="overflow-hidden rounded-[2.1rem]"

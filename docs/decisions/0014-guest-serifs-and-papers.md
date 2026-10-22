@@ -1,6 +1,6 @@
 # ADR 0014: Guest sites get their own serifs and papers
 
-Date: 2026-10-21 · Status: accepted · Amends ADR 0009 and ADR 0012
+Date: 2026-10-21 · Status: accepted · Amends ADR 0009 and ADR 0012 · **Superseded by [ADR 0015](0015-five-finished-designs.md)**
 
 ## Context
 

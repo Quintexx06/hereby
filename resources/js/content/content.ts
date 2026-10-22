@@ -1,5 +1,5 @@
 /** Copy for the couple's "Inhalte" editor and the preview (Swiss German, "ihr"). */
-import type { ContentBlockType } from '@/types/wedding';
+import type { ContentBlockType, WeddingTemplate } from '@/types/wedding';
 
 /** «Eure Fotos» on Inhalte (spec 2026-10-13-couple-photos). */
 export const couplePhotosCopy = {
@@ -122,7 +122,13 @@ export const previewCopy = {
     demoMore: 'Hereby für Locations',
     sample: 'Beispielseite mit Demo-Daten',
     sampleMore: 'Eigene Seite kostenlos starten',
-    templates: { atelier: 'Atelier', garten: 'Garten', panorama: 'Panorama' },
+    templates: {
+        salon: 'Salon',
+        raster: 'Raster',
+        garten: 'Garten',
+        arve: 'Arve',
+        lido: 'Lido',
+    } satisfies Record<WeddingTemplate, string>,
 };
 
 /** «Fusszeile»: who guests write to, at the bottom of every page. */

@@ -3,13 +3,12 @@ import { Head, useForm } from '@inertiajs/vue3';
 import { Check } from '@lucide/vue';
 import WeddingThemeScope from '@/components/invitation/WeddingThemeScope.vue';
 import { useTrans } from '@/composables/useTrans';
-import type { WeddingTheme } from '@/types';
+import type { WeddingTemplate } from '@/types';
 
 const props = defineProps<{
     wedding: {
         coupleNames: string;
-        theme: WeddingTheme;
-        accentColor: string | null;
+        template: WeddingTemplate;
     };
     storeUrl: string;
     sent: boolean;
@@ -41,11 +40,7 @@ function submit(): void {
     maybe a photo. No account; it goes to the witnesses, not the couple.
 -->
 <template>
-    <WeddingThemeScope
-        :theme="wedding.theme"
-        :accent="wedding.accentColor"
-        :lang="localeTag()"
-    >
+    <WeddingThemeScope :template="wedding.template" :lang="localeTag()">
         <Head :title="t('invitation.newspaper.title')" />
         <main class="reply-page">
             <header class="flex flex-col gap-3">

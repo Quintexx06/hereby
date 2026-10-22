@@ -1,7 +1,7 @@
 /** «Massanfertigung» (spec 2026-10-15-bespoke-and-design-freedom). */
 export const bespoke = {
     title: 'Massanfertigung',
-    lede: 'Ihr sagt uns, wie eure Seite sein soll: Farben, Stimmung, Fotos, Vorbilder. Wir bauen sie für euch, von Hand, auf einer der drei Vorlagen und darüber hinaus.',
+    lede: 'Ihr sagt uns, wie eure Seite sein soll: Farben, Stimmung, Fotos, Vorbilder. Wir bauen sie für euch, von Hand: mit eigenen Farben, eigener Schrift und eigenem Aufbau, über die fünf Entwürfe hinaus.',
     steps: [
         {
             title: 'Ihr erzählt',

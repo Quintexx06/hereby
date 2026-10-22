@@ -20,7 +20,7 @@ export const hero = {
     titleYes: 'Ja.',
     statement:
         'Premium-Hochzeitswebsites aus der Schweiz. Gestaltet wie ein Magazin, persönlich für jeden Gast.',
-    lede: 'Drei Vorlagen in echten Hochzeitsschriften, mit euren Fotos, eurem Papier und eurem Monogramm. Jeder Haushalt bekommt seinen eigenen Link und sagt in unter einer Minute zu.',
+    lede: 'Fünf fertig gestaltete Entwürfe, jeder mit eigener Schrift und eigenen Farben, gefüllt mit euren Fotos und Texten. Jeder Haushalt bekommt seinen eigenen Link und sagt in unter einer Minute zu.',
     primaryCta: 'Kostenlos starten',
     secondaryCta: 'Vorlagen ansehen',
     skip: 'Vorhang öffnen',
@@ -147,88 +147,13 @@ export const marquee = [
 
 export const studio = {
     title: 'Gestaltet, nicht zusammengeklickt.',
-    lede: 'Drei Vorlagen, jede mit eigener Schrift und eigenem Auftritt: Atelier wie ein Modemagazin, Garten wie Letterpress, Panorama wie ein Filmtitel. Setzt eure Namen ein, wählt eine Akzentfarbe, oder öffnet eine Vorlage live.',
+    lede: 'Fünf Websites, jede gestaltet wie eine Papeterie-Serie: eigene Schrift, eigene Farben, eigener Aufbau. Ihr wählt eine und füllt sie mit euren Fotos und Texten. Alles darüber hinaus fertigen wir auf Mass.',
     live: 'Live ansehen',
-    templatesLabel: 'Vorlagen',
-    previous: 'Vorherige Vorlage',
-    next: 'Nächste Vorlage',
-    open: 'Ganze Seite ansehen',
-    close: 'Schliessen',
-    start: 'Mit diesem Design starten',
-    templates: [
-        {
-            slug: 'atelier',
-            name: 'Atelier',
-            mood: 'Bodoni in Versalien über eurem Foto, wie ein Modemagazin',
-        },
-        {
-            slug: 'garten',
-            name: 'Garten',
-            mood: 'Cormorant kursiv, ein Torbogen, Zweige und Rosenblätter',
-        },
-        {
-            slug: 'panorama',
-            name: 'Panorama',
-            mood: 'Fraunces als Filmtitel, eure Namen als Laufband',
-        },
-    ],
-    pickerLabel: 'Akzentfarbe der Beispielseite',
-    example: 'Beispielseite mit Demo-Daten',
-    tryLead: 'Probiert es mit euren Namen:',
-    tryJoin: 'am',
-    firstLabel: 'Erster Vorname',
-    secondLabel: 'Zweiter Vorname',
-    dateLabel: 'Hochzeitsdatum',
-    accents: [
-        { slug: 'ivory', name: 'Ivory', mood: 'Elfenbein, Tinte, Kerzenlicht' },
-        { slug: 'rose', name: 'Rosé', mood: 'Puder, Himbeere, Pfingstrose' },
-        {
-            slug: 'alpine',
-            name: 'Alpine',
-            mood: 'Gletscherweiss, Seeblau, Arve',
-        },
-    ],
-    site: {
-        couple: { first: 'Anna', second: 'Luca', date: '2027-06-19' },
-        place: 'Vitznau',
-        welcomeKicker: 'Wir heiraten',
-        nav: ['Programm', 'Anreise', 'Fotos'],
-        action: 'Jetzt antworten',
-        welcome:
-            'Wir sagen Ja am Vierwaldstättersee. Kommt vorbei, bringt gute Schuhe mit und bleibt bis zum letzten Schiff.',
-        /* The same welcome, split so a template can set «Ja» as the accent. */
-        welcomeLead: 'Wir sagen',
-        welcomeAccent: 'Ja',
-        welcomeTail: 'am Vierwaldstättersee.',
-        welcomeRest:
-            'Kommt vorbei, bringt gute Schuhe mit und bleibt bis zum letzten Schiff.',
-        replyTitle: 'Kommt ihr?',
-        replyBy: 'Bitte antwortet bis 1. Mai 2027',
-        footer: {
-            lead: 'Fragen? Meldet euch bei',
-            name: 'Lea, Trauzeugin',
-            email: 'lea@anna-und-luca.ch',
-            credit: 'Hochzeitswebsite von Hereby',
-            privacy: 'Datenschutz',
-        },
-        programmeTitle: 'Programm',
-        events: [
-            { time: '15:30', name: 'Apéro', place: 'Seeterrasse' },
-            { time: '18:30', name: 'Abendessen', place: 'Grand Salon' },
-            { time: '22:00', name: 'Fest', place: 'Bootshaus' },
-        ],
-        travelTitle: 'Anreise',
-        travel: 'Ab Luzern mit dem Schiff in 55 Minuten. Das letzte fährt um 00:40.',
-        galleryTitle: 'Fotos von euch',
-        replyNote: 'Heidi, Peter und Lina haben zugesagt',
-        photos: {
-            hero: photo.sparklers,
-            arch: photo.veilKiss,
-            strip: [photo.sparklers, photo.tableCandles, photo.bouquet],
-            venue: photo.lakeJetty,
-            gallery: [photo.veilKiss, photo.tableCandles, photo.bouquet],
-        },
-    },
+    designsLabel: 'Entwürfe',
+    url: 'anna-und-luca.hereby.ch',
+    example: 'Beispielseiten mit Demo-Daten',
+    shot: (name: string) =>
+        `Erste Seite des Entwurfs ${name} mit den Beispielnamen Anna und Luca`,
 } as const;
 
 /**

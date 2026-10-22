@@ -6,11 +6,8 @@ use App\Enums\Celebration;
 use App\Enums\EventType;
 use App\Enums\GuestEstimate;
 use App\Enums\Locale;
-use App\Enums\LookStyle;
 use App\Enums\SetupStep;
-use App\Enums\SiteSection;
 use App\Enums\WeddingTemplate;
-use App\Enums\WeddingTheme;
 use App\Models\Wedding;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -71,14 +68,7 @@ class UpdateSetupStepRequest extends FormRequest
                 'default_locale' => ['required', Rule::enum(Locale::class), Rule::in($this->input('languages', []))],
             ],
             SetupStep::Look => [
-                'theme' => ['required', Rule::enum(WeddingTheme::class)],
                 'template' => ['required', Rule::enum(WeddingTemplate::class)],
-                'look_styles' => ['nullable', 'array', 'max:'.LookStyle::MAX],
-                'look_styles.*' => ['distinct', Rule::enum(LookStyle::class)],
-                'look_wishes' => ['nullable', 'string', 'max:2000'],
-                'accent_color' => ['nullable', 'regex:/^#[0-9a-fA-F]{6}$/'],
-                'hidden_sections' => ['nullable', 'array'],
-                'hidden_sections.*' => ['distinct', Rule::enum(SiteSection::class)],
             ],
             SetupStep::Review => [],
         };
@@ -104,14 +94,12 @@ class UpdateSetupStepRequest extends FormRequest
             'guest_estimate.required' => 'Wie viele Gäste werden es ungefähr?',
             'languages.required' => 'Wählt mindestens eine Sprache.',
             'default_locale.required' => 'Wählt die Hauptsprache.',
-            'theme.required' => 'Wählt eine Farbwelt.',
-            'template.required' => 'Wählt eine Vorlage.',
-            'accent_color.regex' => 'Diese Farbe können wir nicht lesen.',
+            'template.required' => 'Wählt einen Entwurf.',
+            'template.enum' => 'Wählt einen Entwurf.',
             'wedding_date.after' => 'Das Datum muss in der Zukunft liegen.',
             'rsvp_deadline.before' => 'Die Antwortfrist muss vor der Hochzeit liegen.',
             'venue_name.required' => 'Wie heisst eure Location? Oder wählt «Noch offen».',
             'events.required' => 'Wählt mindestens einen Teil eures Tages.',
-            'look_styles.max' => 'Höchstens drei Stilrichtungen, bitte.',
             'default_locale.in' => 'Die Hauptsprache muss eine der gewählten Sprachen sein.',
         ];
     }

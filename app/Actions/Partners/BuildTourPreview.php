@@ -6,7 +6,6 @@ use App\Enums\ContentBlockType;
 use App\Enums\EventType;
 use App\Enums\Locale;
 use App\Enums\WeddingTemplate;
-use App\Enums\WeddingTheme;
 use App\Models\ContentBlock;
 use App\Models\Event;
 use App\Models\Guest;
@@ -38,7 +37,6 @@ class BuildTourPreview
             'rsvp_deadline' => $date->copy()->subWeeks(6)->toDateString(),
             'default_locale' => Locale::GermanSwiss,
             'languages' => [Locale::GermanSwiss],
-            'theme' => WeddingTheme::Ivory,
             'template' => WeddingTemplate::from($input['template']),
             'venue_name' => $venue->name,
             'venue_address' => $venue->address,

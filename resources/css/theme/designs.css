@@ -1,0 +1,60 @@
+/*
+ * Raw palettes of the five guest-site designs (ADR 0015), from the 2025–26
+ * stationery and colour research in docs/specs/2026-10-22-five-designs.md.
+ * Only themes/wedding.css reads them, mapping each onto the semantic tokens
+ * of its design; components never use them directly. No pastels: a paper,
+ * an ink, one accent with weight and a dark ground per design. Values
+ * marked "decoration" fail 4.5:1 on their paper and never carry text.
+ */
+:root {
+    /* Salon: cotton paper, velvet ink, oxblood; champagne on the dark. */
+    --salon-paper: #f5f2ec;
+    --salon-ink: #16120f;
+    --salon-muted: #5f5852;
+    --salon-rule: #d8d0c4;
+    --salon-oxblood: #6a1420;
+    --salon-night-muted: #b5aca2;
+    --salon-champagne: #d8c3a5;
+
+    /* Raster: exposed concrete, graphite, vermilion. */
+    --raster-paper: #ecebe7;
+    --raster-ink: #111214;
+    --raster-muted: #56585c;
+    --raster-rule: #c4c3be;
+    --raster-vermilion: #b8321c;
+    --raster-night: #1b1c1e;
+    --raster-night-muted: #a3a4a6;
+    --raster-night-vermilion: #f0603f;
+
+    /* Garten: candle cream, fig, the hedge at dusk, butter. */
+    --garten-paper: #f3e9d8;
+    --garten-ink: #2a2619;
+    --garten-muted: #655e4b;
+    --garten-rule: #d6c8ae;
+    --garten-fig: #6b2e4a;
+    --garten-olive: #6f7452; /* decoration and type of 24px or more */
+    --garten-night: #252d1f;
+    --garten-night-muted: #bdb49c;
+    --garten-butter: #e9d79a;
+
+    /* Arve: wool white, night forest, geranium, stone pine. */
+    --arve-paper: #f2eee6;
+    --arve-ink: #1b2420;
+    --arve-muted: #56605a;
+    --arve-rule: #cec6b8;
+    --arve-geranium: #a8232a;
+    --arve-wood: #c9a27a; /* decoration */
+    --arve-night: #1f2c26;
+    --arve-night-muted: #a9b1ab;
+    --arve-night-wood: #d8b68c;
+
+    /* Lido: lido paper, lake depth, cobalt, butter, tomato. */
+    --lido-paper: #f7f1e3;
+    --lido-ink: #13234a;
+    --lido-muted: #4b5675;
+    --lido-rule: #dccfb4;
+    --lido-cobalt: #1f45c4;
+    --lido-tomato: #b8452a;
+    --lido-butter: #f2d36b;
+    --lido-night-muted: #aeb6cc;
+}

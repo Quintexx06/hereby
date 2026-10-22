@@ -15,6 +15,9 @@ return [
     'story_heading' => 'Our story',
     'closing_title' => 'Will you come?',
     'closing_text' => 'Replying takes less than a minute. You can change it any time before the deadline.',
+    'see_you' => 'We can’t wait to see you',
+    'letter_heading' => 'Invitation',
+    'day_parts' => ['day' => 'During the day', 'evening' => 'In the evening'],
     'events_heading' => 'Your invitation',
     'reply_by' => 'Please reply by :date',
     'blocks' => [

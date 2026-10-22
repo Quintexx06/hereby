@@ -3,27 +3,60 @@
 namespace App\Enums;
 
 /**
- * The layout and motion of a guest site, independent of its colour theme:
- * Atelier (editorial), Garten (botanical, arched), Panorama (cinematic,
- * horizontal). Each has a template component in pages/invitation and its
- * own display serif.
+ * The five designs a couple chooses from (ADR 0015). Each is finished by
+ * us: its layout, type and colours are fixed, only the couple's content
+ * changes. Anything else is made to measure (Massanfertigung).
  */
 enum WeddingTemplate: string
 {
-    case Atelier = 'atelier';
+    /** An engraved card: black tie, grand hotels, guildhalls, castles. */
+    case Salon = 'salon';
+
+    /** The Swiss grid: modern venues, museums, a civil ceremony and dinner. */
+    case Raster = 'raster';
+
+    /** A private-press book: gardens, vineyards, barns, estates. */
     case Garten = 'garten';
-    case Panorama = 'panorama';
+
+    /** Stone pine and wool: mountain hotels, huts, alpine lakes. */
+    case Arve = 'arve';
+
+    /** A summer lido: lakes, Ticino, the south, daytime and colour. */
+    case Lido = 'lido';
 
     /**
-     * The roman file of the template's display serif (ADR 0014), preloaded
-     * on its guest pages because the couple's names are set in it.
+     * Also reads the keys of the three templates before ADR 0015, so links
+     * already sent (venue demos, samples) keep opening a design.
      */
-    public function serifFile(): string
+    public static function fromKey(self|string|null $key): ?self
     {
+        if ($key instanceof self) {
+            return $key;
+        }
+
+        return self::tryFrom((string) $key) ?? match ($key) {
+            'atelier' => self::Salon,
+            'panorama' => self::Arve,
+            default => null,
+        };
+    }
+
+    /**
+     * The roman files of the design's faces (resources/css/base/wedding-fonts.css),
+     * display first, preloaded on its guest pages: the names are set in them.
+     *
+     * @return list<string>
+     */
+    public function fonts(): array
+    {
+        $file = fn (string $path): string => "node_modules/@fontsource{$path}.woff2";
+
         return match ($this) {
-            self::Atelier => 'node_modules/@fontsource-variable/bodoni-moda/files/bodoni-moda-latin-standard-normal.woff2',
-            self::Garten => 'node_modules/@fontsource-variable/cormorant-garamond/files/cormorant-garamond-latin-wght-normal.woff2',
-            self::Panorama => 'node_modules/@fontsource-variable/fraunces/files/fraunces-latin-standard-normal.woff2',
+            self::Salon => [$file('/castoro-titling/files/castoro-titling-latin-400-normal'), $file('/libre-caslon-text/files/libre-caslon-text-latin-400-italic')],
+            self::Raster => [$file('-variable/schibsted-grotesk/files/schibsted-grotesk-latin-wght-normal')],
+            self::Garten => [$file('/linden-hill/files/linden-hill-latin-400-italic'), $file('-variable/ysabeau-office/files/ysabeau-office-latin-wght-normal')],
+            self::Arve => [$file('-variable/vollkorn/files/vollkorn-latin-wght-normal')],
+            self::Lido => [$file('/gloock/files/gloock-latin-400-normal'), $file('-variable/familjen-grotesk/files/familjen-grotesk-latin-wght-normal')],
         };
     }
 }

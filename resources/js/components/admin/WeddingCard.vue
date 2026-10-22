@@ -4,7 +4,7 @@ import { computed } from 'vue';
 import AdminDomain from '@/components/admin/AdminDomain.vue';
 import AdminUnlock from '@/components/admin/AdminUnlock.vue';
 import { adminCopy as copy } from '@/content/admin';
-import { lookStyles, steps } from '@/content/setup';
+import { steps, templates } from '@/content/setup';
 import { formatDate } from '@/lib/format';
 import { preview } from '@/routes/weddings';
 import { index as content } from '@/routes/weddings/content';
@@ -32,12 +32,8 @@ const answeredShare = computed(() =>
             <p class="truncate text-sm text-muted-foreground">
                 {{ wedding.email }}
             </p>
-            <p v-if="wedding.look_styles.length" class="admin-row-styles">
-                {{
-                    wedding.look_styles
-                        .map((style) => lookStyles[style].name)
-                        .join(' · ')
-                }}
+            <p class="admin-row-styles">
+                {{ templates[wedding.template].name }}
             </p>
         </div>
 

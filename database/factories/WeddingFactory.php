@@ -6,7 +6,6 @@ use App\Enums\Locale;
 use App\Enums\Plan;
 use App\Enums\SetupStep;
 use App\Enums\WeddingStatus;
-use App\Enums\WeddingTheme;
 use App\Models\User;
 use App\Models\Wedding;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -43,7 +42,6 @@ class WeddingFactory extends Factory
             'wedding_date' => $weddingDate,
             'rsvp_deadline' => (clone $weddingDate)->modify('-6 weeks'),
             'default_locale' => Locale::GermanSwiss,
-            'theme' => WeddingTheme::Ivory,
         ];
     }
 

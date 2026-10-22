@@ -66,6 +66,6 @@ class VenueDemoReplyController extends Controller
         abort_unless($partner->isVenue(), 404);
         App::setLocale('de_CH');
 
-        return WeddingTemplate::tryFrom((string) $request->query('vorlage')) ?? WeddingTemplate::Atelier;
+        return WeddingTemplate::fromKey($request->query('vorlage')) ?? WeddingTemplate::Salon;
     }
 }

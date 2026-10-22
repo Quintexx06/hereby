@@ -23,8 +23,7 @@ class GuestUploadController extends Controller
         return Inertia::render('invitation/Memories', [
             'wedding' => [
                 'coupleNames' => $wedding->couple_names,
-                'theme' => $wedding->theme,
-                'accentColor' => $wedding->accent_color,
+                'template' => $wedding->template,
             ],
             'uploadUrl' => route('invitation.memories.store', $wedding),
         ]);

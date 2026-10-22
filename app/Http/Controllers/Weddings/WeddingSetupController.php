@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Weddings;
 
 use App\Actions\Weddings\SaveSetupStep;
-use App\Actions\Weddings\SuggestTheme;
+use App\Actions\Weddings\SuggestTemplate;
 use App\Enums\SetupStep;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Weddings\UpdateSetupStepRequest;
@@ -20,7 +20,7 @@ use Inertia\Response;
  */
 class WeddingSetupController extends Controller
 {
-    public function show(Wedding $wedding, SetupStep $step, SuggestTheme $suggest): Response|RedirectResponse
+    public function show(Wedding $wedding, SetupStep $step, SuggestTemplate $suggest): Response|RedirectResponse
     {
         Gate::authorize('update', $wedding);
 

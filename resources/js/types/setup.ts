@@ -1,12 +1,5 @@
 /** Mirrors App\Http\Resources\WeddingSetupResource and the setup enums. */
-import type {
-    EventType,
-    Locale,
-    LookStyle,
-    SiteSection,
-    WeddingTemplate,
-    WeddingTheme,
-} from '@/types/wedding';
+import type { EventType, Locale, WeddingTemplate } from '@/types/wedding';
 
 export type SetupStepKey =
     | 'paar'
@@ -56,12 +49,7 @@ export type WeddingSetup = {
     guest_estimate: GuestEstimate | null;
     languages: Locale[];
     default_locale: Locale;
-    theme: WeddingTheme;
     template: WeddingTemplate;
-    look_styles: LookStyle[];
-    look_wishes: string | null;
-    accent_color: string | null;
-    hidden_sections: SiteSection[];
     events: ProgrammeRow[];
 };
 
@@ -72,4 +60,4 @@ export type SetupForm = Omit<WeddingSetup, 'id' | 'couple_names'> & {
 
 export type SetupStepState = { value: SetupStepKey; reachable: boolean };
 
-export type ThemeSuggestion = { theme: WeddingTheme; reason: string };
+export type TemplateSuggestion = { template: WeddingTemplate; reason: string };

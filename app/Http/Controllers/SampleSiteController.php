@@ -51,6 +51,14 @@ class SampleSiteController extends Controller
         ]);
     }
 
+    /**
+     * The samples of the templates before ADR 0015 open their closest design.
+     */
+    public function legacy(string $legacy): RedirectResponse
+    {
+        return redirect()->route('samples.show', WeddingTemplate::fromKey($legacy), 301);
+    }
+
     public function reply(WeddingTemplate $template, BuildVenueDemo $demo): Response
     {
         App::setLocale('de_CH');

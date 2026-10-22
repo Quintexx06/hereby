@@ -151,119 +151,33 @@
         @apply flex items-start justify-between gap-4 rounded-lg border bg-card p-4;
     }
 
-    /* Look: colour world, style directions, the couple's own idea. */
-    .look-section {
-        @apply flex flex-col gap-4;
+    /* Look: the five designs as their real first screens, then bespoke. */
+    .look-designs {
+        @apply grid gap-5 sm:grid-cols-2 xl:grid-cols-3;
     }
 
-    .look-legend {
-        @apply mb-4 flex flex-col gap-1;
+    .design-option {
+        @apply relative flex cursor-pointer flex-col gap-3 rounded-lg border p-2.5 pb-4 transition-[border-color,box-shadow] duration-150 hover:border-foreground/40 has-[:checked]:border-foreground has-[:checked]:shadow-[0_0_0_1px_var(--foreground)] has-[:focus-visible]:border-ring;
     }
 
-    /* Feinschliff: an own accent and which built-in parts show. */
-    .look-accent {
-        @apply flex flex-wrap items-center gap-4;
+    .design-option-shot {
+        @apply block aspect-[16/11] overflow-hidden rounded-md bg-muted;
     }
 
-    .look-accent-pick {
-        @apply flex cursor-pointer items-center gap-3 rounded-xl border bg-card p-3 pr-5 transition-colors duration-150 hover:bg-muted has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-ring;
+    .design-option-shot img {
+        @apply size-full object-cover object-top;
     }
 
-    .look-accent-input {
-        @apply size-11 cursor-pointer rounded-full border-0 bg-transparent p-0;
+    .design-option-text {
+        @apply flex flex-col gap-1 px-1.5;
     }
 
-    .look-accent-input::-webkit-color-swatch-wrapper {
-        @apply p-0;
+    .design-option-tag {
+        @apply ml-2 rounded-full bg-brand-muted px-2 py-0.5 text-xs font-medium text-foreground;
     }
 
-    .look-accent-input::-webkit-color-swatch {
-        @apply rounded-full border-0;
-    }
-
-    .look-accent-sample {
-        @apply flex flex-col gap-1 rounded-xl bg-background px-4 py-3;
-    }
-
-    .look-section-toggle {
-        @apply flex cursor-pointer items-center gap-3 text-sm;
-    }
-
-    .look-themes {
-        @apply grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5;
-    }
-
-    .look-templates {
-        @apply grid gap-3 sm:grid-cols-3;
-    }
-
-    /* A template drawn small: the shape of its first screen in the theme. */
-    .template-sample {
-        @apply relative flex aspect-[4/3] flex-col items-center justify-center gap-2 overflow-hidden rounded-md bg-background p-3 text-foreground;
-    }
-
-    .template-sample-names {
-        @apply relative font-display text-lg leading-none font-semibold tracking-tight;
-    }
-
-    .template-sample-line {
-        @apply relative h-1 w-10 rounded-full bg-primary;
-    }
-
-    .template-sample[data-template='atelier'] .template-sample-names {
-        @apply text-2xl;
-    }
-
-    .template-sample[data-template='garten'] .template-sample-frame {
-        @apply absolute inset-x-[22%] top-3 bottom-0 rounded-t-full border border-brand/60;
-    }
-
-    .template-sample[data-template='panorama'] {
-        @apply items-start justify-end;
-    }
-
-    .template-sample[data-template='panorama'] .template-sample-names {
-        @apply -mr-8 text-3xl whitespace-nowrap;
-    }
-
-    .template-sample[data-template='panorama'] .template-sample-frame {
-        @apply absolute inset-x-0 top-0 h-1/2;
-        background:
-            radial-gradient(
-                circle at 30% 40%,
-                color-mix(in oklch, var(--brand) 45%, transparent) 0 3px,
-                transparent 4px
-            ),
-            radial-gradient(
-                circle at 70% 30%,
-                color-mix(in oklch, var(--brand) 35%, transparent) 0 5px,
-                transparent 6px
-            ),
-            radial-gradient(
-                circle at 55% 65%,
-                color-mix(in oklch, var(--brand) 30%, transparent) 0 2px,
-                transparent 3px
-            );
-    }
-
-    .look-styles {
-        @apply grid gap-3 sm:grid-cols-2 lg:grid-cols-3;
-    }
-
-    .style-option {
-        @apply flex cursor-pointer items-center gap-3 rounded-xl border p-4 transition-[border-color,background-color,opacity] duration-150 ease-out hover:border-foreground/40 has-[:checked]:border-foreground has-[:checked]:bg-brand-muted/40 has-[:focus-visible]:border-ring data-[locked=true]:cursor-not-allowed data-[locked=true]:opacity-45;
-    }
-
-    .style-icon {
-        @apply size-9 shrink-0 rounded-full bg-muted p-2 text-foreground;
-    }
-
-    .theme-option {
-        @apply relative flex cursor-pointer flex-col gap-3 rounded-lg border p-3 transition-[border-color] duration-150 hover:border-foreground/40 has-[:checked]:border-foreground has-[:focus-visible]:border-ring;
-    }
-
-    .theme-sample {
-        @apply flex aspect-[4/3] flex-col justify-end gap-1 rounded-md bg-background p-3 text-foreground;
+    .look-bespoke {
+        @apply flex flex-col gap-2 rounded-lg border border-dashed p-5 sm:flex-row sm:items-center sm:justify-between sm:gap-6;
     }
 
     /* Review */

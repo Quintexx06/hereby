@@ -7,13 +7,12 @@ import type { ProgrammeOffer } from '@/components/invitation/ProgrammeOffers.vue
 import WeddingThemeScope from '@/components/invitation/WeddingThemeScope.vue';
 import ChoiceChips from '@/components/rsvp/ChoiceChips.vue';
 import { useTrans } from '@/composables/useTrans';
-import type { WeddingTheme } from '@/types';
+import type { WeddingTemplate } from '@/types';
 
 const props = defineProps<{
     wedding: {
         coupleNames: string;
-        theme: WeddingTheme;
-        accentColor: string | null;
+        template: WeddingTemplate;
     };
     contact: string;
     kinds: string[];
@@ -51,11 +50,7 @@ function submit(): void {
     song for the evening. It goes to the witnesses, never to the couple.
 -->
 <template>
-    <WeddingThemeScope
-        :theme="wedding.theme"
-        :accent="wedding.accentColor"
-        :lang="localeTag()"
-    >
+    <WeddingThemeScope :template="wedding.template" :lang="localeTag()">
         <Head :title="t('invitation.programme.title')" />
         <main class="reply-page">
             <Link :href="links.invitation" class="caption inline-flex gap-1.5">

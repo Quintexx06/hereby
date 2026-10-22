@@ -25,3 +25,11 @@ or a real couple's images (with consent) when available.
 `public/images/topics/*.webp` are screenshots of Hereby itself with the
 seeded demo wedding (fictional names), captioned «Beispiel mit Demo-Daten».
 The demo couple photo in them is `veil-kiss.webp` (Nathan Dumlao, above).
+
+## Design previews
+
+`public/images/designs/*.webp` are screenshots of Hereby's five sample sites
+(`/beispiel/{design}`, fictional names Anna & Luca), shown in the landing
+studio and the setup's look step. The photos in them are the Unsplash
+photos above (Nathan Dumlao, C Boyd, Tetiana Thiel). Regenerate them when a
+design changes.

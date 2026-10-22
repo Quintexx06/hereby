@@ -10,14 +10,12 @@
         .chip,
         .pill-outline,
         .reply-send,
-        .calendar-option,
         .choice,
-        .theme-option,
-        .style-option,
+        .design-option,
         .icon-button,
         .text-action,
         .inv-closing-button,
-        .story-film > li
+        .inv-nav-reply
     ) {
         transition-property:
             scale, background-color, border-color, color, box-shadow, opacity,
@@ -30,12 +28,10 @@
             .chip,
             .pill-outline,
             .reply-send,
-            .calendar-option,
             .choice,
-            .theme-option,
-            .style-option,
             .icon-button,
-            .inv-closing-button
+            .inv-closing-button,
+            .inv-nav-reply
         ):active:not(:disabled, [aria-disabled='true']) {
         scale: 0.97;
     }

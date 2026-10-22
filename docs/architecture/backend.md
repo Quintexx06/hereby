@@ -46,7 +46,7 @@ User ─ owns ─ Wedding ─┬─ Event (civil ceremony, dinner…)
 
 - Guest-facing routes live in `routes/invitations.php`. They're public, with the
   token as the credential; throttled and `noindex` (ADR 0005).
-- Enums in `app/Enums`: `Locale`, `EventType`, `ResponseStatus`, `WeddingTheme`.
+- Enums in `app/Enums`: `Locale`, `EventType`, `ResponseStatus`, `WeddingTemplate` (the five designs, ADR 0015).
 - Translations: `lang/{de_CH,fr,it,en}/*.php`, shared via `App\Support\FrontendTranslations` (ADR 0006).
 - Retention: `Wedding` is `MassPrunable` (`config/hereby.php`), scheduled in `routes/console.php` (ADR 0007).
 

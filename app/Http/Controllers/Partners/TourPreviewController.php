@@ -43,7 +43,7 @@ class TourPreviewController extends Controller
                 'first' => $input['erste'],
                 'second' => $input['zweite'],
                 'date' => $input['datum'],
-                'template' => $input['vorlage'] ?? WeddingTemplate::Atelier->value,
+                'template' => $input['vorlage'] ?? WeddingTemplate::Salon->value,
             ])),
             'replied' => false,
             'preview' => true,

@@ -1,41 +1,39 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
-import GuestScene from '@/components/invitation/GuestScene.vue';
+import { computed } from 'vue';
+import InvitationCalendarLinks from '@/components/invitation/InvitationCalendarLinks.vue';
 import { useTrans } from '@/composables/useTrans';
 import type { Invitation } from '@/types';
 
-defineProps<{ invitation: Invitation }>();
+const props = defineProps<{ invitation: Invitation }>();
 const { t } = useTrans();
 
-const rings = () =>
-    import('@/lib/three/wedding-rings').then(
-        (scene) => scene.createWeddingRings,
-    );
+/* Asks once more while the household can still answer; thanks them after. */
+const asks = computed(
+    () => props.invitation.rsvpOpen && !props.invitation.reply.answered,
+);
 </script>
 
-<!--
-    The last screen asks once more, in the theme's ink, before the footer:
-    the two rings turn above the question.
--->
+<!-- The page's last word before the footer: the question, and the date into the calendar. -->
 <template>
-    <section
-        v-if="invitation.rsvpOpen && !invitation.reply.answered"
-        id="inv-closing"
-        class="inv-closing"
-    >
-        <GuestScene :load="rings" class="inv-closing-rings" />
-        <h2 class="inv-closing-title">{{ t('invitation.closing_title') }}</h2>
-        <p class="max-w-md text-pretty opacity-80">
+    <section id="inv-closing" class="inv-closing">
+        <h2 class="inv-closing-title">
+            {{ asks ? t('invitation.closing_title') : t('invitation.see_you') }}
+        </h2>
+        <p v-if="asks" class="inv-closing-text">
             {{ t('invitation.closing_text') }}
         </p>
-        <Link
-            v-if="invitation.links"
-            :href="invitation.links.reply"
-            class="inv-closing-button"
-            >{{ t('rsvp.cta') }}</Link
-        >
-        <span v-else class="inv-closing-button" aria-disabled="true">{{
-            t('rsvp.cta')
-        }}</span>
+        <template v-if="asks">
+            <Link
+                v-if="invitation.links"
+                :href="invitation.links.reply"
+                class="inv-closing-button"
+                >{{ t('rsvp.cta') }}</Link
+            >
+            <span v-else class="inv-closing-button" aria-disabled="true">{{
+                t('rsvp.cta')
+            }}</span>
+        </template>
+        <InvitationCalendarLinks :invitation="invitation" />
     </section>
 </template>

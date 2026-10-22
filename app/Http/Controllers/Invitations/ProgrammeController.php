@@ -23,8 +23,7 @@ class ProgrammeController extends Controller
         return Inertia::render('invitation/Programme', [
             'wedding' => [
                 'coupleNames' => $household->wedding->couple_names,
-                'theme' => $household->wedding->theme,
-                'accentColor' => $household->wedding->accent_color,
+                'template' => $household->wedding->template,
             ],
             'contact' => $household->name,
             'sent' => (bool) session('offered'),

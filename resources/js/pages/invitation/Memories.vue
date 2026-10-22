@@ -4,13 +4,12 @@ import { Check, ImagePlus } from '@lucide/vue';
 import WeddingThemeScope from '@/components/invitation/WeddingThemeScope.vue';
 import { usePhotoUpload } from '@/composables/usePhotoUpload';
 import { useTrans } from '@/composables/useTrans';
-import type { WeddingTheme } from '@/types';
+import type { WeddingTemplate } from '@/types';
 
 const props = defineProps<{
     wedding: {
         coupleNames: string;
-        theme: WeddingTheme;
-        accentColor: string | null;
+        template: WeddingTemplate;
     };
     uploadUrl: string;
 }>();
@@ -32,11 +31,7 @@ function pick(event: Event): void {
     account, no app, nothing to fill in (product rule 1).
 -->
 <template>
-    <WeddingThemeScope
-        :theme="wedding.theme"
-        :accent="wedding.accentColor"
-        :lang="localeTag()"
-    >
+    <WeddingThemeScope :template="wedding.template" :lang="localeTag()">
         <Head :title="t('memories.title', { couple: wedding.coupleNames })" />
         <main class="reply-page">
             <header class="flex flex-col gap-3">

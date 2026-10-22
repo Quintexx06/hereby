@@ -48,8 +48,7 @@ watch(
 
         <div class="phone-frame relative">
             <WeddingThemeScope
-                :theme="form.theme"
-                :accent="form.accent_color"
+                :template="form.template"
                 lang="de-CH"
                 :fill="false"
                 class="overflow-hidden rounded-[2.1rem]"

@@ -5,12 +5,10 @@ namespace App\Models;
 use App\Enums\Celebration;
 use App\Enums\GuestEstimate;
 use App\Enums\Locale;
-use App\Enums\LookStyle;
 use App\Enums\Plan;
 use App\Enums\SetupStep;
 use App\Enums\WeddingStatus;
 use App\Enums\WeddingTemplate;
-use App\Enums\WeddingTheme;
 use App\Models\Concerns\HasAddons;
 use App\Models\Concerns\HasCouplePhotos;
 use App\Models\Concerns\HasEvening;
@@ -49,10 +47,7 @@ use Illuminate\Support\Collection;
  * @property Carbon|null $rsvp_deadline
  * @property Locale $default_locale
  * @property Collection<int, Locale>|null $languages
- * @property WeddingTheme $theme
- * @property WeddingTemplate $template Layout and motion of the guest site.
- * @property Collection<int, LookStyle>|null $look_styles Style directions for the team (up to three).
- * @property string|null $look_wishes The couple's own idea, in their words.
+ * @property WeddingTemplate $template One of the five designs (ADR 0015).
  * @property Celebration|null $celebration
  * @property GuestEstimate|null $guest_estimate
  * @property string|null $venue_name
@@ -69,8 +64,6 @@ use Illuminate\Support\Collection;
  * @property bool $asks_song
  * @property bool $sends_reminders
  * @property int|null $households_count Loaded with withCount().
- * @property string|null $accent_color The couple's own accent, #rrggbb; overrides the theme's hue.
- * @property list<string>|null $hidden_sections SiteSection values the couple left out.
  * @property string|null $contact_name
  * @property string|null $contact_email
  * @property string|null $contact_phone
@@ -79,7 +72,7 @@ use Illuminate\Support\Collection;
  */
 #[Fillable([
     'slug', 'couple_names', 'partner_one', 'partner_two', 'wedding_date', 'rsvp_deadline',
-    'default_locale', 'languages', 'theme', 'accent_color', 'hidden_sections', 'template', 'look_styles', 'look_wishes', 'celebration', 'guest_estimate',
+    'default_locale', 'languages', 'template', 'celebration', 'guest_estimate',
     'venue_name', 'venue_address', 'venue_postcode', 'venue_town', 'venue_lat', 'venue_lng', 'venue_reference',
     'menu_options', 'children_menu', 'offers_shuttle', 'offers_stay', 'asks_song', 'sends_reminders',
     'contact_name', 'contact_email', 'contact_phone',
@@ -236,7 +229,7 @@ class Wedding extends Model
     }
 
     /** @var array<string, mixed> */
-    protected $attributes = ['template' => 'atelier'];
+    protected $attributes = ['template' => 'salon'];
 
     /**
      * @return array<string, string>
@@ -248,10 +241,7 @@ class Wedding extends Model
             'rsvp_deadline' => 'date',
             'default_locale' => Locale::class,
             'languages' => AsEnumCollection::of(Locale::class),
-            'theme' => WeddingTheme::class,
-            'hidden_sections' => 'array',
             'template' => WeddingTemplate::class,
-            'look_styles' => AsEnumCollection::of(LookStyle::class),
             'status' => WeddingStatus::class,
             'plan' => Plan::class,
             'paid_at' => 'datetime',

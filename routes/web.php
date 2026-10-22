@@ -29,6 +29,7 @@ Route::middleware(UseSwissGerman::class)->group(function () {
     Route::get('orte/{partner:slug}', [VenuePageController::class, 'show'])->name('venues.show');
     // A signed sales demo for a venue we want to win (no account, 90 days).
     Route::middleware(['throttle:invitations', PreventIndexing::class])->group(function (): void {
+        Route::get('beispiel/{legacy}', [SampleSiteController::class, 'legacy'])->whereIn('legacy', ['atelier', 'panorama'])->name('samples.legacy');
         Route::get('beispiel/{template}', [SampleSiteController::class, 'show'])->name('samples.show');
         Route::get('beispiel/{template}/antworten', [SampleSiteController::class, 'reply'])->name('samples.reply');
         Route::put('beispiel/{template}/antworten', [SampleSiteController::class, 'update'])->name('samples.reply.update');

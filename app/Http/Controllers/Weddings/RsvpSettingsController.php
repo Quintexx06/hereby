@@ -24,7 +24,7 @@ class RsvpSettingsController extends Controller
                 'couple_names' => $wedding->couple_names,
                 'date' => $wedding->wedding_date?->toDateString(),
                 'rsvp_deadline' => $wedding->rsvp_deadline?->toDateString(),
-                'theme' => $wedding->theme,
+                'template' => $wedding->template,
             ],
             'settings' => [
                 'menus' => $wedding->menu_options ?? [],

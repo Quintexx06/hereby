@@ -3,7 +3,6 @@
 namespace App\Http\Resources;
 
 use App\Enums\Locale;
-use App\Enums\LookStyle;
 use App\Models\Event;
 use App\Models\Wedding;
 use Illuminate\Http\Request;
@@ -39,12 +38,7 @@ class WeddingSetupResource extends JsonResource
             'guest_estimate' => $this->guest_estimate,
             'languages' => $this->languages?->map(fn (Locale $locale): string => $locale->value)->values() ?? [],
             'default_locale' => $this->default_locale,
-            'theme' => $this->theme,
-            'accent_color' => $this->accent_color,
-            'hidden_sections' => $this->hidden_sections ?? [],
             'template' => $this->template,
-            'look_styles' => $this->look_styles?->map(fn (LookStyle $style): string => $style->value)->values() ?? [],
-            'look_wishes' => $this->look_wishes,
             'events' => $this->events->map(fn (Event $event): array => [
                 'type' => $event->type,
                 'name' => $event->name,

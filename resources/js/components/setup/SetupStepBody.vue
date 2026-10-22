@@ -12,7 +12,7 @@ import type {
     Celebration,
     ProgrammeRow,
     SetupStepKey,
-    ThemeSuggestion,
+    TemplateSuggestion,
 } from '@/types/setup';
 
 /* One question per step; the body slides over when the step changes. */
@@ -20,7 +20,7 @@ const props = defineProps<{
     weddingId: number;
     step: SetupStepKey;
     presets: Record<Celebration, ProgrammeRow[]> | null;
-    suggestion: ThemeSuggestion | null;
+    suggestion: TemplateSuggestion | null;
     /** Inside «Eckdaten»: under the page's own title, so an H2, set smaller. */
     embedded?: boolean;
 }>();
@@ -41,7 +41,7 @@ const stepProps = computed(() => {
         case 'ablauf':
             return { presets: props.presets };
         case 'look':
-            return { suggestion: props.suggestion };
+            return { suggestion: props.suggestion, weddingId: props.weddingId };
         case 'uebersicht':
             return { weddingId: props.weddingId };
         default:

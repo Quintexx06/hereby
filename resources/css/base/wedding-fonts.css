@@ -1,0 +1,373 @@
+/*
+ * The five designs' faces (ADR 0015), self-hosted from Fontsource (SIL OFL):
+ * Salon Castoro Titling and Libre Caslon Text (no bold: Salon never sets one), Raster Schibsted Grotesk,
+ * Garten Linden Hill and Ysabeau Office, Arve Vollkorn, Lido Gloock and
+ * Familjen Grotesk. A browser fetches a face only where the page uses it,
+ * so each site loads its own two at most; app.blade.php preloads the files
+ * its first screen sets. Latin and latin-ext, for every name on a Swiss
+ * guest list.
+ */
+
+@font-face {
+    font-family: 'Castoro Titling';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    src: url('@fontsource/castoro-titling/files/castoro-titling-latin-ext-400-normal.woff2')
+        format('woff2');
+    unicode-range:
+        U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+        U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+        U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+    font-family: 'Castoro Titling';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    src: url('@fontsource/castoro-titling/files/castoro-titling-latin-400-normal.woff2')
+        format('woff2');
+    unicode-range:
+        U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+        U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+        U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+    font-family: 'Libre Caslon Text';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    src: url('@fontsource/libre-caslon-text/files/libre-caslon-text-latin-ext-400-normal.woff2')
+        format('woff2');
+    unicode-range:
+        U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+        U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+        U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+    font-family: 'Libre Caslon Text';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    src: url('@fontsource/libre-caslon-text/files/libre-caslon-text-latin-400-normal.woff2')
+        format('woff2');
+    unicode-range:
+        U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+        U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+        U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+    font-family: 'Libre Caslon Text';
+    font-style: italic;
+    font-display: swap;
+    font-weight: 400;
+    src: url('@fontsource/libre-caslon-text/files/libre-caslon-text-latin-ext-400-italic.woff2')
+        format('woff2');
+    unicode-range:
+        U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+        U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+        U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+    font-family: 'Libre Caslon Text';
+    font-style: italic;
+    font-display: swap;
+    font-weight: 400;
+    src: url('@fontsource/libre-caslon-text/files/libre-caslon-text-latin-400-italic.woff2')
+        format('woff2');
+    unicode-range:
+        U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+        U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+        U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+    font-family: 'Schibsted Grotesk Variable';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400 900;
+    src: url('@fontsource-variable/schibsted-grotesk/files/schibsted-grotesk-latin-ext-wght-normal.woff2')
+        format('woff2-variations');
+    unicode-range:
+        U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+        U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+        U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+    font-family: 'Schibsted Grotesk Variable';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400 900;
+    src: url('@fontsource-variable/schibsted-grotesk/files/schibsted-grotesk-latin-wght-normal.woff2')
+        format('woff2-variations');
+    unicode-range:
+        U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+        U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+        U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+    font-family: 'Schibsted Grotesk Variable';
+    font-style: italic;
+    font-display: swap;
+    font-weight: 400 900;
+    src: url('@fontsource-variable/schibsted-grotesk/files/schibsted-grotesk-latin-ext-wght-italic.woff2')
+        format('woff2-variations');
+    unicode-range:
+        U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+        U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+        U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+    font-family: 'Schibsted Grotesk Variable';
+    font-style: italic;
+    font-display: swap;
+    font-weight: 400 900;
+    src: url('@fontsource-variable/schibsted-grotesk/files/schibsted-grotesk-latin-wght-italic.woff2')
+        format('woff2-variations');
+    unicode-range:
+        U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+        U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+        U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+    font-family: 'Linden Hill';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    src: url('@fontsource/linden-hill/files/linden-hill-latin-ext-400-normal.woff2')
+        format('woff2');
+    unicode-range:
+        U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+        U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+        U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+    font-family: 'Linden Hill';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    src: url('@fontsource/linden-hill/files/linden-hill-latin-400-normal.woff2')
+        format('woff2');
+    unicode-range:
+        U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+        U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+        U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+    font-family: 'Linden Hill';
+    font-style: italic;
+    font-display: swap;
+    font-weight: 400;
+    src: url('@fontsource/linden-hill/files/linden-hill-latin-ext-400-italic.woff2')
+        format('woff2');
+    unicode-range:
+        U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+        U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+        U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+    font-family: 'Linden Hill';
+    font-style: italic;
+    font-display: swap;
+    font-weight: 400;
+    src: url('@fontsource/linden-hill/files/linden-hill-latin-400-italic.woff2')
+        format('woff2');
+    unicode-range:
+        U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+        U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+        U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+    font-family: 'Ysabeau Office Variable';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 100 900;
+    src: url('@fontsource-variable/ysabeau-office/files/ysabeau-office-latin-ext-wght-normal.woff2')
+        format('woff2-variations');
+    unicode-range:
+        U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+        U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+        U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+    font-family: 'Ysabeau Office Variable';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 100 900;
+    src: url('@fontsource-variable/ysabeau-office/files/ysabeau-office-latin-wght-normal.woff2')
+        format('woff2-variations');
+    unicode-range:
+        U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+        U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+        U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+    font-family: 'Ysabeau Office Variable';
+    font-style: italic;
+    font-display: swap;
+    font-weight: 100 900;
+    src: url('@fontsource-variable/ysabeau-office/files/ysabeau-office-latin-ext-wght-italic.woff2')
+        format('woff2-variations');
+    unicode-range:
+        U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+        U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+        U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+    font-family: 'Ysabeau Office Variable';
+    font-style: italic;
+    font-display: swap;
+    font-weight: 100 900;
+    src: url('@fontsource-variable/ysabeau-office/files/ysabeau-office-latin-wght-italic.woff2')
+        format('woff2-variations');
+    unicode-range:
+        U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+        U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+        U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+    font-family: 'Vollkorn Variable';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400 900;
+    src: url('@fontsource-variable/vollkorn/files/vollkorn-latin-ext-wght-normal.woff2')
+        format('woff2-variations');
+    unicode-range:
+        U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+        U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+        U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+    font-family: 'Vollkorn Variable';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400 900;
+    src: url('@fontsource-variable/vollkorn/files/vollkorn-latin-wght-normal.woff2')
+        format('woff2-variations');
+    unicode-range:
+        U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+        U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+        U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+    font-family: 'Vollkorn Variable';
+    font-style: italic;
+    font-display: swap;
+    font-weight: 400 900;
+    src: url('@fontsource-variable/vollkorn/files/vollkorn-latin-ext-wght-italic.woff2')
+        format('woff2-variations');
+    unicode-range:
+        U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+        U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+        U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+    font-family: 'Vollkorn Variable';
+    font-style: italic;
+    font-display: swap;
+    font-weight: 400 900;
+    src: url('@fontsource-variable/vollkorn/files/vollkorn-latin-wght-italic.woff2')
+        format('woff2-variations');
+    unicode-range:
+        U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+        U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+        U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+    font-family: 'Gloock';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    src: url('@fontsource/gloock/files/gloock-latin-ext-400-normal.woff2')
+        format('woff2');
+    unicode-range:
+        U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+        U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+        U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+    font-family: 'Gloock';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    src: url('@fontsource/gloock/files/gloock-latin-400-normal.woff2')
+        format('woff2');
+    unicode-range:
+        U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+        U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+        U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+    font-family: 'Familjen Grotesk Variable';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400 700;
+    src: url('@fontsource-variable/familjen-grotesk/files/familjen-grotesk-latin-ext-wght-normal.woff2')
+        format('woff2-variations');
+    unicode-range:
+        U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+        U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+        U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+    font-family: 'Familjen Grotesk Variable';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400 700;
+    src: url('@fontsource-variable/familjen-grotesk/files/familjen-grotesk-latin-wght-normal.woff2')
+        format('woff2-variations');
+    unicode-range:
+        U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+        U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+        U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+    font-family: 'Familjen Grotesk Variable';
+    font-style: italic;
+    font-display: swap;
+    font-weight: 400 700;
+    src: url('@fontsource-variable/familjen-grotesk/files/familjen-grotesk-latin-ext-wght-italic.woff2')
+        format('woff2-variations');
+    unicode-range:
+        U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+        U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+        U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+    font-family: 'Familjen Grotesk Variable';
+    font-style: italic;
+    font-display: swap;
+    font-weight: 400 700;
+    src: url('@fontsource-variable/familjen-grotesk/files/familjen-grotesk-latin-wght-italic.woff2')
+        format('woff2-variations');
+    unicode-range:
+        U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+        U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+        U+2212, U+2215, U+FEFF, U+FFFD;
+}

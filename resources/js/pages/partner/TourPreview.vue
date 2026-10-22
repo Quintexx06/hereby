@@ -7,7 +7,7 @@ import PartnerCode from '@/components/partners/PartnerCode.vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { tourPreview as copy } from '@/content/partners';
-import { studio } from '@/content/landing';
+import { templates } from '@/content/setup';
 import { preview } from '@/routes/partner';
 
 defineProps<{ venue: string; code: string }>();
@@ -56,14 +56,14 @@ const date = ref(inSixMonths);
             <fieldset class="chip-row sm:col-span-3">
                 <legend class="field-label mb-2">{{ copy.template }}</legend>
                 <label
-                    v-for="(template, index) in studio.templates"
-                    :key="template.slug"
+                    v-for="(template, key, index) in templates"
+                    :key="key"
                     class="chip"
                 >
                     <input
                         type="radio"
                         name="vorlage"
-                        :value="template.slug"
+                        :value="key"
                         :checked="index === 0"
                         class="sr-only"
                     />

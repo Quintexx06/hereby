@@ -9,7 +9,7 @@
     }
 
     .reply-all {
-        @apply inline-flex h-12 w-full items-center justify-center gap-2 rounded-full border border-foreground px-6 font-semibold transition-colors duration-150 hover:bg-foreground hover:text-background aria-pressed:bg-foreground aria-pressed:text-background sm:w-auto;
+        @apply inline-flex h-12 w-full items-center justify-center gap-2 rounded-[var(--button-radius,9999px)] border border-foreground px-6 font-semibold transition-colors duration-150 hover:bg-foreground hover:text-background aria-pressed:bg-foreground aria-pressed:text-background sm:w-auto;
     }
 
     .reply-event {
@@ -29,7 +29,7 @@
     }
 
     .choice-row .chip {
-        @apply min-w-[7.5rem] justify-center;
+        @apply min-w-[7.5rem] justify-center rounded-[var(--button-radius,9999px)];
     }
 
     .reply-section {
@@ -45,7 +45,7 @@
     }
 
     .reply-send {
-        @apply inline-flex h-12 shrink-0 items-center justify-center gap-2 rounded-full bg-foreground px-6 font-semibold text-background transition-opacity duration-150 disabled:opacity-40;
+        @apply inline-flex h-12 shrink-0 items-center justify-center gap-2 rounded-[var(--button-radius,9999px)] bg-primary px-6 font-semibold text-primary-foreground transition-opacity duration-150 disabled:opacity-40;
     }
 
     .stepper {

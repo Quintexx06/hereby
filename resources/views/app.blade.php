@@ -50,12 +50,11 @@
                 requestAnimationFrame(() => setTimeout(() => import(@js(Vite::asset('resources/js/app.ts'))), 0));
             </script>
             <style>{!! Vite::content('resources/css/guest.css') !!}</style>
-            <link rel="preload" href="{{ Vite::asset('node_modules/@fontsource-variable/archivo/files/archivo-latin-wght-normal.woff2') }}" as="font" type="font/woff2" crossorigin>
-            {{-- The template's display serif (ADR 0014): the names are set in it. --}}
-            @php($guestSerif = \App\Enums\WeddingTemplate::tryFrom((string) data_get($page, 'props.invitation.wedding.template', data_get($page, 'props.reply.wedding.template', '')))?->serifFile())
-            @if ($guestSerif)
-                <link rel="preload" href="{{ Vite::asset($guestSerif) }}" as="font" type="font/woff2" crossorigin>
-            @endif
+            {{-- The design's faces (ADR 0015): the names are set in them. --}}
+            @php($guestTemplate = \App\Enums\WeddingTemplate::fromKey(data_get($page, 'props.invitation.wedding.template', data_get($page, 'props.reply.wedding.template', data_get($page, 'props.wedding.template', data_get($page, 'props.template'))))))
+            @foreach ($guestTemplate?->fonts() ?? [] as $guestFont)
+                <link rel="preload" href="{{ Vite::asset($guestFont) }}" as="font" type="font/woff2" crossorigin>
+            @endforeach
         @endif
         @unless ($leanGuestPage)
             @vite([

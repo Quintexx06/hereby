@@ -3,14 +3,7 @@
  * the helper line says why we ask. Spec: docs/specs/2026-10-09-couple-setup-and-dashboard-design.md
  */
 import type { Celebration, GuestEstimate, SetupStepKey } from '@/types/setup';
-import type {
-    EventType,
-    Locale,
-    LookStyle,
-    SiteSection,
-    WeddingTemplate,
-    WeddingTheme,
-} from '@/types/wedding';
+import type { EventType, Locale, WeddingTemplate } from '@/types/wedding';
 
 export const steps: Record<
     SetupStepKey,
@@ -43,8 +36,8 @@ export const steps: Record<
     },
     look: {
         label: 'Look',
-        question: 'Welcher Look passt zu euch?',
-        helper: 'Alles auf eurer Website folgt diesem Entwurf. Wir stimmen ihn danach von Hand auf euch ab.',
+        question: 'Welcher Entwurf passt zu euch?',
+        helper: 'Fünf fertig gestaltete Websites. Ihr wählt eine und füllt sie mit euren Fotos und Texten, Schrift und Farben sind von uns abgestimmt.',
     },
     uebersicht: {
         label: 'Übersicht',
@@ -157,74 +150,41 @@ export const guestsCopy = {
     mainHint: 'Neue Gäste bekommen diese Sprache, bis ihr etwas anderes wählt.',
 };
 
-export const themes: Record<WeddingTheme, { name: string; mood: string }> = {
-    ivory: { name: 'Ivory', mood: 'Porzellan und Tinte, zeitlos' },
-    rose: { name: 'Rosé', mood: 'Beere und Pfingstrose, für Gartenfeste' },
-    alpine: {
-        name: 'Alpine',
-        mood: 'Bergsee und Gletscher, für Berg und See',
-    },
-    riviera: { name: 'Riviera', mood: 'Nachtmeer und Indigo, für den Süden' },
-    lavanda: {
-        name: 'Lavanda',
-        mood: 'Flieder und Aubergine, für Sommerwiesen',
-    },
-};
-
 export const look = {
     suggested: 'Unser Vorschlag',
-    templates: 'Vorlage',
-    templatesHint:
-        'Wie eure Website aufgebaut ist und sich bewegt. Jede Vorlage passt zu jeder Farbwelt.',
-    colours: 'Farbwelt',
-    coloursHint: 'Papier, Schrift und Akzent eurer Website.',
-    styles: 'Stilrichtung',
-    stylesHint: (max: number) =>
-        `Wählt bis zu ${max}. So wissen wir, wie wir euren Entwurf abstimmen.`,
-    stylesCount: (count: number, max: number) => `${count} von ${max}`,
-    wishes: 'Eure Idee',
-    wishesHint:
-        'Blumen, Farben, ein Pinterest-Board, das Kleid, ein Ort, der euch inspiriert. Wir schauen, was sich umsetzen lässt, und melden uns.',
-    wishesPlaceholder:
-        'z. B. «Wiesenblumen, viel Grün, ein bisschen wie unsere Lieblingsalp im Juni»',
+    live: 'Beispiel ansehen',
+    chosen: 'Gewählt',
+    bespoke: 'Etwas ganz Eigenes?',
+    bespokeBody:
+        'Andere Farben, eine eigene Schrift, ein Aufbau nach euren Ideen: Das gestalten wir in der Massanfertigung von Hand für euch.',
+    bespokeLink: 'Zur Massanfertigung',
 };
 
-/** Guest-site templates (WeddingTemplate): layout and motion. */
+/** The five designs (WeddingTemplate, ADR 0015): finished by us, filled by you. */
 export const templates: Record<
     WeddingTemplate,
     { name: string; mood: string }
 > = {
-    atelier: {
-        name: 'Atelier',
-        mood: 'Redaktionell und klar: grosse Schrift, eure Geschichte als gezeichneter Weg.',
+    salon: {
+        name: 'Salon',
+        mood: 'Eine gravierte Karte für Abendgarderobe: Titelversalien, Tinte auf Baumwollpapier, ein Ochsenblutrot. Für Grandhotel, Zunfthaus und Schloss.',
+    },
+    raster: {
+        name: 'Raster',
+        mood: 'Schweizer Raster: das Datum als Architektur, das Programm als Fahrplan, ein Zinnoberrot. Für moderne Orte, Museen und die Stadt.',
     },
     garten: {
         name: 'Garten',
-        mood: 'Romantisch: Torbögen, gezeichnete Zweige, Blätter und fallende Blüten.',
+        mood: 'Wie ein Buch aus der Handpresse: kursive Namen, Initiale, Zeiten am Rand, Feigenrot. Für Gärten, Rebberge, Scheunen und Landgüter.',
     },
-    panorama: {
-        name: 'Panorama',
-        mood: 'Wie im Kino: Namen als Laufband, der Tag zum Seitwärtsscrollen, Lichter in 3D.',
+    arve: {
+        name: 'Arve',
+        mood: 'Arvenholz und Wolle: ein Panorama über den Namen, kräftige Schrift, Geranienrot. Für Berghotels, Hütten und Bergseen.',
     },
-};
-
-/** Style directions (LookStyle), each with a mood in a few words. */
-export const lookStyles: Record<LookStyle, { name: string; mood: string }> = {
-    classic: { name: 'Klassisch', mood: 'Zeitlos, festlich, mit Tradition' },
-    modern: { name: 'Modern', mood: 'Klare Linien, viel Weissraum' },
-    romantic: { name: 'Romantisch', mood: 'Rosen, Blush, weiche Formen' },
-    natural: { name: 'Natürlich', mood: 'Grün, Leinen, Wiesenblumen' },
-    boho: { name: 'Boho', mood: 'Trockenblumen, Pampas, frei' },
-    rustic: { name: 'Rustikal', mood: 'Scheune, Holz, Kerzen' },
-    elegant: { name: 'Elegant', mood: 'Schwarz-weiss, Gold, Abendrobe' },
-    mediterranean: {
-        name: 'Mediterran',
-        mood: 'Zitronen, Olivenzweige, Süden',
+    lido: {
+        name: 'Lido',
+        mood: 'Sommer im Seebad: Buttergelb, Kobaltblau, ein Streifen wie an der Badi. Für den See, das Tessin und Feste bei Tag.',
     },
-    vintage: { name: 'Vintage', mood: 'Spitze, Patina, Erbstücke' },
-    minimal: { name: 'Minimalistisch', mood: 'Wenig, aber genau' },
-    playful: { name: 'Verspielt', mood: 'Farbe, Muster, Humor' },
-    mountain: { name: 'Alpin', mood: 'Berge, See, klare Luft' },
 };
 
 export const review = {
@@ -235,25 +195,6 @@ export const review = {
     programme: 'Ablauf',
     size: 'Grösse',
     languages: 'Sprachen',
-    look: 'Look',
-    styles: 'Stil',
-    wishes: 'Eure Idee',
+    look: 'Entwurf',
     open: 'Noch offen',
-};
-
-/** Look › «Feinschliff»: more freedom inside the three templates. */
-export const finish = {
-    title: 'Feinschliff',
-    hint: 'Eure eigene Farbe statt der Farbwelt, und welche Teile eure Seite zeigt. Alles, was Gäste zum Antworten brauchen, bleibt immer.',
-    colour: 'Eigene Farbe',
-    colourOff: 'Aus: die Farbwelt oben gilt.',
-    colourOn: 'An: wir stimmen sie so ab, dass sie überall gut lesbar bleibt.',
-    colourReset: 'Zurück zur Farbwelt',
-    show: 'Zeigen',
-    sections: {
-        opening: 'Eröffnung mit Vorhang beim ersten Besuch',
-        calendar: '«Haltet euch den Tag frei» mit Kalender-Links',
-        ornaments: 'Ornamente zwischen den Abschnitten',
-        closing: 'Grosser Aufruf zum Antworten am Schluss',
-    } satisfies Record<SiteSection, string>,
 };

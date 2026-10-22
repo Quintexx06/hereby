@@ -1,7 +1,7 @@
 /** Mirrors App\Http\Controllers\Admin\WeddingsController::index. */
 import type { PlanKey } from '@/types/billing';
 import type { SetupStepKey } from '@/types/setup';
-import type { LookStyle } from '@/types/wedding';
+import type { WeddingTemplate } from '@/types/wedding';
 
 export type AdminWedding = {
     id: number;
@@ -16,8 +16,7 @@ export type AdminWedding = {
     date: string | null;
     households: number;
     answered: number;
-    look_styles: LookStyle[];
-    look_wishes: string | null;
+    template: WeddingTemplate;
     created_at: string | null;
 };
 

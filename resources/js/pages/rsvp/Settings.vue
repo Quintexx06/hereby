@@ -13,10 +13,10 @@ import { rsvpSettings as copy } from '@/content/rsvp';
 import { firstError } from '@/lib/forms';
 import { dashboard } from '@/routes';
 import { update } from '@/routes/weddings/rsvp-settings';
-import type { WeddingTheme } from '@/types';
+import type { WeddingTemplate } from '@/types';
 
 const props = defineProps<{
-    wedding: { id: number; couple_names: string; theme: WeddingTheme };
+    wedding: { id: number; couple_names: string; template: WeddingTemplate };
     settings: {
         menus: { key: string; label: string }[];
         children_menu: boolean;

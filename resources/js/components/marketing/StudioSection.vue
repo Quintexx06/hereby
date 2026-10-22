@@ -1,26 +1,30 @@
 <script setup lang="ts">
+import { ArrowUpRight } from '@lucide/vue';
 import { computed, ref } from 'vue';
-import ShowcaseCoupleForm from '@/components/marketing/ShowcaseCoupleForm.vue';
-import ShowcaseCarousel from '@/components/marketing/ShowcaseCarousel.vue';
-import { useShowcaseCouple } from '@/composables/useShowcaseCouple';
 import { studio } from '@/content/landing';
+import { templates } from '@/content/setup';
+import { show as sample } from '@/routes/samples';
+import type { WeddingTemplate } from '@/types';
 
-type AccentSlug = (typeof studio.accents)[number]['slug'];
+const designs = Object.keys(templates) as WeddingTemplate[];
+const selected = ref<WeddingTemplate>(designs[0]);
+const active = computed(() => templates[selected.value]);
+const tabs = ref<HTMLButtonElement[]>([]);
 
-const selected = ref<AccentSlug>(studio.accents[0].slug);
-const active = computed(
-    () =>
-        studio.accents.find((accent) => accent.slug === selected.value) ??
-        studio.accents[0],
-);
-
-const { couple, site } = useShowcaseCouple(studio.site.couple);
+/* Arrow keys move along the tabs, as in any tab list. */
+function step(by: number): void {
+    const index =
+        (designs.indexOf(selected.value) + by + designs.length) %
+        designs.length;
+    selected.value = designs[index];
+    tabs.value[index]?.focus();
+}
 </script>
 
 <!--
-    The three templates as finished sites in browser windows, side by side.
-    Visitors type their own names and date into them and pick an accent:
-    only the accents change, the page itself stays porcelain.
+    The five designs (ADR 0015) as their real first screens: the wide one
+    in a browser window, the phone beside it, and the way to the whole
+    sample site. Nothing moves until the visitor picks a design.
 -->
 <template>
     <section id="studio" class="overflow-hidden">
@@ -31,43 +35,80 @@ const { couple, site } = useShowcaseCouple(studio.site.couple);
             </header>
 
             <div
-                class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between"
+                role="tablist"
+                :aria-label="studio.designsLabel"
+                class="studio-tabs"
+                @keydown.right.prevent="step(1)"
+                @keydown.left.prevent="step(-1)"
             >
-                <ShowcaseCoupleForm
-                    v-model:first="couple.first"
-                    v-model:second="couple.second"
-                    v-model:date="couple.date"
-                    :placeholder="studio.site.couple"
-                />
-
-                <div class="flex flex-col gap-3 lg:shrink-0 lg:items-end">
-                    <div
-                        role="radiogroup"
-                        :aria-label="studio.pickerLabel"
-                        class="flex flex-wrap gap-2 lg:flex-nowrap"
-                    >
-                        <button
-                            v-for="accent in studio.accents"
-                            :key="accent.slug"
-                            type="button"
-                            role="radio"
-                            class="accent-chip"
-                            :data-accent="accent.slug"
-                            :aria-checked="accent.slug === selected"
-                            @click="selected = accent.slug"
-                        >
-                            <span class="accent-dot" aria-hidden="true" />
-                            {{ accent.name }}
-                        </button>
-                    </div>
-                    <p class="caption" aria-live="polite">
-                        {{ active.mood }}
-                    </p>
-                </div>
+                <button
+                    v-for="design in designs"
+                    :id="`studio-tab-${design}`"
+                    :key="design"
+                    ref="tabs"
+                    type="button"
+                    role="tab"
+                    class="studio-tab"
+                    :aria-selected="design === selected"
+                    :aria-controls="`studio-panel`"
+                    :tabindex="design === selected ? 0 : -1"
+                    @click="selected = design"
+                >
+                    {{ templates[design].name }}
+                </button>
             </div>
 
-            <ShowcaseCarousel :accent="selected" :couple="site" />
-            <p class="caption -mt-4 text-center">{{ studio.example }}</p>
+            <div
+                id="studio-panel"
+                role="tabpanel"
+                class="studio-stage"
+                :aria-labelledby="`studio-tab-${selected}`"
+            >
+                <Transition name="studio-swap" mode="out-in">
+                    <div :key="selected" class="studio-shots">
+                        <figure class="studio-window">
+                            <div class="studio-bar" aria-hidden="true">
+                                <span class="studio-dots" />
+                                <span class="studio-url">{{ studio.url }}</span>
+                            </div>
+                            <img
+                                :src="`/images/designs/${selected}.webp`"
+                                :alt="studio.shot(active.name)"
+                                width="960"
+                                height="660"
+                                loading="lazy"
+                                decoding="async"
+                            />
+                        </figure>
+                        <figure class="studio-phone" aria-hidden="true">
+                            <img
+                                :src="`/images/designs/${selected}-phone.webp`"
+                                alt=""
+                                width="390"
+                                height="844"
+                                loading="lazy"
+                                decoding="async"
+                            />
+                        </figure>
+                    </div>
+                </Transition>
+                <div class="studio-caption" aria-live="polite">
+                    <p class="studio-name">
+                        {{ active.name }}<span class="text-brand">.</span>
+                    </p>
+                    <p class="max-w-xl text-muted-foreground">
+                        {{ active.mood }}
+                    </p>
+                    <a
+                        :href="sample.url(selected)"
+                        class="studio-live"
+                        target="_blank"
+                        rel="noopener"
+                        >{{ studio.live }} <ArrowUpRight class="size-4"
+                    /></a>
+                </div>
+            </div>
+            <p class="caption -mt-4">{{ studio.example }}</p>
         </div>
     </section>
 </template>

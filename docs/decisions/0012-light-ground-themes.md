@@ -1,6 +1,6 @@
 # ADR 0012: Guest themes are an accent on a light ground
 
-Date: 2026-10-13 · Status: accepted · Amends ADR 0004 and ADR 0008
+Date: 2026-10-13 · Status: accepted · Amends ADR 0004 and ADR 0008 · **Superseded by [ADR 0015](0015-five-finished-designs.md)**
 
 ## Context
 

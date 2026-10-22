@@ -34,7 +34,7 @@ class ShowInvitationTest extends TestCase
                 ->component('invitation/Show')
                 ->where('invitation.household.name', 'Familie Meier')
                 ->where('invitation.wedding.coupleNames', 'Anna & Luca')
-                ->where('invitation.wedding.template', 'atelier')
+                ->where('invitation.wedding.template', 'salon')
                 ->where('invitation.guests.0.firstName', 'Heidi')
                 ->has('invitation.events', 1)
                 ->where('invitation.events.0.id', $dinner->id)
@@ -111,14 +111,15 @@ class ShowInvitationTest extends TestCase
             ->assertInertia(fn (Assert $page) => $page->where('translations', []));
     }
 
-    public function test_the_page_preloads_its_templates_serif(): void
+    public function test_the_page_preloads_only_its_designs_faces(): void
     {
         $wedding = Wedding::factory()->create(['template' => WeddingTemplate::Garten]);
         $household = Household::factory()->for($wedding)->create();
 
-        $html = $this->get(route('invitation.show', $household))->assertOk()->getContent();
+        $html = (string) $this->get(route('invitation.show', $household))->assertOk()->getContent();
 
-        $this->assertMatchesRegularExpression('/rel="preload" href="[^"]*cormorant-garamond-latin-wght-normal/', (string) $html);
-        $this->assertDoesNotMatchRegularExpression('/rel="preload" href="[^"]*(bodoni|fraunces)/', (string) $html);
+        $this->assertMatchesRegularExpression('/rel="preload" href="[^"]*linden-hill-latin-400-italic/', $html);
+        $this->assertMatchesRegularExpression('/rel="preload" href="[^"]*ysabeau-office-latin-wght-normal/', $html);
+        $this->assertDoesNotMatchRegularExpression('/rel="preload" href="[^"]*(castoro|gloock|vollkorn|schibsted|archivo)/', $html);
     }
 }

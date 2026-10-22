@@ -1,0 +1,161 @@
+/*
+ * Arve (ADR 0015): stone pine and wool for the mountains. Vollkorn, the
+ * German book face, from black names to reading text; wool-white paper,
+ * night-forest ink, one geranium red, stone-pine wood for rules on the
+ * dark. The landscape opens without words on it; the day and the evening
+ * stand side by side, the evening on the night forest.
+ */
+@layer components {
+    [data-template='arve'] {
+        @apply text-[1.1875rem] leading-[1.6];
+    }
+
+    /* ---------- The landscape, then the names ---------- */
+    .arve-hero {
+        @apply flex w-full flex-col items-center;
+    }
+
+    .arve-panorama {
+        @apply m-0 aspect-[4/5] w-full overflow-hidden sm:aspect-auto sm:h-[58svh] sm:min-h-80;
+    }
+
+    .arve-title {
+        @apply flex w-full max-w-6xl flex-col gap-4 px-5 pt-12 pb-4 sm:px-10 md:pt-16;
+    }
+
+    .arve-names {
+        @apply font-display text-[clamp(2.9rem,7.5vw,5.5rem)] leading-[0.98] font-black tracking-[-0.02em] [overflow-wrap:anywhere];
+    }
+
+    .arve-amp {
+        @apply font-normal text-brand;
+    }
+
+    .arve-line,
+    .arve-day-label,
+    [data-template='arve'] .inv-calendar-label {
+        @apply text-[0.82rem] font-semibold tracking-[0.2em] uppercase;
+    }
+
+    /* ---------- The letter, flush left ---------- */
+    .arve-letter {
+        @apply flex w-full max-w-6xl px-5 py-16 sm:px-10 md:py-20;
+    }
+
+    [data-template='arve'] .inv-dear {
+        @apply font-bold tracking-[-0.015em];
+    }
+
+    /* ---------- Day and evening ---------- */
+    .arve-day {
+        @apply flex w-full max-w-6xl scroll-mt-20 flex-col gap-10 px-5 py-12 sm:px-10;
+    }
+
+    .arve-heading,
+    [data-template='arve'] :is(.inv-chapter-heading, .inv-practical-heading) {
+        @apply font-display font-bold tracking-[-0.02em];
+    }
+
+    .arve-heading {
+        @apply text-[clamp(2.25rem,4.5vw,3.25rem)] leading-none;
+    }
+
+    .arve-day-parts {
+        @apply grid gap-6 md:grid-cols-2;
+    }
+
+    .arve-day-part {
+        @apply flex flex-col gap-6 border-t-4 border-foreground pt-6;
+    }
+
+    .arve-day-part[data-part='evening'] {
+        @apply border-[var(--night-accent)] bg-[var(--night)] px-6 pb-8 text-[var(--night-foreground)] sm:px-8;
+    }
+
+    .arve-day-part[data-part='evening'] :is(.inv-day-address, .inv-day-route) {
+        color: var(--night-muted);
+    }
+
+    [data-template='arve'] .inv-day {
+        @apply gap-6;
+    }
+
+    [data-template='arve'] .inv-day-item {
+        @apply grid grid-cols-[4.5rem_minmax(0,1fr)] gap-x-5;
+    }
+
+    [data-template='arve'] .inv-day-time {
+        @apply pt-1 font-sans text-lg font-semibold tabular-nums;
+    }
+
+    [data-template='arve'] .inv-day-title {
+        @apply font-sans text-[1.6rem] font-bold;
+    }
+
+    [data-template='arve'] .inv-day-place {
+        @apply font-semibold;
+    }
+
+    /* ---------- Photos: wide and square, a wood rule between ---------- */
+    .arve-photos {
+        @apply max-w-6xl gap-5 px-5 py-14 sm:grid-cols-[3fr_2fr] sm:px-10;
+    }
+
+    .arve-photos .inv-photos-frame {
+        @apply aspect-[3/2] rounded-[0.25rem];
+    }
+
+    .arve-photos .inv-photos-frame:nth-child(2) {
+        @apply sm:aspect-square;
+    }
+
+    .arve-photos .inv-photos-frame:nth-child(3) {
+        @apply sm:col-span-2 sm:aspect-[21/9];
+    }
+
+    /* ---------- Story, practical, questions ---------- */
+    .arve-section {
+        @apply w-full max-w-6xl border-t border-[var(--rule)] px-5 py-16 sm:px-10 md:py-20;
+    }
+
+    [data-template='arve'] .inv-chapter-heading {
+        @apply text-[clamp(2.25rem,4.5vw,3.25rem)];
+    }
+
+    [data-template='arve'] .inv-story-when {
+        @apply font-sans font-bold;
+    }
+
+    .arve-details {
+        @apply grid gap-12 md:grid-cols-2;
+    }
+
+    [data-template='arve'] .inv-practical-heading {
+        @apply text-2xl;
+    }
+
+    [data-template='arve'] .inv-chapter[data-block='faq'] > div {
+        @apply max-w-3xl;
+    }
+
+    /* ---------- The reply on the night forest ---------- */
+    [data-template='arve'] .inv-closing {
+        @apply mt-10 border-t-4 border-[var(--night-accent)] bg-[var(--night)] px-6 py-24 text-[var(--night-foreground)] sm:py-28;
+    }
+
+    [data-template='arve'] .inv-closing-title {
+        @apply font-black tracking-[-0.02em];
+    }
+
+    [data-template='arve'] :is(.inv-closing-text, .inv-calendar) {
+        color: var(--night-muted);
+    }
+
+    [data-template='arve'] .inv-closing-button {
+        @apply bg-[var(--night-accent)] text-[var(--night)];
+    }
+
+    [data-template='arve'] .inv-footer-couple {
+        @apply font-black tracking-[-0.02em];
+    }
+}

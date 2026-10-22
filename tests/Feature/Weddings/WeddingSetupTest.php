@@ -3,11 +3,9 @@
 namespace Tests\Feature\Weddings;
 
 use App\Enums\EventType;
-use App\Enums\LookStyle;
 use App\Enums\SetupStep;
 use App\Enums\WeddingStatus;
 use App\Enums\WeddingTemplate;
-use App\Enums\WeddingTheme;
 use App\Models\User;
 use App\Models\Wedding;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -89,7 +87,7 @@ class WeddingSetupTest extends TestCase
             ->assertSessionHasErrors('wedding_date');
     }
 
-    public function test_look_step_suggests_a_theme_for_the_venue(): void
+    public function test_look_step_suggests_a_design_for_the_venue(): void
     {
         $wedding = Wedding::factory()->draft(SetupStep::Look)->create(['venue_postcode' => '6600', 'venue_town' => 'Locarno']);
 
@@ -98,39 +96,29 @@ class WeddingSetupTest extends TestCase
             ->assertOk()
             ->assertInertia(fn (Assert $page) => $page
                 ->component('setup/Step')
-                ->where('suggestion.theme', WeddingTheme::Riviera->value));
+                ->where('suggestion.template', WeddingTemplate::Lido->value));
     }
 
-    public function test_look_step_saves_style_directions_and_the_couples_idea(): void
+    public function test_look_step_saves_one_of_the_five_designs(): void
     {
         $wedding = Wedding::factory()->draft(SetupStep::Look)->create();
 
         $this->actingAs($wedding->owner)
             ->put(route('weddings.setup.update', [$wedding, SetupStep::Look]), [
-                'theme' => WeddingTheme::Rose->value,
-                'template' => WeddingTemplate::Garten->value,
-                'look_styles' => [LookStyle::Romantic->value, LookStyle::Natural->value],
-                'look_wishes' => 'Wiesenblumen wie auf unserem Pinterest-Board.',
+                'template' => WeddingTemplate::Raster->value,
             ])
             ->assertRedirect(route('weddings.setup.show', [$wedding, SetupStep::Review]));
 
-        $wedding->refresh();
-        $this->assertSame(WeddingTemplate::Garten, $wedding->template);
-        $this->assertEquals([LookStyle::Romantic, LookStyle::Natural], $wedding->look_styles->all());
-        $this->assertSame('Wiesenblumen wie auf unserem Pinterest-Board.', $wedding->look_wishes);
+        $this->assertSame(WeddingTemplate::Raster, $wedding->refresh()->template);
     }
 
-    public function test_look_step_allows_at_most_three_style_directions(): void
+    public function test_look_step_only_takes_a_design_we_finished(): void
     {
         $wedding = Wedding::factory()->draft(SetupStep::Look)->create();
 
         $this->actingAs($wedding->owner)
-            ->put(route('weddings.setup.update', [$wedding, SetupStep::Look]), [
-                'theme' => WeddingTheme::Ivory->value,
-                'template' => WeddingTemplate::Atelier->value,
-                'look_styles' => ['classic', 'modern', 'romantic', 'boho'],
-            ])
-            ->assertSessionHasErrors('look_styles');
+            ->put(route('weddings.setup.update', [$wedding, SetupStep::Look]), ['template' => 'atelier'])
+            ->assertSessionHasErrors('template');
     }
 
     public function test_completing_activates_the_wedding_or_points_to_what_is_missing(): void

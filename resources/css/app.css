@@ -6,12 +6,13 @@
 @import '@fontsource-variable/archivo/standard.css';
 @import '@fontsource-variable/archivo/standard-italic.css';
 
-@import './base/wedding-serifs.css';
+@import './base/wedding-fonts.css';
 
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
 @import './theme/palette.css';
+@import './theme/designs.css';
 @import './theme/semantic.css';
 @import './theme/tailwind.css';
 @import './theme/motion.css';
@@ -25,16 +26,18 @@
 @import './components/marketing.css';
 @import './components/hero.css';
 @import './components/landing.css';
-@import './components/showcase.css';
-@import './components/showcase-templates.css';
-@import './components/showcase-bodies.css';
-@import './components/showcase-serif.css';
+@import './components/studio.css';
 @import './components/premium.css';
 @import './components/evening.css';
-@import './components/invitation-templates.css';
 @import './components/footer.css';
 @import './components/auth.css';
 @import './components/invitation.css';
+@import './components/invitation-nav.css';
+@import './designs/salon.css';
+@import './designs/raster.css';
+@import './designs/garten.css';
+@import './designs/arve.css';
+@import './designs/lido.css';
 @import './components/setup.css';
 @import './components/dashboard.css';
 @import './components/admin.css';

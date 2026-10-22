@@ -12,7 +12,7 @@ Vue 3 `<script setup lang="ts">` + Inertia v3 + Tailwind v4 + shadcn-vue.
 | `components/brand/`       | Logo mark and wordmark: brand atoms.                                 |
 | `components/marketing/`   | Landing-page sections.                                               |
 | `components/header/`      | App header parts.                                                    |
-| `components/invitation/`  | Guest-site parts (`WeddingThemeScope`, hero, events…). Translated, themed and light. |
+| `components/invitation/`  | Guest-site parts (`WeddingThemeScope`, letter, programme, story…) shared by the five designs in `templates/<design>/` (ADR 0015). Translated, light. |
 | `components/<domain>/`    | Feature components (e.g. `components/declarations/StatusBadge.vue`). |
 | `composables/`            | Reusable stateful logic (`useX`). Motion helpers live in `composables/motion/`. |
 | `directives/`             | Global directives (`v-focus`, `v-reveal`), registered in `directives/index.ts`. |

@@ -50,12 +50,14 @@ class VenueDemoTest extends TestCase
                 ->where('invitation.wedding.coupleNames', 'Anna & Luca')
                 ->where('translations.invitation.countdown', fn (string $line) => str_contains($line, 'Noch :count Tage'))
                 ->where('demo.venue', 'Hotel Belvedere')
-                ->where('demo.template', 'atelier')
+                ->where('demo.template', 'salon')
                 ->where('invitation.guests.0.firstName', 'Sandra')
                 ->where('invitation.wedding.photos.0.url', fn (string $url) => str_ends_with($url, '/images/landing/veil-kiss.webp'))
                 ->where('invitation.blocks', fn ($blocks) => collect($blocks)->pluck('type')->intersect(['story', 'venue', 'dress_code', 'faq'])->count() === 4));
 
         $this->get($url.'&vorlage=garten')->assertOk()->assertInertia(fn (Assert $page) => $page->where('demo.template', 'garten'));
+        // Links sent before ADR 0015 still name the old templates.
+        $this->get($url.'&vorlage=panorama')->assertOk()->assertInertia(fn (Assert $page) => $page->where('demo.template', 'arve'));
     }
 
     public function test_an_unsigned_expired_or_non_venue_demo_does_not_open(): void

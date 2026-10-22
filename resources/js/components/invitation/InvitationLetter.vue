@@ -26,7 +26,10 @@ const greeting = computed(() => {
 });
 </script>
 
-<!-- A few lines to this household, and the way to answer right under them. -->
+<!--
+    A few lines to this household, and the way to answer right under them.
+    A design may sign the letter (the signature slot) before the reply.
+-->
 <template>
     <section id="inv-letter" class="inv-letter">
         <p class="inv-dear">
@@ -34,6 +37,7 @@ const greeting = computed(() => {
             >{{ greeting.after }}
         </p>
         <p class="inv-letter-text">{{ t('invitation.letter') }}</p>
+        <slot name="signature" />
         <InvitationReply :invitation="invitation" :replied="replied" />
     </section>
 </template>

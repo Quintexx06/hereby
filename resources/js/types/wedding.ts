@@ -2,25 +2,8 @@
 
 export type Locale = 'de_CH' | 'fr' | 'it' | 'en';
 
-export type WeddingTheme = 'ivory' | 'rose' | 'alpine' | 'riviera' | 'lavanda';
-
-/** Mirrors App\Enums\WeddingTemplate: layout and motion of a guest site. */
-export type WeddingTemplate = 'atelier' | 'garten' | 'panorama';
-
-/** Mirrors App\Enums\LookStyle: style directions that brief the team. */
-export type LookStyle =
-    | 'classic'
-    | 'modern'
-    | 'romantic'
-    | 'natural'
-    | 'boho'
-    | 'rustic'
-    | 'elegant'
-    | 'mediterranean'
-    | 'vintage'
-    | 'minimal'
-    | 'playful'
-    | 'mountain';
+/** Mirrors App\Enums\WeddingTemplate: one of the five finished designs (ADR 0015). */
+export type WeddingTemplate = 'salon' | 'raster' | 'garten' | 'arve' | 'lido';
 
 export type EventType =
     | 'civil_ceremony'
@@ -40,16 +23,10 @@ export type WeddingPhoto = {
     focus: [number, number];
 };
 
-/** Built-in parts of a guest site a couple may leave out (App\\Enums\\SiteSection). */
-export type SiteSection = 'opening' | 'calendar' | 'ornaments' | 'closing';
-
 export type Wedding = {
     coupleNames: string;
     date: string;
     rsvpDeadline: string | null;
-    theme: WeddingTheme;
-    accentColor: string | null;
-    hiddenSections: SiteSection[];
     template: WeddingTemplate;
     photos: WeddingPhoto[];
     contact: {

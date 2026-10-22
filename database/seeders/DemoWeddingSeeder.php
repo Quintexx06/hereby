@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Enums\ContentBlockType;
 use App\Enums\EventType;
 use App\Enums\Locale;
-use App\Enums\WeddingTheme;
 use App\Models\Event;
 use App\Models\Household;
 use App\Models\User;
@@ -28,7 +27,6 @@ class DemoWeddingSeeder extends Seeder
             'wedding_date' => '2027-06-19',
             'rsvp_deadline' => '2027-05-01',
             'default_locale' => Locale::GermanSwiss,
-            'theme' => WeddingTheme::Ivory,
         ]);
 
         $civil = $this->event($wedding, EventType::CivilCeremony, '2027-06-18 14:00', 'Stadthaus Luzern', 'Hirschengraben 17, 6003 Luzern');

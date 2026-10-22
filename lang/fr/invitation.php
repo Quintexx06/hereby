@@ -15,6 +15,9 @@ return [
     'story_heading' => 'Notre histoire',
     'closing_title' => 'Vous venez ?',
     'closing_text' => 'Répondre prend moins d’une minute. Vous pouvez modifier votre réponse jusqu’à la date limite.',
+    'see_you' => 'Nous nous réjouissons de vous voir',
+    'letter_heading' => 'Invitation',
+    'day_parts' => ['day' => 'Pendant la journée', 'evening' => 'Le soir'],
     'events_heading' => 'Votre invitation',
     'reply_by' => 'Merci de répondre avant le :date',
     'blocks' => [

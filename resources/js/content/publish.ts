@@ -22,7 +22,7 @@ export const publishPage = {
         'Die Zahlung ist noch nicht eingerichtet. Schreibt uns, wir schalten euch von Hand frei.',
     finishSetup:
         'Schliesst zuerst die Einrichtung ab, dann könnt ihr versenden.',
-    free: 'Immer gratis: der ganze Baukasten, alle Vorlagen und Farben, die Vorschau, und für eure Gäste alles.',
+    free: 'Immer gratis: alle fünf Entwürfe, die Vorschau, und für eure Gäste alles.',
     fine: 'Einmalig, per Karte oder TWINT über Stripe. Eure Gäste sehen nie einen Preis.',
     previewLabel: 'Eure Seite',
 };

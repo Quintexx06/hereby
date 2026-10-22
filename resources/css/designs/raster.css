@@ -1,0 +1,166 @@
+/*
+ * Raster (ADR 0015): the Swiss grid. Schibsted Grotesk only, flush left,
+ * square corners; exposed-concrete paper, graphite ink, one vermilion.
+ * Twelve columns: each section's number and name in the first three
+ * (sticky while it scrolls), its content in the middle seven. The date as
+ * architecture, the day as a timetable. Nothing moves.
+ */
+@layer components {
+    [data-template='raster'] {
+        counter-reset: raster;
+        @apply text-lg leading-[1.55];
+    }
+
+    /* ---------- The date as architecture ---------- */
+    .raster-hero {
+        @apply grid w-full max-w-[90rem] grid-cols-4 gap-x-4 gap-y-8 px-4 pt-10 pb-20 sm:px-8 md:grid-cols-12 md:gap-x-6 md:pt-14 md:pb-28;
+    }
+
+    .raster-date {
+        @apply col-span-full font-display text-[26vw] leading-[0.82] font-normal tracking-[-0.055em] whitespace-nowrap md:text-[min(15.4vw,14.5rem)];
+    }
+
+    .raster-date > span {
+        @apply block md:inline;
+    }
+
+    .raster-hero-names {
+        @apply col-span-full flex flex-col justify-end gap-5 md:col-span-6;
+    }
+
+    .raster-names {
+        @apply font-display text-[clamp(2.75rem,5.5vw,4.5rem)] leading-[1] font-medium tracking-[-0.035em] [overflow-wrap:anywhere];
+    }
+
+    .raster-meta {
+        @apply text-lg text-muted-foreground;
+    }
+
+    .raster-cover {
+        @apply col-span-full m-0 -mx-4 aspect-[3/2] sm:-mx-8 md:col-span-6 md:mx-0;
+    }
+
+    /* ---------- Numbered sections on the grid ---------- */
+    .raster-section {
+        @apply grid w-full max-w-[90rem] scroll-mt-20 grid-cols-4 gap-x-4 gap-y-8 border-t border-foreground px-4 pt-6 pb-20 sm:px-8 md:grid-cols-12 md:gap-x-6 md:pb-28;
+        counter-increment: raster;
+    }
+
+    .raster-section > h2,
+    .raster-label {
+        @apply col-span-full self-start font-display text-xl leading-tight font-medium tracking-[-0.01em] before:mr-3 before:text-brand before:content-[counter(raster,decimal-leading-zero)] md:sticky md:top-20 md:col-span-3;
+    }
+
+    .raster-section > :not(h2) {
+        @apply col-span-full md:col-span-7 md:col-start-4;
+    }
+
+    [data-template='raster'] .inv-letter {
+        @apply max-w-none gap-5;
+    }
+
+    [data-template='raster'] .inv-dear {
+        @apply text-[clamp(2.25rem,4vw,3.25rem)] leading-[1.05] font-medium tracking-[-0.03em];
+    }
+
+    [data-template='raster'] .inv-letter-text {
+        @apply max-w-[36ch] text-xl;
+    }
+
+    /* The day as a timetable: hairline rows, tabular times. */
+    [data-template='raster'] .inv-day-item {
+        @apply grid grid-cols-[4.5em_minmax(0,1fr)] gap-x-4 border-b border-[var(--rule)] py-5 first:border-t md:grid-cols-[6rem_minmax(0,1.1fr)_minmax(0,1fr)_auto] md:gap-x-6;
+    }
+
+    [data-template='raster'] .inv-day-time {
+        @apply font-sans text-2xl font-medium [font-variant-numeric:normal] md:text-right;
+    }
+
+    [data-template='raster'] .inv-day-body {
+        @apply flex flex-col gap-1 md:contents;
+    }
+
+    [data-template='raster'] .inv-day-title {
+        @apply font-sans text-2xl font-medium tracking-[-0.02em] md:col-start-2;
+    }
+
+    [data-template='raster'] .inv-day-place {
+        @apply md:col-start-3 md:row-start-1 md:pt-1;
+    }
+
+    [data-template='raster'] .inv-day-address {
+        @apply md:col-start-3 md:row-start-2;
+    }
+
+    [data-template='raster'] .inv-day-route {
+        @apply self-start text-brand md:col-start-4 md:row-start-1 md:pt-1;
+    }
+
+    /* ---------- Photos: a strict grid, all 3:2 ---------- */
+    .raster-photos {
+        @apply max-w-[90rem] grid-cols-1 gap-6 px-4 pb-20 sm:grid-cols-2 sm:px-8 md:pb-28;
+    }
+
+    .raster-photos .inv-photos-frame {
+        @apply aspect-[3/2];
+    }
+
+    .raster-photos[data-count='1'] .inv-photos-frame,
+    .raster-photos[data-count='3'] .inv-photos-frame:first-child {
+        @apply sm:col-span-2;
+    }
+
+    /* ---------- Story, practical, questions ---------- */
+    [data-template='raster'] .inv-story-list {
+        @apply md:grid-cols-3;
+    }
+
+    [data-template='raster'] .inv-story-when {
+        @apply font-sans text-xl font-medium;
+    }
+
+    [data-template='raster'] .block-venue-name {
+        @apply text-2xl font-medium;
+    }
+
+    [data-template='raster'] .block-faq-question {
+        @apply text-xl font-medium;
+    }
+
+    /* ---------- The reply on graphite ---------- */
+    [data-template='raster'] .inv-closing {
+        @apply items-start bg-[var(--night)] px-4 py-24 text-left text-[var(--night-foreground)] sm:px-8 md:py-32 md:pl-[calc(25%+0.5rem)];
+    }
+
+    [data-template='raster'] .inv-closing-title {
+        @apply font-medium tracking-[-0.04em];
+    }
+
+    [data-template='raster'] :is(.inv-closing-text, .inv-calendar) {
+        @apply justify-start;
+        color: var(--night-muted);
+    }
+
+    [data-template='raster'] .inv-closing-button {
+        @apply bg-[var(--night-accent)] text-[var(--night)];
+    }
+
+    [data-template='raster'] .inv-footer {
+        @apply items-start px-4 text-left sm:px-8 md:pl-[calc(25%+0.5rem)];
+    }
+
+    [data-template='raster'] .inv-footer-couple {
+        @apply font-medium tracking-[-0.04em];
+    }
+
+    [data-template='raster'] :is(.inv-footer-contact, .inv-footer-links) {
+        @apply items-start justify-start;
+    }
+}
+
+/* Schibsted's tabular figures widen the punctuation too: dates stay proportional. */
+@layer utilities {
+    [data-theme='raster'] .tabular-nums {
+        font-variant-numeric: normal;
+    }
+}
