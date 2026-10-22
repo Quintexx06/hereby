@@ -46,6 +46,9 @@ x-env: &env
     # so PHP and nginx must let at least that much through, with room for the form.
     PHP_UPLOAD_MAX_FILE_SIZE: '25M'
     PHP_POST_MAX_SIZE: '30M'
+    # Opening a 48 MP photo takes about 200 MB in GD; the image's default is 256M.
+    # WebImage refuses any photo that would not fit, instead of crashing.
+    PHP_MEMORY_LIMIT: '512M'
 
 x-app: &app
     build: .

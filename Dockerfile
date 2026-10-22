@@ -30,7 +30,9 @@ RUN composer install --no-dev --no-interaction --prefer-dist --optimize-autoload
 FROM serversideup/php:8.5-fpm-nginx
 
 USER root
-RUN install-php-extensions bcmath intl
+# The base image has no gd or exif: gd makes the web copies of every photo
+# (app/Support/WebImage), exif reads which way up a phone photo was taken.
+RUN install-php-extensions bcmath exif gd intl
 # Node runs the Inertia SSR server (ssr service); the binary is all it needs.
 COPY --from=build /usr/bin/node /usr/local/bin/node
 
