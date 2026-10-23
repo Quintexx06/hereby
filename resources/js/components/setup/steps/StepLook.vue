@@ -22,8 +22,9 @@ const options = Object.keys(templates) as WeddingTemplate[];
 <!--
     The five designs (ADR 0015, 0016): the chosen one large, as its real
     first screens on a computer and a phone, with its mood and the whole
-    sample; the five beside it to pick from, our suggestion marked; and for
-    anything beyond them, the made-to-measure.
+    sample; the five beside it to pick from, our suggestion marked (tagged
+    in the wide column, a dot and a line under the row of five where it is
+    narrow); and for anything beyond them, the made-to-measure.
 -->
 <template>
     <div class="look @container flex flex-col gap-8">
@@ -60,6 +61,7 @@ const options = Object.keys(templates) as WeddingTemplate[];
                     v-for="option in options"
                     :key="option"
                     class="design-option"
+                    :data-suggested="suggestion?.template === option"
                 >
                     <input
                         v-model="form.template"
@@ -88,6 +90,11 @@ const options = Object.keys(templates) as WeddingTemplate[];
                         >
                     </span>
                 </label>
+                <p v-if="suggestion" class="look-suggestion">
+                    {{ look.suggested }}:
+                    {{ templates[suggestion.template].name }}.
+                    {{ suggestion.reason }}
+                </p>
             </fieldset>
         </div>
         <InputError :message="form.errors.template" />

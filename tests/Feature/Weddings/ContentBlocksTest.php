@@ -129,6 +129,21 @@ class ContentBlocksTest extends TestCase
         $this->actingAs(User::factory()->create())->get(route('weddings.preview', $wedding))->assertForbidden();
     }
 
+    public function test_preview_of_a_wedding_still_without_a_date_still_renders(): void
+    {
+        $wedding = Wedding::factory()->draft()->create(['wedding_date' => null, 'rsvp_deadline' => null]);
+
+        $this->actingAs($wedding->owner)
+            ->get(route('weddings.preview', $wedding))
+            ->assertOk()
+            ->assertInertia(fn (Assert $page) => $page
+                ->component('invitation/Show')
+                ->whereType('invitation.wedding.date', 'string')
+            );
+
+        $this->assertNull($wedding->fresh()->wedding_date);
+    }
+
     public function test_hotel_links_must_be_web_addresses(): void
     {
         $wedding = Wedding::factory()->create();

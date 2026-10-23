@@ -54,8 +54,9 @@
         @apply mt-3 max-w-[52ch] text-muted-foreground;
     }
 
+    /* On a phone «Gespeichert» is the tick alone, so the row fits. */
     .setup-footer {
-        @apply sticky bottom-0 -mx-5 mt-auto flex items-center justify-between gap-4 border-t bg-background px-5 py-4 sm:-mx-10 sm:px-10 lg:-mx-16 lg:px-16;
+        @apply sticky bottom-0 -mx-5 mt-auto flex items-center justify-between gap-3 border-t bg-background px-5 py-4 sm:-mx-10 sm:px-10 lg:-mx-16 lg:px-16;
     }
 
     .setup-preview {
@@ -188,8 +189,17 @@
         @apply flex flex-col items-start gap-1 px-0.5 text-xs font-semibold sm:text-sm @3xl:text-base;
     }
 
+    /* The tag fits the wide column only; the row of five gets a dot. */
     .design-option-tag {
-        @apply rounded-full bg-brand-muted px-2 py-0.5 text-[0.7rem] font-medium text-foreground;
+        @apply hidden rounded-full bg-brand-muted px-2 py-0.5 text-[0.7rem] font-medium text-foreground @3xl:inline-block;
+    }
+
+    .design-option[data-suggested='true']::after {
+        @apply absolute top-2.5 right-2.5 size-2 rounded-full bg-brand ring-2 ring-background content-[''] @3xl:hidden;
+    }
+
+    .look-suggestion {
+        @apply col-span-5 flex items-center gap-2 text-sm text-muted-foreground before:size-2 before:shrink-0 before:rounded-full before:bg-brand before:content-[''] @3xl:hidden;
     }
 
     .look-bespoke {
@@ -284,12 +294,13 @@
 /* «Eckdaten» (pages/weddings/Details): the same questions as tabs. */
 @layer components {
     .details-tabs {
-        @apply flex gap-1 overflow-x-auto border-b border-border;
+        @apply relative flex overflow-x-auto border-b border-border sm:gap-1;
         scrollbar-width: none;
     }
 
+    /* Narrow on a phone, so all six fit side by side. */
     .details-tab {
-        @apply relative shrink-0 px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors duration-150 hover:text-foreground;
+        @apply relative shrink-0 px-2 py-2.5 text-sm font-medium text-muted-foreground transition-colors duration-150 hover:text-foreground sm:px-3;
     }
 
     .details-tab[aria-current='page'] {
@@ -297,7 +308,7 @@
     }
 
     .details-tab[aria-current='page']::after {
-        @apply absolute inset-x-3 -bottom-px h-0.5 rounded-full bg-brand content-[''];
+        @apply absolute inset-x-2 -bottom-px h-0.5 rounded-full bg-brand content-[''] sm:inset-x-3;
     }
 
     .details-form {
@@ -320,20 +331,6 @@
     /* Stays at the foot of the screen, so the way to save is never far. */
     .details-form > .details-savebar {
         @apply border-rule;
-    }
-
-    .details-tabs {
-        mask-image: linear-gradient(
-            to right,
-            black calc(100% - 2rem),
-            transparent
-        );
-    }
-
-    @media (min-width: 640px) {
-        .details-tabs {
-            mask-image: none;
-        }
     }
 
     .details-note {

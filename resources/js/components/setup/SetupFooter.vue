@@ -26,7 +26,8 @@ defineProps<{
             actions.reassure
         }}</span>
         <span v-if="saved" class="setup-saved ml-auto" role="status">
-            <Check class="size-4" /> {{ actions.saved }}
+            <Check class="size-4" />
+            <span class="max-sm:sr-only">{{ actions.saved }}</span>
         </span>
         <Button type="submit" size="pill" :disabled="processing">
             <Spinner v-if="processing" />

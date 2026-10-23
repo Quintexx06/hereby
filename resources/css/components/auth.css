@@ -92,6 +92,20 @@
         --i: 6;
     }
 
+    /* Without motion: the photo, the line and the form simply stand there. */
+    @media (prefers-reduced-motion: reduce) {
+        .auth-photo,
+        .auth-word,
+        .auth-rise,
+        .auth-fields form > * {
+            animation: none;
+        }
+
+        .auth-veil {
+            @apply hidden;
+        }
+    }
+
     @keyframes auth-rise {
         from {
             opacity: 0;

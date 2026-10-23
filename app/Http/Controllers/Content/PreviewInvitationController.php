@@ -10,6 +10,7 @@ use App\Models\Household;
 use App\Models\Wedding;
 use App\Support\WeddingLanguages;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\App;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -17,7 +18,7 @@ use Inertia\Response;
 /**
  * The couple sees their invitation as a guest would, in any of their
  * languages, for a sample household invited to everything. Nothing is
- * saved and no household counts as opened.
+ * saved and no household counts as opened, not even a provisional date.
  */
 class PreviewInvitationController extends Controller
 {
@@ -29,6 +30,8 @@ class PreviewInvitationController extends Controller
         App::setLocale($locale->value);
 
         $wedding->load('contentBlocks');
+        // Before the setup's date step, the preview shows a day a year ahead.
+        $wedding->wedding_date ??= Carbon::today('Europe/Zurich')->addYear();
         $household = new Household(['name' => $wedding->couple_names, 'locale' => $locale, 'plus_one_allowed' => false]);
         $household->setRelation('wedding', $wedding);
         $household->setRelation('events', $wedding->events()->orderBy('starts_at')->get());

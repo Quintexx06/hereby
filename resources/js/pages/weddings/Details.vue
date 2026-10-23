@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Head, Link, useForm } from '@inertiajs/vue3';
-import { computed } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import PageMasthead from '@/components/PageMasthead.vue';
 import SaveBar from '@/components/SaveBar.vue';
 import SetupStepBody from '@/components/setup/SetupStepBody.vue';
@@ -28,6 +28,21 @@ defineOptions({
 });
 
 const tabs = ['paar', 'datum', 'ort', 'ablauf', 'gaeste', 'look'] as const;
+const strip = ref<HTMLElement | null>(null);
+
+/*
+ * On a narrow phone the tabs scroll sideways; the open one is in view,
+ * measured once the font has loaded and the tabs have their real width.
+ */
+onMounted(() =>
+    document.fonts.ready.then(() => {
+        const open = strip.value?.querySelector<HTMLElement>('[aria-current]');
+        if (strip.value && open) {
+            strip.value.scrollLeft =
+                open.offsetLeft + open.offsetWidth - strip.value.clientWidth;
+        }
+    }),
+);
 
 const { id, couple_names: _names, ...fields } = props.wedding;
 const form = useForm<SetupForm>({
@@ -76,7 +91,7 @@ function submit(): void {
     <div class="app-page gap-8">
         <PageMasthead :title="copy.title" :lede="copy.lede" />
 
-        <nav :aria-label="copy.tabs" class="details-tabs">
+        <nav ref="strip" :aria-label="copy.tabs" class="details-tabs">
             <Link
                 v-for="tab in tabs"
                 :key="tab"
