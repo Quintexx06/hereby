@@ -1,0 +1,74 @@
+/*
+ * «Was es kostet» (PricingSection): what stays free on a muted panel, the
+ * three plans as a price list between hairlines (name and use, price,
+ * contents, the way to start), the extras as a menu with dotted leaders.
+ * One blush note: Atelier's price.
+ */
+@layer components {
+    .pricing-grid {
+        @apply grid gap-12 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16;
+    }
+
+    .pricing-free {
+        @apply flex flex-col gap-5 self-start rounded-[1.5rem] bg-muted/60 p-7 sm:p-9 lg:sticky lg:top-28;
+    }
+
+    .pricing-figure {
+        @apply font-display text-[clamp(2.75rem,5vw,4.25rem)] leading-none font-semibold tracking-[-0.045em] whitespace-nowrap tabular-nums;
+        font-stretch: 108%;
+    }
+
+    .pricing-from {
+        @apply mr-1 text-[0.42em] font-medium tracking-normal;
+    }
+
+    .pricing-features {
+        @apply flex flex-col gap-2.5 text-[1.0625rem] leading-snug;
+    }
+
+    .pricing-plans {
+        @apply flex flex-col border-t-[1.5px] border-foreground;
+    }
+
+    /* Name and use, price; contents, the way to start. */
+    .pricing-plan {
+        @apply grid gap-x-10 gap-y-6 border-b border-rule py-9 sm:grid-cols-[minmax(0,1fr)_auto] sm:py-11;
+    }
+
+    .pricing-price {
+        @apply flex flex-col items-start gap-1 sm:items-end sm:text-right;
+    }
+
+    .pricing-plan[data-plan='atelier'] .pricing-figure {
+        @apply text-brand;
+    }
+
+    .pricing-cta {
+        @apply self-end justify-self-start sm:justify-self-end;
+    }
+
+    .pricing-plan:not([data-plan='atelier']) .pricing-cta {
+        @apply border-[1.5px] border-foreground bg-transparent text-foreground shadow-none hover:bg-foreground hover:text-background;
+    }
+
+    /* ---------- Extras, as on a menu ---------- */
+    .pricing-extras {
+        @apply flex flex-col gap-6;
+    }
+
+    .pricing-list {
+        @apply grid gap-x-16 sm:grid-cols-2;
+    }
+
+    .pricing-row {
+        @apply flex items-baseline gap-3 border-b border-rule py-3.5;
+    }
+
+    .pricing-row > dt {
+        @apply flex flex-1 items-baseline gap-3 font-semibold after:min-w-6 after:flex-1 after:border-b-2 after:border-dotted after:border-foreground/25 after:content-[''];
+    }
+
+    .pricing-row > dd {
+        @apply font-display font-semibold whitespace-nowrap tabular-nums;
+    }
+}

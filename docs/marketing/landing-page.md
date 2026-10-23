@@ -105,6 +105,20 @@ its arch, branches and petals, Arve a Swiss map with a signpost, Lido the
 lake bath with the sun cut-out. The setup's moods describe them in these
 words; couples may upload eight photos.
 
+**Update 2026-10-23, later (founder):** the studio is a carousel again, as
+before ADR 0015: the front window large, its neighbours peeking at either
+side, endless, with arrows and the five names; each slide holds the desktop
+screenshot in a browser window and the phone over its corner. It stays
+right after the hero. The landing now says what things cost, because the
+founder found it unclear: a price line under the hero's buttons
+(«Gestalten ist gratis. Online geht eure Seite einmalig ab CHF 290.»), the
+Atelier badge and every extra with its price, and a section «Was es
+kostet» (`#preise`, in the nav) with what stays free, the three plans as a
+price list (Signature «nur die Website», Atelier with the evening, Couture)
+and the extras. Prices come from `config/hereby.php` through
+`WelcomeController`, so the landing always shows what checkout charges;
+plan contents are the checkout's lines (`content/publish.ts`).
+
 ## 5. Message hierarchy and section rationale
 
 | # | Section | Job | UX notes |

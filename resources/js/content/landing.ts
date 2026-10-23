@@ -11,6 +11,7 @@ export const nav = [
     { label: 'Für Gäste', href: '/#gaeste' },
     { label: 'Ablauf', href: '/#ablauf' },
     { label: 'Der Tag', href: '/#tag' },
+    { label: 'Preise', href: '/#preise' },
     { label: 'Fragen', href: '/#fragen' },
 ] as const;
 
@@ -23,6 +24,9 @@ export const hero = {
     lede: 'Fünf fertig gestaltete Entwürfe, jeder mit eigener Schrift und eigenen Farben, gefüllt mit euren Fotos und Texten. Jeder Haushalt bekommt seinen eigenen Link und sagt in unter einer Minute zu.',
     primaryCta: 'Kostenlos starten',
     secondaryCta: 'Vorlagen ansehen',
+    price: (from: string) =>
+        `Gestalten ist gratis. Online geht eure Seite einmalig ab ${from}.`,
+    priceLink: 'Preise ansehen',
     skip: 'Vorhang öffnen',
     photo: photo.heroVeil,
 } as const;
@@ -150,23 +154,25 @@ export const studio = {
     lede: 'Fünf Websites, jede gestaltet wie eine Papeterie-Serie: eigene Schrift, eigene Farben, eigener Aufbau. Ihr wählt eine und füllt sie mit euren Fotos und Texten. Alles darüber hinaus fertigen wir auf Mass.',
     live: 'Live ansehen',
     designsLabel: 'Entwürfe',
+    previous: 'Vorheriger Entwurf',
+    next: 'Nächster Entwurf',
     url: 'anna-und-luca.hereby.ch',
     example: 'Beispielseiten mit Demo-Daten',
     shot: (name: string) =>
-        `Erste Seite des Entwurfs ${name} mit den Beispielnamen Anna und Luca`,
+        `Erste Seite des Entwurfs ${name} mit den Beispielnamen Anna und Luca, am Computer und auf dem Handy`,
 } as const;
 
 /**
- * The paid side, without prices: only what ships today (rule 5). Two
- * products, told apart: the Atelier evening as moments of the night, and
- * the extras as tickets to add one by one.
+ * The paid side: only what ships today (rule 5), with the prices checkout
+ * charges. Two products, told apart: the Atelier evening as moments of
+ * the night, and the extras as tickets to add one by one.
  */
 export const premium = {
     titleLead: 'Und dann',
     titleAccent: 'der Abend.',
     lede: 'Die Einladung ist gratis gebaut. Mit Atelier geht eure Seite weiter: Sie führt eure Gäste durch den Tag, gibt den Trauzeugen das Programm in die Hand und bringt alle sicher heim.',
     package: {
-        badge: 'Paket Atelier',
+        badge: (price: string) => `Paket Atelier, ${price}`,
         title: 'Der Abend läuft von selbst',
         hint: 'Tippt auf einen Moment, um zu sehen, was eure Gäste dann auf dem Handy sehen.',
         cta: 'In Atelier und Couture',
@@ -207,33 +213,81 @@ export const premium = {
         add: 'Einzeln buchbar',
         included: 'In Couture dabei',
         perYear: 'pro Jahr',
+        fromAtelier: 'Ab Atelier',
         items: [
             {
                 icon: 'template',
+                addon: 'newspaper',
                 name: 'Hochzeitszeitung',
                 line: 'Eure Freunde schreiben Geschichten und schicken Fotos. Die Trauzeugen machen daraus eure Zeitung für den Abend.',
                 couture: true,
             },
             {
                 icon: 'calendar',
+                addon: 'chase_service',
                 name: 'Wir fassen nach',
                 line: 'Wer zwei Wochen vor der Frist noch nicht geantwortet hat, hört von uns. Ihr müsst niemandem nachlaufen.',
                 couture: true,
             },
             {
                 icon: 'link',
+                addon: 'custom_domain',
                 name: 'Eigene Domain',
                 line: 'Eure Seite unter eurem eigenen Namen, etwa anna-und-luca.ch. Wir richten alles für euch ein.',
                 couture: true,
             },
             {
                 icon: 'forever',
+                addon: 'keep_memories',
                 name: 'Erinnerungen behalten',
                 line: 'Fotos und Zeitung bleiben ein Jahr länger. Die Daten eurer Gäste löschen wir trotzdem pünktlich. Ab Atelier.',
                 couture: false,
             },
         ],
     },
+} as const;
+
+/**
+ * «Was es kostet» (PricingSection): building is free, a plan opens the
+ * links, extras one by one. Plan contents come from content/publish.ts, the
+ * same lines couples read at checkout; prices from WelcomeController.
+ */
+export const pricing = {
+    title: 'Was es kostet.',
+    lede: 'Gestalten, alle fünf Entwürfe ausprobieren und eure Seite in der Vorschau ansehen kostet nichts. Ihr bezahlt einmal, wenn die persönlichen Links an eure Gäste gehen. Kein Abo, kein Preis pro Gast, keine Werbung.',
+    free: 'Immer gratis',
+    freeItems: [
+        'Alle fünf Entwürfe, gefüllt mit euren Fotos und Texten',
+        'Die Vorschau eurer Seite, so lange ihr wollt',
+        'Für eure Gäste alles, ohne Konto und ohne Werbung',
+    ],
+    once: 'einmalig',
+    from: 'ab',
+    lines: {
+        signature:
+            'Nur die Website: eure Seite mit einem persönlichen Link für jeden Haushalt.',
+        atelier:
+            'Die Website und der Abend, der von selbst läuft, mit den Fotos eurer Gäste.',
+        couture: 'Alles, und wir gestalten und begleiten es mit euch.',
+    },
+    start: 'Kostenlos starten',
+    ask: 'Anfragen',
+    askHref: 'mailto:info@hereby.ch?subject=Couture',
+    extrasTitle: 'Einzeln dazu',
+    extras: [
+        { addon: 'newspaper', name: 'Hochzeitszeitung', perYear: false },
+        { addon: 'chase_service', name: 'Wir fassen nach', perYear: false },
+        { addon: 'custom_domain', name: 'Eigene Domain', perYear: false },
+        {
+            addon: 'keep_memories',
+            name: 'Erinnerungen behalten',
+            perYear: true,
+        },
+        { addon: 'bespoke', name: 'Massanfertigung', perYear: false },
+    ],
+    perYear: 'pro Jahr',
+    fine: 'Einmalig, per Karte oder TWINT. Wer später mehr will, bezahlt nur die Differenz. Eure Gäste sehen nie einen Preis.',
+    details: 'Alle Preise im Detail',
 } as const;
 
 export const struck = {

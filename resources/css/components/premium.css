@@ -225,6 +225,10 @@
             translate 700ms var(--ease-out);
     }
 
+    .premium-extra-price {
+        @apply mr-1.5 font-semibold text-foreground tabular-nums;
+    }
+
     .premium-extra-tag[data-couture='true'] {
         @apply border-brand/40 text-brand;
     }

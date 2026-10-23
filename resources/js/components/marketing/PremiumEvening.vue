@@ -10,6 +10,9 @@ import {
 import HerebyIcon from '@/components/brand/HerebyIcon.vue';
 import PremiumScreen from '@/components/marketing/PremiumScreen.vue';
 import { premium } from '@/content/landing';
+import { chf } from '@/content/publish';
+
+defineProps<{ price: number }>();
 
 const selected = ref<string>(premium.moments[1].key);
 const position = computed(() =>
@@ -73,7 +76,9 @@ onBeforeUnmount(() => {
     <div class="premium-package">
         <div class="flex flex-col gap-8">
             <div class="flex flex-col gap-3">
-                <span class="premium-badge">{{ premium.package.badge }}</span>
+                <span class="premium-badge">{{
+                    premium.package.badge(chf(price))
+                }}</span>
                 <h3 class="premium-package-title">
                     {{ premium.package.title }}
                 </h3>

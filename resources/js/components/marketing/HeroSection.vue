@@ -6,7 +6,11 @@ import SiteHeader from '@/components/marketing/SiteHeader.vue';
 import { Button } from '@/components/ui/button';
 import { useVeilCurtain } from '@/composables/motion/useVeilCurtain';
 import { hero } from '@/content/landing';
+import { chf } from '@/content/publish';
 import { register } from '@/routes';
+
+/* The lowest price to go live, so the first screen already answers it. */
+defineProps<{ from: number }>();
 
 const canvas = ref<HTMLCanvasElement | null>(null);
 const photo = ref<HTMLImageElement | null>(null);
@@ -87,6 +91,12 @@ const { state, revealed, usesWebgl, skip } = useVeilCurtain(canvas, photo);
                     >
                         <a href="#studio">{{ hero.secondaryCta }}</a>
                     </Button>
+                    <p class="hero-price">
+                        {{ hero.price(chf(from)) }}
+                        <a href="#preise" class="link-underline">{{
+                            hero.priceLink
+                        }}</a>
+                    </p>
                 </div>
             </div>
         </div>

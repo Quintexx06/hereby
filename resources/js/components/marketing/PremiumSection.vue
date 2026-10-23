@@ -2,11 +2,15 @@
 import PremiumEvening from '@/components/marketing/PremiumEvening.vue';
 import PremiumExtras from '@/components/marketing/PremiumExtras.vue';
 import { premium } from '@/content/landing';
+import type { LandingPrices } from '@/types/landing';
+
+defineProps<{ prices: LandingPrices }>();
 </script>
 
 <!--
-    The paid side, on night, as two products: the Atelier evening, shown
-    moment by moment on a guest's phone, and the extras as tickets to add.
+    The paid side, on night, as two products with their prices: the Atelier
+    evening, shown moment by moment on a guest's phone, and the extras as
+    tickets to add.
 -->
 <template>
     <section id="premium" class="stage overflow-hidden">
@@ -19,8 +23,8 @@ import { premium } from '@/content/landing';
                 <p class="lede">{{ premium.lede }}</p>
             </div>
 
-            <PremiumEvening />
-            <PremiumExtras />
+            <PremiumEvening :price="prices.plans.atelier" />
+            <PremiumExtras :prices="prices.addons" />
         </div>
     </section>
 </template>

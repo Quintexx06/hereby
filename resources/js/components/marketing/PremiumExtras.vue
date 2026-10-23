@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import HerebyIcon from '@/components/brand/HerebyIcon.vue';
 import { premium } from '@/content/landing';
+import { chf } from '@/content/publish';
+import type { LandingPrices } from '@/types/landing';
+
+defineProps<{ prices: LandingPrices['addons'] }>();
 
 const extras = premium.extras;
 
@@ -42,7 +46,13 @@ function follow(event: PointerEvent): void {
                     <p class="premium-moment-line">{{ item.line }}</p>
                 </div>
                 <p class="premium-extra-tag" :data-couture="item.couture">
-                    {{ item.couture ? extras.included : extras.add }}
+                    <span class="premium-extra-price">
+                        {{ chf(prices[item.addon]) }}
+                        <template v-if="item.addon === 'keep_memories'">{{
+                            extras.perYear
+                        }}</template>
+                    </span>
+                    {{ item.couture ? extras.included : extras.fromAtelier }}
                 </p>
             </li>
         </ul>

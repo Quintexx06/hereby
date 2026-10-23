@@ -9,14 +9,16 @@ import HeroSection from '@/components/marketing/HeroSection.vue';
 import IntroSection from '@/components/marketing/IntroSection.vue';
 import MarqueeBand from '@/components/marketing/MarqueeBand.vue';
 import PremiumSection from '@/components/marketing/PremiumSection.vue';
+import PricingSection from '@/components/marketing/PricingSection.vue';
 import StepsSection from '@/components/marketing/StepsSection.vue';
 import StruckSection from '@/components/marketing/StruckSection.vue';
 import StudioSection from '@/components/marketing/StudioSection.vue';
-import type { FaqItem, LandingSeo } from '@/types/landing';
+import type { FaqItem, LandingPrices, LandingSeo } from '@/types/landing';
 
 defineProps<{
     seo: LandingSeo;
     faq: FaqItem[];
+    prices: LandingPrices;
 }>();
 </script>
 
@@ -30,14 +32,15 @@ defineProps<{
         />
     </Head>
     <FloatingNav />
-    <HeroSection />
+    <HeroSection :from="prices.plans.signature" />
     <StudioSection />
     <IntroSection />
     <GuestSection />
     <StepsSection />
     <ActsSection />
     <MarqueeBand />
-    <PremiumSection />
+    <PremiumSection :prices="prices" />
+    <PricingSection :prices="prices" />
     <StruckSection />
     <FaqSection :items="faq" />
     <ClosingSection />
