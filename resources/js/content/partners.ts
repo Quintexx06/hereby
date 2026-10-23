@@ -153,39 +153,41 @@ export const adminPartners = {
     pitchOpen: 'Mail entwerfen',
     pitchNote: 'Persönlicher Satz für die Mail',
     pitchNoteHint:
-        'Nur für euch. Steht in «Mail entwerfen» gleich nach der Anrede.',
+        'Nur für euch. Steht in «Mail entwerfen» als Satz, warum Hereby zu diesem Haus passt, z. B. «Da Sie im Landgasthof Hasenstrick regelmässig Hochzeiten ausrichten, könnte das eine interessante Ergänzung für Ihre Angebote sein.»',
     importTitle: 'Mehrere Interessenten auf einmal',
     importHint:
         'Eine Location pro Zeile: Name; Ort; E-Mail; Website; persönlicher Satz. Nur der Name ist Pflicht. Wer schon in der Liste steht, wird übersprungen.',
     importLabel: 'Liste',
     importSubmit: 'Interessenten anlegen',
-    /** The pitch, in the team's own mail app; venues are addressed as «Sie». */
-    pitch: (
-        venue: string,
-        demo: string,
-        home: string,
-        note?: string | null,
-    ) => ({
-        subject: `Eine kleine Hochzeitsseite für ${venue}`,
+    /**
+     * The pitch, in the team's own mail app: formal «Sie», in the founder's
+     * own words (2026-10-23). The venue's own sentence, if the team wrote
+     * one, says why Hereby fits this house.
+     */
+    pitch: (venue: string, demo: string, note?: string | null) => ({
+        subject: `${venue}: Hochzeitswebsites für Ihre Brautpaare`,
         body: [
-            'Grüezi miteinander',
+            `Guten Tag liebes ${venue}-Team`,
             '',
-            ...(note ? [note, ''] : []),
-            'Ich bin Martin und baue mit Hereby Hochzeitswebsites, hier in der Schweiz. Statt Ihnen lange etwas zu erklären, zeige ich es Ihnen lieber: Ich habe eine kleine Beispielseite gebaut, so, wie ein Paar sie seinen Gästen schicken würde, wenn es bei Ihnen heiratet.',
+            'Eine Hochzeit ist für viele Paare einer der bedeutendsten Tage ihres Lebens. Wir finden, dass sich das auch in der Art widerspiegeln sollte, wie sie ihre Hochzeit präsentieren und ihre Gäste darauf einstimmen.',
+            '',
+            'Mit Hereby erstellen wir hochwertige, individuell gestaltete Hochzeitswebsites, die genau das ermöglichen. Die Paare können ihren Gästen einen ersten Eindruck von ihrer Hochzeit vermitteln und alle wichtigen Informationen stilvoll an einem Ort teilen. Ergänzt wird das Ganze durch praktische Funktionen, die auch die Organisation erleichtern.',
+            '',
+            note ||
+                'Da bei Ihnen regelmässig Hochzeiten gefeiert werden, könnte das eine interessante Ergänzung für Ihr Angebot sein.',
+            '',
+            'Um Ihnen einen konkreten Eindruck zu vermitteln, habe ich eine Beispielwebsite speziell für Ihr Haus erstellt:',
             '',
             demo,
             '',
-            'Einfach anklicken, ohne Anmeldung. Probieren Sie ruhig auch «Jetzt antworten» aus, dann sehen Sie, wie schnell ein Gast zusagt.',
+            'Vielleicht passt unser Ansatz auch zu Ihrem Betrieb. Gerne zeige ich Ihnen Hereby bei Interesse persönlich vor Ort oder kurz per Video.',
             '',
-            'Warum ich dabei an Sie gedacht habe: In jeder Hochzeit steckt viel Herzblut, und daneben geht erstaunlich viel Zeit für Listen drauf. Mit Hereby antwortet jeder Gast über seinen eigenen Link, und Sie sehen Gästezahlen, Menüs und Allergien immer aktuell, ohne dem Paar hinterherschreiben zu müssen. Die Namen der Gäste bleiben beim Paar, und alle Daten bleiben in der Schweiz.',
+            'Falls das für Sie momentan nicht interessant ist, ist das natürlich völlig in Ordnung. Über eine kurze Rückmeldung freue ich mich in jedem Fall.',
             '',
-            'Wenn Sie mögen, zeige ich Ihnen das gerne einmal in Ruhe, bei einem Kaffee bei Ihnen oder kurz per Video. Und falls es gerade nicht passt, ist das völlig in Ordnung. Ich freue mich über jede Rückmeldung.',
+            'Freundliche Grüsse',
             '',
-            `Wer gerne stöbert, findet hier mehr: ${home}fuer-locations`,
-            '',
-            'Herzliche Grüsse',
             'Martin Brunner',
-            'Hereby · info@hereby.ch',
+            'Hereby',
         ].join('\n'),
     }),
 };

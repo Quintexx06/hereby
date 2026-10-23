@@ -2,7 +2,6 @@
 import { Check, Link2, Mail, Pencil } from '@lucide/vue';
 import { computed, ref } from 'vue';
 import { adminPartners as copy } from '@/content/partners';
-import { home } from '@/routes';
 import type { AdminPartner } from '@/types';
 
 const props = defineProps<{ partner: AdminPartner }>();
@@ -27,12 +26,7 @@ const pitch = computed(() => {
         return null;
     }
 
-    const mail = copy.pitch(
-        partner.name,
-        partner.demo_url,
-        window.location.origin + home().url,
-        partner.pitch_note,
-    );
+    const mail = copy.pitch(partner.name, partner.demo_url, partner.pitch_note);
 
     return `mailto:${partner.email}?subject=${encodeURIComponent(mail.subject)}&body=${encodeURIComponent(mail.body)}`;
 });
