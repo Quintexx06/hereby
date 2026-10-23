@@ -1,0 +1,180 @@
+/*
+ * Garten on wide screens (restored from before ADR 0015): the day on a
+ * vine in the middle with its parts taking turns left and right under a
+ * tinted garden arch, the story in garden gates, the practical chapters
+ * as arched cards two by two, the photos under arches.
+ */
+@layer components {
+    /* ---------- The letter ---------- */
+    [data-template='garten'] .inv-dear {
+        @apply lg:text-6xl;
+    }
+
+    [data-template='garten'] .inv-letter-text {
+        @apply lg:text-2xl lg:leading-snug;
+    }
+
+    /* ---------- The day: a vine, sides taking turns ---------- */
+    [data-template='garten'] .inv-section[data-block='programme'] {
+        @apply max-w-5xl rounded-t-[min(46vw,30rem)] bg-[var(--tint)] px-5 pt-[min(34vw,13rem)] pb-16 sm:px-10;
+    }
+
+    /* Each part a leaf on the vine. */
+    [data-template='garten'] .event-timeline::before {
+        @apply w-0.5 bg-transparent md:left-1/2 md:-translate-x-1/2;
+        background-image: radial-gradient(
+            circle,
+            var(--brand) 1.2px,
+            transparent 1.6px
+        );
+        background-size: 2px 10px;
+    }
+
+    [data-template='garten'] .event-node {
+        @apply rounded-tl-full rounded-br-full border-brand/50 bg-card;
+    }
+
+    [data-template='garten'] .event-card {
+        @apply md:grid-cols-[minmax(0,1fr)_2.5rem_minmax(0,1fr)] md:gap-x-10 md:py-8;
+    }
+
+    [data-template='garten'] .event-card > .event-node {
+        @apply md:col-start-2 md:row-start-1;
+    }
+
+    [data-template='garten'] .event-card > time {
+        @apply md:col-start-1 md:row-start-1 md:items-end md:text-right;
+    }
+
+    [data-template='garten'] .event-card > div {
+        @apply md:col-start-3 md:row-start-1;
+    }
+
+    [data-template='garten'] .event-card:nth-child(even) > time {
+        @apply md:col-start-3 md:items-start md:text-left;
+    }
+
+    [data-template='garten'] .event-card:nth-child(even) > div {
+        @apply md:col-start-1 md:items-end md:text-right;
+    }
+
+    [data-template='garten'] .event-card:nth-child(even) .block-route,
+    [data-template='garten'] .event-card:nth-child(even) a {
+        @apply md:self-end;
+    }
+
+    /* Garten keeps the middle axis: words centred under their headings. */
+    [data-template='garten'] .inv-section:not([data-block='faq']) {
+        @apply text-center;
+    }
+
+    [data-template='garten'] .inv-section .block-venue {
+        @apply mx-auto max-w-prose items-center;
+    }
+
+    [data-template='garten'] .block-route {
+        @apply self-center;
+    }
+
+    /* ---------- The story in garden gates ---------- */
+    .story-arches {
+        @apply grid justify-items-center gap-x-6 gap-y-10 sm:grid-cols-2 lg:flex lg:flex-wrap lg:items-start lg:justify-center lg:gap-10;
+    }
+
+    /* Tall and narrow, like a garden gate. */
+    .story-arch {
+        @apply flex min-h-[26rem] w-full max-w-[21rem] flex-col items-center justify-end gap-3 rounded-t-full border border-brand/40 bg-card px-8 pt-24 pb-12 text-center lg:w-[19rem];
+    }
+
+    .story-arch:nth-child(even) {
+        @apply sm:translate-y-16;
+    }
+
+    .story-arch-numeral {
+        @apply font-display text-4xl font-semibold tracking-tight text-brand;
+    }
+
+    /* ---------- Practical chapters as arched cards, two by two ---------- */
+    [data-template='garten'] .inv-practical {
+        @apply flex w-full flex-col items-center gap-28 sm:gap-36 lg:grid lg:max-w-5xl lg:grid-cols-2 lg:items-stretch lg:gap-8;
+    }
+
+    [data-template='garten'] .inv-practical > .inv-section {
+        @apply lg:gap-6 lg:rounded-t-[12rem] lg:rounded-b-[1rem] lg:border lg:border-brand/30 lg:bg-[var(--tint)] lg:px-10 lg:pt-24 lg:pb-12;
+    }
+
+    [data-template='garten'] .inv-practical > .inv-section > .inv-heading {
+        @apply lg:text-4xl;
+    }
+
+    [data-template='garten'] .inv-practical > .inv-section .inv-statement {
+        @apply lg:text-lg;
+    }
+
+    [data-template='garten']
+        .inv-practical
+        > .inv-section:last-child:nth-child(odd) {
+        @apply lg:col-span-2 lg:w-[calc(50%-1rem)] lg:justify-self-center;
+    }
+
+    /* ---------- Photos under arches, rows of three, the middle tallest ---------- */
+    .inv-gallery {
+        @apply flex w-full max-w-5xl flex-wrap items-end justify-center gap-3 sm:gap-8;
+    }
+
+    .inv-gallery-frame {
+        @apply m-0 aspect-[3/4] w-[min(46%,17rem)] overflow-hidden rounded-t-full rounded-b-[0.5rem];
+    }
+
+    .inv-gallery-photo {
+        @apply block size-full;
+    }
+
+    .inv-gallery[data-count='3'] .inv-gallery-frame {
+        @apply w-[min(31%,17rem)];
+    }
+
+    .inv-gallery[data-count='3'] .inv-gallery-frame:nth-child(2) {
+        @apply w-[min(36%,21rem)];
+    }
+
+    /* More than four: two to a row on phones, three from small screens. */
+    .inv-gallery:is([data-count='5'], [data-count='6'], [data-count='7'])
+        .inv-gallery-frame {
+        @apply sm:w-[min(31%,17rem)];
+    }
+
+    .inv-gallery:is([data-count='5'], [data-count='6'], [data-count='7'])
+        .inv-gallery-frame:nth-child(3n + 2) {
+        @apply sm:w-[min(36%,21rem)];
+    }
+
+    .inv-gallery[data-count='1'] .inv-gallery-frame {
+        @apply w-[min(70%,22rem)];
+    }
+}
+
+/* The photos settle from a slight zoom as they come into view. */
+@supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+        .inv-gallery-photo {
+            animation: garten-gallery-settle linear both;
+            animation-timeline: view();
+            animation-range: entry 0% cover 45%;
+        }
+
+        .gsap-on .inv-gallery-photo {
+            animation: none;
+        }
+    }
+}
+
+@keyframes garten-gallery-settle {
+    from {
+        scale: 1.12;
+    }
+
+    to {
+        scale: 1;
+    }
+}

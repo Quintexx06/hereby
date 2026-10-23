@@ -31,5 +31,6 @@ The demo couple photo in them is `veil-kiss.webp` (Nathan Dumlao, above).
 `public/images/designs/*.webp` are screenshots of Hereby's five sample sites
 (`/beispiel/{design}`, fictional names Anna & Luca), shown in the landing
 studio and the setup's look step. The photos in them are the Unsplash
-photos above (Nathan Dumlao, C Boyd, Tetiana Thiel). Regenerate them when a
-design changes.
+photos above (Nathan Dumlao, C Boyd, Tetiana Thiel, Jonathan Borba, Jakob
+Owens); the sample sites show all six. Regenerate them when a design
+changes.

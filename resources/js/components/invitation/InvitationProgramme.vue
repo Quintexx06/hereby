@@ -2,9 +2,13 @@
 import { useTrans } from '@/composables/useTrans';
 import type { ProgrammeItem } from '@/composables/useInvitationContent';
 import { formatDay } from '@/lib/format';
+import { eventIcons } from '@/lib/invitation-icons';
 
-/* Days shows the date under each time, for weddings over more than one day. */
-defineProps<{ items: ProgrammeItem[]; days?: boolean }>();
+/*
+ * Days shows the date under each time, for weddings over more than one day;
+ * icons sets each part's sign beside it, for designs that draw them.
+ */
+defineProps<{ items: ProgrammeItem[]; days?: boolean; icons?: boolean }>();
 const { t, localeTag } = useTrans();
 </script>
 
@@ -21,6 +25,12 @@ const { t, localeTag } = useTrans();
             class="inv-day-item"
             :data-type="item.event.type"
         >
+            <component
+                :is="eventIcons[item.event.type]"
+                v-if="icons"
+                class="inv-day-icon"
+                aria-hidden="true"
+            />
             <time :datetime="item.event.startsAt" class="inv-day-time">
                 {{ item.time }}
                 <span v-if="days" class="inv-day-date">{{

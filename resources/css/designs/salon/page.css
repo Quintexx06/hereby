@@ -1,0 +1,275 @@
+/*
+ * Salon's rooms: the letter on an ivory card between two frames, the day
+ * as the evening's order in Ballet and gilt, the story as exhibition
+ * labels, the practical chapters and questions on gilt hairlines, flutes
+ * above the last question. Ballet only for names and the parts of the day.
+ */
+@layer components {
+    /* One weight per face, as engraving has: never a synthetic bold. */
+    [data-theme='salon'] {
+        font-synthesis-weight: none;
+    }
+
+    /* ---------- The letter on the card, between two frames ---------- */
+    .salon-letter {
+        @apply grid w-full max-w-[90rem] items-center justify-items-center gap-10 px-5 py-16 sm:px-10 md:py-24 lg:grid-cols-[minmax(0,1fr)_minmax(0,40rem)_minmax(0,1fr)] lg:gap-14;
+    }
+
+    .salon-letter-frame {
+        @apply aspect-[4/5] w-full max-w-[16rem] lg:max-w-[22rem];
+    }
+
+    .salon-letter-frame:first-child {
+        @apply lg:mt-24 lg:-rotate-[1.5deg];
+    }
+
+    .salon-letter-frame:last-child {
+        @apply lg:-mt-20 lg:rotate-[1.2deg];
+    }
+
+    .salon-letter[data-frames='1'] {
+        @apply lg:max-w-6xl lg:grid-cols-[minmax(0,1fr)_minmax(0,40rem)];
+    }
+
+    .salon-letter:not(:has(.salon-letter-frame)) .salon-card {
+        @apply lg:col-start-2;
+    }
+
+    /* An ivory card with an engraved double rule. */
+    .salon-card {
+        @apply flex w-full max-w-[40rem] flex-col items-center gap-2 bg-background px-7 py-14 text-center text-foreground sm:px-14 sm:py-20;
+        box-shadow:
+            inset 0 0 0 0.75rem var(--background),
+            inset 0 0 0 calc(0.75rem + 1px) var(--brand),
+            inset 0 0 0 1.1rem var(--background),
+            inset 0 0 0 calc(1.1rem + 1px) var(--brand),
+            0 2rem 3.5rem -1.5rem var(--night-deep);
+    }
+
+    .salon-for {
+        @apply text-base text-muted-foreground;
+    }
+
+    [data-template='salon'] .inv-letter {
+        @apply items-center;
+    }
+
+    [data-template='salon'] .inv-dear {
+        @apply text-[2rem] sm:text-[2.5rem];
+    }
+
+    [data-template='salon'] .inv-dear-names {
+        @apply font-[family-name:var(--type-script)] text-[1.5em] leading-none;
+    }
+
+    [data-template='salon'] .inv-letter-text {
+        @apply text-foreground;
+    }
+
+    [data-template='salon'] .inv-reply {
+        @apply items-center;
+    }
+
+    /* ---------- Sections on the wall ---------- */
+    .salon-section {
+        @apply flex w-full max-w-6xl scroll-mt-24 flex-col items-center gap-12 px-5 py-16 text-center sm:px-10 md:py-20;
+    }
+
+    .salon-heading,
+    [data-template='salon'] .inv-chapter-heading {
+        @apply text-[clamp(2.25rem,4.5vw,3.5rem)] leading-tight text-[var(--night-foreground)];
+    }
+
+    /* A gilt rule with a lozenge, under every heading on the wall. */
+    .salon-heading::after,
+    [data-template='salon'] .inv-chapter-heading::after {
+        @apply mx-auto mt-6 block h-3 w-40 content-[''];
+        background:
+            linear-gradient(var(--night-accent), var(--night-accent)) center /
+                100% 1px no-repeat,
+            linear-gradient(
+                    45deg,
+                    transparent 35%,
+                    var(--night-accent) 35% 65%,
+                    transparent 65%
+                )
+                center / 0.75rem 0.75rem no-repeat;
+    }
+
+    /* ---------- The day: the evening's order ---------- */
+    [data-template='salon'] .inv-day {
+        @apply grid gap-12 sm:grid-cols-2 lg:grid-cols-[repeat(auto-fit,minmax(13rem,1fr))] lg:gap-8;
+    }
+
+    [data-template='salon'] .inv-day-item {
+        @apply flex flex-col items-center gap-3 border-t border-[var(--night-accent)] pt-8;
+    }
+
+    [data-template='salon'] .inv-day-time {
+        @apply text-[clamp(2.75rem,4vw,3.5rem)] text-[var(--night-accent)];
+    }
+
+    [data-template='salon'] .inv-day-body {
+        @apply flex flex-col items-center gap-1;
+    }
+
+    [data-template='salon'] .inv-day-title {
+        @apply font-[family-name:var(--type-script)] text-[2.75rem] leading-[1.3] text-[var(--gilt-light)];
+    }
+
+    [data-template='salon'] :is(.inv-day-address, .inv-day-date) {
+        @apply text-base text-[var(--night-muted)];
+    }
+
+    /* ---------- Story: exhibition labels ---------- */
+    [data-template='salon'] .inv-story {
+        @apply items-center;
+    }
+
+    [data-template='salon'] .inv-story-lede {
+        @apply mx-auto max-w-2xl text-[1.375rem] leading-relaxed;
+    }
+
+    [data-template='salon'] .inv-story-list {
+        @apply w-full gap-y-14 sm:grid-cols-2 lg:grid-cols-[repeat(auto-fit,minmax(14rem,1fr))] lg:gap-x-10;
+    }
+
+    [data-template='salon'] .inv-story-item {
+        @apply items-center gap-2;
+    }
+
+    [data-template='salon'] .inv-story-mark {
+        @apply text-sm text-[var(--night-accent)];
+    }
+
+    [data-template='salon'] .inv-story-when {
+        @apply font-sans text-[1.5rem] text-[var(--gilt-light)];
+    }
+
+    [data-template='salon'] .inv-story-what {
+        @apply text-base text-[var(--night-muted)];
+    }
+
+    /* ---------- Place, travel, stay, dress code ---------- */
+    .salon-details {
+        @apply grid items-start gap-x-10 gap-y-16 sm:grid-cols-2 lg:grid-cols-[repeat(auto-fit,minmax(13rem,1fr))];
+    }
+
+    [data-template='salon'] .inv-practical {
+        @apply items-center gap-3 border-t border-[var(--night-accent)] pt-8 text-center;
+    }
+
+    [data-template='salon'] .inv-practical-heading {
+        @apply text-[1.75rem] text-[var(--gilt-light)];
+    }
+
+    [data-template='salon'] .inv-practical :is(.block-venue, .block-text) {
+        @apply items-center text-base text-[var(--night-muted)];
+    }
+
+    [data-template='salon'] .block-venue-name {
+        @apply font-normal text-[var(--night-foreground)];
+    }
+
+    [data-template='salon'] .block-route {
+        @apply self-center text-[var(--night-foreground)];
+    }
+
+    /* The dress code is what a black-tie guest looks for first. */
+    [data-template='salon']
+        .inv-practical[data-block='dress_code']
+        .block-text {
+        @apply text-[1.375rem] text-[var(--night-foreground)];
+    }
+
+    /* ---------- Questions ---------- */
+    .salon-faq > div {
+        @apply w-full max-w-3xl text-left;
+    }
+
+    [data-template='salon'] :is(.block-faq, .block-stay) {
+        @apply border-[color-mix(in_oklch,var(--night-accent)_45%,transparent)];
+    }
+
+    [data-template='salon'] .block-faq-question {
+        @apply font-normal;
+    }
+
+    [data-template='salon'] :is(.block-faq-chevron, .block-faq p) {
+        @apply text-[var(--night-muted)];
+    }
+
+    /* ---------- The last question, with flutes ---------- */
+    .salon-finale {
+        @apply relative isolate flex w-full flex-col items-center px-5 pt-16 pb-24 sm:pt-20;
+        background: radial-gradient(
+            ellipse 40rem 26rem at 50% 30%,
+            color-mix(in oklch, var(--night-accent) 18%, transparent),
+            transparent 70%
+        );
+    }
+
+    .salon-flutes {
+        @apply pointer-events-none -mb-8 h-[min(56vw,20rem)] w-[min(92vw,30rem)];
+    }
+
+    [data-template='salon'] .inv-closing-title {
+        @apply font-[family-name:var(--type-script)] text-[clamp(4rem,10vw,7.5rem)] leading-[1.2] text-[var(--gilt-light)];
+    }
+
+    [data-template='salon'] :is(.inv-closing-text, .inv-calendar) {
+        @apply text-[var(--night-muted)];
+    }
+
+    /* Buttons on the wall in gilt; on the card in claret. */
+    [data-template='salon'] .inv-closing-button {
+        @apply bg-[var(--night-accent)] text-[var(--night)];
+    }
+
+    [data-theme='salon'] :is(.reply-send, .inv-closing-button, .inv-nav-reply) {
+        @apply font-normal tracking-[0.04em];
+    }
+
+    /* ---------- Footer ---------- */
+    [data-template='salon'] .inv-footer {
+        @apply border-t border-[color-mix(in_oklch,var(--night-accent)_35%,transparent)] text-[var(--night-muted)];
+    }
+
+    [data-template='salon'] .inv-footer-couple {
+        @apply font-[family-name:var(--type-script)] text-[clamp(3.5rem,8vw,6rem)] leading-[1.3] text-[var(--gilt-light)];
+    }
+
+    [data-template='salon'] .inv-footer-amp {
+        @apply text-[var(--night-accent)];
+    }
+
+    /* The evening's own cards (Atelier) stay readable on the wall. */
+    [data-template='salon'] :is(.evening-card, .evening-call) {
+        @apply text-foreground;
+    }
+
+    /* ---------- The bar and the reply at the thumb, on the wall ---------- */
+    [data-theme='salon'] .inv-nav[data-solid='true'] {
+        @apply border-[color-mix(in_oklch,var(--night-accent)_30%,transparent)] bg-[var(--night)] text-[var(--night-foreground)];
+    }
+
+    [data-theme='salon'] .inv-nav-reply {
+        @apply bg-[var(--night-accent)] text-[var(--night)];
+    }
+
+    [data-theme='salon'] .inv-monogram {
+        @apply font-[family-name:var(--type-script)] text-[2rem];
+    }
+
+    [data-theme='salon'] .inv-monogram-amp {
+        @apply text-[var(--night-accent)];
+    }
+
+    [data-theme='salon'] .inv-sticky {
+        @apply border-[var(--night-deep)] bg-[var(--night-deep)];
+    }
+
+    [data-theme='salon'] .inv-sticky .inv-closing-button {
+        @apply bg-[var(--night-accent)] text-[var(--night)];
+    }
+}

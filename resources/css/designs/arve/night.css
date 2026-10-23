@@ -1,0 +1,116 @@
+/*
+ * The last question under the alpine night: a ridge's silhouette rises
+ * from the snow paper into a dark sky with a few stars that breathe; the
+ * question in black capitals, the reply in glacier light, the footer on
+ * the same night.
+ */
+@layer components {
+    .arve-night {
+        @apply relative isolate mt-32 flex w-full flex-col items-center bg-[var(--night)] text-[var(--night-foreground)];
+    }
+
+    .arve-night-ridge {
+        @apply pointer-events-none absolute bottom-[calc(100%-1px)] left-0 h-[clamp(3rem,9vw,7.5rem)] w-full fill-[var(--night)];
+    }
+
+    /* A few stars, drawn once; they breathe slowly unless motion is reduced. */
+    .arve-night::before {
+        @apply pointer-events-none absolute inset-x-0 top-0 -z-10 h-[70%] content-[''];
+        background-image:
+            radial-gradient(
+                1.5px 1.5px at 12% 22%,
+                var(--night-foreground),
+                transparent
+            ),
+            radial-gradient(
+                1px 1px at 24% 64%,
+                var(--night-foreground),
+                transparent
+            ),
+            radial-gradient(
+                1.5px 1.5px at 38% 14%,
+                var(--night-foreground),
+                transparent
+            ),
+            radial-gradient(
+                1px 1px at 51% 44%,
+                var(--night-foreground),
+                transparent
+            ),
+            radial-gradient(
+                2px 2px at 63% 18%,
+                var(--night-foreground),
+                transparent
+            ),
+            radial-gradient(
+                1px 1px at 72% 58%,
+                var(--night-foreground),
+                transparent
+            ),
+            radial-gradient(
+                1.5px 1.5px at 84% 30%,
+                var(--night-foreground),
+                transparent
+            ),
+            radial-gradient(
+                1px 1px at 92% 12%,
+                var(--night-foreground),
+                transparent
+            ),
+            radial-gradient(
+                1px 1px at 6% 48%,
+                var(--night-foreground),
+                transparent
+            ),
+            radial-gradient(
+                1.5px 1.5px at 44% 76%,
+                var(--night-foreground),
+                transparent
+            );
+        animation: arve-stars 5s ease-in-out infinite alternate;
+    }
+
+    [data-template='arve'] .inv-closing {
+        @apply px-6 pt-20 pb-16 sm:pt-28;
+    }
+
+    [data-template='arve'] .inv-closing-title {
+        @apply font-black tracking-[-0.01em] uppercase;
+    }
+
+    [data-template='arve'] :is(.inv-closing-text, .inv-calendar) {
+        @apply text-[var(--night-muted)];
+    }
+
+    [data-template='arve'] .inv-closing-button {
+        @apply bg-[var(--night-accent)] font-bold text-[var(--night)];
+    }
+
+    [data-template='arve'] .inv-footer {
+        @apply border-t border-[color-mix(in_oklch,var(--night-foreground)_14%,transparent)] text-[var(--night-muted)];
+    }
+
+    [data-template='arve'] .inv-footer-couple {
+        @apply font-black text-[var(--night-foreground)] uppercase;
+    }
+
+    [data-template='arve'] .inv-footer-amp {
+        @apply text-[var(--night-accent)];
+    }
+
+    [data-theme='arve'] .inv-monogram {
+        @apply font-black uppercase;
+    }
+}
+
+@keyframes arve-stars {
+    to {
+        opacity: 0.45;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .arve-night::before {
+        animation: none;
+    }
+}

@@ -42,6 +42,15 @@ enum WeddingTemplate: string
     }
 
     /**
+     * The design's own stylesheet, a Vite entry: a guest page carries only
+     * its design's layout on top of the shared guest styles.
+     */
+    public function stylesheet(): string
+    {
+        return "resources/css/designs/{$this->value}.css";
+    }
+
+    /**
      * The roman files of the design's faces (resources/css/base/wedding-fonts.css),
      * display first, preloaded on its guest pages: the names are set in them.
      *
@@ -52,11 +61,11 @@ enum WeddingTemplate: string
         $file = fn (string $path): string => "node_modules/@fontsource{$path}.woff2";
 
         return match ($this) {
-            self::Salon => [$file('/castoro-titling/files/castoro-titling-latin-400-normal'), $file('/libre-caslon-text/files/libre-caslon-text-latin-400-italic')],
+            self::Salon => [$file('/ballet/files/ballet-latin-400-normal'), $file('/tenor-sans/files/tenor-sans-latin-400-normal')],
             self::Raster => [$file('-variable/schibsted-grotesk/files/schibsted-grotesk-latin-wght-normal')],
-            self::Garten => [$file('/linden-hill/files/linden-hill-latin-400-italic'), $file('-variable/ysabeau-office/files/ysabeau-office-latin-wght-normal')],
-            self::Arve => [$file('-variable/vollkorn/files/vollkorn-latin-wght-normal')],
-            self::Lido => [$file('/gloock/files/gloock-latin-400-normal'), $file('-variable/familjen-grotesk/files/familjen-grotesk-latin-wght-normal')],
+            self::Garten => [$file('-variable/cormorant-garamond/files/cormorant-garamond-latin-wght-normal'), $file('-variable/archivo/files/archivo-latin-wght-normal')],
+            self::Arve => [$file('-variable/sofia-sans-condensed/files/sofia-sans-condensed-latin-wght-normal')],
+            self::Lido => [$file('/shrikhand/files/shrikhand-latin-400-normal'), $file('-variable/figtree/files/figtree-latin-wght-normal')],
         };
     }
 }

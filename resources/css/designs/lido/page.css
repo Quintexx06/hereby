@@ -1,0 +1,208 @@
+/*
+ * Lido's pages: the letter as an entry ticket with its stub, the day in
+ * the pool's lanes between bead ropes, the story and practical chapters
+ * on paper, the last question on the deep lake under drifting waves.
+ */
+@layer components {
+    .lido-section {
+        @apply w-full max-w-[90rem] px-5 py-20 sm:px-10 lg:py-28;
+    }
+
+    .lido-heading,
+    [data-template='lido'] .inv-chapter-heading {
+        @apply font-display text-[clamp(2.75rem,6vw,5rem)] leading-none text-brand;
+    }
+
+    /* ---------- The entry ticket ---------- */
+    .lido-letter {
+        @apply flex justify-center;
+    }
+
+    .lido-ticket {
+        --stub: 7rem;
+        @apply grid w-full max-w-5xl rounded-[1.5rem] bg-[var(--butter)] lg:grid-cols-[minmax(0,1fr)_15rem];
+        mask:
+            radial-gradient(
+                circle 1rem at 0 calc(100% - var(--stub)),
+                transparent 98%,
+                black
+            ),
+            radial-gradient(
+                circle 1rem at 100% calc(100% - var(--stub)),
+                transparent 98%,
+                black
+            );
+        mask-composite: intersect;
+    }
+
+    @media (width >= 64rem) {
+        .lido-ticket {
+            mask:
+                radial-gradient(
+                    circle 1rem at calc(100% - 15rem) 0,
+                    transparent 98%,
+                    black
+                ),
+                radial-gradient(
+                    circle 1rem at calc(100% - 15rem) 100%,
+                    transparent 98%,
+                    black
+                );
+            mask-composite: intersect;
+        }
+    }
+
+    .lido-ticket-main {
+        @apply px-7 py-12 sm:px-12 lg:px-16 lg:py-16;
+    }
+
+    [data-template='lido'] .inv-dear {
+        @apply text-[clamp(2.5rem,5vw,4rem)] leading-[1.05] text-brand;
+    }
+
+    [data-template='lido'] .inv-dear-names {
+        @apply text-[var(--tomato)];
+    }
+
+    [data-template='lido'] .inv-letter-text {
+        @apply text-[1.3rem];
+    }
+
+    [data-template='lido'] .reply-send {
+        @apply font-bold;
+    }
+
+    .lido-ticket-stub {
+        @apply flex h-[var(--stub)] flex-col items-center justify-center gap-1 border-t-2 border-dashed border-[color-mix(in_oklch,var(--foreground)_30%,transparent)] px-6 text-center lg:h-auto lg:border-t-0 lg:border-l-2;
+    }
+
+    .lido-ticket-for {
+        @apply text-base font-semibold;
+    }
+
+    .lido-ticket-date {
+        @apply font-display text-[2.25rem] leading-tight text-[var(--tomato)];
+    }
+
+    /* ---------- The pool ---------- */
+    .lido-pool {
+        @apply flex w-full flex-col gap-10 bg-[color-mix(in_oklch,var(--brand)_13%,var(--background))] px-5 py-20 sm:px-10 lg:py-28;
+    }
+
+    .lido-pool > * {
+        @apply mx-auto w-full max-w-[90rem];
+    }
+
+    .lido-lane {
+        @apply grid grid-cols-[3rem_minmax(0,1fr)] items-center gap-x-5 gap-y-3 py-8 lg:grid-cols-[3.5rem_11rem_minmax(0,1fr)_minmax(0,20rem)] lg:gap-x-8;
+        /* The lane rope: tomato and paper beads under each lane. */
+        background:
+            radial-gradient(circle 0.3rem, var(--tomato) 96%, transparent) 0
+                100% / 1.6rem 0.8rem repeat-x,
+            radial-gradient(circle 0.3rem, var(--background) 96%, transparent)
+                0.8rem 100% / 1.6rem 0.8rem repeat-x;
+    }
+
+    .lido-lane-number {
+        @apply grid size-12 place-items-center rounded-lg bg-background text-xl font-extrabold text-foreground;
+    }
+
+    .lido-lane-time {
+        @apply font-display text-[clamp(2.75rem,4.5vw,3.75rem)] leading-none text-brand tabular-nums;
+    }
+
+    .lido-lane-what {
+        @apply col-start-2 flex items-center gap-3 lg:col-start-auto;
+    }
+
+    .lido-lane-icon {
+        @apply size-7 shrink-0 text-[var(--tomato)];
+    }
+
+    .lido-lane-title {
+        @apply text-[clamp(1.75rem,2.6vw,2.25rem)] leading-tight font-extrabold;
+    }
+
+    .lido-lane-where {
+        @apply col-start-2 flex flex-col gap-0.5 text-base lg:col-start-auto lg:items-end lg:text-right;
+    }
+
+    /* ---------- Story ---------- */
+    [data-template='lido'] .inv-story-lede {
+        @apply text-[1.5rem] leading-snug;
+    }
+
+    [data-template='lido'] .inv-story-list {
+        @apply gap-x-12 gap-y-12 md:grid-cols-2 lg:grid-cols-[repeat(auto-fit,minmax(15rem,1fr))];
+    }
+
+    [data-template='lido'] .inv-story-when {
+        @apply text-[2rem] leading-[1.1] text-[var(--tomato)];
+    }
+
+    [data-template='lido'] .inv-story-what {
+        @apply text-foreground;
+    }
+
+    /* ---------- Practical chapters on butter cards ---------- */
+    .lido-details {
+        @apply grid gap-5 sm:grid-cols-2 lg:grid-cols-4;
+    }
+
+    [data-template='lido'] .inv-practical {
+        @apply gap-3 rounded-[1.5rem] bg-[var(--butter)] p-7;
+    }
+
+    [data-template='lido'] .inv-practical-icon {
+        @apply size-12 rounded-full bg-brand p-3 text-[var(--butter)];
+    }
+
+    [data-template='lido'] .inv-practical-heading {
+        @apply font-display text-[1.75rem] text-brand;
+    }
+
+    [data-template='lido'] .block-venue-name {
+        @apply text-lg font-bold;
+    }
+
+    .lido-faq > div {
+        @apply max-w-3xl;
+    }
+
+    /* ---------- The deep lake ---------- */
+    .lido-lake {
+        @apply relative isolate mt-28 flex w-full flex-col items-center bg-foreground text-background;
+    }
+
+    .lido-lake-edge {
+        @apply pointer-events-none absolute bottom-[calc(100%+0.75rem)] left-0 h-16 w-full text-brand;
+    }
+
+    [data-template='lido'] .inv-closing {
+        @apply px-6 pt-20 pb-16 sm:pt-28;
+    }
+
+    [data-template='lido'] .inv-closing-title {
+        @apply text-[var(--butter)];
+    }
+
+    [data-template='lido'] :is(.inv-closing-text, .inv-calendar) {
+        @apply text-[var(--night-muted)];
+    }
+
+    [data-template='lido'] .inv-closing-button {
+        @apply bg-[var(--butter)] font-bold text-foreground;
+    }
+
+    [data-template='lido'] .inv-footer {
+        @apply text-[var(--night-muted)];
+    }
+
+    [data-template='lido'] .inv-footer-couple {
+        @apply text-[var(--butter)];
+    }
+
+    [data-template='lido'] .inv-footer-amp {
+        @apply text-[var(--butter)];
+    }
+}

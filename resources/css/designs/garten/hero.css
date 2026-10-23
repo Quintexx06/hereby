@@ -1,0 +1,142 @@
+/*
+ * Garten's opening (restored from before ADR 0015): the couple's photo
+ * under an arch, a branch drawing itself on either side, petals falling
+ * (CSS until three.js takes over), the names centred below. GSAP, loaded
+ * on the first interaction, adds .gsap-on and the branches' sway.
+ */
+@layer components {
+    .garten-hero {
+        @apply relative isolate flex min-h-svh w-full max-w-6xl flex-col items-center justify-center gap-4 pt-10 pb-16 text-center;
+    }
+
+    /* The couple's photo under an arch; without one, their initials. */
+    .garten-arch {
+        @apply grid aspect-[3/4] w-[min(72vw,22rem)] place-items-center overflow-hidden rounded-t-full bg-brand-muted;
+        /* Rise without fading: content invisible at first paint never counts as LCP. */
+        animation: garten-rise 1s var(--ease-out) both;
+    }
+
+    .garten-initials {
+        @apply font-display text-5xl font-semibold tracking-[-0.04em] text-brand;
+    }
+
+    .garten-names {
+        @apply font-display text-[clamp(2.75rem,9vw,5.5rem)] leading-[0.9] font-bold tracking-[-0.05em] text-balance [overflow-wrap:anywhere];
+    }
+
+    .garten-branch {
+        @apply pointer-events-none absolute top-[12svh] -z-10 h-[56svh] w-auto max-w-[30vw] text-brand;
+    }
+
+    .garten-branch[data-side='left'] {
+        @apply left-0 sm:left-[4%];
+    }
+
+    .garten-branch[data-side='right'] {
+        @apply right-0 -scale-x-100 sm:right-[4%];
+    }
+
+    .garten-stem,
+    .garten-vein {
+        stroke: currentColor;
+        stroke-width: 1.6;
+        stroke-linecap: round;
+        stroke-dasharray: 1;
+        animation: garten-draw 2.4s var(--ease-in-out) 0.3s both;
+    }
+
+    .garten-vein {
+        stroke-width: 0.8;
+        animation-delay: calc(1s + var(--i) * 0.18s);
+    }
+
+    .garten-leaf,
+    .garten-blossom {
+        transform-box: fill-box;
+        transform-origin: 0% 50%;
+        animation: garten-bloom 0.9s var(--ease-out)
+            calc(0.9s + var(--i) * 0.18s) both;
+    }
+
+    .garten-leaf > path:first-child {
+        fill: color-mix(in oklch, var(--brand) 22%, transparent);
+        stroke: currentColor;
+        stroke-width: 0.8;
+    }
+
+    .garten-blossom {
+        transform-origin: 50% 50%;
+        fill: color-mix(in oklch, var(--brand) 45%, var(--background));
+    }
+
+    .garten-blossom-heart {
+        fill: var(--brand);
+    }
+
+    .garten-amp {
+        @apply font-medium text-brand italic;
+    }
+
+    .garten-kicker {
+        @apply text-[0.72rem] font-medium tracking-[0.2em] uppercase;
+    }
+
+    .invitation-countdown {
+        @apply mt-3 rounded-full border border-rule px-4 py-1.5 text-sm font-medium tabular-nums;
+    }
+
+    .garten-petals-3d {
+        @apply pointer-events-none absolute inset-0 -z-10 size-full;
+    }
+
+    .garten-petals {
+        @apply pointer-events-none absolute inset-0 -z-10 overflow-hidden;
+    }
+
+    .garten-petals > span {
+        @apply absolute -top-6 h-3 w-2 rounded-[60%_0] bg-brand/40;
+        left: calc(var(--p) * 10% + 2%);
+        animation: garten-fall calc(9s + var(--p) * 1.3s) linear
+            calc(var(--p) * -1.7s) infinite;
+    }
+}
+
+@keyframes garten-rise {
+    from {
+        translate: 0 2rem;
+    }
+}
+
+@keyframes garten-draw {
+    from {
+        stroke-dashoffset: 1;
+    }
+
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes garten-bloom {
+    from {
+        opacity: 0;
+        scale: 0.3;
+    }
+
+    to {
+        opacity: 1;
+        scale: 1;
+    }
+}
+
+@keyframes garten-fall {
+    from {
+        translate: 0 0;
+        rotate: 0deg;
+    }
+
+    to {
+        translate: 3rem 110svh;
+        rotate: 540deg;
+    }
+}

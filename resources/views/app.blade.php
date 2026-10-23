@@ -39,7 +39,10 @@
             Guest pages (rule 2: under two seconds on mobile data): the lean stylesheet,
             inlined so the first response can paint, and the one font file preloaded.
         --}}
-        @php($leanGuestPage = str_starts_with($page['component'], 'invitation/') && ! Vite::isRunningHot())
+        @php($guestPage = str_starts_with($page['component'], 'invitation/'))
+        @php($leanGuestPage = $guestPage && ! Vite::isRunningHot())
+        {{-- The design's own stylesheet (ADR 0015): a guest page carries only its design. --}}
+        @php($guestTemplate = $guestPage ? \App\Enums\WeddingTemplate::fromKey(data_get($page, 'props.invitation.wedding.template', data_get($page, 'props.reply.wedding.template', data_get($page, 'props.wedding.template', data_get($page, 'props.template'))))) : null)
         @if ($leanGuestPage)
             {{--
                 The HTML is server-rendered and links work without script, so the app
@@ -50,18 +53,21 @@
                 requestAnimationFrame(() => setTimeout(() => import(@js(Vite::asset('resources/js/app.ts'))), 0));
             </script>
             <style>{!! Vite::content('resources/css/guest.css') !!}</style>
+            @if ($guestTemplate)
+                <style>{!! Vite::content($guestTemplate->stylesheet()) !!}</style>
+            @endif
             {{-- The design's faces (ADR 0015): the names are set in them. --}}
-            @php($guestTemplate = \App\Enums\WeddingTemplate::fromKey(data_get($page, 'props.invitation.wedding.template', data_get($page, 'props.reply.wedding.template', data_get($page, 'props.wedding.template', data_get($page, 'props.template'))))))
             @foreach ($guestTemplate?->fonts() ?? [] as $guestFont)
                 <link rel="preload" href="{{ Vite::asset($guestFont) }}" as="font" type="font/woff2" crossorigin>
             @endforeach
         @endif
         @unless ($leanGuestPage)
-            @vite([
-                str_starts_with($page['component'], 'invitation/') ? 'resources/css/guest.css' : 'resources/css/app.css',
+            @vite(array_filter([
+                $guestPage ? 'resources/css/guest.css' : 'resources/css/app.css',
+                $guestTemplate?->stylesheet(),
                 'resources/js/app.ts',
                 "resources/js/pages/{$page['component']}.vue",
-            ])
+            ]))
         @endunless
         <x-inertia::head>
             <title>{{ $meta ? $meta['title'].' - '.config('app.name') : config('app.name', 'Laravel') }}</title>

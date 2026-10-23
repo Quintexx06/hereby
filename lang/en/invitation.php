@@ -17,6 +17,7 @@ return [
     'closing_text' => 'Replying takes less than a minute. You can change it any time before the deadline.',
     'see_you' => 'We can’t wait to see you',
     'letter_heading' => 'Invitation',
+    'photos_heading' => 'Photos',
     'day_parts' => ['day' => 'During the day', 'evening' => 'In the evening'],
     'events_heading' => 'Your invitation',
     'reply_by' => 'Please reply by :date',

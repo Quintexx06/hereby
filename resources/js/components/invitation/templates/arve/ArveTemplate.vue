@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { computed } from 'vue';
 import FaqBlock from '@/components/invitation/blocks/FaqBlock.vue';
 import InvitationChapter from '@/components/invitation/InvitationChapter.vue';
 import InvitationClosing from '@/components/invitation/InvitationClosing.vue';
@@ -8,12 +7,12 @@ import InvitationFooter from '@/components/invitation/InvitationFooter.vue';
 import InvitationLetter from '@/components/invitation/InvitationLetter.vue';
 import InvitationPhotos from '@/components/invitation/InvitationPhotos.vue';
 import InvitationPractical from '@/components/invitation/InvitationPractical.vue';
-import InvitationProgramme from '@/components/invitation/InvitationProgramme.vue';
-import InvitationStory from '@/components/invitation/InvitationStory.vue';
+import ArveAscent from '@/components/invitation/templates/arve/ArveAscent.vue';
 import ArveHero from '@/components/invitation/templates/arve/ArveHero.vue';
+import ArveSignpost from '@/components/invitation/templates/arve/ArveSignpost.vue';
+import ArveTopo from '@/components/invitation/templates/arve/ArveTopo.vue';
 import { useInvitationContent } from '@/composables/useInvitationContent';
 import { useTrans } from '@/composables/useTrans';
-import { VENUE_TIME_ZONE } from '@/lib/format';
 import type { Invitation } from '@/types';
 
 const props = defineProps<{ invitation: Invitation; replied: boolean }>();
@@ -21,35 +20,13 @@ const { t } = useTrans();
 const content = useInvitationContent(() => props.invitation);
 const { names, date, place, programme, story, faq, practical, photos } =
     content;
-
-/* The day and the evening as two columns: from six o'clock it is evening. */
-const hour = (iso: string): number =>
-    Number(
-        new Intl.DateTimeFormat('en-GB', {
-            hour: 'numeric',
-            hourCycle: 'h23',
-            timeZone: VENUE_TIME_ZONE,
-        }).format(new Date(iso)),
-    );
-const parts = computed(() =>
-    [
-        {
-            key: 'day',
-            items: programme.value.filter((i) => hour(i.event.startsAt) < 18),
-        },
-        {
-            key: 'evening',
-            items: programme.value.filter((i) => hour(i.event.startsAt) >= 18),
-        },
-    ].filter((part) => part.items.length),
-);
 </script>
 
 <!--
-    Arve: stone pine and wool, for mountain hotels, huts and alpine lakes.
-    Vollkorn from black names to reading text, night-forest green and one
-    geranium red. The landscape first, then the names; the day and the
-    evening side by side, the evening on the dark.
+    Arve: the Alps on a Swiss map, for mountain hotels, huts and alpine
+    lakes. The landscape under contour lines, the day as a trail signpost,
+    the story as an ascent to the summit, trail markers over the practical
+    chapters, and the last question under the alpine night.
 -->
 <template>
     <main class="invitation-page" data-template="arve">
@@ -62,26 +39,15 @@ const parts = computed(() =>
         />
 
         <div class="arve-letter">
+            <ArveTopo class="arve-letter-topo" />
             <InvitationLetter :invitation="invitation" :replied="replied" />
         </div>
 
-        <section v-if="parts.length" id="inv-programme" class="arve-day">
+        <section v-if="programme.length" id="inv-programme" class="arve-day">
             <h2 class="arve-heading">
                 {{ t('invitation.programme_heading') }}
             </h2>
-            <div class="arve-day-parts">
-                <div
-                    v-for="part in parts"
-                    :key="part.key"
-                    class="arve-day-part"
-                    :data-part="part.key"
-                >
-                    <h3 class="arve-day-label">
-                        {{ t(`invitation.day_parts.${part.key}`) }}
-                    </h3>
-                    <InvitationProgramme :items="part.items" />
-                </div>
-            </div>
+            <ArveSignpost :items="programme" />
         </section>
 
         <InvitationEvening :evening="invitation.evening" />
@@ -89,6 +55,7 @@ const parts = computed(() =>
         <InvitationPhotos
             :photos="photos"
             :alt="content.photoAlt.value"
+            :count="7"
             class="arve-photos"
         />
 
@@ -98,7 +65,7 @@ const parts = computed(() =>
             :heading="content.heading(story)"
             class="arve-section"
         >
-            <InvitationStory :block="story" />
+            <ArveAscent :block="story" :summit="date.long" />
         </InvitationChapter>
 
         <div v-if="practical.length" class="arve-section arve-details">
@@ -107,6 +74,7 @@ const parts = computed(() =>
                 :key="block.id"
                 :block="block"
                 :heading="content.heading(block)"
+                icon
             />
         </div>
 
@@ -114,12 +82,24 @@ const parts = computed(() =>
             v-if="faq"
             :block="faq"
             :heading="content.heading(faq)"
-            class="arve-section"
+            class="arve-section arve-faq"
         >
             <FaqBlock :block="faq" />
         </InvitationChapter>
 
-        <InvitationClosing :invitation="invitation" />
-        <InvitationFooter :wedding="invitation.wedding" />
+        <div class="arve-night">
+            <svg
+                class="arve-night-ridge"
+                viewBox="0 0 1200 120"
+                preserveAspectRatio="none"
+                aria-hidden="true"
+            >
+                <path
+                    d="M0 120 L0 92 L90 58 L150 74 L260 18 L330 52 L410 34 L520 86 L600 60 L700 4 L790 50 L860 38 L960 80 L1050 46 L1130 70 L1200 40 L1200 120 Z"
+                />
+            </svg>
+            <InvitationClosing :invitation="invitation" />
+            <InvitationFooter :wedding="invitation.wedding" />
+        </div>
     </main>
 </template>

@@ -167,23 +167,23 @@ export const templates: Record<
 > = {
     salon: {
         name: 'Salon',
-        mood: 'Eine gravierte Karte für Abendgarderobe: Titelversalien, Tinte auf Baumwollpapier, ein Ochsenblutrot. Für Grandhotel, Zunfthaus und Schloss.',
+        mood: 'Ein Grandhotel-Salon bei Nacht: eure Fotos in Goldrahmen an einer bordeauxroten Wand, die Namen in Schreibschrift, Champagnergläser zum Schluss. Für Black Tie, Grandhotel, Zunfthaus und Schloss.',
     },
     raster: {
         name: 'Raster',
-        mood: 'Schweizer Raster: das Datum als Architektur, das Programm als Fahrplan, ein Zinnoberrot. Für moderne Orte, Museen und die Stadt.',
+        mood: 'Schweizer Raster: das Datum als Architektur, das Programm als Fahrplan mit Piktogrammen, ein Zinnoberrot. Für moderne Orte, Museen und die Stadt.',
     },
     garten: {
         name: 'Garten',
-        mood: 'Wie ein Buch aus der Handpresse: kursive Namen, Initiale, Zeiten am Rand, Feigenrot. Für Gärten, Rebberge, Scheunen und Landgüter.',
+        mood: 'Romantisch und botanisch: euer Foto unter einem Bogen, Zweige und fallende Blüten, der Tag an einer Ranke, die Ringe zum Schluss. Für Gärten, Rebberge, Scheunen und Landgüter.',
     },
     arve: {
         name: 'Arve',
-        mood: 'Arvenholz und Wolle: ein Panorama über den Namen, kräftige Schrift, Geranienrot. Für Berghotels, Hütten und Bergseen.',
+        mood: 'Die Alpen auf der Landeskarte: Höhenlinien über eurer Landschaft, das Programm als gelber Wegweiser, eure Geschichte als Aufstieg zum Gipfel. Für Berghotels, Hütten und Bergseen.',
     },
     lido: {
         name: 'Lido',
-        mood: 'Sommer im Seebad: Buttergelb, Kobaltblau, ein Streifen wie an der Badi. Für den See, das Tessin und Feste bei Tag.',
+        mood: 'Sommer in der Badi: Markise, euer Foto als Sonne, die im See versinkt, das Programm in Schwimmbahnen, Buttergelb und Kobalt. Für den See, das Tessin und Feste bei Tag.',
     },
 };
 

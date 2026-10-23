@@ -1,9 +1,14 @@
+@reference '../guest.css';
+
+@import './raster/fonts.css';
+
 /*
  * Raster (ADR 0015): the Swiss grid. Schibsted Grotesk only, flush left,
  * square corners; exposed-concrete paper, graphite ink, one vermilion.
  * Twelve columns: each section's number and name in the first three
- * (sticky while it scrolls), its content in the middle seven. The date as
- * architecture, the day as a timetable. Nothing moves.
+ * (sticky while it scrolls) with its pictogram, its content in the middle
+ * seven. The date as architecture, the day as a timetable with a sign for
+ * each part, pictograms over the practical chapters. Nothing moves.
  */
 @layer components {
     [data-template='raster'] {
@@ -33,7 +38,15 @@
     }
 
     .raster-meta {
-        @apply text-lg text-muted-foreground;
+        @apply flex flex-col gap-1.5 text-lg text-muted-foreground;
+    }
+
+    .raster-meta > span {
+        @apply inline-flex items-center gap-2.5;
+    }
+
+    .raster-meta-icon {
+        @apply size-5 shrink-0 text-brand;
     }
 
     .raster-cover {
@@ -46,9 +59,19 @@
         counter-increment: raster;
     }
 
+    /* The label: the section's number, its pictogram, its name. */
     .raster-section > h2,
     .raster-label {
-        @apply col-span-full self-start font-display text-xl leading-tight font-medium tracking-[-0.01em] before:mr-3 before:text-brand before:content-[counter(raster,decimal-leading-zero)] md:sticky md:top-20 md:col-span-3;
+        @apply col-span-full flex flex-col items-start gap-3 self-start font-display text-xl leading-tight font-medium tracking-[-0.01em] before:text-base before:text-brand before:content-[counter(raster,decimal-leading-zero)] md:sticky md:top-20 md:col-span-3 md:col-start-1 md:row-start-1;
+    }
+
+    :is(.raster-label-icon, [data-template='raster'] .inv-chapter-icon) {
+        @apply size-10 stroke-[1.5] text-foreground;
+    }
+
+    /* Practical chapters: a large pictogram over the content, as on a Swiss sign. */
+    [data-template='raster'] .inv-practical-icon {
+        @apply size-14 stroke-[1.25] text-brand;
     }
 
     .raster-section > :not(h2) {
@@ -67,46 +90,56 @@
         @apply max-w-[36ch] text-xl;
     }
 
-    /* The day as a timetable: hairline rows, tabular times. */
+    /* The day as a timetable: hairline rows, the time, the part's sign. */
     [data-template='raster'] .inv-day-item {
-        @apply grid grid-cols-[4.5em_minmax(0,1fr)] gap-x-4 border-b border-[var(--rule)] py-5 first:border-t md:grid-cols-[6rem_minmax(0,1.1fr)_minmax(0,1fr)_auto] md:gap-x-6;
+        @apply grid grid-cols-[4.25em_1.75rem_minmax(0,1fr)] gap-x-4 border-b border-[var(--rule)] py-5 first:border-t md:grid-cols-[6rem_2rem_minmax(0,1.1fr)_minmax(0,1fr)_auto] md:gap-x-6;
     }
 
     [data-template='raster'] .inv-day-time {
-        @apply font-sans text-2xl font-medium [font-variant-numeric:normal] md:text-right;
+        @apply col-start-1 row-start-1 font-sans text-2xl font-medium [font-variant-numeric:normal] md:text-right;
+    }
+
+    .inv-day-icon {
+        @apply col-start-2 row-start-1 mt-1 size-7 stroke-[1.5] text-brand;
     }
 
     [data-template='raster'] .inv-day-body {
-        @apply flex flex-col gap-1 md:contents;
+        @apply col-start-3 flex flex-col gap-1 md:contents;
     }
 
     [data-template='raster'] .inv-day-title {
-        @apply font-sans text-2xl font-medium tracking-[-0.02em] md:col-start-2;
+        @apply font-sans text-2xl font-medium tracking-[-0.02em] md:col-start-3;
     }
 
     [data-template='raster'] .inv-day-place {
-        @apply md:col-start-3 md:row-start-1 md:pt-1;
+        @apply md:col-start-4 md:row-start-1 md:pt-1;
     }
 
     [data-template='raster'] .inv-day-address {
-        @apply md:col-start-3 md:row-start-2;
+        @apply md:col-start-4 md:row-start-2;
     }
 
     [data-template='raster'] .inv-day-route {
-        @apply self-start text-brand md:col-start-4 md:row-start-1 md:pt-1;
+        @apply inline-flex items-center gap-1.5 self-start text-brand md:col-start-5 md:row-start-1 md:pt-1;
     }
 
     /* ---------- Photos: a strict grid, all 3:2 ---------- */
     .raster-photos {
-        @apply max-w-[90rem] grid-cols-1 gap-6 px-4 pb-20 sm:grid-cols-2 sm:px-8 md:pb-28;
+        @apply grid-cols-1 gap-4 sm:grid-cols-2 md:col-span-9 md:gap-6;
     }
 
     .raster-photos .inv-photos-frame {
         @apply aspect-[3/2];
     }
 
-    .raster-photos[data-count='1'] .inv-photos-frame,
-    .raster-photos[data-count='3'] .inv-photos-frame:first-child {
+    /* An odd count: the first runs across both columns. */
+    .raster-photos:is(
+            [data-count='1'],
+            [data-count='3'],
+            [data-count='5'],
+            [data-count='7']
+        )
+        .inv-photos-frame:first-child {
         @apply sm:col-span-2;
     }
 
@@ -125,6 +158,21 @@
 
     [data-template='raster'] .block-faq-question {
         @apply text-xl font-medium;
+    }
+
+    /* Signs on the links: into the calendar, the route. */
+    [data-template='raster']
+        :is(.inv-calendar-link, .inv-day-route, .block-route)::before {
+        @apply mr-1.5 inline-block size-4 bg-current align-[-0.15em] content-[''];
+        mask: var(--raster-link-sign) center / contain no-repeat;
+    }
+
+    [data-template='raster'] .inv-calendar-link {
+        --raster-link-sign: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8 2v4M16 2v4M21 13V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8M3 10h18M16 19h6M19 16v6'/%3E%3C/svg%3E");
+    }
+
+    [data-template='raster'] :is(.inv-day-route, .block-route) {
+        --raster-link-sign: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 11 22 2l-9 19-2-8-8-2z'/%3E%3C/svg%3E");
     }
 
     /* ---------- The reply on graphite ---------- */

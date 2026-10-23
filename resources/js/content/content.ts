@@ -4,7 +4,7 @@ import type { ContentBlockType, WeddingTemplate } from '@/types/wedding';
 /** «Eure Fotos» on Inhalte (spec 2026-10-13-couple-photos). */
 export const couplePhotosCopy = {
     title: 'Eure Fotos',
-    hint: 'Bis zu vier Fotos von euch. Das erste steht gross oben auf eurer Seite, so wie auf der Startseite gezeigt. Tippt auf euer Gesicht im Foto: Diese Stelle bleibt immer sichtbar, auch wenn ein Bogen oder Rahmen das Foto anschneidet.',
+    hint: 'Bis zu acht Fotos von euch. Das erste steht gross oben auf eurer Seite, die anderen zeigt euer Design weiter unten. Tippt auf euer Gesicht im Foto: Diese Stelle bleibt immer sichtbar, auch wenn ein Bogen oder Rahmen das Foto anschneidet.',
     focus: 'Stelle wählen, die sichtbar bleibt',
     add: 'Foto hinzufügen',
     uploading: 'Wird hochgeladen …',

@@ -1,0 +1,158 @@
+/*
+ * Salon's wall, frames and opening: a claret wall with a faint regency
+ * stripe, gilt frames with a dark liner, the couple's photo hung from the
+ * ampersand and lit from above, their names in Ballet on either side.
+ */
+@layer components {
+    /* The whole invitation hangs on the wall; forms stay on the card. */
+    [data-template='salon'] {
+        --wall-stripe: color-mix(
+            in oklch,
+            var(--night) 88%,
+            var(--night-accent)
+        );
+        @apply font-sans text-[1.1875rem] leading-[1.65] text-[var(--night-foreground)];
+        background:
+            repeating-linear-gradient(
+                90deg,
+                transparent 0 3.5rem,
+                var(--wall-stripe) 3.5rem 3.6rem
+            ),
+            var(--night);
+    }
+
+    /* ---------- The gilt frame ---------- */
+    .salon-frame {
+        @apply relative m-0 p-[clamp(0.55rem,1.1vw,1rem)];
+        background: linear-gradient(
+            145deg,
+            var(--gilt-dark),
+            var(--gilt-light) 22%,
+            var(--night-accent) 44%,
+            var(--gilt-light) 63%,
+            var(--gilt-dark)
+        );
+        box-shadow:
+            0 0 0 1px var(--gilt-dark),
+            0 2.25rem 3.5rem -1.25rem var(--night-deep);
+    }
+
+    .salon-frame-liner {
+        @apply relative size-full overflow-hidden bg-[var(--night-deep)] p-[0.3rem];
+        box-shadow:
+            inset 0 0 0 1px var(--gilt-light),
+            inset 0 0 0 2px var(--gilt-dark);
+    }
+
+    /* The glass's depth: a shadow from the moulding falls on the photo. */
+    .salon-frame-liner::after {
+        @apply pointer-events-none absolute inset-[0.3rem] content-[''];
+        box-shadow: inset 0 0.5rem 1.25rem -0.25rem var(--night-deep);
+    }
+
+    .salon-frame-photo {
+        @apply block size-full;
+    }
+
+    .salon-frame-initials {
+        @apply grid size-full place-items-center text-center font-[family-name:var(--type-script)] text-[clamp(2.75rem,5vw,4.75rem)] leading-none whitespace-nowrap text-[var(--night-accent)];
+    }
+
+    /* ---------- The opening ---------- */
+    .salon-hero {
+        @apply relative isolate grid w-full max-w-[90rem] grid-cols-1 justify-items-center gap-y-8 px-5 pt-14 pb-20 sm:px-10 md:pt-24 lg:min-h-[calc(100svh-3rem)] lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] lg:content-center lg:items-center lg:gap-x-10 lg:pt-16 lg:pb-12;
+    }
+
+    /* The light from above, falling on the frame. */
+    .salon-hero::before {
+        @apply pointer-events-none absolute inset-x-0 top-0 -z-10 h-[85%] content-[''];
+        background: radial-gradient(
+            ellipse 34rem 38rem at 50% 8%,
+            color-mix(in oklch, var(--night-accent) 26%, transparent),
+            transparent 70%
+        );
+    }
+
+    .salon-names {
+        @apply flex w-full flex-col font-[family-name:var(--type-script)] text-[clamp(4.25rem,15vw,6rem)] leading-[1.15] [overflow-wrap:anywhere] text-[var(--gilt-light)] lg:col-span-3 lg:col-start-1 lg:row-start-1 lg:grid lg:grid-cols-subgrid lg:items-center lg:text-[clamp(4rem,8vw,9.5rem)] lg:[overflow-wrap:normal];
+    }
+
+    .salon-name {
+        @apply block text-balance lg:p-0;
+    }
+
+    .salon-name[data-side='left'] {
+        @apply self-start pl-[4%] lg:col-start-1 lg:-translate-y-12 lg:justify-self-end lg:text-right;
+    }
+
+    .salon-name[data-side='right'] {
+        @apply self-end pr-[4%] lg:col-start-3 lg:translate-y-12 lg:justify-self-start;
+    }
+
+    .salon-hanging {
+        @apply relative flex w-full max-w-[26rem] flex-col items-center lg:col-start-2 lg:row-start-1 lg:w-[min(30rem,calc((100svh-23rem)*0.8))] lg:max-w-none;
+    }
+
+    /* The ampersand is the nail; two gilt cords run down to the frame. */
+    .salon-nail {
+        @apply font-[family-name:var(--type-script)] text-[3rem] leading-none text-[var(--night-accent)];
+    }
+
+    .salon-cord {
+        @apply -mt-2 h-10 w-full overflow-visible;
+    }
+
+    .salon-cord path {
+        fill: none;
+        stroke: var(--night-accent);
+        stroke-width: 1.2;
+        vector-effect: non-scaling-stroke;
+    }
+
+    .salon-hero-frame {
+        @apply aspect-[4/5] w-full;
+        animation: salon-settle 900ms var(--ease-out) both;
+        transform-origin: 50% -4rem;
+    }
+
+    /* A brass plaque under the frame: the day and the place. */
+    .salon-plaque {
+        @apply flex flex-col items-center gap-0.5 px-6 py-3 text-center text-[0.95rem] leading-snug text-[var(--night)] lg:col-start-2 lg:row-start-2;
+        background: linear-gradient(
+            160deg,
+            var(--gilt-light),
+            var(--night-accent) 55%,
+            var(--gilt-light)
+        );
+        box-shadow:
+            inset 0 0 0 1px var(--gilt-dark),
+            0 0.75rem 1.5rem -0.75rem var(--night-deep);
+    }
+
+    /* The hand lamp: a soft light under the guest's pointer. */
+    .salon-spotlight {
+        @apply pointer-events-none fixed inset-0 z-[1] hidden;
+        background: radial-gradient(
+            32rem circle at var(--spot-x, 50%) var(--spot-y, 30%),
+            color-mix(in oklch, var(--gilt-light) 9%, transparent),
+            transparent 65%
+        );
+    }
+
+    .salon-spotlight[data-on] {
+        @apply block;
+    }
+}
+
+/* The frame settles on its nail, from a slight swing. */
+@keyframes salon-settle {
+    from {
+        rotate: -1.5deg;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .salon-hero-frame {
+        animation: none;
+    }
+}

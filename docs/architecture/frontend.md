@@ -75,12 +75,17 @@ Personal links (`pages/invitation/*`) are built for it:
   the SSR server**, or guest pages fall back to client rendering and miss the budget.
 - **Hydration waits for the first frame.** `app.blade.php` inlines a module script that
   imports the app after the first frame. Links work as plain links before that.
-- **Lean CSS.**
+- **Lean CSS, one design at a time** (ADR 0016).
   - `resources/css/guest.css` holds only the tokens, the guest partials and
-    utilities scanned from the guest components (about 11 KB gzipped).
-  - It is inlined into the HTML.
-  - The font is Archivo with the weight axis only (35 KB), preloaded, with
-    `font-display: optional`.
+    utilities scanned from the guest components; it is inlined into the HTML.
+  - Each design's layout and faces are their own Vite entry
+    (`resources/css/designs/<design>.css`, `@reference '../guest.css'`),
+    inlined next to it by `app.blade.php` through
+    `WeddingTemplate::stylesheet()`: a guest page carries only its design.
+  - `WeddingTemplate::fonts()` names the design's faces to preload.
+- **One design chunk.** `pages/invitation/Show.vue` loads the design's
+  template with `defineAsyncComponent`; SSR renders it and the browser
+  hydrates it once it has arrived.
 - **Lazy app shell.** Layouts and the toaster load on demand, so a guest never downloads the
   couple's app.
 - **Browser-only code stays out of `setup()`.** Anything that reads `window`

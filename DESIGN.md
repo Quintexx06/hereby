@@ -90,8 +90,8 @@ Two surfaces, two looks (ADR 0004):
   default (`.surface-light`) with `.stage` night sections; the app is always
   light (no dark mode), with the night sidebar framing the porcelain workspace.
 - **Guest sites** (`pages/invitation/*`): one of five finished designs
-  (ADR 0015: Salon, Raster, Garten, Arve, Lido), each with its own faces,
-  palette and layout, inside `WeddingThemeScope` (`data-theme` = the
+  (ADR 0015 and 0016: Salon, Raster, Garten, Arve, Lido), each with its own
+  faces, palette, layout and moments, inside `WeddingThemeScope` (`data-theme` = the
   design). The couple fills in content only; no colour or font choice.
   Every guest page (reply, programme, memories, newspaper) takes the
   design's tokens. See «Guest designs» below.
@@ -144,8 +144,8 @@ headlines read as one voice rather than a default grotesk.
 **One family.** No serif anywhere on the platform (the founder chose the
 modern grotesk over Bodoni on 2026-10-07). Contrast comes from scale,
 weight, width and italic. Guest sites are the exception (ADR 0015): each
-design sets its own faces, and Salon, Garten and Arve use spaced small
-capitals for dates and places, as stationery does.
+design sets its own faces (ADR 0016), and Garten uses spaced small
+capitals for its kicker and links, as stationery does.
 
 **No labels.** No eyebrows, kickers or tracked uppercase labels above
 headings, no monospace as decoration. The heading carries itself.
@@ -158,9 +158,9 @@ headings, no monospace as decoration. The heading carries itself.
 - More space above a heading than below it. Sections alternate light and night.
 - Guest pages are one mobile column (`invitation-page`) that each design
   lays out its own way on wide screens (`resources/css/designs/*.css`): a
-  centred card and menu card (Salon), a 12-column grid with numbered
-  sections (Raster), a text block with a margin (Garten), day and evening
-  side by side (Arve), a butter field and a postcard (Lido).
+  salon wall with gilt frames (Salon), a 12-column grid with numbered
+  sections and pictograms (Raster), arches and a vine (Garten), a map, a
+  signpost and an ascent (Arve), an awning, pool lanes and cut-outs (Lido).
 
 ## Elevation & Depth
 
@@ -444,31 +444,35 @@ roses (Übersicht, Hochzeiten), rings (Gäste), petals (Inhalte), flutes
 (Küche & Service), ribbon (Anfragen). The Antwortformular has none: its night
 preview panel is its one moment.
 
-## Guest designs (`WeddingTemplate`, ADR 0015)
+## Guest designs (`WeddingTemplate`, ADR 0015 and 0016)
 
 Five finished designs, each a template component in
-`components/invitation/templates/<design>/`, a stylesheet in
-`resources/css/designs/`, a palette in `theme/designs.css` mapped onto the
-semantic tokens in `themes/wedding.css`, and its faces in
-`base/wedding-fonts.css`. All show the same content through shared parts
-(`InvitationLetter`, `InvitationProgramme`, `InvitationStory`,
-`InvitationPractical`, `InvitationPhotos`, `InvitationClosing`,
-`InvitationFooter`; data from `useInvitationContent`).
+`components/invitation/templates/<design>/`, a stylesheet entry
+`resources/css/designs/<design>.css` with its partials and faces in
+`resources/css/designs/<design>/`, and a palette (`theme/designs.css`,
+mapped onto the semantic tokens in `themes/wedding.css`). A guest page
+inlines only its design's stylesheet and loads only its design's chunk.
+All show the same content through shared parts (`InvitationLetter`,
+`InvitationProgramme`, `InvitationStory`, `InvitationPractical`,
+`InvitationPhotos`, `InvitationClosing`, `InvitationFooter`; data from
+`useInvitationContent`).
 
-| Design | Faces                              | Paper / ink / accent / dark                                    | First screen                                                           | Signature                                                                  |
-| ------ | ---------------------------------- | -------------------------------------------------------------- | ---------------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| Salon  | Castoro Titling, Libre Caslon Text | cotton, velvet ink, oxblood, ink with champagne                | an engraved card on a dark table, addressed to the household, no photo | the day as a menu card; black and white photos; the reply card on the dark |
-| Raster | Schibsted Grotesk                  | concrete, graphite, vermilion, graphite                        | the date across the grid, names left, a 3:2 photo right                | numbered sections, the day as a timetable                                  |
-| Garten | Linden Hill, Ysabeau Office        | candle cream, olive ink, fig, hedge with butter                | the photo tipped in as a plate, italic names below                     | a book page: times and chapters in the margin, a drop cap, the couple sign |
-| Arve   | Vollkorn                           | wool, night-forest ink, geranium, night forest with stone pine | a wide landscape without words, black names below                      | day and evening side by side, the evening on the dark                      |
-| Lido   | Gloock, Familjen Grotesk           | lido paper, lake ink, cobalt, a butter field, lake             | names on butter beside a square postcard, the Badi stripe above        | big times, questions on butter, the reply on the lake                      |
+| Design | Faces                       | Grounds and accent                                    | First screen                                                                                                | Signature                                                                                                          |
+| ------ | --------------------------- | ----------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| Salon  | Ballet, Tenor Sans          | claret wall, gilt and champagne; ivory card, claret   | the couple's photo in a gilt frame hung from the ampersand, the names in Ballet either side, a brass plaque | the letter on a card between frames, the photos hung salon-style, a hand-lamp light, flutes at the end             |
+| Raster | Schibsted Grotesk           | concrete, graphite, vermilion                         | the date across the grid, names left, a 3:2 photo right                                                     | numbered sections with pictograms, the day as a timetable with signs                                               |
+| Garten | Cormorant Garamond, Archivo | ivory, night ink, blush                               | the veil parts; the photo under an arch, branches drawing themselves, petals falling                        | the day on a vine under a garden arch, the running band, the story in gates, photos under arches, rings at the end |
+| Arve   | Sofia Sans Condensed        | snow, granite, glacier water; trail yellow; the night | the landscape full height under contour lines, the names like a ski poster, a trail sign                    | the day as a signpost, the story as an ascent, trail marks, the alpine night with stars                            |
+| Lido   | Shrikhand, Figtree          | lido paper, lake ink, cobalt, butter, tomato          | the awning, the photo cut out as a sun sinking into the lake in stripes, drifting waves                     | the letter as an entry ticket, the day in pool lanes, the photos cut into shapes, the deep lake                    |
 
 Rules: two families at most per design, preloaded through
 `WeddingTemplate::fonts()`; every text colour AA on its ground; buttons
-take the design's corner (`--button-radius`). No 3D, tickers, parallax,
-scroll reveals or veil on guest pages; Salon's card fades in over 220 ms,
-everything else only responds to touch. Without a photo each design opens
-on type alone.
+take the design's corner (`--button-radius`). Moments are CSS and
+scroll-driven animations; GSAP and three.js only after the guest's first
+scroll, tap or key (`useGuestMotion`, `GuestScene`); reduced motion stills
+them all. Without a photo each design opens on its own ground: Salon's
+frame holds the initials, Garten's arch the initials, Arve the alpenglow,
+Lido a sunset sun.
 
 ## Do's and Don'ts
 

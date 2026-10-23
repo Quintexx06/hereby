@@ -33,11 +33,6 @@
 @import './components/auth.css';
 @import './components/invitation.css';
 @import './components/invitation-nav.css';
-@import './designs/salon.css';
-@import './designs/raster.css';
-@import './designs/garten.css';
-@import './designs/arve.css';
-@import './designs/lido.css';
 @import './components/setup.css';
 @import './components/dashboard.css';
 @import './components/admin.css';

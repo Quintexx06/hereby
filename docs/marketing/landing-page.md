@@ -98,6 +98,13 @@ first screens (desktop in a browser window, phone beside it, generated from
 No hand-built mock sites, no accent picker: what the landing shows is what
 guests get. Old sample links redirect (`atelier` → Salon, `panorama` → Arve).
 
+**Update 2026-10-23 (founder):** after the review of the samples, each
+design has its own idea and moments (ADR 0016): Salon a salon at night with
+gilt frames, Raster the Swiss grid with pictograms, Garten restored with
+its arch, branches and petals, Arve a Swiss map with a signpost, Lido the
+lake bath with the sun cut-out. The setup's moods describe them in these
+words; couples may upload eight photos.
+
 ## 5. Message hierarchy and section rationale
 
 | # | Section | Job | UX notes |

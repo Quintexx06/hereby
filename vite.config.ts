@@ -11,6 +11,9 @@ export default defineConfig({
             input: [
                 'resources/css/app.css',
                 'resources/css/guest.css',
+                ...['salon', 'raster', 'garten', 'arve', 'lido'].map(
+                    (design) => `resources/css/designs/${design}.css`,
+                ),
                 'resources/js/app.ts',
             ],
             refresh: true,

@@ -1,0 +1,58 @@
+/*
+ * Garten's bigger moments (restored from before ADR 0015): the running
+ * band of the day's parts in the accent on its tint, and the site's bar
+ * with spaced capitals over paper.
+ */
+@layer components {
+    /* ---------- The running band ---------- */
+    .inv-ticker {
+        @apply w-screen max-w-none overflow-hidden bg-[var(--tint)] py-6 sm:py-8;
+    }
+
+    .inv-ticker-band {
+        @apply flex w-max gap-10 whitespace-nowrap sm:gap-16;
+        animation: garten-ticker 42s linear infinite;
+    }
+
+    .inv-ticker-word {
+        @apply font-display text-[clamp(3rem,8vw,7rem)] leading-none text-brand;
+    }
+
+    /* Roman and the accent's italic in turn. */
+    .inv-ticker-word:nth-child(even) {
+        @apply italic;
+    }
+
+    /* ---------- The site's bar ---------- */
+    [data-theme='garten'] .inv-nav[data-solid='true'] {
+        @apply bg-background/90 backdrop-blur-md;
+    }
+
+    [data-theme='garten'] .inv-monogram {
+        @apply text-[1.875rem];
+    }
+
+    [data-theme='garten'] .inv-monogram-amp {
+        @apply italic;
+    }
+
+    [data-theme='garten'] .inv-nav-link {
+        @apply text-[0.72rem] tracking-[0.2em] uppercase;
+    }
+
+    [data-theme='garten'] .inv-sticky {
+        @apply bg-background/90 backdrop-blur-md;
+    }
+}
+
+@keyframes garten-ticker {
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .inv-ticker-band {
+        animation: none;
+    }
+}

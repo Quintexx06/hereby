@@ -1,0 +1,202 @@
+/*
+ * Garten's page (restored from before ADR 0015): one centred column with
+ * wide gaps that grows into its own spreads, the letter as a statement,
+ * the day on a timeline, the reply band in the ink and the footer on the
+ * accent's tint. Scoped to Garten: the shared skeleton in invitation.css
+ * serves the other designs.
+ */
+@layer components {
+    [data-template='garten'].invitation-page {
+        @apply gap-28 px-5 sm:gap-36 sm:px-8;
+        --tint: color-mix(in oklch, var(--brand) 8%, var(--background));
+    }
+
+    /* The letter to this household, with the reply right under it. */
+    [data-template='garten'] .inv-letter {
+        @apply items-center text-center;
+    }
+
+    [data-template='garten'] .inv-dear {
+        @apply text-3xl font-semibold tracking-[-0.03em] [--tw-leading:initial] sm:text-4xl;
+    }
+
+    [data-template='garten'] .inv-dear-names {
+        @apply font-medium italic;
+    }
+
+    [data-template='garten'] .inv-letter-text {
+        @apply text-muted-foreground;
+    }
+
+    [data-template='garten'] .inv-reply {
+        @apply items-center text-center;
+    }
+
+    [data-template='garten'] .inv-reply .reply-send {
+        @apply h-12 px-6;
+    }
+
+    .invitation-ornament {
+        @apply mx-auto h-6 w-60 max-w-full shrink-0 text-brand;
+    }
+
+    /* A chapter of the page: a large heading, then its own layout. */
+    .inv-section {
+        @apply flex w-full max-w-3xl flex-col gap-10;
+    }
+
+    .inv-section[data-block='story'] {
+        @apply max-w-5xl;
+    }
+
+    .inv-heading {
+        @apply text-center font-display text-[clamp(2.25rem,6vw,3.75rem)] leading-none font-semibold tracking-[-0.045em] text-balance;
+    }
+
+    .inv-statement {
+        @apply mx-auto max-w-2xl text-center text-xl leading-relaxed text-pretty sm:text-2xl;
+    }
+
+    /* Programme as a timeline: a hairline, one node per part of the day. */
+    .event-timeline {
+        @apply relative flex flex-col before:absolute before:inset-y-4 before:left-5 before:w-px before:bg-rule before:content-[''];
+    }
+
+    .event-card {
+        @apply relative grid grid-cols-[2.5rem_minmax(0,1fr)] gap-x-4 gap-y-2 py-6 sm:grid-cols-[2.5rem_8rem_minmax(0,1fr)] sm:gap-x-6;
+    }
+
+    .event-card > time,
+    .event-card > div {
+        @apply col-start-2 sm:col-start-auto;
+    }
+
+    .event-node {
+        @apply row-span-2 grid size-10 place-items-center rounded-full border border-rule bg-background text-brand sm:row-span-1;
+    }
+
+    .event-time {
+        @apply font-display text-4xl leading-none font-semibold tracking-[-0.04em] text-brand tabular-nums;
+    }
+
+    .calendar-body {
+        @apply flex flex-col gap-4;
+    }
+
+    .calendar-options {
+        @apply flex flex-wrap justify-center gap-2;
+    }
+
+    .calendar-hint {
+        @apply text-center;
+    }
+
+    .calendar-option {
+        @apply inline-flex h-11 items-center gap-2 rounded-full border border-rule px-5 text-sm font-medium transition-colors duration-150 ease-out hover:border-foreground/40;
+    }
+
+    /* The story's words (GartenStoryArches). */
+    .story-intro {
+        @apply mx-auto max-w-2xl text-center text-xl leading-relaxed text-pretty sm:text-2xl;
+    }
+
+    .story-title {
+        @apply font-display text-2xl leading-tight font-semibold tracking-[-0.03em] text-balance sm:text-3xl;
+    }
+
+    .story-text {
+        @apply max-w-md text-lg leading-relaxed text-pretty text-muted-foreground;
+    }
+
+    /* The couple's chapters, in the reading sizes of the page. */
+    [data-template='garten'] .block-text {
+        @apply text-lg;
+    }
+
+    [data-template='garten'] .block-venue-name {
+        @apply font-display text-2xl font-semibold tracking-[-0.03em];
+    }
+
+    [data-template='garten'] .block-route {
+        @apply font-normal;
+    }
+
+    [data-template='garten'] .block-faq-question {
+        @apply text-base;
+    }
+
+    /* The last screen in the ink, a glow of the accent behind the rings. */
+    [data-template='garten'] .inv-closing {
+        @apply relative isolate w-screen overflow-hidden bg-primary px-6 pt-10 pb-28 text-primary-foreground sm:pb-36;
+    }
+
+    [data-template='garten'] .inv-closing::before {
+        @apply pointer-events-none absolute inset-x-0 top-0 -z-10 h-[70%] content-[''];
+        background: radial-gradient(
+            ellipse at 50% 30%,
+            color-mix(in oklch, var(--brand) 32%, transparent),
+            transparent 65%
+        );
+    }
+
+    .inv-closing-rings {
+        @apply pointer-events-none -mb-6 h-[min(46vw,20rem)] w-[min(92vw,34rem)];
+    }
+
+    [data-template='garten'] .inv-closing-title {
+        @apply text-[clamp(3rem,10vw,7rem)] leading-[0.9] font-semibold tracking-[-0.05em];
+    }
+
+    [data-template='garten'] .inv-closing-button {
+        @apply h-14 bg-background text-foreground;
+    }
+
+    /* The footer: the couple's names on the accent's tint. */
+    [data-template='garten'] .inv-footer {
+        @apply w-screen max-w-none bg-[var(--tint)] sm:pt-28 md:pb-12;
+    }
+
+    [data-template='garten'] .inv-footer-couple {
+        @apply mb-4 text-[clamp(2.75rem,9vw,7.5rem)] leading-[0.9] font-bold tracking-[-0.055em];
+    }
+
+    [data-template='garten'] .inv-footer-amp {
+        @apply font-medium italic;
+    }
+
+    /* The closing band runs straight into the footer's tinted ground. */
+    [data-template='garten'] .inv-closing + .inv-footer {
+        @apply -mt-28 sm:-mt-36;
+    }
+
+    [data-template='garten'] :is(section[id], [id^='block-']) {
+        scroll-margin-top: 6rem;
+    }
+}
+
+/* Scroll-driven: chapters rise as they come into view (GSAP takes over). */
+@supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+        [data-template='garten'] :is(.inv-section > .inv-heading, .event-card) {
+            animation: garten-rise-in linear both;
+            animation-timeline: view();
+            animation-range: entry 0% entry 70%;
+        }
+
+        [data-template='garten'].gsap-on :is(.inv-heading, .event-card) {
+            animation: none;
+        }
+    }
+}
+
+@keyframes garten-rise-in {
+    from {
+        opacity: 0;
+        translate: 0 1.25rem;
+    }
+
+    to {
+        opacity: 1;
+        translate: 0 0;
+    }
+}

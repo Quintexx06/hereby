@@ -9,7 +9,10 @@ const { eager = false } = defineProps<{
 }>();
 </script>
 
-<!-- One of the couple's photos: a web copy, sized so nothing jumps, cropped around their chosen spot. -->
+<!--
+    One of the couple's photos: a web copy, sized so nothing jumps, cropped
+    around their chosen spot. Photos further down wait behind the first.
+-->
 <template>
     <img
         :src="photo.url"
@@ -17,7 +20,7 @@ const { eager = false } = defineProps<{
         :height="photo.height"
         :alt="alt"
         :loading="eager ? 'eager' : 'lazy'"
-        :fetchpriority="eager ? 'high' : 'auto'"
+        :fetchpriority="eager ? 'high' : 'low'"
         decoding="async"
         class="object-cover"
         :style="{ objectPosition: `${photo.focus[0]}% ${photo.focus[1]}%` }"

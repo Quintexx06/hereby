@@ -1,11 +1,10 @@
 /*
  * Guest pages (personal links: invitation, reply, opt-out). A lean entry so
  * every guest page loads in under two seconds on mobile data (rule 2, 1.13):
- * only the five designs' faces (ADR 0015; a page fetches its own), and
- * utilities only from the guest components. Shares tokens and partials with app.css.
+ * the design's own faces and layout come from its stylesheet
+ * (resources/css/designs, inlined by app.blade.php), and utilities only
+ * from the guest components. Shares tokens and partials with app.css.
  */
-@import './base/wedding-fonts.css';
-
 @import 'tailwindcss' source(none);
 
 @import './theme/palette.css';
@@ -20,11 +19,6 @@
 @import './components/brand.css';
 @import './components/invitation.css';
 @import './components/invitation-nav.css';
-@import './designs/salon.css';
-@import './designs/raster.css';
-@import './designs/garten.css';
-@import './designs/arve.css';
-@import './designs/lido.css';
 @import './components/evening-guest.css';
 @import './components/micro.css';
 @import './components/setup.css';

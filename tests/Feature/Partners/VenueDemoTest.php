@@ -52,7 +52,8 @@ class VenueDemoTest extends TestCase
                 ->where('demo.venue', 'Hotel Belvedere')
                 ->where('demo.template', 'salon')
                 ->where('invitation.guests.0.firstName', 'Sandra')
-                ->where('invitation.wedding.photos.0.url', fn (string $url) => str_ends_with($url, '/images/landing/veil-kiss.webp'))
+                ->where('invitation.wedding.photos.0.url', fn (string $url) => str_ends_with($url, '/images/landing/sparklers-1440.webp'))
+                ->has('invitation.wedding.photos', 6)
                 ->where('invitation.blocks', fn ($blocks) => collect($blocks)->pluck('type')->intersect(['story', 'venue', 'dress_code', 'faq'])->count() === 4));
 
         $this->get($url.'&vorlage=garten')->assertOk()->assertInertia(fn (Assert $page) => $page->where('demo.template', 'garten'));

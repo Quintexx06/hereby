@@ -4,12 +4,13 @@ import InvitationChapter from '@/components/invitation/InvitationChapter.vue';
 import InvitationClosing from '@/components/invitation/InvitationClosing.vue';
 import InvitationEvening from '@/components/invitation/InvitationEvening.vue';
 import InvitationFooter from '@/components/invitation/InvitationFooter.vue';
-import InvitationLetter from '@/components/invitation/InvitationLetter.vue';
-import InvitationPhotos from '@/components/invitation/InvitationPhotos.vue';
 import InvitationPractical from '@/components/invitation/InvitationPractical.vue';
-import InvitationProgramme from '@/components/invitation/InvitationProgramme.vue';
 import InvitationStory from '@/components/invitation/InvitationStory.vue';
 import LidoHero from '@/components/invitation/templates/lido/LidoHero.vue';
+import LidoLanes from '@/components/invitation/templates/lido/LidoLanes.vue';
+import LidoShapes from '@/components/invitation/templates/lido/LidoShapes.vue';
+import LidoTicket from '@/components/invitation/templates/lido/LidoTicket.vue';
+import LidoWaves from '@/components/invitation/templates/lido/LidoWaves.vue';
 import { useInvitationContent } from '@/composables/useInvitationContent';
 import { useTrans } from '@/composables/useTrans';
 import type { Invitation } from '@/types';
@@ -23,9 +24,10 @@ const { names, date, place, programme, story, faq, practical, photos } =
 
 <!--
     Lido: a summer at the lake bath, for lakes, Ticino and feasts by day.
-    Gloock for the big words, Familjen Grotesk for the rest; lake-depth ink,
-    cobalt, a butter field and the lido's stripe. Photos square and straight
-    in paper borders; the questions on butter, the reply on the deep lake.
+    Shrikhand for the big words, Figtree for the rest; lake ink, cobalt, a
+    butter field and tomato. The awning and the sun going down into the
+    lake, the letter as an entry ticket, the day in the pool's lanes, the
+    photos cut out and floating, the last question on the deep lake.
 -->
 <template>
     <main class="invitation-page" data-template="lido">
@@ -37,28 +39,24 @@ const { names, date, place, programme, story, faq, practical, photos } =
             :alt="content.photoAlt.value"
         />
 
-        <div class="lido-letter">
-            <InvitationLetter :invitation="invitation" :replied="replied" />
+        <div class="lido-section lido-letter">
+            <LidoTicket
+                :invitation="invitation"
+                :replied="replied"
+                :date="date"
+            />
         </div>
 
-        <section
-            v-if="programme.length"
-            id="inv-programme"
-            class="lido-section"
-        >
+        <section v-if="programme.length" id="inv-programme" class="lido-pool">
             <h2 class="lido-heading">
                 {{ t('invitation.programme_heading') }}
             </h2>
-            <InvitationProgramme :items="programme" />
+            <LidoLanes :items="programme" />
         </section>
 
         <InvitationEvening :evening="invitation.evening" />
 
-        <InvitationPhotos
-            :photos="photos"
-            :alt="content.photoAlt.value"
-            class="lido-photos"
-        />
+        <LidoShapes :photos="photos" :alt="content.photoAlt.value" />
 
         <InvitationChapter
             v-if="story"
@@ -75,6 +73,7 @@ const { names, date, place, programme, story, faq, practical, photos } =
                 :key="block.id"
                 :block="block"
                 :heading="content.heading(block)"
+                icon
             />
         </div>
 
@@ -82,13 +81,15 @@ const { names, date, place, programme, story, faq, practical, photos } =
             v-if="faq"
             :block="faq"
             :heading="content.heading(faq)"
-            class="lido-faq"
+            class="lido-section lido-faq"
         >
             <FaqBlock :block="faq" />
         </InvitationChapter>
 
-        <div class="lido-stripe" aria-hidden="true" />
-        <InvitationClosing :invitation="invitation" />
-        <InvitationFooter :wedding="invitation.wedding" />
+        <div class="lido-lake">
+            <LidoWaves class="lido-lake-edge" />
+            <InvitationClosing :invitation="invitation" />
+            <InvitationFooter :wedding="invitation.wedding" />
+        </div>
     </main>
 </template>

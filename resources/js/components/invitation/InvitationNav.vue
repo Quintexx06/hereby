@@ -41,8 +41,10 @@ const links = computed(() => {
     return items;
 });
 
-/* Salon opens on its dark table: the bar starts clear over it. */
-const over = computed(() => props.invitation.wedding.template === 'salon');
+/* Salon opens on its wall, Arve on the landscape: the bar starts clear over them. */
+const over = computed(() =>
+    ['salon', 'arve'].includes(props.invitation.wedding.template),
+);
 const solid = ref(!over.value);
 
 const onScroll = () => {

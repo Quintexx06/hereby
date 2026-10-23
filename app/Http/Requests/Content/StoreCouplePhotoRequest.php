@@ -9,12 +9,12 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\File;
 
 /**
- * One of the couple's own photos: an image, and never more than four.
+ * One of the couple's own photos: an image, and never more than eight.
  * Ownership is checked by the route (WeddingPolicy).
  */
 class StoreCouplePhotoRequest extends FormRequest
 {
-    public const int MAX_PHOTOS = 4;
+    public const int MAX_PHOTOS = 8;
 
     public function authorize(): bool
     {
@@ -34,7 +34,7 @@ class StoreCouplePhotoRequest extends FormRequest
                     $wedding = $this->route('wedding');
 
                     if ($wedding instanceof Wedding && $wedding->couplePhotos()->reorder()->count() >= self::MAX_PHOTOS) {
-                        $fail('Vier Fotos sind das Maximum. Löscht zuerst eines.');
+                        $fail('Acht Fotos sind das Maximum. Löscht zuerst eines.');
                     }
                 },
             ],

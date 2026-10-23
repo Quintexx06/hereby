@@ -1,0 +1,66 @@
+/*
+ * Garten's voice (restored from ADR 0014): Cormorant Garamond like
+ * letterpress for names, headings, times and the story, set light at its
+ * own width; italic headings and an italic ampersand. Archivo reads.
+ */
+@layer components {
+    [data-template='garten']
+        :is(
+            h1,
+            h2,
+            h3,
+            .inv-dear,
+            .inv-heading,
+            .event-time,
+            .inv-footer-couple,
+            .inv-closing-title,
+            .story-title,
+            .block-venue-name,
+            .garten-names,
+            .garten-initials,
+            .story-arch-numeral,
+            .inv-ticker-word,
+            .title
+        ) {
+        font-stretch: normal;
+        font-weight: 400;
+        letter-spacing: -0.012em;
+    }
+
+    /* Serif figures: lining and proportional, never spaced as in tables. */
+    [data-template='garten'] .event-time {
+        font-variant-numeric: lining-nums proportional-nums;
+    }
+
+    [data-template='garten'] .garten-names {
+        @apply text-[clamp(3.5rem,11vw,8rem)] leading-[0.9] font-medium;
+    }
+
+    [data-template='garten'] :is(.garten-amp, .inv-footer-amp) {
+        @apply font-normal italic;
+    }
+
+    [data-template='garten'] :is(.inv-heading, .inv-closing-title) {
+        @apply font-medium italic;
+    }
+
+    [data-template='garten'] .inv-heading {
+        @apply text-[clamp(2.75rem,6.5vw,5rem)];
+    }
+
+    [data-template='garten'] .inv-dear {
+        @apply text-4xl font-medium lg:text-7xl;
+    }
+
+    [data-template='garten'] :is(.event-time, .story-title, .block-venue-name) {
+        @apply font-medium;
+    }
+
+    [data-template='garten'] .event-time {
+        @apply text-5xl;
+    }
+
+    [data-template='garten'] .story-arch-numeral {
+        @apply italic;
+    }
+}

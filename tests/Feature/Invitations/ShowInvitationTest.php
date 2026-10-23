@@ -111,15 +111,17 @@ class ShowInvitationTest extends TestCase
             ->assertInertia(fn (Assert $page) => $page->where('translations', []));
     }
 
-    public function test_the_page_preloads_only_its_designs_faces(): void
+    public function test_the_page_carries_only_its_designs_faces_and_styles(): void
     {
         $wedding = Wedding::factory()->create(['template' => WeddingTemplate::Garten]);
         $household = Household::factory()->for($wedding)->create();
 
         $html = (string) $this->get(route('invitation.show', $household))->assertOk()->getContent();
 
-        $this->assertMatchesRegularExpression('/rel="preload" href="[^"]*linden-hill-latin-400-italic/', $html);
-        $this->assertMatchesRegularExpression('/rel="preload" href="[^"]*ysabeau-office-latin-wght-normal/', $html);
-        $this->assertDoesNotMatchRegularExpression('/rel="preload" href="[^"]*(castoro|gloock|vollkorn|schibsted|archivo)/', $html);
+        $this->assertMatchesRegularExpression('/rel="preload" href="[^"]*cormorant-garamond-latin-wght-normal/', $html);
+        $this->assertMatchesRegularExpression('/rel="preload" href="[^"]*archivo-latin-wght-normal/', $html);
+        $this->assertDoesNotMatchRegularExpression('/rel="preload" href="[^"]*(ballet|tenor|schibsted|sofia|shrikhand|figtree)/', $html);
+        $this->assertStringContainsString('.garten-arch', $html);
+        $this->assertStringNotContainsString('.salon-hang', $html);
     }
 }

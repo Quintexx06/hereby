@@ -1,0 +1,82 @@
+/*
+ * Arve's story as an ascent: on wide screens the chapters stand along a
+ * ridge, each station higher than the last, the wedding on the summit;
+ * on phones they follow a trail down the page to the summit.
+ */
+@layer components {
+    .arve-ascent {
+        @apply flex flex-col gap-14;
+    }
+
+    [data-template='arve'] .inv-story-lede {
+        @apply max-w-2xl text-[1.5rem] leading-snug;
+    }
+
+    .arve-climb {
+        --ridge: 15rem;
+        @apply relative;
+    }
+
+    .arve-ridge {
+        @apply pointer-events-none absolute inset-x-0 top-0 hidden h-[var(--ridge)] w-full overflow-visible lg:block;
+    }
+
+    .arve-ridge path {
+        fill: none;
+        stroke: var(--foreground);
+        stroke-width: 1.6;
+        stroke-linejoin: round;
+        vector-effect: non-scaling-stroke;
+    }
+
+    .arve-stations {
+        @apply relative flex flex-col gap-10 border-l-2 border-dashed border-rule pl-8 lg:grid lg:grid-cols-[repeat(var(--stations),minmax(0,1fr))] lg:gap-0 lg:border-0 lg:pl-0;
+    }
+
+    .arve-station {
+        @apply relative flex flex-col gap-2 before:absolute before:top-1.5 before:-left-[2.55rem] before:size-4 before:rounded-full before:border-[3px] before:border-background before:bg-brand before:content-[''] lg:items-center lg:px-4 lg:pt-8 lg:text-center lg:before:top-[-0.5rem] lg:before:left-1/2 lg:before:-translate-x-1/2;
+    }
+
+    @media (width >= 64rem) {
+        .arve-station {
+            margin-top: calc((100 - var(--rise)) / 100 * var(--ridge));
+        }
+    }
+
+    .arve-station-when {
+        @apply text-[1.5rem] leading-tight font-extrabold;
+    }
+
+    .arve-station-what {
+        @apply max-w-[22rem] text-base text-muted-foreground;
+    }
+
+    .arve-summit {
+        @apply before:bg-[var(--trail)];
+    }
+
+    .arve-summit-icon {
+        @apply size-9 text-brand lg:-mt-2;
+    }
+}
+
+/* The ridge runs out from the first station as the story comes in. */
+@supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+        .arve-ridge {
+            animation: arve-climb linear both;
+            animation-timeline: view();
+            animation-range: entry 20% cover 55%;
+        }
+    }
+}
+
+@keyframes arve-climb {
+    from {
+        clip-path: inset(0 100% 0 0);
+    }
+
+    to {
+        clip-path: inset(0 0 0 0);
+    }
+}

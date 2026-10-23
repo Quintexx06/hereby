@@ -1,7 +1,9 @@
 # ADR 0015: Five finished designs instead of a page builder
 
-Date: 2026-10-22 · Status: accepted · Supersedes ADR 0004 (themes), 0012,
-0013 and 0014 for guest sites; amends ADR 0009
+Date: 2026-10-22 · Status: accepted, amended by [ADR 0016](0016-designs-with-their-own-moments.md)
+(Garten restored, new faces and moments for Salon, Arve and Lido, eight
+photos) · Supersedes ADR 0004 (themes), 0012, 0013 and 0014 for guest
+sites; amends ADR 0009
 
 ## Context
 

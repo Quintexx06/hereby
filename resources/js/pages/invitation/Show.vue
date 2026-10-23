@@ -3,11 +3,6 @@ import { Head, usePage } from '@inertiajs/vue3';
 import { computed, defineAsyncComponent, onMounted } from 'vue';
 import InvitationNav from '@/components/invitation/InvitationNav.vue';
 import StickyReply from '@/components/invitation/StickyReply.vue';
-import ArveTemplate from '@/components/invitation/templates/arve/ArveTemplate.vue';
-import GartenTemplate from '@/components/invitation/templates/garten/GartenTemplate.vue';
-import LidoTemplate from '@/components/invitation/templates/lido/LidoTemplate.vue';
-import RasterTemplate from '@/components/invitation/templates/raster/RasterTemplate.vue';
-import SalonTemplate from '@/components/invitation/templates/salon/SalonTemplate.vue';
 import WeddingThemeScope from '@/components/invitation/WeddingThemeScope.vue';
 import { useTrans } from '@/composables/useTrans';
 import type { Invitation, InvitationDemo, WeddingTemplate } from '@/types';
@@ -40,16 +35,33 @@ onMounted(() =>
     ),
 );
 
-/* The couple's design (ADR 0015): layout, type and colour, all ours. */
+/*
+ * The couple's design (ADR 0015): layout, type and colour, all ours. Each
+ * design is its own chunk, so a guest downloads only the one they see; the
+ * server renders it and the browser hydrates it once it has arrived.
+ */
 const templates = {
-    salon: SalonTemplate,
-    raster: RasterTemplate,
-    garten: GartenTemplate,
-    arve: ArveTemplate,
-    lido: LidoTemplate,
+    salon: defineAsyncComponent(
+        () =>
+            import('@/components/invitation/templates/salon/SalonTemplate.vue'),
+    ),
+    raster: defineAsyncComponent(
+        () =>
+            import('@/components/invitation/templates/raster/RasterTemplate.vue'),
+    ),
+    garten: defineAsyncComponent(
+        () =>
+            import('@/components/invitation/templates/garten/GartenTemplate.vue'),
+    ),
+    arve: defineAsyncComponent(
+        () => import('@/components/invitation/templates/arve/ArveTemplate.vue'),
+    ),
+    lido: defineAsyncComponent(
+        () => import('@/components/invitation/templates/lido/LidoTemplate.vue'),
+    ),
 } satisfies Record<WeddingTemplate, unknown>;
 const template = computed(
-    () => templates[props.invitation.wedding.template] ?? SalonTemplate,
+    () => templates[props.invitation.wedding.template] ?? templates.salon,
 );
 
 const canReply = computed(

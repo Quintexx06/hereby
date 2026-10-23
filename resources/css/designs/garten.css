@@ -1,171 +1,18 @@
+@reference '../guest.css';
+
 /*
- * Garten (ADR 0015): a page from a private-press book. Linden Hill (Goudy's
- * Deepdene, old-style figures) and its italic for names, headings and
- * times; Ysabeau Office for reading. Fig on candle cream, the reply on the
- * hedge's dark green in butter. A text block with a margin beside it: the
- * margin carries times, dates and the chapters' names. A drop cap opens
- * the letter, and the couple sign it.
+ * Garten (restored on 2026-10-23, ADR 0015 amended): romantic and
+ * botanical, as the founder chose it. The couple under an arch with
+ * branches and falling petals, the day on a vine, the story in garden
+ * gates, the photos under arches, the rings above the last question.
+ * Cormorant Garamond with Archivo; ivory paper, night ink, blush.
+ * A guest page carries only its own design's stylesheet.
  */
-@layer components {
-    [data-template='garten'] {
-        @apply text-lg leading-[1.62];
-    }
-
-    /* ---------- Title page ---------- */
-    .garten-hero {
-        @apply flex w-full flex-col items-center gap-4 pb-12 text-center;
-    }
-
-    .garten-plate {
-        @apply m-0 mt-10 mb-8 aspect-[4/5] w-[calc(100%-16vw)] max-w-3xl overflow-hidden sm:aspect-[3/2] md:mt-14;
-    }
-
-    .garten-names {
-        @apply flex flex-col items-center px-5 font-display text-[clamp(3.5rem,9vw,6rem)] leading-[1.02] [overflow-wrap:anywhere] italic sm:flex-row sm:gap-[0.22em];
-    }
-
-    .garten-amp {
-        @apply text-brand;
-    }
-
-    .garten-date {
-        @apply font-display text-2xl italic;
-    }
-
-    .garten-place {
-        @apply text-sm tracking-[0.08em] text-muted-foreground;
-    }
-
-    /* ---------- The book page: a margin and a text block ---------- */
-    .garten-folio {
-        @apply grid w-full max-w-5xl gap-x-12 gap-y-8 px-5 py-14 sm:px-10 md:grid-cols-[11rem_minmax(0,36rem)] md:py-20;
-    }
-
-    .garten-folio > :not(.inv-day, .inv-story, .inv-practical) {
-        @apply md:col-start-2;
-    }
-
-    /* Lists that use the margin run across both columns, on the page's grid. */
-    .garten-folio > :is(.inv-day, .inv-story, .inv-practical) {
-        @apply md:col-span-2 md:col-start-1 md:grid md:grid-cols-subgrid;
-    }
-
-    .garten-heading,
-    [data-template='garten'] :is(.inv-chapter-heading, .inv-practical-heading) {
-        @apply font-display text-[2rem] leading-tight italic md:col-start-2;
-    }
-
-    /* The letter, opened by a two-line drop cap in fig and signed. */
-    [data-template='garten'] .inv-dear {
-        @apply font-display text-[2.5rem] italic;
-    }
-
-    [data-template='garten'] .inv-letter-text {
-        @apply first-letter:float-left first-letter:mt-1 first-letter:mr-2 first-letter:font-display first-letter:text-[3.6em] first-letter:leading-[0.8] first-letter:text-brand first-letter:italic;
-    }
-
-    [data-theme='garten'] .inv-monogram {
-        @apply italic;
-    }
-
-    .garten-signature {
-        @apply font-display text-2xl italic;
-    }
-
-    /* The day: each time in the margin, the part beside it. */
-    [data-template='garten'] .inv-day {
-        @apply gap-y-8;
-    }
-
-    [data-template='garten'] .inv-day-item {
-        @apply grid gap-y-1 md:col-span-2 md:grid-cols-subgrid;
-    }
-
-    [data-template='garten'] .inv-day-time {
-        @apply font-display text-2xl text-brand italic md:pt-0.5 md:text-right;
-    }
-
-    [data-template='garten'] .inv-day-title {
-        @apply font-sans text-xl font-semibold;
-    }
-
-    [data-template='garten'] .inv-day-address {
-        @apply text-base;
-    }
-
-    /* ---------- Photos as plates: two to a row, sizes alternating ---------- */
-    .garten-plates {
-        @apply max-w-5xl items-end px-5 py-10 sm:grid-cols-[3fr_2fr] sm:gap-10 sm:px-10;
-    }
-
-    .garten-plates .inv-photos-frame {
-        @apply aspect-[4/5];
-    }
-
-    .garten-plates .inv-photos-frame:nth-child(3) {
-        @apply aspect-[3/2] sm:col-span-2 sm:mx-auto sm:w-3/4;
-    }
-
-    /* ---------- Story: dates in the margin ---------- */
-    [data-template='garten'] .inv-story {
-        @apply gap-y-10;
-    }
-
-    [data-template='garten'] .inv-story-lede {
-        @apply md:col-start-2;
-    }
-
-    [data-template='garten'] .inv-story-list {
-        @apply gap-y-8 md:col-span-2 md:grid-cols-subgrid;
-    }
-
-    [data-template='garten'] .inv-story-item {
-        @apply grid gap-y-1 md:col-span-2 md:grid-cols-subgrid;
-    }
-
-    [data-template='garten'] .inv-story-when {
-        @apply text-xl text-brand italic md:row-span-2 md:text-right;
-    }
-
-    [data-template='garten'] .inv-story-what {
-        @apply text-foreground;
-    }
-
-    /* ---------- Practical chapters: the name in the margin ---------- */
-    [data-template='garten'] .inv-practical {
-        @apply grid gap-y-2;
-    }
-
-    [data-template='garten'] .inv-practical-heading {
-        @apply text-2xl md:col-start-1 md:pt-0.5 md:text-right;
-    }
-
-    [data-template='garten'] .inv-practical > :not(h2) {
-        @apply md:col-start-2;
-    }
-
-    [data-template='garten'] .block-faq-question {
-        @apply font-display text-[1.375rem] font-normal italic;
-    }
-
-    /* ---------- The reply on the hedge's dark green ---------- */
-    [data-template='garten'] .inv-closing {
-        @apply mt-16 bg-[var(--night)] px-6 py-24 text-[var(--night-foreground)] sm:py-32;
-    }
-
-    [data-template='garten'] .inv-closing-title {
-        @apply italic;
-    }
-
-    [data-template='garten'] :is(.inv-closing-text, .inv-calendar) {
-        color: var(--night-muted);
-    }
-
-    [data-template='garten'] .inv-closing-button {
-        @apply bg-[var(--night-accent)] text-[var(--night)];
-    }
-
-    [data-template='garten'] .inv-footer-couple {
-        @apply italic;
-    }
-}
+@import './garten/archivo.css';
+@import './garten/fonts.css';
+@import './garten/page.css';
+@import './garten/hero.css';
+@import './garten/layout.css';
+@import './garten/scenes.css';
+@import './garten/type.css';
+@import './garten/opening.css';

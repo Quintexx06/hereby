@@ -1,104 +1,63 @@
 <script setup lang="ts">
-import FaqBlock from '@/components/invitation/blocks/FaqBlock.vue';
-import InvitationChapter from '@/components/invitation/InvitationChapter.vue';
-import InvitationClosing from '@/components/invitation/InvitationClosing.vue';
+import { computed, ref } from 'vue';
 import InvitationEvening from '@/components/invitation/InvitationEvening.vue';
 import InvitationFooter from '@/components/invitation/InvitationFooter.vue';
 import InvitationLetter from '@/components/invitation/InvitationLetter.vue';
-import InvitationPhotos from '@/components/invitation/InvitationPhotos.vue';
-import InvitationPractical from '@/components/invitation/InvitationPractical.vue';
-import InvitationProgramme from '@/components/invitation/InvitationProgramme.vue';
-import InvitationStory from '@/components/invitation/InvitationStory.vue';
+import InvitationOpening from '@/components/invitation/InvitationOpening.vue';
+import GartenBlocks from '@/components/invitation/templates/garten/GartenBlocks.vue';
+import GartenCalendar from '@/components/invitation/templates/garten/GartenCalendar.vue';
+import GartenClosing from '@/components/invitation/templates/garten/GartenClosing.vue';
+import GartenEvents from '@/components/invitation/templates/garten/GartenEvents.vue';
+import GartenGallery from '@/components/invitation/templates/garten/GartenGallery.vue';
 import GartenHero from '@/components/invitation/templates/garten/GartenHero.vue';
-import { useInvitationContent } from '@/composables/useInvitationContent';
+import GartenOrnament from '@/components/invitation/templates/garten/GartenOrnament.vue';
+import GartenTicker from '@/components/invitation/templates/garten/GartenTicker.vue';
+import { useGuestMotion } from '@/composables/motion/useGuestMotion';
 import { useTrans } from '@/composables/useTrans';
+import { formatDate } from '@/lib/format';
+import { gartenMotion } from '@/lib/guest-motion/garten';
 import type { Invitation } from '@/types';
 
 const props = defineProps<{ invitation: Invitation; replied: boolean }>();
-const { t } = useTrans();
-const content = useInvitationContent(() => props.invitation);
-const { names, date, place, programme, story, faq, practical, photos } =
-    content;
+const { localeTag } = useTrans();
+
+/* Where the day happens: the first part with a place. */
+const place = computed(
+    () =>
+        props.invitation.events.find((event) => event.locationName)
+            ?.locationName ?? null,
+);
+
+const root = ref<HTMLElement | null>(null);
+useGuestMotion(root, (kit) => {
+    if (!kit.reduced && root.value) {
+        gartenMotion(kit, root.value);
+    }
+});
 </script>
 
 <!--
-    Garten: a page from a private-press book, for gardens, vineyards and
-    estates. A text block with a margin beside it: times, dates and the
-    chapters' names stand in the margin, the words in the block. Linden
-    Hill's italic, Ysabeau for reading, fig on candle cream; the reply on
-    the hedge's dark green, in butter.
+    Garten: romantic and botanical. The veil parts, the couple's photo under
+    an arch with branches and falling petals, the day on a vine, the story
+    in garden gates, the rings above the last question.
 -->
 <template>
-    <main class="invitation-page" data-template="garten">
-        <GartenHero
-            :names="names"
-            :date="date"
-            :place="place"
-            :cover="photos[0] ?? null"
-            :alt="content.photoAlt.value"
+    <main ref="root" class="invitation-page" data-template="garten">
+        <InvitationOpening
+            :couple="invitation.wedding.coupleNames"
+            :date="formatDate(invitation.wedding.date, localeTag())"
         />
-
-        <div class="garten-folio">
-            <InvitationLetter :invitation="invitation" :replied="replied">
-                <template #signature>
-                    <p class="garten-signature">
-                        {{ names.first }}
-                        <template v-if="names.second">
-                            &amp; {{ names.second }}
-                        </template>
-                    </p>
-                </template>
-            </InvitationLetter>
-        </div>
-
-        <section
-            v-if="programme.length"
-            id="inv-programme"
-            class="garten-folio"
-        >
-            <h2 class="garten-heading">
-                {{ t('invitation.programme_heading') }}
-            </h2>
-            <InvitationProgramme :items="programme" />
-        </section>
-
+        <GartenHero :wedding="invitation.wedding" :place="place" />
+        <InvitationLetter :invitation="invitation" :replied="replied" />
+        <GartenOrnament />
+        <GartenEvents :events="invitation.events" />
         <InvitationEvening :evening="invitation.evening" />
-
-        <InvitationPhotos
-            :photos="photos"
-            :alt="content.photoAlt.value"
-            class="garten-plates"
-        />
-
-        <InvitationChapter
-            v-if="story"
-            :block="story"
-            :heading="content.heading(story)"
-            class="garten-folio"
-        >
-            <InvitationStory :block="story" />
-        </InvitationChapter>
-
-        <div v-if="practical.length" class="garten-folio">
-            <InvitationPractical
-                v-for="block in practical"
-                :key="block.id"
-                :block="block"
-                :heading="content.heading(block)"
-                :level="2"
-            />
-        </div>
-
-        <InvitationChapter
-            v-if="faq"
-            :block="faq"
-            :heading="content.heading(faq)"
-            class="garten-folio"
-        >
-            <FaqBlock :block="faq" />
-        </InvitationChapter>
-
-        <InvitationClosing :invitation="invitation" />
+        <GartenCalendar :invitation="invitation" />
+        <GartenTicker :events="invitation.events" />
+        <GartenGallery :wedding="invitation.wedding" />
+        <GartenOrnament />
+        <GartenBlocks :blocks="invitation.blocks" />
+        <GartenClosing :invitation="invitation" />
         <InvitationFooter :wedding="invitation.wedding" />
     </main>
 </template>

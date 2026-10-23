@@ -1,4 +1,11 @@
 <script setup lang="ts">
+import {
+    BookHeart,
+    Clock,
+    Images,
+    Mail,
+    MessageCircleQuestion,
+} from '@lucide/vue';
 import FaqBlock from '@/components/invitation/blocks/FaqBlock.vue';
 import InvitationChapter from '@/components/invitation/InvitationChapter.vue';
 import InvitationClosing from '@/components/invitation/InvitationClosing.vue';
@@ -38,6 +45,7 @@ const { names, date, place, programme, story, faq, practical, photos } =
 
         <section class="raster-section" aria-labelledby="raster-letter">
             <h2 id="raster-letter" class="raster-label">
+                <Mail class="raster-label-icon" aria-hidden="true" />
                 {{ t('invitation.letter_heading') }}
             </h2>
             <InvitationLetter :invitation="invitation" :replied="replied" />
@@ -49,23 +57,36 @@ const { names, date, place, programme, story, faq, practical, photos } =
             class="raster-section"
         >
             <h2 class="raster-label">
+                <Clock class="raster-label-icon" aria-hidden="true" />
                 {{ t('invitation.programme_heading') }}
             </h2>
-            <InvitationProgramme :items="programme" />
+            <InvitationProgramme :items="programme" icons />
         </section>
 
         <InvitationEvening :evening="invitation.evening" />
 
-        <InvitationPhotos
-            :photos="photos"
-            :alt="content.photoAlt.value"
-            class="raster-photos"
-        />
+        <section
+            v-if="photos.length > 1"
+            class="raster-section"
+            aria-labelledby="raster-photos"
+        >
+            <h2 id="raster-photos" class="raster-label">
+                <Images class="raster-label-icon" aria-hidden="true" />
+                {{ t('invitation.photos_heading') }}
+            </h2>
+            <InvitationPhotos
+                :photos="photos"
+                :alt="content.photoAlt.value"
+                :count="7"
+                class="raster-photos"
+            />
+        </section>
 
         <InvitationChapter
             v-if="story"
             :block="story"
             :heading="content.heading(story)"
+            :icon="BookHeart"
             class="raster-section"
         >
             <InvitationStory :block="story" />
@@ -77,6 +98,7 @@ const { names, date, place, programme, story, faq, practical, photos } =
             :block="block"
             :heading="content.heading(block)"
             :level="2"
+            icon
             class="raster-section"
         />
 
@@ -84,6 +106,7 @@ const { names, date, place, programme, story, faq, practical, photos } =
             v-if="faq"
             :block="faq"
             :heading="content.heading(faq)"
+            :icon="MessageCircleQuestion"
             class="raster-section"
         >
             <FaqBlock :block="faq" />

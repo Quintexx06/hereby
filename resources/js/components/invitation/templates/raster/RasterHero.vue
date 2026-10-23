@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { CalendarDays, MapPin } from '@lucide/vue';
 import { computed } from 'vue';
 import HeroPhoto from '@/components/invitation/HeroPhoto.vue';
 import { useTrans } from '@/composables/useTrans';
@@ -41,8 +42,14 @@ const dateParts = computed(() => {
                 <span class="sr-only">{{ t('invitation.marry') }}</span>
             </h1>
             <p class="raster-meta">
-                {{ date.weekday }}, {{ date.numeric
-                }}<template v-if="place"><br />{{ place }}</template>
+                <span>
+                    <CalendarDays class="raster-meta-icon" aria-hidden="true" />
+                    {{ date.weekday }}, {{ date.numeric }}
+                </span>
+                <span v-if="place">
+                    <MapPin class="raster-meta-icon" aria-hidden="true" />
+                    {{ place }}
+                </span>
             </p>
         </div>
         <figure v-if="cover" class="raster-cover">

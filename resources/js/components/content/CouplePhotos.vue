@@ -8,7 +8,7 @@ import { couplePhotosCopy as copy } from '@/content/content';
 import { store } from '@/routes/weddings/photos';
 import type { CouplePhoto } from '@/types';
 
-const MAX = 4;
+const MAX = 8;
 
 const props = defineProps<{ weddingId: number; photos: CouplePhoto[] }>();
 const emit = defineEmits<{ changed: [] }>();
@@ -47,7 +47,7 @@ async function upload(event: Event): Promise<void> {
 }
 </script>
 
-<!-- The couple's own photos for the top of their site: up to four, first is the cover. -->
+<!-- The couple's own photos for the top of their site: up to eight, first is the cover. -->
 <template>
     <section class="flex flex-col gap-4" aria-labelledby="couple-photos">
         <div class="flex flex-col gap-1">

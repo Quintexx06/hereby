@@ -17,23 +17,33 @@ class StockPreviewPhoto extends WeddingPhoto
         'veil-kiss.webp' => [1000, 1250],
         'lake-jetty-1200.webp' => [1200, 900],
         'table-candles.webp' => [1000, 1250],
+        'sparklers-1440.webp' => [1440, 810],
+        'bouquet.webp' => [1000, 1250],
+        'hero-veil-1440.webp' => [1440, 810],
+    ];
+
+    /** @var array<string, string> design => the stock photo it opens on */
+    private const COVERS = [
+        'salon' => 'sparklers-1440.webp',
+        'arve' => 'lake-jetty-1200.webp',
+        'lido' => 'hero-veil-1440.webp',
     ];
 
     private string $file = '';
 
     /**
-     * The stock photos in the order a design shows them: Arve opens on its
-     * landscape, every other design on the couple.
+     * The stock photos in the order a design shows them: Salon opens on the
+     * night, Arve on its landscape, Lido on the summer light, the others on
+     * the couple.
      *
      * @return list<string>
      */
     public static function filesFor(WeddingTemplate $template): array
     {
         $files = array_keys(self::PHOTOS);
+        $cover = self::COVERS[$template->value] ?? $files[0];
 
-        return $template === WeddingTemplate::Arve
-            ? ['lake-jetty-1200.webp', ...array_values(array_diff($files, ['lake-jetty-1200.webp']))]
-            : $files;
+        return [$cover, ...array_values(array_diff($files, [$cover]))];
     }
 
     public static function make(string $file): self

@@ -1,0 +1,110 @@
+/*
+ * The salon hang: the couple's photos in gilt frames of different sizes,
+ * close together on the wall: up to five, the largest in the middle.
+ * Each frame settles on its nail as it comes into view; a frame lifts a
+ * little under the pointer.
+ */
+@layer components {
+    .salon-hang {
+        @apply grid w-full max-w-6xl grid-flow-dense auto-rows-[3.5rem] grid-cols-6 gap-4 px-5 py-12 sm:px-10 md:auto-rows-[2rem] md:grid-cols-12 md:gap-6 md:py-16;
+    }
+
+    .salon-hang-frame {
+        @apply col-span-3 row-span-4 transition-[translate,box-shadow] duration-200 ease-out hover:-translate-y-1;
+        transform-origin: 50% -1.5rem;
+    }
+
+    /* Phones: one large, then pairs. */
+    .salon-hang-frame:first-child {
+        @apply col-span-6 row-span-5;
+    }
+
+    /*
+     * Wide screens: a composed wall on twelve columns, the largest frame in
+     * the middle, smaller ones beside it (three to five photos).
+     */
+    .salon-hang:is([data-count='3'], [data-count='4'], [data-count='5'])
+        .salon-hang-frame {
+        @apply md:col-span-3 md:row-span-7;
+    }
+
+    .salon-hang:is([data-count='3'], [data-count='4'], [data-count='5'])
+        .salon-hang-frame:nth-child(1) {
+        @apply md:col-start-1 md:row-start-2;
+    }
+
+    .salon-hang:is([data-count='3'], [data-count='4'], [data-count='5'])
+        .salon-hang-frame:nth-child(2) {
+        @apply md:col-span-6 md:col-start-4 md:row-span-14 md:row-start-1;
+    }
+
+    .salon-hang:is([data-count='3'], [data-count='4'], [data-count='5'])
+        .salon-hang-frame:nth-child(3) {
+        @apply md:col-start-10 md:row-start-1;
+    }
+
+    .salon-hang-frame:nth-child(4) {
+        @apply md:col-start-1 md:row-start-10;
+    }
+
+    .salon-hang-frame:nth-child(5) {
+        @apply col-span-6 md:col-start-10 md:row-start-9;
+    }
+
+    /* Three: the sides hang lower, centred on the middle frame. */
+    .salon-hang[data-count='3']
+        .salon-hang-frame:is(:nth-child(1), :nth-child(3)) {
+        @apply md:row-start-4;
+    }
+
+    /* Four: the right one runs tall beside the middle. */
+    .salon-hang[data-count='4'] .salon-hang-frame:nth-child(3) {
+        @apply md:row-span-11 md:row-start-3;
+    }
+
+    /* A single photo hangs alone, larger; two hang as a pair. */
+    .salon-hang[data-count='1'] {
+        @apply max-w-xl md:auto-rows-auto md:grid-cols-1;
+    }
+
+    .salon-hang[data-count='1'] .salon-hang-frame {
+        @apply col-span-6 row-span-6 aspect-[4/5] md:col-span-1 md:row-auto;
+    }
+
+    .salon-hang[data-count='2'] {
+        @apply max-w-4xl;
+    }
+
+    .salon-hang[data-count='2'] .salon-hang-frame {
+        @apply col-span-3 row-span-5 md:col-span-6 md:row-span-11;
+    }
+}
+
+/* Each frame settles on its nail from a slight swing as it comes in. */
+@supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+        .salon-hang-frame {
+            animation: salon-hang-in linear both;
+            animation-timeline: view();
+            animation-range: entry 0% entry 80%;
+        }
+
+        .salon-hang-frame:nth-child(even) {
+            --swing: 2.5deg;
+        }
+    }
+}
+
+@keyframes salon-hang-in {
+    from {
+        opacity: 0;
+        rotate: var(--swing, -2.5deg);
+        translate: 0 -1.5rem;
+    }
+
+    to {
+        opacity: 1;
+        rotate: 0deg;
+        translate: 0 0;
+    }
+}

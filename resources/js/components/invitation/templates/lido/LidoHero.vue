@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import HeroPhoto from '@/components/invitation/HeroPhoto.vue';
+import LidoWaves from '@/components/invitation/templates/lido/LidoWaves.vue';
 import { useTrans } from '@/composables/useTrans';
 import type { WeddingPhoto } from '@/types';
 
@@ -14,32 +15,41 @@ const { t } = useTrans();
 </script>
 
 <!--
-    Lido opens like a summer day at the lake bath: the striped awning, a
-    butter-yellow field with the names set big in Gloock, and the couple's
-    photo beside it as a square postcard in a paper border.
+    Lido opens like a summer afternoon at the lake bath: the striped
+    awning with its scalloped edge, a butter field, and the couple's photo
+    cut out as a sun going down into the lake in stripes, the water
+    drifting below; their names in Shrikhand over it.
 -->
 <template>
     <header class="lido-hero">
-        <div class="lido-stripe" aria-hidden="true" />
-        <div class="lido-hero-grid">
-            <div class="lido-field">
-                <p class="lido-kicker">{{ t('invitation.save_the_date') }}</p>
+        <div class="lido-awning" aria-hidden="true" />
+        <div class="lido-hero-stage">
+            <div class="lido-sun" :data-photo="cover !== null">
+                <HeroPhoto
+                    v-if="cover"
+                    :photo="cover"
+                    :alt="alt"
+                    eager
+                    class="lido-sun-photo"
+                />
+            </div>
+            <LidoWaves class="lido-hero-waves" />
+            <div class="lido-hero-copy">
                 <h1 class="lido-names">
-                    {{ names.first }}
-                    <template v-if="names.second">
-                        <span class="lido-amp">&amp;</span>
-                        {{ names.second }}
-                    </template>
+                    <span>{{ names.first }}</span>
+                    <span v-if="names.second"
+                        ><span class="lido-amp">&amp;</span>
+                        {{ names.second }}</span
+                    >
                     <span class="sr-only">{{ t('invitation.marry') }}</span>
                 </h1>
                 <p class="lido-when">
-                    {{ date.weekday }}, {{ date.long
-                    }}<template v-if="place"> · {{ place }}</template>
+                    <span class="lido-when-day"
+                        >{{ date.weekday }}, {{ date.long }}</span
+                    >
+                    <span v-if="place">{{ place }}</span>
                 </p>
             </div>
-            <figure v-if="cover" class="lido-postcard">
-                <HeroPhoto :photo="cover" :alt="alt" eager class="size-full" />
-            </figure>
         </div>
     </header>
 </template>

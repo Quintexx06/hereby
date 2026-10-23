@@ -40,23 +40,23 @@ class CouplePhotosTest extends TestCase
         $this->assertCount(1, Storage::disk(WeddingPhoto::DISK)->allFiles("weddings/{$wedding->id}"));
     }
 
-    public function test_only_images_and_at_most_four_photos(): void
+    public function test_only_images_and_at_most_eight_photos(): void
     {
         $wedding = Wedding::factory()->create();
-        WeddingPhoto::factory()->for($wedding)->count(3)->create();
+        WeddingPhoto::factory()->for($wedding)->count(7)->create();
         $route = route('weddings.photos.store', $wedding);
 
         $this->actingAs($wedding->owner)
             ->post($route, ['photo' => UploadedFile::fake()->create('film.mp4', 50, 'video/mp4')])
             ->assertSessionHasErrors('photo');
         $this->actingAs($wedding->owner)
-            ->post($route, ['photo' => UploadedFile::fake()->image('vier.jpg')])
+            ->post($route, ['photo' => UploadedFile::fake()->image('acht.jpg')])
             ->assertSessionHasNoErrors();
         $this->actingAs($wedding->owner)
-            ->post($route, ['photo' => UploadedFile::fake()->image('fuenf.jpg')])
+            ->post($route, ['photo' => UploadedFile::fake()->image('neun.jpg')])
             ->assertSessionHasErrors('photo');
 
-        $this->assertSame(4, $wedding->couplePhotos()->count());
+        $this->assertSame(8, $wedding->couplePhotos()->count());
     }
 
     public function test_a_photo_the_server_dropped_for_its_size_gets_a_clear_message(): void

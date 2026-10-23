@@ -140,6 +140,15 @@
         @apply size-5 shrink-0 text-muted-foreground transition-transform duration-200 ease-out group-open:rotate-180 motion-reduce:transition-none;
     }
 
+    /* A 3D layer (GuestScene) fades in once its first frame is drawn. */
+    .guest-scene {
+        @apply opacity-0 transition-opacity duration-1000 ease-out;
+    }
+
+    .guest-scene[data-ready='true'] {
+        @apply opacity-100;
+    }
+
     /* The couple's other photos (InvitationPhotos). */
     .inv-photos {
         @apply grid w-full gap-4;

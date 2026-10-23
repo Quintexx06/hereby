@@ -32,17 +32,27 @@
         --button-radius: 0;
     }
 
-    /* Salon: an engraved card. Cotton paper, velvet ink, oxblood. */
+    /*
+     * Salon: a grand hotel's salon at night. The invitation hangs on a
+     * claret wall in gilt frames (`--night`); the reply and every form
+     * stay on the ivory card. Ballet for the names, Tenor Sans for the rest.
+     */
     [data-theme='salon'] {
         --background: var(--salon-paper);
         --foreground: var(--salon-ink);
         --muted-foreground: var(--salon-muted);
         --rule: var(--salon-rule);
-        --brand: var(--salon-oxblood);
-        --night-muted: var(--salon-night-muted);
-        --night-accent: var(--salon-champagne);
-        --type-display: 'Castoro Titling', 'Trajan Pro', Georgia, serif;
-        --type-sans: 'Libre Caslon Text', 'Big Caslon', Georgia, serif;
+        --brand: var(--salon-claret);
+        --night: var(--salon-wall);
+        --night-deep: var(--salon-wall-deep);
+        --night-foreground: var(--salon-ivory);
+        --night-muted: var(--salon-champagne);
+        --night-accent: var(--salon-gilt);
+        --gilt-light: var(--salon-gilt-light);
+        --gilt-dark: var(--salon-gilt-dark);
+        --type-script: 'Ballet', 'Snell Roundhand', 'Apple Chancery', cursive;
+        --type-display: 'Tenor Sans', 'Optima', 'Candara', sans-serif;
+        --type-sans: 'Tenor Sans', 'Optima', 'Candara', sans-serif;
     }
 
     /* Raster: the Swiss grid. Concrete, graphite, vermilion. */
@@ -61,41 +71,81 @@
             'Schibsted Grotesk Variable', 'Helvetica Neue', Arial, sans-serif;
     }
 
-    /* Garten: a private-press book. Candle cream, fig, the hedge at dusk. */
+    /*
+     * Garten (restored, ADR 0015 amended): the former house style. Ivory
+     * paper on one ladder from its lightness, chroma and hue, night ink,
+     * blush; the closing band in the ink. Cormorant with Archivo.
+     */
     [data-theme='garten'] {
-        --background: var(--garten-paper);
-        --foreground: var(--garten-ink);
-        --muted-foreground: var(--garten-muted);
-        --rule: var(--garten-rule);
-        --brand: var(--garten-fig);
-        --olive: var(--garten-olive);
-        --night: var(--garten-night);
-        --night-muted: var(--garten-night-muted);
-        --night-accent: var(--garten-butter);
+        --paper-l: 0.972;
+        --paper-c: 0.013;
+        --paper-h: 82;
+        --background: oklch(var(--paper-l) var(--paper-c) var(--paper-h));
+        --foreground: var(--color-night-900);
+        --card: oklch(
+            calc(var(--paper-l) + 0.016) calc(var(--paper-c) * 0.5)
+                var(--paper-h)
+        );
+        --muted: oklch(
+            calc(var(--paper-l) - 0.04) calc(var(--paper-c) * 1.5)
+                var(--paper-h)
+        );
+        --border: oklch(
+            calc(var(--paper-l) - 0.085) calc(var(--paper-c) * 1.7)
+                var(--paper-h)
+        );
+        --input: oklch(
+            calc(var(--paper-l) - 0.13) calc(var(--paper-c) * 1.7)
+                var(--paper-h)
+        );
+        --muted-foreground: var(--color-sand-600);
+        --rule: color-mix(in oklch, var(--color-night-900) 14%, transparent);
+        --brand: var(--color-blush-700);
+        --brand-foreground: var(--color-porcelain-50);
+        --brand-muted: var(--color-blush-200);
+        --primary: var(--color-night-900);
+        --primary-foreground: var(--color-porcelain-50);
+        --ring: var(--color-blush-600);
+        --night: var(--color-night-900);
+        --night-foreground: var(--color-porcelain-50);
+        --night-muted: var(--color-sand-300);
         --button-radius: 9999px;
-        --type-display: 'Linden Hill', 'Goudy Old Style', Georgia, serif;
+        --type-display:
+            'Cormorant Garamond Variable', 'Cormorant Garamond', Garamond,
+            Georgia, serif;
         --type-sans:
-            'Ysabeau Office Variable', 'Gill Sans', 'Optima', system-ui,
-            sans-serif;
+            'Archivo Variable', 'Helvetica Neue', Arial, system-ui, sans-serif;
     }
 
-    /* Arve: stone pine and wool. Night forest, geranium. */
+    /*
+     * Arve: the Alps on a Swiss map. Snow paper, granite ink, glacier
+     * water; the alpine night for the last question; trail-sign yellow
+     * and the trail marker's red only as signs. Sofia Sans Condensed.
+     */
     [data-theme='arve'] {
-        --background: var(--arve-paper);
+        --background: var(--arve-snow);
         --foreground: var(--arve-ink);
         --muted-foreground: var(--arve-muted);
         --rule: var(--arve-rule);
-        --brand: var(--arve-geranium);
-        --wood: var(--arve-wood);
+        --brand: var(--arve-glacier);
+        --sign: var(--arve-sign);
+        --trail: var(--arve-trail);
+        --alpenglow: var(--arve-alpenglow);
         --night: var(--arve-night);
         --night-muted: var(--arve-night-muted);
-        --night-accent: var(--arve-night-wood);
-        --button-radius: 0.25rem;
-        --type-display: 'Vollkorn Variable', 'Iowan Old Style', Georgia, serif;
-        --type-sans: 'Vollkorn Variable', 'Iowan Old Style', Georgia, serif;
+        --night-accent: var(--arve-night-glacier);
+        --button-radius: 0.375rem;
+        --type-display:
+            'Sofia Sans Condensed Variable', 'Arial Narrow', sans-serif;
+        --type-sans:
+            'Sofia Sans Condensed Variable', 'Arial Narrow', sans-serif;
     }
 
-    /* Lido: a summer lido. Lake depth, cobalt, a butter field. */
+    /*
+     * Lido: a summer at the lake bath. Lido paper, lake ink, cobalt, a
+     * butter field, tomato; the deep lake for the last question.
+     * Shrikhand for the big words, Figtree for reading.
+     */
     [data-theme='lido'] {
         --background: var(--lido-paper);
         --foreground: var(--lido-ink);
@@ -107,8 +157,9 @@
         --night-muted: var(--lido-night-muted);
         --night-accent: var(--lido-butter);
         --button-radius: 9999px;
-        --type-display: 'Gloock', 'Didot', Georgia, serif;
+        --type-display: 'Shrikhand', 'Cooper Black', Georgia, serif;
         --type-sans:
-            'Familjen Grotesk Variable', 'Helvetica Neue', Arial, sans-serif;
+            'Figtree Variable', 'Avenir Next', 'Helvetica Neue', Arial,
+            sans-serif;
     }
 }

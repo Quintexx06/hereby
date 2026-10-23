@@ -39,8 +39,8 @@ Couples: laptops and phones in the evening. Venues: office desktops in daylight.
 ## Capabilities and Constraints
 
 Built today: personal links, event-aware invitation, four locales, five
-finished designs (Salon, Raster, Garten, Arve, Lido; ADR 0015) that couples
-fill with their own content, data deletion schedule, and a question form on
+finished designs (Salon, Raster, Garten, Arve, Lido; ADR 0015 and 0016)
+that couples fill with their own content and up to eight photos, data deletion schedule, and a question form on
 the landing page. Everything else is on the roadmap.
 Never claim unbuilt features or invent customers, venues or numbers.
 

@@ -56,7 +56,8 @@
     }
 
     /* Room for the bar where the design opens on paper. */
-    [data-theme]:not([data-theme='salon']) .invitation-page {
+    [data-theme]:not([data-theme='salon'], [data-theme='arve'])
+        .invitation-page {
         @apply md:pt-16;
     }
 }

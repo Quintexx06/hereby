@@ -21,3 +21,4 @@ Template: `NNNN-title.md` with **Status**, **Context**, **Decision** and **Conse
 | [0013](0013-own-accent-colour.md)    | ~~Couples may pick their own accent colour~~ (superseded by 0015) |
 | [0014](0014-guest-serifs-and-papers.md) | ~~Guest sites get their own serifs and papers~~ (superseded by 0015) |
 | [0015](0015-five-finished-designs.md) | Five finished designs instead of a page builder |
+| [0016](0016-designs-with-their-own-moments.md) | Designs with their own moments: Garten restored, new faces and effects for Salon, Arve, Lido, eight photos |

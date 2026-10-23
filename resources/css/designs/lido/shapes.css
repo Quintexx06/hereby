@@ -1,0 +1,63 @@
+/*
+ * The couple's photos cut out like a summer collage on the butter field,
+ * never framed: a sun, a pebble, a scalloped print, a capsule, a tilted
+ * tile, each bobbing slowly as if floating on the lake.
+ */
+@layer components {
+    .lido-shapes {
+        @apply flex w-full flex-wrap items-center justify-center gap-x-6 gap-y-10 bg-[var(--butter)] px-5 py-20 sm:px-10 lg:gap-x-12 lg:py-28;
+    }
+
+    .lido-shape {
+        @apply m-0 w-[clamp(9rem,40vw,17rem)] shrink-0 overflow-hidden lg:odd:-mt-6 lg:even:mt-24;
+        animation: lido-bob 6s ease-in-out calc(var(--i) * -1.4s) infinite
+            alternate;
+    }
+
+    .lido-shape-photo {
+        @apply block size-full;
+    }
+
+    .lido-shape[data-shape='sun'] {
+        @apply aspect-square w-[clamp(10rem,44vw,20rem)] rounded-full;
+    }
+
+    .lido-shape[data-shape='pebble'] {
+        @apply aspect-[5/4] rounded-[46%_54%_58%_42%/52%_46%_54%_48%];
+    }
+
+    /* Scalloped top and foot, like a bathing-hut ticket. */
+    .lido-shape[data-shape='wave'] {
+        @apply aspect-[4/5] w-[clamp(8rem,34vw,14rem)];
+        mask:
+            linear-gradient(black 0 0) center / 100% calc(100% - 2rem) no-repeat,
+            radial-gradient(circle 1rem at 50% 100%, black 98%, transparent) top
+                / 2rem 1rem repeat-x,
+            radial-gradient(circle 1rem at 50% 0, black 98%, transparent) bottom
+                / 2rem 1rem repeat-x;
+    }
+
+    .lido-shape[data-shape='capsule'] {
+        @apply aspect-[1/2] w-[clamp(6.5rem,24vw,10rem)] rounded-full;
+    }
+
+    .lido-shape[data-shape='tile'] {
+        @apply aspect-square w-[clamp(8rem,34vw,13rem)] -rotate-6 rounded-[2rem];
+    }
+}
+
+@keyframes lido-bob {
+    from {
+        translate: 0 -0.4rem;
+    }
+
+    to {
+        translate: 0 0.5rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .lido-shape {
+        animation: none;
+    }
+}

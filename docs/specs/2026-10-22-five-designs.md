@@ -3,6 +3,8 @@
 Date: 2026-10-22 · Status: approved by the founder in chat («deaktiviere
 pagebuilder … auswahl von guten 5 … wo der inhalt angepasst werden kann
 und alles andere ist custom von uns») · Decision: [ADR 0015](../decisions/0015-five-finished-designs.md)
+· Second round: [2026-10-23-designs-round-two](2026-10-23-designs-round-two.md)
+(Garten restored, new Salon, Arve and Lido, effects allowed within the budget)
 
 ## Problem
 
