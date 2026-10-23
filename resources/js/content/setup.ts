@@ -165,6 +165,10 @@ export const templates: Record<
     WeddingTemplate,
     { name: string; mood: string }
 > = {
+    garten: {
+        name: 'Garten',
+        mood: 'Romantisch und botanisch: euer Foto unter einem Bogen, Zweige und fallende Blüten, der Tag an einer Ranke, die Ringe zum Schluss. Für Gärten, Rebberge, Scheunen und Landgüter.',
+    },
     salon: {
         name: 'Salon',
         mood: 'Ein Grandhotel-Salon bei Nacht: eure Fotos in Goldrahmen an einer bordeauxroten Wand, die Namen in Schreibschrift, Champagnergläser zum Schluss. Für Black Tie, Grandhotel, Zunfthaus und Schloss.',
@@ -172,10 +176,6 @@ export const templates: Record<
     raster: {
         name: 'Raster',
         mood: 'Schweizer Raster: das Datum als Architektur, das Programm als Fahrplan mit Piktogrammen, ein Zinnoberrot. Für moderne Orte, Museen und die Stadt.',
-    },
-    garten: {
-        name: 'Garten',
-        mood: 'Romantisch und botanisch: euer Foto unter einem Bogen, Zweige und fallende Blüten, der Tag an einer Ranke, die Ringe zum Schluss. Für Gärten, Rebberge, Scheunen und Landgüter.',
     },
     arve: {
         name: 'Arve',

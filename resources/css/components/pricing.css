@@ -1,74 +1,121 @@
 /*
- * «Was es kostet» (PricingSection): what stays free on a muted panel, the
- * three plans as a price list between hairlines (name and use, price,
- * contents, the way to start), the extras as a menu with dotted leaders.
- * One blush note: Atelier's price.
+ * «Was es kostet» (PricingSection): the smallest package first, on the
+ * night stage, its price large and a phone with the first design rising
+ * from the panel's lower edge; the two bigger packages as columns under a
+ * rule; the extras as one panel of five price tags. One blush note:
+ * Atelier's price.
  */
 @layer components {
-    .pricing-grid {
-        @apply grid gap-12 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16;
+    /* ---------- The smallest package ---------- */
+    .pricing-lead {
+        @apply relative grid grid-cols-[minmax(0,1fr)] overflow-hidden rounded-[2rem] px-7 pt-9 sm:px-12 sm:pt-12 lg:grid-cols-[minmax(0,1fr)_16rem] lg:gap-16 lg:px-16 lg:pt-16 xl:grid-cols-[minmax(0,1fr)_18rem];
     }
 
-    .pricing-free {
-        @apply flex flex-col gap-5 self-start rounded-[1.5rem] bg-muted/60 p-7 sm:p-9 lg:sticky lg:top-28;
+    .pricing-lead-body {
+        @apply flex flex-col gap-5 pb-10 sm:pb-12 lg:pb-16;
+    }
+
+    /* The price never breaks; «einmalig» moves under it when space runs out. */
+    .pricing-lead-figure {
+        @apply flex flex-wrap items-baseline gap-x-3 gap-y-1 font-display text-[clamp(4rem,10vw,8rem)] leading-[0.9] font-semibold tracking-[-0.05em] tabular-nums;
+        font-stretch: 110%;
+    }
+
+    .pricing-lead-once {
+        @apply font-sans text-base leading-normal font-medium tracking-normal text-muted-foreground sm:text-lg;
+        font-stretch: 100%;
+    }
+
+    .pricing-lead-features {
+        @apply grid gap-x-8 gap-y-2.5 pt-1 text-[1.0625rem] leading-snug sm:grid-cols-2;
+    }
+
+    .pricing-lead-start {
+        @apply flex flex-col items-start gap-4 pt-3 sm:flex-row sm:items-center sm:gap-6;
+    }
+
+    /* A phone frame without its lower half: the panel's edge cuts it. */
+    .pricing-lead-phone {
+        @apply relative m-0 mx-auto h-64 w-52 self-end overflow-hidden rounded-t-[2rem] border-[7px] border-b-0 border-night-700 bg-night-800 shadow-[0_-24px_60px_-24px_rgb(0_0_0/0.6)] sm:h-80 sm:w-60 lg:h-[27rem] lg:w-full;
+    }
+
+    .pricing-lead-phone img {
+        @apply block h-auto w-full rounded-t-[1.5rem];
+    }
+
+    /* The phone rises into the panel as the panel scrolls into view. */
+    @supports (animation-timeline: view()) {
+        @media (prefers-reduced-motion: no-preference) {
+            .pricing-lead-phone {
+                animation: pricing-rise linear both;
+                animation-timeline: view();
+                animation-range: entry 0% cover 40%;
+            }
+        }
+    }
+
+    /* ---------- The two bigger packages ---------- */
+    .pricing-more {
+        @apply grid gap-12 md:grid-cols-2 md:gap-12 lg:gap-16;
+    }
+
+    .pricing-plan {
+        @apply flex flex-col gap-5 border-t-[1.5px] border-foreground pt-7;
     }
 
     .pricing-figure {
-        @apply font-display text-[clamp(2.75rem,5vw,4.25rem)] leading-none font-semibold tracking-[-0.045em] whitespace-nowrap tabular-nums;
-        font-stretch: 108%;
-    }
-
-    .pricing-from {
-        @apply mr-1 text-[0.42em] font-medium tracking-normal;
-    }
-
-    .pricing-features {
-        @apply flex flex-col gap-2.5 text-[1.0625rem] leading-snug;
-    }
-
-    .pricing-plans {
-        @apply flex flex-col border-t-[1.5px] border-foreground;
-    }
-
-    /* Name and use, price; contents, the way to start. */
-    .pricing-plan {
-        @apply grid gap-x-10 gap-y-6 border-b border-rule py-9 sm:grid-cols-[minmax(0,1fr)_auto] sm:py-11;
-    }
-
-    .pricing-price {
-        @apply flex flex-col items-start gap-1 sm:items-end sm:text-right;
+        @apply font-display text-[clamp(2rem,3.4vw,2.75rem)] leading-none font-semibold tracking-[-0.04em] whitespace-nowrap tabular-nums;
+        font-stretch: 106%;
     }
 
     .pricing-plan[data-plan='atelier'] .pricing-figure {
         @apply text-brand;
     }
 
+    .pricing-from {
+        @apply mr-1 text-[0.5em] font-medium tracking-normal;
+    }
+
+    .pricing-features {
+        @apply flex flex-col gap-2.5 text-[1.0625rem] leading-snug;
+    }
+
     .pricing-cta {
-        @apply self-end justify-self-start sm:justify-self-end;
+        @apply mt-auto self-start;
     }
 
     .pricing-plan:not([data-plan='atelier']) .pricing-cta {
         @apply border-[1.5px] border-foreground bg-transparent text-foreground shadow-none hover:bg-foreground hover:text-background;
     }
 
-    /* ---------- Extras, as on a menu ---------- */
+    /* ---------- Extras: one panel, five price tags between hairlines ---------- */
     .pricing-extras {
-        @apply flex flex-col gap-6;
+        @apply grid gap-px overflow-hidden rounded-[1.5rem] border border-rule bg-rule sm:grid-cols-2 lg:grid-cols-5;
     }
 
-    .pricing-list {
-        @apply grid gap-x-16 sm:grid-cols-2;
+    .pricing-extra {
+        @apply flex flex-col justify-between gap-6 bg-background p-6 sm:min-h-36 sm:last:col-span-2 lg:last:col-span-1;
     }
 
-    .pricing-row {
-        @apply flex items-baseline gap-3 border-b border-rule py-3.5;
+    .pricing-extra > dt {
+        @apply font-semibold;
     }
 
-    .pricing-row > dt {
-        @apply flex flex-1 items-baseline gap-3 font-semibold after:min-w-6 after:flex-1 after:border-b-2 after:border-dotted after:border-foreground/25 after:content-[''];
+    .pricing-extra-price {
+        @apply font-display text-[1.75rem] leading-none font-semibold tracking-[-0.035em] whitespace-nowrap tabular-nums;
     }
 
-    .pricing-row > dd {
-        @apply font-display font-semibold whitespace-nowrap tabular-nums;
+    .pricing-extra-price .caption {
+        @apply ml-1 font-sans tracking-normal;
+    }
+}
+
+@keyframes pricing-rise {
+    from {
+        translate: 0 30%;
+    }
+
+    to {
+        translate: 0 0;
     }
 }

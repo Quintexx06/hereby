@@ -32,8 +32,9 @@ function pick(target: number): void {
 
 <!--
     The five designs side by side, endlessly: the front window large, its
-    neighbours peeking at either side. Swipe, use the arrows or a name; the
-    front window opens the whole sample site. Nothing moves on its own.
+    neighbours peeking at either side, its name and mood below. Swipe, or
+    use the one centred row of arrows and names; the front window opens the
+    whole sample site. Nothing moves on its own.
 -->
 <template>
     <div
@@ -70,7 +71,26 @@ function pick(target: number): void {
             </div>
         </div>
 
-        <div class="studio-controls">
+        <div class="studio-caption" aria-live="polite">
+            <Transition name="studio-flip" mode="out-in">
+                <p :key="active" class="studio-name">
+                    {{ templates[active].name
+                    }}<span class="text-brand">.</span>
+                </p>
+            </Transition>
+            <p class="max-w-xl text-muted-foreground">
+                {{ templates[active].mood }}
+            </p>
+            <a
+                :href="sample.url(active)"
+                class="studio-live"
+                target="_blank"
+                rel="noopener"
+                >{{ studio.live }} <ArrowUpRight class="size-4"
+            /></a>
+        </div>
+
+        <div class="studio-nav">
             <button
                 type="button"
                 class="studio-arrow"
@@ -79,23 +99,17 @@ function pick(target: number): void {
             >
                 <ChevronLeft class="size-5" />
             </button>
-            <div class="studio-caption" aria-live="polite">
-                <Transition name="studio-flip" mode="out-in">
-                    <p :key="active" class="studio-name">
-                        {{ templates[active].name
-                        }}<span class="text-brand">.</span>
-                    </p>
-                </Transition>
-                <p class="max-w-xl text-muted-foreground">
-                    {{ templates[active].mood }}
-                </p>
-                <a
-                    :href="sample.url(active)"
-                    class="studio-live"
-                    target="_blank"
-                    rel="noopener"
-                    >{{ studio.live }} <ArrowUpRight class="size-4"
-                /></a>
+            <div class="studio-names">
+                <button
+                    v-for="(design, designIndex) in designs"
+                    :key="design"
+                    type="button"
+                    class="studio-chip"
+                    :aria-current="design === active || undefined"
+                    @click="pick(designIndex)"
+                >
+                    {{ templates[design].name }}
+                </button>
             </div>
             <button
                 type="button"
@@ -104,19 +118,6 @@ function pick(target: number): void {
                 @click="go(1)"
             >
                 <ChevronRight class="size-5" />
-            </button>
-        </div>
-
-        <div class="studio-names">
-            <button
-                v-for="(design, designIndex) in designs"
-                :key="design"
-                type="button"
-                class="studio-chip"
-                :aria-current="design === active || undefined"
-                @click="pick(designIndex)"
-            >
-                {{ templates[design].name }}
             </button>
         </div>
     </div>

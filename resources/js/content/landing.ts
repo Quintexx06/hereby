@@ -24,8 +24,8 @@ export const hero = {
     lede: 'Fünf fertig gestaltete Entwürfe, jeder mit eigener Schrift und eigenen Farben, gefüllt mit euren Fotos und Texten. Jeder Haushalt bekommt seinen eigenen Link und sagt in unter einer Minute zu.',
     primaryCta: 'Kostenlos starten',
     secondaryCta: 'Vorlagen ansehen',
-    price: (from: string) =>
-        `Gestalten ist gratis. Online geht eure Seite einmalig ab ${from}.`,
+    priceLead: 'Eure Website ab',
+    priceTail: 'einmalig. Gestalten ist gratis.',
     priceLink: 'Preise ansehen',
     skip: 'Vorhang öffnen',
     photo: photo.heroVeil,
@@ -151,13 +151,12 @@ export const marquee = [
 
 export const studio = {
     title: 'Gestaltet, nicht zusammengeklickt.',
-    lede: 'Fünf Websites, jede gestaltet wie eine Papeterie-Serie: eigene Schrift, eigene Farben, eigener Aufbau. Ihr wählt eine und füllt sie mit euren Fotos und Texten. Alles darüber hinaus fertigen wir auf Mass.',
+    lede: 'Fünf Entwürfe, fertig gestaltet. Ihr bringt die Fotos.',
     live: 'Live ansehen',
     designsLabel: 'Entwürfe',
     previous: 'Vorheriger Entwurf',
     next: 'Nächster Entwurf',
     url: 'anna-und-luca.hereby.ch',
-    example: 'Beispielseiten mit Demo-Daten',
     shot: (name: string) =>
         `Erste Seite des Entwurfs ${name} mit den Beispielnamen Anna und Luca, am Computer und auf dem Handy`,
 } as const;
@@ -248,24 +247,24 @@ export const premium = {
 } as const;
 
 /**
- * «Was es kostet» (PricingSection): building is free, a plan opens the
- * links, extras one by one. Plan contents come from content/publish.ts, the
- * same lines couples read at checkout; prices from WelcomeController.
+ * «Was es kostet» (PricingSection): the smallest package first and large,
+ * the two bigger ones below, the extras last. Plan contents come from
+ * content/publish.ts, the same lines couples read at checkout; prices from
+ * WelcomeController.
  */
 export const pricing = {
     title: 'Was es kostet.',
-    lede: 'Gestalten, alle fünf Entwürfe ausprobieren und eure Seite in der Vorschau ansehen kostet nichts. Ihr bezahlt einmal, wenn die persönlichen Links an eure Gäste gehen. Kein Abo, kein Preis pro Gast, keine Werbung.',
-    free: 'Immer gratis',
-    freeItems: [
-        'Alle fünf Entwürfe, gefüllt mit euren Fotos und Texten',
-        'Die Vorschau eurer Seite, so lange ihr wollt',
-        'Für eure Gäste alles, ohne Konto und ohne Werbung',
-    ],
+    lede: 'Einmal bezahlt. Kein Abo, kein Preis pro Gast, keine Werbung.',
+    lead: {
+        title: 'Eure Hochzeitswebsite',
+        line: 'Signature, das kleinste Paket: eure Seite mit einem persönlichen Link für jeden Haushalt.',
+        free: 'Gestalten und Vorschau sind gratis. Ihr bezahlt erst, wenn die Links an eure Gäste gehen.',
+        shot: 'Der Entwurf Garten auf dem Handy',
+    },
     once: 'einmalig',
     from: 'ab',
+    moreTitle: 'Wenn ihr mehr wollt',
     lines: {
-        signature:
-            'Nur die Website: eure Seite mit einem persönlichen Link für jeden Haushalt.',
         atelier:
             'Die Website und der Abend, der von selbst läuft, mit den Fotos eurer Gäste.',
         couture: 'Alles, und wir gestalten und begleiten es mit euch.',
@@ -286,7 +285,7 @@ export const pricing = {
         { addon: 'bespoke', name: 'Massanfertigung', perYear: false },
     ],
     perYear: 'pro Jahr',
-    fine: 'Einmalig, per Karte oder TWINT. Wer später mehr will, bezahlt nur die Differenz. Eure Gäste sehen nie einen Preis.',
+    fine: 'Per Karte oder TWINT. Wer später mehr will, bezahlt nur die Differenz. Eure Gäste sehen nie einen Preis.',
     details: 'Alle Preise im Detail',
 } as const;
 

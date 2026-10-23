@@ -112,7 +112,11 @@
 
     /* Under the buttons: what it costs, before anyone has to ask. */
     .hero-price {
-        @apply basis-full text-sm text-muted-foreground sm:text-[0.95rem];
+        @apply basis-full text-[0.95rem] text-foreground/80 sm:text-base;
+    }
+
+    .hero-price-figure {
+        @apply font-display font-semibold text-foreground;
     }
 
     .hero-statement {

@@ -92,7 +92,11 @@ const { state, revealed, usesWebgl, skip } = useVeilCurtain(canvas, photo);
                         <a href="#studio">{{ hero.secondaryCta }}</a>
                     </Button>
                     <p class="hero-price">
-                        {{ hero.price(chf(from)) }}
+                        {{ hero.priceLead }}
+                        <strong class="hero-price-figure">{{
+                            chf(from)
+                        }}</strong
+                        >, {{ hero.priceTail }}
                         <a href="#preise" class="link-underline">{{
                             hero.priceLink
                         }}</a>

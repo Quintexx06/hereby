@@ -119,6 +119,17 @@ and the extras. Prices come from `config/hereby.php` through
 `WelcomeController`, so the landing always shows what checkout charges;
 plan contents are the checkout's lines (`content/publish.ts`).
 
+**Update 2026-10-23, evening (founder):** less body text. The studio's lede
+is one line («Fünf Entwürfe, fertig gestaltet. Ihr bringt die Fotos.»), the
+demo caption is gone, Garten comes first, and the arrows and the five names
+sit together in one centred row. The hero's price line names the figure
+(«Eure Website ab **CHF 290**, einmalig.»). «Was es kostet» leads with the
+smallest package on the night stage (Signature as «Eure Hochzeitswebsite»,
+its price large, a phone with Garten rising from the panel's edge), then
+Atelier and Couture side by side («Wenn ihr mehr wollt»), then the extras
+as one panel of five price tags. No «CHF 0» card: that building is free is
+said beside the button.
+
 ## 5. Message hierarchy and section rationale
 
 | # | Section | Job | UX notes |

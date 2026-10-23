@@ -3,8 +3,8 @@
  * ADR 0015 and 0016 as their real first screens in an endless carousel.
  * The front window is large, its neighbours peek at either side; each
  * slide holds the wide screen in a browser window and the phone over its
- * corner. Swiped, stepped with the arrows or picked by name; nothing moves
- * on its own.
+ * corner. Swiped, or stepped and picked in one centred row of arrows and
+ * names; nothing moves on its own.
  */
 @layer components {
     /* Full-bleed track; padding lets the first and last window sit centred. */
@@ -115,13 +115,13 @@
         }
     }
 
-    /* ---------- Arrows, the design in front, its name among the five ---------- */
-    .studio-controls {
-        @apply grid grid-cols-[auto_minmax(0,1fr)_auto] items-start gap-4 sm:gap-10;
+    /* ---------- The design in front; arrows and names in one row ---------- */
+    .studio-nav {
+        @apply flex items-center justify-center gap-2 sm:gap-3;
     }
 
     .studio-arrow {
-        @apply mt-1 grid size-12 shrink-0 cursor-pointer place-items-center rounded-full border border-rule bg-card text-foreground shadow-[0_14px_30px_-16px_rgb(30_14_10/0.45)];
+        @apply grid size-11 shrink-0 cursor-pointer place-items-center rounded-full border border-rule text-foreground;
         transition:
             background-color 200ms ease,
             border-color 200ms ease,
@@ -138,7 +138,7 @@
 
     @media (hover: hover) and (pointer: fine) {
         .studio-arrow:hover {
-            @apply border-foreground/30 bg-background;
+            @apply border-foreground/40 bg-card;
         }
 
         .studio-arrow:first-child:hover svg {
@@ -162,12 +162,13 @@
         @apply mt-1 inline-flex items-center gap-1.5 font-semibold underline decoration-current/30 underline-offset-4 transition-colors duration-150 hover:decoration-current;
     }
 
+    /* Between the arrows; on a phone the five wrap to two lines. */
     .studio-names {
-        @apply flex flex-wrap justify-center gap-2;
+        @apply flex flex-wrap justify-center gap-1.5 sm:gap-2;
     }
 
     .studio-chip {
-        @apply inline-flex min-h-11 cursor-pointer items-center rounded-full border border-rule px-5 font-display text-base font-semibold tracking-[-0.01em] text-muted-foreground transition-[color,border-color,background-color,scale] duration-150 ease-out hover:text-foreground active:scale-[0.97] aria-[current=true]:border-foreground aria-[current=true]:bg-foreground aria-[current=true]:text-background;
+        @apply inline-flex min-h-11 cursor-pointer items-center rounded-full border border-rule px-3.5 font-display text-[0.9375rem] font-semibold tracking-[-0.01em] text-muted-foreground transition-[color,border-color,background-color,scale] duration-150 ease-out hover:text-foreground active:scale-[0.97] aria-[current=true]:border-foreground aria-[current=true]:bg-foreground aria-[current=true]:text-background sm:px-5 sm:text-base;
     }
 
     .studio-flip-enter-active,

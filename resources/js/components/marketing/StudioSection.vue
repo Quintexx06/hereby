@@ -16,7 +16,6 @@ import { studio } from '@/content/landing';
                 <p class="lede">{{ studio.lede }}</p>
             </header>
             <StudioCarousel />
-            <p class="caption -mt-2 text-center">{{ studio.example }}</p>
         </div>
     </section>
 </template>
