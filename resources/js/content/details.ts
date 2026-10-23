@@ -5,6 +5,10 @@ export const details = {
     tabs: 'Bereiche',
     save: 'Speichern',
     saved: 'Gespeichert',
+    unsaved: 'Noch nicht gespeichert',
+    saveDesign: (name: string) => `${name} übernehmen`,
+    design: (name: string) => `Euer Entwurf: ${name}`,
+    designUnsaved: (name: string) => `${name} gewählt, noch nicht gespeichert`,
     programmeNote:
         'Antworten bleiben erhalten, wenn ihr Zeiten oder Namen ändert. Ein neuer Teil geht an alle Haushalte (auf «Gäste» passt ihr das an); ein entfernter Teil nimmt seine Antworten mit.',
     dateNote:

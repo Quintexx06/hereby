@@ -7,7 +7,7 @@ import SetupStepBody from '@/components/setup/SetupStepBody.vue';
 import { provideSetupForm } from '@/composables/useSetupForm';
 import { dashboardPage } from '@/content/dashboard';
 import { details as copy } from '@/content/details';
-import { steps as stepCopy } from '@/content/setup';
+import { steps as stepCopy, templates } from '@/content/setup';
 import { pickStepFields } from '@/lib/setup';
 import { dashboard } from '@/routes';
 import { edit, update } from '@/routes/weddings/details';
@@ -44,6 +44,22 @@ const note = computed(
             props.step as string
         ] ?? null,
 );
+
+/* The look tab names the design on the button; every tab says what is pending. */
+const saveLabel = computed(() =>
+    props.step === 'look'
+        ? copy.saveDesign(templates[form.template].name)
+        : copy.save,
+);
+const status = computed(() => {
+    if (props.step === 'look') {
+        const name = templates[form.template].name;
+
+        return form.isDirty ? copy.designUnsaved(name) : copy.design(name);
+    }
+
+    return form.isDirty ? copy.unsaved : null;
+});
 
 function submit(): void {
     form.transform((data) => pickStepFields(props.step, data)).put(
@@ -89,8 +105,9 @@ function submit(): void {
                 :processing="form.processing"
                 :dirty="form.isDirty"
                 :saved="form.recentlySuccessful"
-                :label="copy.save"
+                :label="saveLabel"
                 :saved-label="copy.saved"
+                :status="status"
             />
         </form>
     </div>

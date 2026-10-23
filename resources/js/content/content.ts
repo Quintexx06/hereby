@@ -26,7 +26,11 @@ export const contentPage = {
     preview: 'Vorschau ansehen',
     previewLabel: 'Vorschau',
     previewHint:
-        'So sehen es eure Gäste auf dem Handy, Stand eures letzten Speicherns.',
+        'So sehen es eure Gäste auf dem Handy, Stand eures letzten Speicherns. Die Vorschau springt mit, wo ihr gerade schreibt.',
+    desktop: 'Am Computer ansehen',
+    desktopTitle: 'Vorschau am Computer',
+    desktopHint:
+        'So sehen es eure Gäste auf einem grossen Bildschirm, Stand eures letzten Speicherns.',
     save: 'Speichern',
     saved: 'Gespeichert',
     unsaved: 'Noch nicht gespeichert',

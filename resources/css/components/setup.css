@@ -152,28 +152,44 @@
     }
 
     /* Look: the five designs as their real first screens, then bespoke. */
-    .look-designs {
-        @apply grid gap-5 sm:grid-cols-2 xl:grid-cols-3;
+    /*
+     * The look step: the chosen design large (DesignShots), the five beside
+     * it on a wide column, or as a row of five above it where it is narrow.
+     */
+    .look-picker {
+        @apply grid gap-6 @3xl:grid-cols-[minmax(0,1fr)_14rem] @3xl:gap-10;
+    }
+
+    .look-stage {
+        @apply flex flex-col gap-5;
+    }
+
+    .look-stage-name {
+        @apply font-display text-3xl font-semibold tracking-[-0.03em] sm:text-4xl;
+    }
+
+    .look-options {
+        @apply -order-1 grid grid-cols-5 gap-2 @3xl:order-none @3xl:flex @3xl:flex-col @3xl:self-start;
     }
 
     .design-option {
-        @apply relative flex cursor-pointer flex-col gap-3 rounded-lg border p-2.5 pb-4 transition-[border-color,box-shadow] duration-150 hover:border-foreground/40 has-[:checked]:border-foreground has-[:checked]:shadow-[0_0_0_1px_var(--foreground)] has-[:focus-visible]:border-ring;
+        @apply relative flex cursor-pointer flex-col gap-1.5 rounded-lg border p-1.5 transition-[border-color,box-shadow] duration-150 hover:border-foreground/40 has-[:checked]:border-foreground has-[:checked]:shadow-[0_0_0_1px_var(--foreground)] has-[:focus-visible]:border-ring @3xl:flex-row @3xl:items-center @3xl:gap-3 @3xl:p-2;
     }
 
     .design-option-shot {
-        @apply block aspect-[16/11] overflow-hidden rounded-md bg-muted;
+        @apply block aspect-[16/11] w-full overflow-hidden rounded-md bg-muted @3xl:w-24 @3xl:shrink-0;
     }
 
     .design-option-shot img {
         @apply size-full object-cover object-top;
     }
 
-    .design-option-text {
-        @apply flex flex-col gap-1 px-1.5;
+    .design-option-name {
+        @apply flex flex-col items-start gap-1 px-0.5 text-xs font-semibold sm:text-sm @3xl:text-base;
     }
 
     .design-option-tag {
-        @apply ml-2 rounded-full bg-brand-muted px-2 py-0.5 text-xs font-medium text-foreground;
+        @apply rounded-full bg-brand-muted px-2 py-0.5 text-[0.7rem] font-medium text-foreground;
     }
 
     .look-bespoke {
@@ -301,8 +317,9 @@
      * The tabs' forms are short: the save button sits after the last
      * question instead of floating over it.
      */
+    /* Stays at the foot of the screen, so the way to save is never far. */
     .details-form > .details-savebar {
-        @apply static border-rule bg-transparent backdrop-blur-none;
+        @apply border-rule;
     }
 
     .details-tabs {
