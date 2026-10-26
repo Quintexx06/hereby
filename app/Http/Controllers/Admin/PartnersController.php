@@ -132,4 +132,22 @@ class PartnersController extends Controller
 
         return back();
     }
+
+    /**
+     * Removes a prospect that wants no contact, as the privacy policy
+     * promises. Partners with a sign-in or a wedding stay.
+     */
+    public function destroy(Partner $partner): RedirectResponse
+    {
+        if ($partner->users()->exists() || $partner->weddings()->exists()) {
+            Inertia::flash('toast', ['type' => 'error', 'message' => "{$partner->name} hat einen Zugang oder Hochzeiten und bleibt."]);
+
+            return back();
+        }
+
+        $partner->delete();
+        Inertia::flash('toast', ['type' => 'success', 'message' => "{$partner->name} gelöscht."]);
+
+        return back();
+    }
 }

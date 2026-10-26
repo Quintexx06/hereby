@@ -12,7 +12,7 @@ export type LegalPage = {
     sections: LegalSection[];
 };
 
-const updated = 'Stand: 14. Oktober 2026';
+const updated = 'Stand: 26. Oktober 2026';
 const operator = 'Hereby, Martin Brunner';
 const contact = 'info@hereby.ch';
 
@@ -35,6 +35,7 @@ export const privacy: LegalPage = {
                 'Gästedaten: Namen, Haushalt, Sprache, E-Mail-Adresse und, falls das Paar sie einträgt, Telefonnummer; Zu- und Absagen sowie Angaben zu Menü, Allergien und Unverträglichkeiten. Allergien und Unverträglichkeiten speichern wir verschlüsselt. Diese Daten bearbeiten wir im Auftrag des Brautpaares.',
                 'Je nach Paket des Paares zusätzlich: der Tisch eines Gastes mit einer Zeile, die das Paar über ihn schreibt (seine Tischnachbarn sehen den Vornamen und diese Zeile, nie Nachnamen oder Allergien); Reden, Spiele oder Lieder, die Gäste für den Abend anmelden; Gruppenfotos, in die das Paar Gäste einteilt; Fotos, die Gäste hochladen; Geschichten und Fotos für die Hochzeitszeitung.',
                 'Partner: Locations, Fotografen und Planer haben ein eigenes Konto (Name, Kontaktangaben, bei Locations Adresse, Beschreibung und Fotos). Fragt jemand über die öffentliche Seite einer Location eine Besichtigung an, speichern wir Name, E-Mail-Adresse, Wunschtermin und Nachricht für diese Location.',
+                'Locations, die wir anfragen: Für eine erste Anfrage nutzen wir die öffentlichen Geschäftsangaben einer Location (Name, Adresse, Ort, E-Mail-Adresse, Website) und zeigen ihr eine Beispielseite, die nur über einen persönlichen Link erreichbar ist und nach 90 Tagen abläuft. Wünscht eine Location keinen Kontakt, genügt eine kurze Antwort.',
                 'Massanfertigung: Wünsche, Farben, Links und Inspirationsbilder, die ein Paar uns für seine Seite schickt. Die Bilder sehen nur das Paar und unser Team; sie werden mit der Hochzeit gelöscht.',
                 'Zahlungen: Paare bezahlen über Stripe. Kartendaten und TWINT-Angaben gehen direkt an Stripe; wir erhalten nur die Bestätigung der Zahlung.',
             ],
@@ -67,6 +68,7 @@ export const privacy: LegalPage = {
                 'Gästedaten löschen wir automatisch zwölf Monate nach dem Hochzeitsdatum: Haushalte, Namen, Antworten, Allergien, Tische, Anmeldungen und Gruppenfotos.',
                 'Bucht ein Paar «Erinnerungen behalten», bleiben die Fotos der Gäste und die Hochzeitszeitung (mit den Namen, mit denen Gäste ihre Beiträge unterschrieben haben) jeweils ein Jahr länger; die übrigen Gästedaten löschen wir trotzdem nach zwölf Monaten.',
                 'Anfragen für eine Besichtigung löschen wir zwölf Monate nach Eingang.',
+                'Die Angaben einer Location, die wir angefragt haben, löschen wir, sobald sie keinen Kontakt wünscht.',
                 'Server-Protokolle löschen wir nach 30 Tagen. Konten bestehen, bis sie gelöscht werden; ihr könnt euer Konto jederzeit in den Einstellungen löschen, und mit ihm alle Daten eurer Hochzeit.',
             ],
         },

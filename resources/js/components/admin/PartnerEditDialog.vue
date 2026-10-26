@@ -134,8 +134,10 @@ function sendAccess(): void {
                     :note-error="form.errors.pitch_note"
                 />
                 <PartnerEditActions
+                    :partner-id="partner.id"
                     :has-login="Boolean(partner.login)"
                     :can-invite="Boolean(partner.login || form.email)"
+                    :removable="!partner.login && partner.weddings === 0"
                     :processing="form.processing"
                     @invite="sendAccess"
                 />

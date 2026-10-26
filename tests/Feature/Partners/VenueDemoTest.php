@@ -5,6 +5,7 @@ namespace Tests\Feature\Partners;
 use App\Mail\PartnerInvitation;
 use App\Models\Partner;
 use App\Models\User;
+use App\Models\Wedding;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\URL;
@@ -95,6 +96,32 @@ class VenueDemoTest extends TestCase
         $this->get(URL::temporarySignedRoute('venues.demo', now()->addDay(), ['partner' => $venue->slug]))
             ->assertInertia(fn (Assert $page) => $page->where('invitation.blocks', fn ($blocks) => collect($blocks)->firstWhere('type', 'venue')['venue']['address']
                 === 'Riethof 1, 8447 Dachsen'));
+    }
+
+    public function test_the_team_deletes_a_prospect_that_wants_no_contact(): void
+    {
+        $prospect = Partner::factory()->create(['name' => 'Hotel Belvedere', 'email' => 'events@belvedere.example']);
+
+        $this->actingAs($this->admin())->delete(route('admin.partners.destroy', $prospect))
+            ->assertRedirect()->assertSessionHasNoErrors();
+
+        $this->assertModelMissing($prospect);
+    }
+
+    public function test_a_partner_with_a_sign_in_or_a_wedding_is_not_deleted(): void
+    {
+        $admin = $this->admin();
+        $withLogin = Partner::factory()->create();
+        User::factory()->create(['partner_id' => $withLogin->id]);
+        $withWedding = Partner::factory()->create();
+        $withWedding->weddings()->attach(Wedding::factory()->create());
+
+        $this->actingAs($admin)->delete(route('admin.partners.destroy', $withLogin))->assertRedirect();
+        $this->actingAs($admin)->delete(route('admin.partners.destroy', $withWedding))->assertRedirect();
+        $this->actingAs(User::factory()->create())->delete(route('admin.partners.destroy', Partner::factory()->create()))->assertForbidden();
+
+        $this->assertModelExists($withLogin);
+        $this->assertModelExists($withWedding);
     }
 
     public function test_a_prospect_that_says_yes_gets_its_sign_in(): void

@@ -347,6 +347,8 @@ export const footer = {
     privacy: 'Datenschutz',
     imprint: 'Impressum',
     email: 'info@hereby.ch',
+    /** Platform pages only: guests never see it (product rule 3). */
+    credit: { prefix: 'Made by', name: 'webspark', url: 'https://webspark.ch' },
 } as const;
 
 /** The topic pages (lang/de_CH/pages.php): shared copy and the footer list. */

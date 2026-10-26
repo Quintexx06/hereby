@@ -32,6 +32,7 @@ Route::middleware(['auth', 'verified', 'can:admin'])->prefix('admin')->name('adm
     Route::post('partner', [PartnersController::class, 'store'])->name('partners.store');
     Route::post('partner/liste', [PartnersController::class, 'import'])->name('partners.import');
     Route::patch('partner/{partner}', [PartnersController::class, 'update'])->name('partners.update');
+    Route::delete('partner/{partner}', [PartnersController::class, 'destroy'])->name('partners.destroy');
     Route::post('partner/{partner}/zugang', [PartnersController::class, 'resend'])->name('partners.resend');
     Route::get('nachfassen', [ChaseController::class, 'index'])->name('chase.index');
     Route::patch('nachfassen/{household:id}', [ChaseController::class, 'update'])->name('chase.update');

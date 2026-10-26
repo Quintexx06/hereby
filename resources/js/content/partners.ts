@@ -142,6 +142,8 @@ export const adminPartners = {
     save: 'Speichern',
     resend: 'Neuen Zugangslink senden',
     inviteLogin: 'Zugang einrichten und Link senden',
+    remove: 'Interessent löschen',
+    removeQuestion: 'Wirklich löschen?',
     noLogin: 'kein Zugang',
     prospect: 'Interessent, noch ohne Zugang',
     prospectHint:
@@ -163,7 +165,8 @@ export const adminPartners = {
     /**
      * The pitch, in the team's own mail app: formal «Sie», in the founder's
      * own words (2026-10-23). The venue's own sentence, if the team wrote
-     * one, says why Hereby fits this house.
+     * one, says why Hereby fits this house. It names the sender in full and
+     * how to say no (UWG art. 3 para. 1 lit. o).
      */
     pitch: (venue: string, demo: string, note?: string | null) => ({
         subject: `${venue}: Hochzeitswebsites für Ihre Brautpaare`,
@@ -183,12 +186,13 @@ export const adminPartners = {
             '',
             'Vielleicht passt unser Ansatz auch zu Ihrem Betrieb. Gerne zeige ich Ihnen Hereby bei Interesse persönlich vor Ort oder kurz per Video.',
             '',
-            'Falls das für Sie momentan nicht interessant ist, ist das natürlich völlig in Ordnung. Über eine kurze Rückmeldung freue ich mich in jedem Fall.',
+            'Falls das für Sie momentan nicht interessant ist, ist das natürlich völlig in Ordnung. Über eine kurze Rückmeldung freue ich mich in jedem Fall. Wünschen Sie keine weiteren Nachrichten von mir, genügt eine kurze Antwort.',
             '',
             'Freundliche Grüsse',
             '',
             'Martin Brunner',
-            'Hereby',
+            'Hereby · hereby.ch · info@hereby.ch',
+            'Datenschutz: hereby.ch/datenschutz',
         ].join('\n'),
     }),
 };

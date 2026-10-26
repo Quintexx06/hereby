@@ -26,7 +26,17 @@ const { isPending } = useFooterReveal(root);
 
         <div class="page-container">
             <div class="caption footer-legal">
-                <p>© {{ year }} Hereby. Gemacht in der Schweiz.</p>
+                <p>
+                    © {{ year }} Hereby. Gemacht in der Schweiz.
+                    {{ footer.credit.prefix }}
+                    <a
+                        :href="footer.credit.url"
+                        target="_blank"
+                        rel="noopener"
+                        class="link-underline"
+                        >{{ footer.credit.name }}</a
+                    >
+                </p>
                 <nav
                     aria-label="Rechtliches"
                     class="flex flex-wrap justify-center gap-x-8 gap-y-2"
