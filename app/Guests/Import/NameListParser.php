@@ -14,6 +14,9 @@ class NameListParser
 
     private const string CHILD = '/\s*\((?:kind|child|enfant|bambino|bambina)\)\s*/iu';
 
+    /** Academic titles before a name: "Dr. Anna Meier" is Anna. */
+    private const string TITLES = '/^(?:(?:prof|dr|med|dipl|ing|lic|dott|dott\.ssa)\.?\s+)+(?=\S)/iu';
+
     /**
      * @return list<ParsedGuest>
      */
@@ -32,7 +35,8 @@ class NameListParser
     private function person(string $part): ParsedGuest
     {
         $isChild = (bool) preg_match(self::CHILD, $part);
-        $words = explode(' ', Str::squish(preg_replace(self::CHILD, ' ', $part) ?? $part));
+        $name = Str::squish(preg_replace(self::CHILD, ' ', $part) ?? $part);
+        $words = explode(' ', preg_replace(self::TITLES, '', $name) ?? $name);
 
         $first = array_shift($words);
         $last = $words === [] ? null : implode(' ', $words);

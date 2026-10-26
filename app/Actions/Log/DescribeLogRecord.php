@@ -43,6 +43,8 @@ class DescribeLogRecord
 
     public function scrub(string $text): string
     {
+        // Terminal colour codes (the SSR server's errors) are noise in the log.
+        $text = preg_replace('/\e\[[0-9;]*[A-Za-z]/', '', $text) ?? $text;
         $text = preg_replace('/[^\s@<>"\']+@[^\s@<>"\']+\.[a-z]{2,}/i', '[E-Mail]', $text) ?? $text;
 
         return preg_replace('/\+?\d[\d \/.-]{7,}\d/', '[Nummer]', $text) ?? $text;

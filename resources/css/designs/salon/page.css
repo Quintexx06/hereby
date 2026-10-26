@@ -243,8 +243,11 @@
         @apply text-[var(--night-accent)];
     }
 
-    /* The evening's own cards (Atelier) stay readable on the wall. */
-    [data-template='salon'] :is(.evening-card, .evening-call) {
+    /*
+     * The evening's own cards (Atelier) stay readable on the wall; the
+     * group-photo call brings its own swapped colours.
+     */
+    [data-template='salon'] .evening-card {
         @apply text-foreground;
     }
 

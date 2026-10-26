@@ -51,6 +51,7 @@ class BuildKitchenSheet
                 ->map(fn (Guest $guest): array => [
                     'name' => trim($guest->first_name.' '.$guest->last_name),
                     'household' => $household->name,
+                    'table' => $guest->table_name,
                     'child' => $guest->is_child,
                     'parts' => array_values($guest->responses
                         ->filter(fn (EventResponse $response): bool => $response->status === ResponseStatus::Attending)
@@ -58,6 +59,7 @@ class BuildKitchenSheet
                         ->all()),
                     'notes' => (string) $guest->dietary_notes,
                 ]))
+            ->sortBy(fn (array $row): string => $row['table'] ?? "\u{10FFFF}")
             ->all());
     }
 

@@ -7,7 +7,7 @@ Wir haben eure Hochzeitswebsite angelegt. Wählt ein Passwort, dann seht ihr, wa
 Passwort wählen
 </x-mail::button>
 
-Der Link gilt 60 Minuten. Danach fordert ihr unter «Passwort vergessen» einfach einen neuen an.
+Der Link gilt sieben Tage. Danach fordert ihr unter «Passwort vergessen» einfach einen neuen an.
 
 Herzlich, das Hereby-Team
 </x-mail::message>

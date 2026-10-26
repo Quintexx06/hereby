@@ -15,6 +15,8 @@ const OPEN_MS = 2600;
 const SKIP_MS = 700;
 const WEBGL_DEADLINE_MS = 1600;
 const REVEAL_AFTER_MS = 1100;
+/** The copy never waits longer than this for the 3D veil (LCP, slow phones). */
+const REVEAL_LATEST_MS = 900;
 /** A breath with the veil closed, so the reveal reads as a reveal. */
 const HOLD_MS = 450;
 
@@ -31,6 +33,7 @@ export function useVeilCurtain(
     let visibility: IntersectionObserver | undefined;
     let deadline: ReturnType<typeof setTimeout> | undefined;
     let reveal: ReturnType<typeof setTimeout> | undefined;
+    let latest: ReturnType<typeof setTimeout> | undefined;
     let cancelled = false;
 
     const photoReady = () =>
@@ -61,6 +64,7 @@ export function useVeilCurtain(
             return;
         }
 
+        latest = setTimeout(() => (revealed.value = true), REVEAL_LATEST_MS);
         deadline = setTimeout(openWithCss, WEBGL_DEADLINE_MS);
         const [{ createVeilCurtain }] = await Promise.all([
             import('@/lib/three/veil-curtain'),
@@ -93,6 +97,7 @@ export function useVeilCurtain(
         cancelled = true;
         clearTimeout(deadline);
         clearTimeout(reveal);
+        clearTimeout(latest);
         visibility?.disconnect();
         window.removeEventListener('pointermove', onPointer);
         curtain?.destroy();

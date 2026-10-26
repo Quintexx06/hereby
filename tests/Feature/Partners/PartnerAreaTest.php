@@ -72,7 +72,15 @@ class PartnerAreaTest extends TestCase
     {
         $venue = $this->partnerUser(Partner::factory()->create());
 
-        $this->actingAs($venue)->get(route('partner.sheet', $this->wedding))->assertOk()->assertSee('Keine Haselnüsse');
+        $this->wedding->households()->first()?->guests()->update(['table_name' => 'Rigi']);
+
+        // Allergies per table, as promised: never a guest's or household's name.
+        $this->actingAs($venue)->get(route('partner.sheet', $this->wedding))
+            ->assertOk()
+            ->assertSee('Keine Haselnüsse')
+            ->assertSee('Rigi')
+            ->assertDontSee('Heidi')
+            ->assertDontSee('Familie Meier');
         $this->actingAs($venue)->get(route('partner.sheet', Wedding::factory()->create()))->assertForbidden();
     }
 

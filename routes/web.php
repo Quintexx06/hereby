@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\WelcomeLinkController;
 use App\Http\Controllers\Billing\StripeWebhookController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Marketing\SitemapController;
@@ -59,6 +60,11 @@ Route::middleware(UseSwissGerman::class)->group(function () {
     Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('dashboard', DashboardController::class)->name('dashboard');
     });
+
+    // A welcome mail's link to choose a password (seven days, signed).
+    Route::get('willkommen/{user}', WelcomeLinkController::class)
+        ->middleware(['signed', PreventIndexing::class])
+        ->name('welcome-link');
 
     require __DIR__.'/settings.php';
     require __DIR__.'/weddings.php';

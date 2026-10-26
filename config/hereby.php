@@ -19,12 +19,13 @@ return [
     | Team inbox
     |--------------------------------------------------------------------------
     |
-    | Questions from the landing page ("Fragt uns") are mailed here. Leave it
-    | empty to only store them in the `inquiries` table.
+    | Questions from the landing page ("Fragt uns"), bespoke briefs and error
+    | alerts are mailed here; info@hereby.ch unless set. Set it empty to only
+    | store them (inquiries in the `inquiries` table).
     |
     */
 
-    'inbox' => env('HEREBY_INBOX'),
+    'inbox' => env('HEREBY_INBOX', 'info@hereby.ch'),
 
     /*
     |--------------------------------------------------------------------------

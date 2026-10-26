@@ -130,6 +130,13 @@ Atelier and Couture side by side («Wenn ihr mehr wollt»), then the extras
 as one panel of five price tags. No «CHF 0» card: that building is free is
 said beside the button.
 
+**Update 2026-10-26 (founder):** the hero's price moved into the lede
+(«… Gestalten ist gratis, online ab **CHF 290**, einmalig.», the figure
+links to Preise); no separate line under the buttons. Atelier and Couture
+are two tinted panels led by their icons; the fine print under the extras
+is gone. The hero copy shows at the latest 0.9 s after load, whatever the
+3D veil does (LCP on slow phones).
+
 ## 5. Message hierarchy and section rationale
 
 | # | Section | Job | UX notes |

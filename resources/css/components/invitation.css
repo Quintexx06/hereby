@@ -136,6 +136,11 @@
         @apply flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 py-3 text-lg font-medium [&::-webkit-details-marker]:hidden;
     }
 
+    /* A class, not a utility, so a design on a dark ground can recolour it. */
+    .block-faq-answer {
+        @apply pb-5 text-muted-foreground;
+    }
+
     .block-faq-chevron {
         @apply size-5 shrink-0 text-muted-foreground transition-transform duration-200 ease-out group-open:rotate-180 motion-reduce:transition-none;
     }
@@ -198,6 +203,11 @@
 
     .inv-footer-contact {
         @apply flex flex-col items-center gap-1 text-sm not-italic;
+    }
+
+    /* The credit lines take the footer's own colour, on light or dark. */
+    .inv-footer .caption {
+        color: inherit;
     }
 
     .inv-footer-links {

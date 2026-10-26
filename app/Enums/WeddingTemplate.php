@@ -5,18 +5,19 @@ namespace App\Enums;
 /**
  * The five designs a couple chooses from (ADR 0015). Each is finished by
  * us: its layout, type and colours are fixed, only the couple's content
- * changes. Anything else is made to measure (Massanfertigung).
+ * changes. Anything else is made to measure (Massanfertigung). Garten
+ * comes first, as on the landing and in the setup.
  */
 enum WeddingTemplate: string
 {
+    /** A private-press book: gardens, vineyards, barns, estates. */
+    case Garten = 'garten';
+
     /** An engraved card: black tie, grand hotels, guildhalls, castles. */
     case Salon = 'salon';
 
     /** The Swiss grid: modern venues, museums, a civil ceremony and dinner. */
     case Raster = 'raster';
-
-    /** A private-press book: gardens, vineyards, barns, estates. */
-    case Garten = 'garten';
 
     /** Stone pine and wool: mountain hotels, huts, alpine lakes. */
     case Arve = 'arve';

@@ -23,6 +23,10 @@ export const witnessPage = {
         'Tippt auf «Aufrufen», wenn eine Gruppe dran ist: Die Gäste bekommen eine Mail und sehen es auf ihrer Einladung.',
     groupsEmpty: 'Das Brautpaar hat noch keine Gruppenfotos eingetragen.',
     call: 'Aufrufen',
+    callConfirm: (title: string) =>
+        `«${title}» jetzt aufrufen? Die Gäste bekommen sofort eine Mail.`,
+    callYes: 'Ja, aufrufen',
+    cancel: 'Abbrechen',
     callAgain: 'Nochmals aufrufen',
     calledAt: (time: string) => `Aufgerufen um ${time}`,
     newspaper: 'Hochzeitszeitung',

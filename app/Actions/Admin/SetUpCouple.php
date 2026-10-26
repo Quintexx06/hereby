@@ -6,10 +6,10 @@ use App\Actions\Weddings\StartWeddingSetup;
 use App\Mail\CoupleInvitation;
 use App\Models\User;
 use App\Models\Wedding;
+use App\Support\WelcomeLink;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 
 /**
@@ -45,7 +45,7 @@ class SetUpCouple
         });
 
         $couple = $wedding->owner;
-        $link = route('password.reset', ['token' => Password::createToken($couple), 'email' => $couple->email]);
+        $link = WelcomeLink::to($couple);
         Mail::to($couple->email)->queue(new CoupleInvitation($wedding->couple_names, $link));
 
         return $wedding;

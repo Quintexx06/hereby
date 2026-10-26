@@ -54,8 +54,23 @@ class AdminTest extends TestCase
         $this->assertSame('Anna & Luca', $wedding->couple_names);
         $this->assertTrue($wedding->isDraft());
         $this->assertNotNull($couple->email_verified_at);
-        Mail::assertQueued(CoupleInvitation::class, fn (CoupleInvitation $mail): bool => $mail->hasTo('anna@example.ch')
-            && str_contains($mail->link, '/reset-password/'));
+        $link = null;
+        Mail::assertQueued(CoupleInvitation::class, function (CoupleInvitation $mail) use (&$link): bool {
+            $link = $mail->link;
+
+            return $mail->hasTo('anna@example.ch');
+        });
+
+        // The welcome link still works days later and opens «Passwort wählen».
+        $this->travel(6)->days();
+        auth()->logout();
+        $page = $this->get((string) $link)->assertRedirect();
+        $this->get((string) $page->headers->get('Location'))
+            ->assertOk()
+            ->assertInertia(fn (Assert $page) => $page->component('auth/ResetPassword')->where('welcome', true));
+
+        $this->travel(2)->days();
+        $this->get((string) $link)->assertForbidden();
     }
 
     public function test_admin_works_on_a_couples_wedding_with_the_couples_pages(): void

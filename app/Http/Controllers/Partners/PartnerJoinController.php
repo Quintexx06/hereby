@@ -26,9 +26,14 @@ class PartnerJoinController extends Controller
 {
     use PasswordValidationRules;
 
-    public function show(string $token): Response
+    public function show(string $token): Response|RedirectResponse
     {
-        $invite = $this->invite($token);
+        $invite = PartnerInvite::query()->valid()->where('token', $token)->with('wedding')->first();
+
+        // Used once already (or expired): the way in is the login.
+        if ($invite === null) {
+            return to_route('login')->with('status', 'Dieser Einladungslink ist schon benutzt oder abgelaufen. Meldet euch mit eurer E-Mail-Adresse an.');
+        }
 
         return Inertia::render('auth/PartnerJoin', [
             'token' => $invite->token,

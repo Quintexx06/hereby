@@ -2,6 +2,7 @@
 import { Head, router, setLayoutProps, useForm } from '@inertiajs/vue3';
 import CopyLink from '@/components/CopyLink.vue';
 import EveningLocked from '@/components/evening/EveningLocked.vue';
+import ConfirmButton from '@/components/guests/editor/ConfirmButton.vue';
 import PageMasthead from '@/components/PageMasthead.vue';
 import SaveBar from '@/components/SaveBar.vue';
 import { dashboardPage } from '@/content/dashboard';
@@ -55,20 +56,17 @@ const form = useForm({ programme_minutes: props.summary.budget });
                     :label="copy.linkLabel"
                     :hint="copy.linkHint"
                 />
-                <button
-                    type="button"
-                    class="text-action hit-area"
-                    :title="copy.renewHint"
-                    @click="
+                <ConfirmButton
+                    :label="copy.renew"
+                    :question="`${copy.renewConfirm} ${copy.renewHint}`"
+                    @confirm="
                         router.post(
                             renew.url(wedding.id),
                             {},
                             { preserveScroll: true },
                         )
                     "
-                >
-                    {{ copy.renew }}
-                </button>
+                />
             </div>
 
             <form

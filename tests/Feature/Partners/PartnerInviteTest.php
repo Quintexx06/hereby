@@ -59,13 +59,15 @@ class PartnerInviteTest extends TestCase
         Mail::assertNothingQueued();
     }
 
-    public function test_an_old_or_unknown_invitation_link_does_not_open(): void
+    public function test_an_old_or_unknown_invitation_link_leads_to_the_login(): void
     {
         $invite = PartnerInvite::factory()->create();
         $this->travel(PartnerInvite::DAYS_VALID + 1)->days();
 
-        $this->get(route('partner-join.show', $invite->token))->assertNotFound();
-        $this->get(route('partner-join.show', 'unknown'))->assertNotFound();
+        // An old, used or unknown link leads to the login, with a hint.
+        $this->get(route('partner-join.show', $invite->token))->assertRedirect(route('login'))->assertSessionHas('status');
+        $this->get(route('partner-join.show', 'unknown'))->assertRedirect(route('login'));
+        $this->post(route('partner-join.store', 'unknown'), ['name' => 'X', 'password' => 'secret-password-42'])->assertNotFound();
     }
 
     public function test_a_partners_link_brings_the_couple_to_a_one_click_connect(): void

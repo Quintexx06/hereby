@@ -1,16 +1,16 @@
 <script setup lang="ts">
 import { useTrans } from '@/composables/useTrans';
-import type { EveningTable } from '@/types';
+import type { EveningLook, EveningTable } from '@/types';
 
-defineProps<{ tables: EveningTable[] }>();
+defineProps<{ tables: EveningTable[]; look: EveningLook }>();
 
 const { t } = useTrans();
 </script>
 
 <!-- «Euer Tisch»: who sits with the household, each with the couple's line. -->
 <template>
-    <section class="inv-section">
-        <h2 class="inv-heading">
+    <section :class="look.section">
+        <h2 :class="look.heading">
             {{ t('invitation.evening.tables_heading') }}
         </h2>
         <article v-for="table in tables" :key="table.name" class="evening-card">

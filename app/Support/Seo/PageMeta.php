@@ -12,13 +12,14 @@ use Illuminate\Support\Str;
 class PageMeta
 {
     /** A topic page shares its hero photo (public/images/landing). */
+    /** Share cards per topic photo: JPEG at 1200 × 630, which every messenger shows. */
     private const PHOTOS = [
-        'heroVeil' => ['hero-veil-1440.webp', 1440, 810],
-        'veilKiss' => ['veil-kiss.webp', 1000, 1250],
-        'lakeJetty' => ['lake-jetty-1200.webp', 1200, 900],
-        'tableCandles' => ['table-candles.webp', 1000, 1250],
-        'bouquet' => ['bouquet.webp', 1000, 1250],
-        'sparklers' => ['sparklers-1440.webp', 1440, 810],
+        'heroVeil' => ['hero-veil.jpg', 1200, 630],
+        'veilKiss' => ['veil-kiss.jpg', 1200, 630],
+        'lakeJetty' => ['lake-jetty.jpg', 1200, 630],
+        'tableCandles' => ['table-candles.jpg', 1200, 630],
+        'bouquet' => ['bouquet.jpg', 1200, 630],
+        'sparklers' => ['sparklers.jpg', 1200, 630],
     ];
 
     private const LEGAL = [
@@ -54,7 +55,7 @@ class PageMeta
         $photo = self::PHOTOS[$props['page']['photo'] ?? ''] ?? null;
 
         if ($component === 'topics/Show' && $photo) {
-            $default = [...$default, 'image' => asset("images/landing/{$photo[0]}"), 'image_width' => $photo[1], 'image_height' => $photo[2]];
+            $default = [...$default, 'image' => asset("images/og/{$photo[0]}"), 'image_width' => $photo[1], 'image_height' => $photo[2]];
         }
 
         if (in_array($component, ['Welcome', 'topics/Show'], true) && is_array($props['seo'] ?? null)) {

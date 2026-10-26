@@ -50,7 +50,10 @@ const { names, date, place, programme, story, faq, practical, photos } =
             <ArveSignpost :items="programme" />
         </section>
 
-        <InvitationEvening :evening="invitation.evening" />
+        <InvitationEvening
+            :evening="invitation.evening"
+            :look="{ section: 'arve-section', heading: 'arve-heading' }"
+        />
 
         <InvitationPhotos
             :photos="photos"

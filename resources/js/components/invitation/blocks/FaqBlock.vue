@@ -17,7 +17,7 @@ defineProps<{ block: InvitationBlock }>();
                 {{ item.question }}
                 <ChevronDown class="block-faq-chevron" aria-hidden="true" />
             </summary>
-            <p class="pb-5 text-muted-foreground">{{ item.answer }}</p>
+            <p class="block-faq-answer">{{ item.answer }}</p>
         </details>
     </div>
 </template>

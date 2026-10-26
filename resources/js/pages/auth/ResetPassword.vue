@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Form, Head } from '@inertiajs/vue3';
+import { Form, Head, setLayoutProps } from '@inertiajs/vue3';
 import { ref } from 'vue';
 import InputError from '@/components/InputError.vue';
 import PasswordInput from '@/components/PasswordInput.vue';
@@ -20,13 +20,25 @@ const props = defineProps<{
     token: string;
     email: string;
     passwordRules: string;
+    /** Opened from a welcome mail: a first password, not a new one. */
+    welcome?: boolean;
 }>();
+
+const title = props.welcome ? 'Passwort wählen' : 'Neues Passwort';
+
+if (props.welcome) {
+    setLayoutProps({
+        title,
+        description:
+            'Willkommen bei Hereby. Wählt ein Passwort, damit meldet ihr euch künftig an.',
+    });
+}
 
 const inputEmail = ref(props.email);
 </script>
 
 <template>
-    <Head title="Neues Passwort" />
+    <Head :title="title" />
 
     <Form
         v-bind="update.form()"

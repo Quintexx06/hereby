@@ -87,6 +87,9 @@ export type EveningTable = {
 };
 
 /** «Der Abend» on the personal link; null without Atelier. */
+/** Each design's own section and heading classes for «Der Abend». */
+export type EveningLook = { section: string; heading: string };
+
 export type Evening = {
     tables: EveningTable[];
     wayHome: { label: string; place: string | null; departsAt: string }[];

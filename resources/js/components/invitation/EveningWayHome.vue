@@ -2,9 +2,9 @@
 import { onBeforeUnmount, onMounted, ref } from 'vue';
 import { useTrans } from '@/composables/useTrans';
 import { formatTime } from '@/lib/format';
-import type { Evening } from '@/types';
+import type { Evening, EveningLook } from '@/types';
 
-defineProps<{ connections: Evening['wayHome'] }>();
+defineProps<{ connections: Evening['wayHome']; look: EveningLook }>();
 
 const { t, localeTag } = useTrans();
 
@@ -22,16 +22,23 @@ function status(departsAt: string): string | null {
         return t('invitation.evening.gone');
     }
 
-    return minutes <= COUNTDOWN_MINUTES
+    if (minutes > COUNTDOWN_MINUTES) {
+        return null;
+    }
+
+    return minutes < 60
         ? t('invitation.evening.in', { minutes })
-        : null;
+        : t('invitation.evening.in_hours', {
+              hours: Math.floor(minutes / 60),
+              minutes: minutes % 60,
+          });
 }
 </script>
 
 <!-- «Euer Heimweg»: the night's last connections, counting down on the day. -->
 <template>
-    <section class="inv-section">
-        <h2 class="inv-heading">
+    <section :class="look.section">
+        <h2 :class="look.heading">
             {{ t('invitation.evening.way_home_heading') }}
         </h2>
         <ul class="evening-card evening-mates">

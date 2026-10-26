@@ -4,6 +4,11 @@
  * Phone first: 44px targets, one column, the send button always in reach.
  */
 @layer components {
+    /* A file picker in the page's own words, not the browser's. */
+    .reply-file {
+        @apply inline-flex max-w-full cursor-pointer items-center gap-2 self-start rounded-[var(--button-radius,9999px)] border border-rule px-4 py-2.5 text-sm font-medium transition-colors duration-150 focus-within:ring-2 focus-within:ring-ring hover:border-foreground/40;
+    }
+
     .reply-page {
         @apply mx-auto flex min-h-svh w-full max-w-xl flex-col gap-10 px-5 pt-10 pb-36 sm:px-8 sm:pt-16;
     }

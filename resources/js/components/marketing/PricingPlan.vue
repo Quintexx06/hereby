@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
 import { Check } from '@lucide/vue';
+import HerebyIcon from '@/components/brand/HerebyIcon.vue';
 import { Button } from '@/components/ui/button';
 import { pricing } from '@/content/landing';
 import { chf, plans } from '@/content/publish';
@@ -10,12 +11,21 @@ defineProps<{ plan: 'atelier' | 'couture'; price: number }>();
 </script>
 
 <!--
-    One of the two bigger packages, as a column under a rule: its name and
-    price, what it is for, what it holds (the same lines couples read at
-    checkout), and the way to start.
+    One of the two bigger packages as a panel: what it adds as icons, its
+    name and price, what it is for, what it holds (the same lines couples
+    read at checkout), and the way to start.
 -->
 <template>
     <li class="pricing-plan" :data-plan="plan">
+        <div class="pricing-plan-icons" aria-hidden="true">
+            <span
+                v-for="icon in pricing.icons[plan]"
+                :key="icon"
+                class="pricing-plan-icon"
+            >
+                <HerebyIcon :name="icon" class="size-6" />
+            </span>
+        </div>
         <div class="flex items-baseline justify-between gap-4">
             <h4 class="title">{{ plans[plan].name }}</h4>
             <p class="pricing-figure">

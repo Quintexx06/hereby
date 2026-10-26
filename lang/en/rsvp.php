@@ -64,6 +64,9 @@ return [
         'stop' => 'Unsubscribe here',
         'stopped_title' => 'No more reminders',
         'stopped_body' => 'You will not get more reminders from :couple. You can still reply at any time.',
+        'stop_title' => 'No more reminders?',
+        'stop_body' => 'You will then get no more reminders from :couple. You can still reply at any time.',
+        'stop_confirm' => 'Yes, no more reminders',
     ],
     'errors' => [
         'email' => 'This email address does not look right.',

@@ -1,14 +1,10 @@
 <script setup lang="ts">
-import { DatePicker } from '@/components/ui/date-picker';
-import { Head, useForm } from '@inertiajs/vue3';
+import { Head } from '@inertiajs/vue3';
 import SiteHeader from '@/components/marketing/SiteHeader.vue';
-import InputError from '@/components/InputError.vue';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import VenueEnquiry from '@/components/partners/VenueEnquiry.vue';
 import { venuePage as copy } from '@/content/partners';
-import { enquiry } from '@/routes/venues';
 
-const props = defineProps<{
+defineProps<{
     venue: {
         slug: string;
         name: string;
@@ -24,15 +20,6 @@ const props = defineProps<{
         photos: { url: string; width: number; height: number }[];
     };
 }>();
-
-const form = useForm({ name: '', email: '', preferred_date: '', message: '' });
-
-function send(): void {
-    form.post(enquiry.url(props.venue.slug), {
-        preserveScroll: true,
-        onSuccess: () => form.reset(),
-    });
-}
 
 const sections = [
     { key: 'travel', title: copy.travel },
@@ -102,54 +89,6 @@ const sections = [
             >
         </article>
 
-        <form class="venue-enquiry" @submit.prevent="send">
-            <h2 class="title">{{ copy.ask }}</h2>
-            <p class="text-muted-foreground">{{ copy.askLede }}</p>
-            <div class="grid gap-2">
-                <label for="enquiry-name" class="field-label">{{
-                    copy.name
-                }}</label>
-                <Input id="enquiry-name" v-model="form.name" required />
-                <InputError :message="form.errors.name" />
-            </div>
-            <div class="grid gap-2">
-                <label for="enquiry-email" class="field-label">{{
-                    copy.email
-                }}</label>
-                <Input
-                    id="enquiry-email"
-                    v-model="form.email"
-                    type="email"
-                    required
-                />
-                <InputError :message="form.errors.email" />
-            </div>
-            <div class="grid gap-2">
-                <label for="enquiry-date" class="field-label">{{
-                    copy.date
-                }}</label>
-                <DatePicker
-                    id="enquiry-date"
-                    v-model="form.preferred_date"
-                    placeholder="Wann ungefähr?"
-                />
-                <InputError :message="form.errors.preferred_date" />
-            </div>
-            <div class="grid gap-2">
-                <label for="enquiry-message" class="field-label">{{
-                    copy.message
-                }}</label>
-                <textarea
-                    id="enquiry-message"
-                    v-model="form.message"
-                    rows="4"
-                    class="textarea"
-                />
-            </div>
-            <Button type="submit" size="pill" :disabled="form.processing">
-                {{ copy.send }}
-            </Button>
-            <p class="caption">{{ copy.privacy }}</p>
-        </form>
+        <VenueEnquiry :slug="venue.slug" :venue-name="venue.name" />
     </div>
 </template>

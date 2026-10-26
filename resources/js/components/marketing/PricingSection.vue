@@ -3,7 +3,6 @@ import PricingLead from '@/components/marketing/PricingLead.vue';
 import PricingPlan from '@/components/marketing/PricingPlan.vue';
 import { pricing } from '@/content/landing';
 import { chf } from '@/content/publish';
-import { show as topic } from '@/routes/topics';
 import type { LandingPrices } from '@/types/landing';
 
 defineProps<{ prices: LandingPrices }>();
@@ -13,8 +12,8 @@ const more = ['atelier', 'couture'] as const;
 
 <!--
     «Was es kostet»: the smallest package first and large, the two bigger
-    ones side by side below it, then the extras one by one with their
-    prices. The prices are the ones checkout charges (config/hereby.php).
+    ones side by side below it as two panels, then the extras one by one
+    as price tags. The prices are the ones checkout charges (config/hereby.php).
 -->
 <template>
     <section id="preise" class="page-container section flex flex-col gap-12">
@@ -59,12 +58,6 @@ const more = ['atelier', 'couture'] as const;
                     </dd>
                 </div>
             </dl>
-            <p class="caption max-w-2xl">
-                {{ pricing.fine }}
-                <a :href="topic.url('preise')" class="link-underline">{{
-                    pricing.details
-                }}</a>
-            </p>
         </div>
     </section>
 </template>

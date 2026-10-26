@@ -54,7 +54,10 @@ const { names, date, place, programme, story, faq, practical, photos } =
             <LidoLanes :items="programme" />
         </section>
 
-        <InvitationEvening :evening="invitation.evening" />
+        <InvitationEvening
+            :evening="invitation.evening"
+            :look="{ section: 'lido-section', heading: 'lido-heading' }"
+        />
 
         <LidoShapes :photos="photos" :alt="content.photoAlt.value" />
 

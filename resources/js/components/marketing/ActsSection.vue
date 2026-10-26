@@ -24,9 +24,17 @@ onMounted(() => {
 });
 onBeforeUnmount(() => window.removeEventListener('resize', measure));
 
+/** Below lg the acts are swiped: the meter follows the swipe, not the page. */
+const swiped = ref(0);
+const onSwipe = (event: Event) => {
+    const el = event.currentTarget as HTMLElement;
+    swiped.value = el.scrollLeft / Math.max(1, el.scrollWidth - el.clientWidth);
+};
+
 const total = acts.items.length;
 const focus = computed(() => progress.value * (total - 1));
-const current = computed(() => Math.round(focus.value) + 1);
+const meter = computed(() => (step.value ? progress.value : swiped.value));
+const current = computed(() => Math.round(meter.value * (total - 1)) + 1);
 /** Scroll moves exactly one act per step, so the act in focus is always aligned. */
 const trackStyle = computed(() =>
     step.value
@@ -59,13 +67,18 @@ const trackStyle = computed(() =>
                     <span class="acts-bar"
                         ><span
                             class="acts-bar-fill"
-                            :style="{ transform: `scaleX(${progress})` }"
+                            :style="{ transform: `scaleX(${meter})` }"
                     /></span>
                     <p class="caption">{{ acts.example }}</p>
                 </div>
             </div>
 
-            <div ref="track" class="acts-track" :style="trackStyle">
+            <div
+                ref="track"
+                class="acts-track"
+                :style="trackStyle"
+                @scroll.passive="onSwipe"
+            >
                 <ActCard
                     v-for="(act, index) in acts.items"
                     :key="act.name"

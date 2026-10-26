@@ -9,7 +9,7 @@ import { hero } from '@/content/landing';
 import { chf } from '@/content/publish';
 import { register } from '@/routes';
 
-/* The lowest price to go live, so the first screen already answers it. */
+/* The lowest price to go live, in the lede, so the first screen answers it. */
 defineProps<{ from: number }>();
 
 const canvas = ref<HTMLCanvasElement | null>(null);
@@ -74,7 +74,9 @@ const { state, revealed, usesWebgl, skip } = useVeilCurtain(canvas, photo);
                 class="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between"
             >
                 <p class="lede hero-reveal" style="--delay: 300ms">
-                    {{ hero.lede }}
+                    {{ hero.lede }} {{ hero.priceLead }}
+                    <a href="#preise" class="hero-price">{{ chf(from) }}</a
+                    >{{ hero.priceTail }}
                 </p>
                 <div
                     class="hero-reveal flex flex-wrap items-center gap-3"
@@ -91,16 +93,6 @@ const { state, revealed, usesWebgl, skip } = useVeilCurtain(canvas, photo);
                     >
                         <a href="#studio">{{ hero.secondaryCta }}</a>
                     </Button>
-                    <p class="hero-price">
-                        {{ hero.priceLead }}
-                        <strong class="hero-price-figure">{{
-                            chf(from)
-                        }}</strong
-                        >, {{ hero.priceTail }}
-                        <a href="#preise" class="link-underline">{{
-                            hero.priceLink
-                        }}</a>
-                    </p>
                 </div>
             </div>
         </div>

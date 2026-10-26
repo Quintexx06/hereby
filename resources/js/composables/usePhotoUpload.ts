@@ -4,7 +4,7 @@ import { ref } from 'vue';
 /**
  * Sends a guest's photos one at a time, so a weak connection at the venue
  * loses one photo and not the whole selection. Photos that did not arrive
- * are kept for another try.
+ * or were refused are counted as failed and kept for another try.
  */
 export function usePhotoUpload(url: string) {
     const http = useHttp<{ photo: File | null }>({ photo: null });
@@ -28,8 +28,16 @@ export function usePhotoUpload(url: string) {
             http.photo = file;
 
             try {
+                // A refused photo (not an image, too large) answers 422,
+                // which leaves errors on the form instead of throwing.
                 await http.post(url);
-                sent.value++;
+
+                if (http.hasErrors) {
+                    http.clearErrors();
+                    failed.value.push(file);
+                } else {
+                    sent.value++;
+                }
             } catch {
                 failed.value.push(file);
             }

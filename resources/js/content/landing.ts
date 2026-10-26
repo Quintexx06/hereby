@@ -21,12 +21,12 @@ export const hero = {
     titleYes: 'Ja.',
     statement:
         'Premium-Hochzeitswebsites aus der Schweiz. Gestaltet wie ein Magazin, persönlich für jeden Gast.',
-    lede: 'Fünf fertig gestaltete Entwürfe, jeder mit eigener Schrift und eigenen Farben, gefüllt mit euren Fotos und Texten. Jeder Haushalt bekommt seinen eigenen Link und sagt in unter einer Minute zu.',
+    lede: 'Fünf fertig gestaltete Entwürfe, gefüllt mit euren Fotos und Texten. Jeder Haushalt bekommt seinen eigenen Link und sagt in unter einer Minute zu.',
     primaryCta: 'Kostenlos starten',
     secondaryCta: 'Vorlagen ansehen',
-    priceLead: 'Eure Website ab',
-    priceTail: 'einmalig. Gestalten ist gratis.',
-    priceLink: 'Preise ansehen',
+    /* Ends the lede: «… Gestalten ist gratis, online ab CHF 290, einmalig.» */
+    priceLead: 'Gestalten ist gratis, online ab',
+    priceTail: ', einmalig.',
     skip: 'Vorhang öffnen',
     photo: photo.heroVeil,
 } as const;
@@ -264,6 +264,11 @@ export const pricing = {
     once: 'einmalig',
     from: 'ab',
     moreTitle: 'Wenn ihr mehr wollt',
+    /* What each bigger package adds, as the brand's own icons. */
+    icons: {
+        atelier: ['dinner', 'music', 'megaphone', 'clock'],
+        couture: ['template', 'calendar', 'link', 'forever'],
+    },
     lines: {
         atelier:
             'Die Website und der Abend, der von selbst läuft, mit den Fotos eurer Gäste.',
@@ -285,8 +290,6 @@ export const pricing = {
         { addon: 'bespoke', name: 'Massanfertigung', perYear: false },
     ],
     perYear: 'pro Jahr',
-    fine: 'Per Karte oder TWINT. Wer später mehr will, bezahlt nur die Differenz. Eure Gäste sehen nie einen Preis.',
-    details: 'Alle Preise im Detail',
 } as const;
 
 export const struck = {
@@ -303,7 +306,7 @@ export const struck = {
             word: 'Vorlagen',
             icon: 'template',
             instead:
-                'Drei gestaltete Looks mit eurer Farbe. Oder eine Seite, die wir für euch bauen.',
+                'Fünf fertig gestaltete Entwürfe. Oder eine Seite, die wir für euch bauen.',
         },
         {
             word: 'Eine Sprache',

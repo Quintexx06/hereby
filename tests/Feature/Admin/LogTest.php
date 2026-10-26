@@ -66,6 +66,15 @@ class LogTest extends TestCase
         $this->assertStringNotContainsString('123 45 67', $message);
     }
 
+    public function test_terminal_colour_codes_are_stripped_from_messages(): void
+    {
+        Mail::fake();
+
+        Log::warning("\e[41m\e[37m SSR ERROR \e[0m window is not defined");
+
+        $this->assertSame('SSR ERROR  window is not defined', trim(LogEntry::query()->sole()->message));
+    }
+
     public function test_the_team_sees_and_resolves_entries_and_couples_cannot(): void
     {
         Mail::fake();

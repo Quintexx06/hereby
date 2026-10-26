@@ -63,7 +63,10 @@ const { names, date, place, programme, story, faq, practical, photos } =
             <InvitationProgramme :items="programme" icons />
         </section>
 
-        <InvitationEvening :evening="invitation.evening" />
+        <InvitationEvening
+            :evening="invitation.evening"
+            :look="{ section: 'raster-section', heading: 'raster-label' }"
+        />
 
         <section
             v-if="photos.length > 1"

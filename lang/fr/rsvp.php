@@ -2,7 +2,7 @@
 
 // Brouillon: relecture native nécessaire avant le premier mariage (roadmap 1.6, 2.7).
 return [
-    'title' => 'Serez-vous des nôtres?',
+    'title' => 'Serez-vous des nôtres ?',
     'lede' => 'Une réponse par personne et par moment de la journée. Merci de répondre avant le :date.',
     'lede_open' => 'Une réponse par personne et par moment de la journée.',
     'all_attending' => 'Nous venons tous',
@@ -11,7 +11,7 @@ return [
     'child' => 'Enfant',
     'menu' => 'Menu',
     'children_menu' => 'Menu enfant',
-    'allergies_toggle' => 'Allergies ou intolérances?',
+    'allergies_toggle' => 'Allergies ou intolérances ?',
     'allergies_label' => 'Allergies et intolérances de :name',
     'allergies_placeholder' => 'p. ex. noix, sans lactose, végane',
     'allergies_on_file' => 'Déjà indiqué. À remplir seulement pour modifier.',
@@ -24,10 +24,10 @@ return [
     'plus_one_hint' => 'Vous accompagne partout où vous serez.',
     'extras' => 'Encore un détail',
     'shuttle' => 'Places dans la navette',
-    'shuttle_hint' => 'Combien d’entre vous prendront la navette?',
+    'shuttle_hint' => 'Combien d’entre vous prendront la navette ?',
     'fewer' => 'Moins',
     'more' => 'Plus',
-    'stay' => 'Restez-vous dormir sur place?',
+    'stay' => 'Restez-vous dormir sur place ?',
     'yes' => 'Oui',
     'no' => 'Non',
     'song' => 'Votre chanson',
@@ -58,12 +58,15 @@ return [
     ],
     'reminder' => [
         'subject' => ':couple : merci de répondre avant le :date',
-        'heading' => 'Serez-vous des nôtres?',
+        'heading' => 'Serez-vous des nôtres ?',
         'body' => ':couple attendent votre réponse avec joie. Elle prend moins d’une minute, merci de répondre avant le :date.',
-        'stop_hint' => 'Plus de rappels?',
+        'stop_hint' => 'Plus de rappels ?',
         'stop' => 'Se désabonner',
         'stopped_title' => 'Plus de rappels',
         'stopped_body' => 'Vous ne recevrez plus de rappels de :couple. Vous pouvez toujours répondre à tout moment.',
+        'stop_title' => 'Plus de rappels ?',
+        'stop_body' => 'Vous ne recevrez alors plus de rappels de :couple. Vous pouvez toujours répondre à tout moment.',
+        'stop_confirm' => 'Oui, plus de rappels',
     ],
     'errors' => [
         'email' => 'Cette adresse e-mail ne semble pas correcte.',
@@ -72,7 +75,7 @@ return [
         'menu' => 'Merci de choisir un menu.',
         'menu_invalid' => 'Ce menu n’est pas proposé.',
         'no_plus_one' => 'Cette invitation ne prévoit pas d’accompagnant·e.',
-        'plus_one_name' => 'Comment s’appelle votre accompagnant·e?',
+        'plus_one_name' => 'Comment s’appelle votre accompagnant·e ?',
         'too_long' => 'C’est un peu trop long.',
     ],
 ];

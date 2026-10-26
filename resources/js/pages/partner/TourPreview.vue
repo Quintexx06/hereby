@@ -16,11 +16,13 @@ defineOptions({
     layout: { breadcrumbs: [{ title: copy.title, href: '' }] },
 });
 
-/* Six months ahead, a Saturday-ish default the couple will change anyway. */
-const inSixMonths = new Date(Date.now() + 182 * 86_400_000)
-    .toISOString()
-    .slice(0, 10);
-const date = ref(inSixMonths);
+/* About six months ahead, on a Saturday; the couple will change it anyway. */
+const ahead = new Date(Date.now() + 182 * 86_400_000);
+ahead.setDate(ahead.getDate() + ((6 - ahead.getDay() + 7) % 7));
+const pad = (n: number) => String(n).padStart(2, '0');
+const date = ref(
+    `${ahead.getFullYear()}-${pad(ahead.getMonth() + 1)}-${pad(ahead.getDate())}`,
+);
 </script>
 
 <!--

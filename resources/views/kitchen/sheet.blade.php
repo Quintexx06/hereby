@@ -46,13 +46,22 @@
 
     <h2>Allergien und Unverträglichkeiten</h2>
     @if ($allergies)
+        @php($anonymous = $anonymous ?? false)
+        @php($tables = collect($allergies)->pluck('table')->filter()->isNotEmpty())
         <table>
-            <tr><th>Name</th><th>Haushalt</th><th>Dabei bei</th><th>Angabe</th></tr>
+            <tr>
+                @if ($tables)<th>Tisch</th>@endif
+                @unless ($anonymous)<th>Name</th><th>Haushalt</th>@endunless
+                <th>Dabei bei</th><th>Angabe</th>
+            </tr>
             @foreach ($allergies as $row)
                 <tr>
-                    <td>{{ $row['name'] }}{{ $row['child'] ? ' (Kind)' : '' }}</td>
-                    <td>{{ $row['household'] }}</td>
-                    <td>{{ implode(', ', $row['parts']) ?: '–' }}</td>
+                    @if ($tables)<td>{{ $row['table'] ?? '–' }}</td>@endif
+                    @unless ($anonymous)
+                        <td>{{ $row['name'] }}{{ $row['child'] ? ' (Kind)' : '' }}</td>
+                        <td>{{ $row['household'] }}</td>
+                    @endunless
+                    <td>{{ implode(', ', $row['parts']) ?: '–' }}{{ $anonymous && $row['child'] ? ' (Kind)' : '' }}</td>
                     <td>{{ $row['notes'] }}</td>
                 </tr>
             @endforeach

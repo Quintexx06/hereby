@@ -77,7 +77,10 @@ const flutes = () =>
             <InvitationProgramme :items="programme" />
         </section>
 
-        <InvitationEvening :evening="invitation.evening" />
+        <InvitationEvening
+            :evening="invitation.evening"
+            :look="{ section: 'salon-section', heading: 'salon-heading' }"
+        />
 
         <SalonHang :photos="photos" :alt="content.photoAlt.value" :from="3" />
 

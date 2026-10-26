@@ -88,7 +88,8 @@ export const domainCopy = {
     label: 'Domain',
     placeholder: 'anna-und-luca.ch',
     hint: 'Kauft die Domain bei einem Anbieter eurer Wahl und tragt sie hier ein. Wir melden uns mit den DNS-Angaben und verbinden sie für euch.',
-    pending: 'Wartet auf Verbindung. Bis dahin laufen eure Links über hereby.',
+    pending:
+        'Wartet auf Verbindung. Bis dahin laufen eure Links über hereby.ch.',
     connected: 'Verbunden. Alle persönlichen Links laufen über eure Domain.',
     save: 'Domain speichern',
     saved: 'Gespeichert',

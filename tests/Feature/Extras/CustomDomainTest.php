@@ -71,6 +71,16 @@ class CustomDomainTest extends TestCase
         $this->actingAs($wedding->owner)
             ->put(route('weddings.extras.domain', $wedding), ['domain' => 'not a domain'])
             ->assertSessionHasErrors('domain');
+
+        config(['app.url' => 'https://hereby.ch']);
+        foreach (['hereby.ch', 'www.hereby.ch', 'anna.hereby.ch'] as $ours) {
+            $this->actingAs($wedding->owner)
+                ->put(route('weddings.extras.domain', $wedding), ['domain' => $ours])
+                ->assertSessionHasErrors('domain');
+        }
+        $this->actingAs($wedding->owner)
+            ->put(route('weddings.extras.domain', $wedding), ['domain' => 'notherebych.ch'])
+            ->assertSessionHasNoErrors();
     }
 
     /**

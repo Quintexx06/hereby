@@ -1,7 +1,7 @@
 /** Copy for partner accounts (spec 2026-10-15-partner-accounts). German only. */
 export const partnerCalendar = {
     title: 'Eure Hochzeiten',
-    lede: 'Jede Hochzeit, deren Paar euch mit eurem Code verbunden hat, nach Datum. Ihr seht Zahlen und Menüs, keine Namen.',
+    lede: 'Jede Hochzeit, deren Paar euch mit eurem Code verbunden hat, nach Datum. Ihr seht Zahlen, Menüs und Allergien pro Tisch, keine Namen.',
     codeLabel: 'Euer Code für Paare',
     codeHint:
         'Gebt euren Paaren den Code oder schickt ihnen gleich den Link: Er führt zur Anmeldung und verbindet danach mit einem Klick.',
@@ -50,11 +50,12 @@ export const partnerProfile = {
 
 export const partnerUpload = {
     title: (couple: string) => `Fotos für ${couple}`,
-    lede: 'Die Fotos landen in den «Erinnerungen» des Paars, als eure markiert. Sie gehen mit der Hochzeit, wenn das Paar sie löscht oder die Frist abläuft.',
+    lede: 'Die Fotos landen in den «Erinnerungen» des Paars. Sie gehen mit der Hochzeit, wenn das Paar sie löscht oder die Frist abläuft.',
     pick: 'Fotos auswählen',
     sending: (done: number, total: number) => `${done} von ${total} gesendet …`,
     sent: (count: number) => `${count} Fotos angekommen.`,
-    failed: (count: number) => `${count} Fotos sind nicht angekommen.`,
+    failed: (count: number) =>
+        `${count === 1 ? '1 Foto ist' : `${count} Fotos sind`} nicht angekommen. Möglich sind JPG, PNG und WebP bis 20 MB.`,
     retry: 'Nochmals senden',
     already: (count: number) => `Bisher ${count} Fotos von euch.`,
 };
@@ -215,6 +216,8 @@ export const venuePage = {
     date: 'Wunschtermin (optional)',
     message: 'Nachricht (optional)',
     send: 'Anfrage senden',
+    thanks: (venue: string) => `Danke! ${venue} meldet sich bei euch.`,
+    thanksLede: 'Eure Anfrage ist angekommen. Die Antwort kommt per E-Mail.',
     privacy:
         'Eure Angaben gehen nur an diese Location und werden nach 12 Monaten gelöscht.',
 };

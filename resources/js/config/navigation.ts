@@ -175,5 +175,9 @@ export function partnerNavItems(partner: SharedPartner): NavItem[] {
 }
 
 export const secondaryNavItems: NavItem[] = [
-    { title: 'Fragen? Schreibt uns', href: '/#fragen', icon: LifeBuoy },
+    {
+        title: 'Fragen? Schreibt uns',
+        href: 'mailto:info@hereby.ch',
+        icon: LifeBuoy,
+    },
 ];

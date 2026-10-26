@@ -33,6 +33,17 @@ watch(screen, (element) => {
 });
 
 onBeforeUnmount(() => observer?.disconnect());
+
+/*
+ * Opening focuses «Schliessen», not the page in the frame: a focused frame
+ * would swallow Escape, and the popup would not close from the keyboard.
+ */
+function focusClose(event: Event): void {
+    event.preventDefault();
+    (event.target as HTMLElement | null)
+        ?.querySelector<HTMLElement>('[data-slot="dialog-close"]')
+        ?.focus();
+}
 </script>
 
 <!--
@@ -46,7 +57,7 @@ onBeforeUnmount(() => observer?.disconnect());
                 <Monitor class="size-4" /> {{ copy.desktop }}
             </button>
         </DialogTrigger>
-        <DialogContent class="desktop-preview">
+        <DialogContent class="desktop-preview" @open-auto-focus="focusClose">
             <div class="desktop-preview-bar">
                 <span class="studio-dots" aria-hidden="true" />
                 <DialogTitle class="desktop-preview-title">

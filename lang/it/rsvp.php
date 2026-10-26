@@ -64,6 +64,9 @@ return [
         'stop' => 'Annulla l’iscrizione',
         'stopped_title' => 'Niente più promemoria',
         'stopped_body' => 'Non riceverete più promemoria da :couple. Potete comunque rispondere in qualsiasi momento.',
+        'stop_title' => 'Niente più promemoria?',
+        'stop_body' => 'Non riceverete più promemoria da :couple. Potete comunque rispondere in qualsiasi momento.',
+        'stop_confirm' => 'Sì, niente più promemoria',
     ],
     'errors' => [
         'email' => 'Questo indirizzo e-mail non sembra corretto.',

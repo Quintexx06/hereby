@@ -67,8 +67,14 @@ function buy(plan: PlanKey): void {
         <p v-if="!wedding.active" class="publish-note">
             {{ copy.finishSetup }}
         </p>
-        <p v-else-if="!checkoutReady" class="publish-note">
+        <p
+            v-else-if="!checkoutReady && plans.some((plan) => !plan.owned)"
+            class="publish-note"
+        >
             {{ copy.notReady }}
+            <a href="mailto:info@hereby.ch" class="link-underline"
+                >info@hereby.ch</a
+            >
         </p>
 
         <section class="plans">

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Head, useForm } from '@inertiajs/vue3';
-import { Check } from '@lucide/vue';
+import { Check, ImagePlus } from '@lucide/vue';
+import { ref } from 'vue';
 import WeddingThemeScope from '@/components/invitation/WeddingThemeScope.vue';
 import { useTrans } from '@/composables/useTrans';
 import type { WeddingTemplate } from '@/types';
@@ -23,6 +24,8 @@ const form = useForm<{
     photo: File | null;
 }>({ author_name: '', title: '', body: '', photo: null });
 
+const photoInput = ref<HTMLInputElement | null>(null);
+
 function pick(event: Event): void {
     form.photo = (event.target as HTMLInputElement).files?.[0] ?? null;
 }
@@ -30,7 +33,12 @@ function pick(event: Event): void {
 function submit(): void {
     form.post(props.storeUrl, {
         preserveScroll: true,
-        onSuccess: () => form.reset('title', 'body', 'photo'),
+        onSuccess: () => {
+            form.reset('title', 'body', 'photo');
+            if (photoInput.value) {
+                photoInput.value.value = '';
+            }
+        },
     });
 }
 </script>
@@ -98,22 +106,30 @@ function submit(): void {
                         class="reply-input h-auto py-3"
                     />
                 </label>
-                <label class="flex flex-col gap-2">
+                <div class="flex flex-col gap-2">
                     <span class="font-medium">{{
                         t('invitation.newspaper.photo')
                     }}</span>
-                    <input
-                        type="file"
-                        accept="image/jpeg,image/png,image/webp"
-                        class="text-sm"
-                        @change="pick"
-                    />
+                    <label class="reply-file">
+                        <ImagePlus class="size-4 shrink-0" aria-hidden="true" />
+                        <span class="truncate">{{
+                            form.photo?.name ??
+                            t('invitation.newspaper.photo_pick')
+                        }}</span>
+                        <input
+                            ref="photoInput"
+                            type="file"
+                            accept="image/jpeg,image/png,image/webp"
+                            class="sr-only"
+                            @change="pick"
+                        />
+                    </label>
                     <span
                         v-if="form.errors.photo"
                         class="text-sm text-destructive"
                         >{{ form.errors.photo }}</span
                     >
-                </label>
+                </div>
                 <button
                     type="submit"
                     class="reply-send self-start"

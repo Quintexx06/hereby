@@ -6,10 +6,10 @@ use App\Enums\PartnerType;
 use App\Mail\PartnerInvitation;
 use App\Models\Partner;
 use App\Models\User;
+use App\Support\WelcomeLink;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 
 /**
@@ -57,7 +57,7 @@ class SetUpPartner
 
     public function sendInvitation(User $user, string $name): void
     {
-        $link = route('password.reset', ['token' => Password::createToken($user), 'email' => $user->email]);
+        $link = WelcomeLink::to($user);
         Mail::to($user->email)->queue(new PartnerInvitation($name, $link));
     }
 

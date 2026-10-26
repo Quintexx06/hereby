@@ -10,7 +10,8 @@ use Illuminate\Http\Response;
 
 /**
  * The final numbers for a venue or planner: the couple's own printable
- * kitchen sheet, rendered on the server (allergies never reach Vue).
+ * kitchen sheet, rendered on the server (allergies never reach Vue), with
+ * allergies per table and no names.
  */
 class FinalNumbersController extends Controller
 {
@@ -23,6 +24,8 @@ class FinalNumbersController extends Controller
                 'wedding' => $wedding,
                 'summary' => $sheet->summary($wedding),
                 'allergies' => $sheet->allergies($wedding),
+                // Partners see allergies per table, never whose (privacy policy).
+                'anonymous' => true,
                 'eventName' => fn (array $event): string => $event['name'] ?? (string) __("invitation.event_types.{$event['type']}", [], 'de_CH'),
             ])
             ->header('Cache-Control', 'no-store, private');

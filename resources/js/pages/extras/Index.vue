@@ -48,7 +48,12 @@ function buy(addon: AddonKey): void {
     <div class="app-page gap-12">
         <PageMasthead :title="copy.title" :lede="copy.lede" />
 
-        <p v-if="!checkoutReady" class="publish-note">{{ copy.notReady }}</p>
+        <p v-if="!checkoutReady" class="publish-note">
+            {{ copy.notReady }}
+            <a href="mailto:info@hereby.ch" class="link-underline"
+                >info@hereby.ch</a
+            >
+        </p>
         <p v-if="wedding.memories_kept_until" class="publish-note">
             {{ copy.keptUntil(wedding.memories_kept_until) }}
         </p>

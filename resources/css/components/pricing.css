@@ -1,8 +1,8 @@
 /*
  * «Was es kostet» (PricingSection): the smallest package first, on the
  * night stage, its price large and a phone with the first design rising
- * from the panel's lower edge; the two bigger packages as columns under a
- * rule; the extras as one panel of five price tags. One blush note:
+ * from the panel's lower edge; the two bigger packages as tinted panels
+ * led by their icons; the extras as one panel of five price tags. One blush note:
  * Atelier's price.
  */
 @layer components {
@@ -54,13 +54,25 @@
         }
     }
 
-    /* ---------- The two bigger packages ---------- */
+    /* ---------- The two bigger packages, as panels ---------- */
     .pricing-more {
-        @apply grid gap-12 md:grid-cols-2 md:gap-12 lg:gap-16;
+        @apply grid gap-5 md:grid-cols-2 lg:gap-6;
     }
 
     .pricing-plan {
-        @apply flex flex-col gap-5 border-t-[1.5px] border-foreground pt-7;
+        @apply flex flex-col gap-5 rounded-[1.75rem] bg-muted/70 p-7 sm:p-10;
+    }
+
+    .pricing-plan[data-plan='atelier'] {
+        @apply bg-brand-muted/50;
+    }
+
+    .pricing-plan-icons {
+        @apply flex gap-2 pb-2;
+    }
+
+    .pricing-plan-icon {
+        @apply grid size-12 place-items-center rounded-full bg-background/80 text-foreground;
     }
 
     .pricing-figure {
@@ -77,7 +89,7 @@
     }
 
     .pricing-features {
-        @apply flex flex-col gap-2.5 text-[1.0625rem] leading-snug;
+        @apply flex flex-col gap-2.5 border-t border-foreground/10 pt-5 text-[1.0625rem] leading-snug;
     }
 
     .pricing-cta {

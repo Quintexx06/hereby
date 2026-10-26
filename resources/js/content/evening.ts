@@ -89,6 +89,7 @@ export const programmePage = {
         'Ohne Konto und privat. Gebt ihn nur euren Trauzeugen; dort entscheiden sie über die Einlagen und drucken den Ablauf.',
     renew: 'Neuen Link erstellen',
     renewHint: 'Der alte Link funktioniert danach nicht mehr.',
+    renewConfirm: 'Den alten Link ungültig machen?',
     summary: (s: { total: number; accepted: number; minutes: number }) =>
         `${s.total} angemeldet · ${s.accepted} im Programm · ${s.minutes} Minuten`,
     budget: 'Zeitrahmen für die Einlagen, in Minuten',

@@ -64,6 +64,9 @@ return [
         'stop' => 'Hier abmelden',
         'stopped_title' => 'Keine Erinnerungen mehr',
         'stopped_body' => 'Ihr bekommt von :couple keine Erinnerungen mehr. Antworten könnt ihr trotzdem jederzeit.',
+        'stop_title' => 'Keine Erinnerungen mehr?',
+        'stop_body' => 'Ihr bekommt dann von :couple keine Erinnerungen mehr. Antworten könnt ihr trotzdem jederzeit.',
+        'stop_confirm' => 'Ja, keine Erinnerungen mehr',
     ],
     'errors' => [
         'email' => 'Diese E-Mail-Adresse sieht nicht richtig aus.',

@@ -4,8 +4,11 @@
  * ampersand and lit from above, their names in Ballet on either side.
  */
 @layer components {
-    /* The whole invitation hangs on the wall; forms stay on the card. */
-    [data-template='salon'] {
+    /*
+     * The whole invitation hangs on the wall; forms stay on the card, so
+     * the reply page (which carries the template too) keeps the ivory.
+     */
+    [data-template='salon']:not(.reply-page) {
         --wall-stripe: color-mix(
             in oklch,
             var(--night) 88%,

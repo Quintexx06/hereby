@@ -1,22 +1,44 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
+import { X } from '@lucide/vue';
+import { ref } from 'vue';
 import { useTrans } from '@/composables/useTrans';
 import EveningTables from '@/components/invitation/EveningTables.vue';
 import EveningWayHome from '@/components/invitation/EveningWayHome.vue';
-import type { Evening } from '@/types';
+import type { Evening, EveningLook } from '@/types';
 
-defineProps<{ evening: Evening | null }>();
+const { look = { section: 'inv-section', heading: 'inv-heading' } } =
+    defineProps<{ evening: Evening | null; look?: EveningLook }>();
 
 const { t } = useTrans();
+const dismissed = ref(false);
 </script>
 
-<!-- «Der Abend» on the personal link (Atelier and up); nothing otherwise. -->
+<!--
+    «Der Abend» on the personal link (Atelier and up); nothing otherwise.
+    Each design hands in its own section and heading classes (`look`).
+-->
 <template>
     <template v-if="evening">
-        <section v-if="evening.call" class="evening-call" role="status">
-            <p class="evening-card-title">
-                {{ t('invitation.evening.call_heading') }}
-            </p>
+        <!-- Called now: fixed at the foot of the screen, wherever the guest is. -->
+        <div
+            v-if="evening.call && !dismissed"
+            class="evening-call"
+            role="status"
+        >
+            <div class="flex items-start justify-between gap-4">
+                <p class="evening-card-title">
+                    {{ t('invitation.evening.call_heading') }}
+                </p>
+                <button
+                    type="button"
+                    class="evening-call-close"
+                    :aria-label="t('invitation.evening.call_close')"
+                    @click="dismissed = true"
+                >
+                    <X class="size-5" />
+                </button>
+            </div>
             <p class="text-lg font-semibold">{{ evening.call.title }}</p>
             <p v-if="evening.call.place">
                 {{
@@ -25,13 +47,18 @@ const { t } = useTrans();
                     })
                 }}
             </p>
-        </section>
-        <EveningTables v-if="evening.tables.length" :tables="evening.tables" />
+        </div>
+        <EveningTables
+            v-if="evening.tables.length"
+            :tables="evening.tables"
+            :look="look"
+        />
         <EveningWayHome
             v-if="evening.wayHome.length"
             :connections="evening.wayHome"
+            :look="look"
         />
-        <section v-if="evening.offerUrl" class="inv-section">
+        <section v-if="evening.offerUrl" :class="look.section">
             <div class="evening-card items-start">
                 <p class="evening-card-title">
                     {{ t('invitation.programme.title') }}

@@ -44,6 +44,19 @@ class GuestListReaderTest extends TestCase
         $this->assertSame('camille@rossi.ch', $households[1]->email);
     }
 
+    public function test_academic_titles_are_not_read_as_first_names(): void
+    {
+        $households = $this->reader()->fromText(<<<'TXT'
+            Dr. Anna-Lena O'Neill & Marco Rossi
+            Prof. Dr. med. Hans Keller
+            TXT);
+
+        $this->assertSame([
+            ['Anna-Lena & Marco', ['Anna-Lena O\'Neill', 'Marco Rossi']],
+            ['Hans Keller', ['Hans Keller']],
+        ], $this->summary($households));
+    }
+
     public function test_cells_pasted_from_excel_group_by_household_column(): void
     {
         $households = $this->reader()->fromText(

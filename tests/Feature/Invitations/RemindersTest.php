@@ -9,6 +9,7 @@ use App\Models\Wedding;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\URL;
+use Inertia\Testing\AssertableInertia as Assert;
 use Tests\TestCase;
 
 class RemindersTest extends TestCase
@@ -87,8 +88,16 @@ class RemindersTest extends TestCase
     {
         $household = Household::factory()->for($this->wedding)->create(['email' => 'due@example.ch']);
 
+        $signed = URL::signedRoute('invitation.reminders.stop', $household);
+
         $this->get(route('invitation.reminders.stop', $household))->assertForbidden();
-        $this->get(URL::signedRoute('invitation.reminders.stop', $household))->assertOk();
+
+        // Opening the link only asks: mail scanners open links on their own.
+        $this->get($signed)->assertOk()->assertInertia(fn (Assert $page) => $page->where('stopped', false));
+        $this->assertNull($household->fresh()->reminders_opted_out_at);
+
+        // The button, or a mail app's one-click unsubscribe, stops them.
+        $this->post($signed)->assertOk()->assertInertia(fn (Assert $page) => $page->where('stopped', true));
 
         $this->assertNotNull($household->fresh()->reminders_opted_out_at);
         $this->artisan('hereby:send-reminders');

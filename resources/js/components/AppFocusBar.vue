@@ -24,9 +24,6 @@ const user = computed(() => page.props.auth.user);
         <DropdownMenu v-if="user">
             <DropdownMenuTrigger class="app-focus-user">
                 <UserInfo :user="user" />
-                <span class="hidden text-sm font-medium sm:inline">{{
-                    user.name
-                }}</span>
             </DropdownMenuTrigger>
             <DropdownMenuContent class="min-w-56" align="end">
                 <UserMenuContent :user="user" />

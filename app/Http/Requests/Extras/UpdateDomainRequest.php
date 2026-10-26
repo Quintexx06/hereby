@@ -47,8 +47,15 @@ class UpdateDomainRequest extends FormRequest
                 'max:191',
                 'regex:/^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,}$/',
                 Rule::unique('weddings', 'custom_domain')->ignore($wedding->id),
+                // Hereby's own host, and anything under it, is never a couple's.
+                'not_regex:/(^|\.)'.preg_quote($this->ownHost(), '/').'$/',
             ],
         ];
+    }
+
+    private function ownHost(): string
+    {
+        return Str::of((string) parse_url((string) config('app.url'), PHP_URL_HOST))->lower()->after('www.')->value();
     }
 
     /**
@@ -59,6 +66,7 @@ class UpdateDomainRequest extends FormRequest
         return [
             'domain.regex' => 'Bitte nur die Adresse, etwa anna-und-luca.ch.',
             'domain.unique' => 'Diese Domain ist schon vergeben.',
+            'domain.not_regex' => 'Das ist unsere Adresse. Tragt eure eigene Domain ein, etwa anna-und-luca.ch.',
         ];
     }
 }
