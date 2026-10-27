@@ -20,7 +20,7 @@ defineOptions({
     layout: {
         breadcrumbs: [
             { title: dashboardPage.title, href: dashboard() },
-            { title: 'Freischalten', href: '' },
+            { title: 'Online stellen', href: '' },
         ],
     },
 });

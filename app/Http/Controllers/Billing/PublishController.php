@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Billing;
 use App\Actions\Billing\ConfirmCheckout;
 use App\Actions\Billing\StartCheckout;
 use App\Enums\Plan;
+use App\Exceptions\CheckoutUnavailable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Billing\StartCheckoutRequest;
 use App\Models\Wedding;
@@ -46,7 +47,13 @@ class PublishController extends Controller
         abort_if($wedding->isDraft(), 403, 'Finish the setup first.');
         abort_unless(filled(config('services.stripe.secret')), 503, 'Payments are not configured.');
 
-        return Inertia::location($checkout->handle($wedding, $request->plan()));
+        try {
+            return Inertia::location($checkout->handle($wedding, $request->plan()));
+        } catch (CheckoutUnavailable) {
+            Inertia::flash('toast', ['type' => 'error', 'message' => 'Die Zahlung konnte gerade nicht starten. Wir sind informiert und kümmern uns darum. Versucht es später nochmals oder schreibt uns an info@hereby.ch.']);
+
+            return back();
+        }
     }
 
     /**

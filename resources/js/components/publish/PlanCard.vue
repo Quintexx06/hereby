@@ -2,8 +2,8 @@
 import { Check } from '@lucide/vue';
 import { computed } from 'vue';
 import { Button } from '@/components/ui/button';
+import CoutureRequest from '@/components/publish/CoutureRequest.vue';
 import { Spinner } from '@/components/ui/spinner';
-import { footer } from '@/content/landing';
 import { chf, plans, publishPage as copy } from '@/content/publish';
 import type { PlanOffer } from '@/types';
 
@@ -69,16 +69,6 @@ const featured = computed(() => props.offer.key === 'atelier');
             <Spinner v-if="busy" />
             {{ upgrading ? copy.upgrade(offer.due) : copy.buy(offer.due) }}
         </Button>
-        <Button
-            v-else
-            size="pill"
-            variant="outline"
-            class="mt-auto w-full"
-            as-child
-        >
-            <a :href="`mailto:${footer.email}?subject=Couture`">{{
-                copy.ask
-            }}</a>
-        </Button>
+        <CoutureRequest v-else class="mt-auto w-full" />
     </article>
 </template>

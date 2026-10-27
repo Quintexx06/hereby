@@ -2,6 +2,7 @@
 import { Link } from '@inertiajs/vue3';
 import { Check } from '@lucide/vue';
 import HerebyIcon from '@/components/brand/HerebyIcon.vue';
+import CoutureRequest from '@/components/publish/CoutureRequest.vue';
 import { Button } from '@/components/ui/button';
 import { pricing } from '@/content/landing';
 import { chf, plans } from '@/content/publish';
@@ -51,16 +52,9 @@ defineProps<{ plan: 'atelier' | 'couture'; price: number }>();
                 {{ feature.text }}
             </li>
         </ul>
-        <Button
-            as-child
-            size="pill"
-            :variant="plan === 'atelier' ? 'default' : 'outline'"
-            class="pricing-cta"
-        >
-            <a v-if="plan === 'couture'" :href="pricing.askHref">{{
-                pricing.ask
-            }}</a>
-            <Link v-else :href="register()">{{ pricing.start }}</Link>
+        <CoutureRequest v-if="plan === 'couture'" class="pricing-cta" />
+        <Button v-else as-child size="pill" class="pricing-cta">
+            <Link :href="register()">{{ pricing.start }}</Link>
         </Button>
     </li>
 </template>

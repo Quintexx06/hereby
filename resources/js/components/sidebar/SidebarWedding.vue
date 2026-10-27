@@ -42,7 +42,8 @@ const countdown = computed(() =>
 </script>
 
 <!--
-    Whose wedding this is: the couple's names, the date and the countdown.
+    Whose wedding this is: the couple's names, the date and the countdown,
+    and whether the site is online (guests' links open once a plan is paid).
     For a partner account, the partner's name and what it is.
 -->
 <template>
@@ -61,14 +62,22 @@ const countdown = computed(() =>
         <Link
             v-if="wedding.status === 'active'"
             :href="publish(wedding.id)"
-            class="sidebar-plan"
+            class="sidebar-status"
             :data-published="wedding.published"
         >
-            {{
-                wedding.plan
-                    ? sidebarWedding.plan(plans[wedding.plan].name)
-                    : sidebarWedding.linksClosed
-            }}
+            <span class="sidebar-status-dot" aria-hidden="true" />
+            <span class="flex flex-col gap-0.5">
+                <span class="font-medium text-sidebar-foreground">{{
+                    wedding.published
+                        ? sidebarWedding.online
+                        : sidebarWedding.offline
+                }}</span>
+                <span class="sidebar-status-line">{{
+                    wedding.plan
+                        ? sidebarWedding.plan(plans[wedding.plan].name)
+                        : sidebarWedding.goOnline
+                }}</span>
+            </span>
         </Link>
     </div>
     <div v-else-if="partner" class="app-nav-wide flex-col gap-1 px-3 pt-2 pb-6">

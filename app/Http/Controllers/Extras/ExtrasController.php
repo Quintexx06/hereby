@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Extras;
 use App\Actions\Billing\ConfirmCheckout;
 use App\Actions\Billing\StartCheckout;
 use App\Enums\Addon;
+use App\Exceptions\CheckoutUnavailable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Extras\BuyAddonRequest;
 use App\Http\Requests\Extras\UpdateDomainRequest;
@@ -53,7 +54,13 @@ class ExtrasController extends Controller
     {
         abort_unless(filled(config('services.stripe.secret')), 503, 'Payments are not configured.');
 
-        return Inertia::location($checkout->forAddon($wedding, $request->addon()));
+        try {
+            return Inertia::location($checkout->forAddon($wedding, $request->addon()));
+        } catch (CheckoutUnavailable) {
+            Inertia::flash('toast', ['type' => 'error', 'message' => 'Die Zahlung konnte gerade nicht starten. Wir sind informiert und kümmern uns darum. Versucht es später nochmals oder schreibt uns an info@hereby.ch.']);
+
+            return back();
+        }
     }
 
     /**

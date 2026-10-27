@@ -4,11 +4,13 @@ namespace App\Actions\Billing;
 
 use App\Enums\Addon;
 use App\Enums\Plan;
+use App\Exceptions\CheckoutUnavailable;
 use App\Models\Wedding;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use RuntimeException;
 use Throwable;
@@ -53,11 +55,38 @@ class StartCheckout
 
     /**
      * @param  array<string, string>  $metadata  What the payment unlocks.
+     *
+     * @throws CheckoutUnavailable
      */
     private function open(Wedding $wedding, int $amount, string $label, string $productKey, array $metadata, string $returnUrl, string $cancelUrl): string
     {
         // One key for every attempt: a retry after a lost answer returns the same session.
-        $session = self::client()
+        try {
+            $session = $this->session($wedding, $amount, $label, $productKey, $metadata, $returnUrl, $cancelUrl);
+        } catch (RequestException $error) {
+            // Stripe's own words (a method not switched on, a wrong key) for the team's log.
+            Log::error('Stripe Checkout abgelehnt: '.(data_get($error->response->json(), 'error.message') ?? $error->getMessage()), [
+                'wedding_id' => $wedding->id,
+                'status' => $error->response->status(),
+            ]);
+
+            throw new CheckoutUnavailable('Stripe refused the Checkout session.', previous: $error);
+        } catch (ConnectionException $error) {
+            Log::error('Stripe nicht erreichbar: '.$error->getMessage(), ['wedding_id' => $wedding->id]);
+
+            throw new CheckoutUnavailable('Stripe could not be reached.', previous: $error);
+        }
+
+        return (string) data_get($session, 'url');
+    }
+
+    /**
+     * @param  array<string, string>  $metadata
+     * @return array<string, mixed>
+     */
+    private function session(Wedding $wedding, int $amount, string $label, string $productKey, array $metadata, string $returnUrl, string $cancelUrl): array
+    {
+        return self::client()
             ->withHeaders(['Idempotency-Key' => (string) Str::uuid()])
             ->retry(2, 300, fn (Throwable $error): bool => $error instanceof ConnectionException
                 || ($error instanceof RequestException && $error->response->serverError()))
@@ -88,8 +117,6 @@ class StartCheckout
             ])
             ->throw()
             ->json();
-
-        return (string) data_get($session, 'url');
     }
 
     /**

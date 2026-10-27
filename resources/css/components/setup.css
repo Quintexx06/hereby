@@ -158,7 +158,7 @@
      * it on a wide column, or as a row of five above it where it is narrow.
      */
     .look-picker {
-        @apply grid gap-6 @3xl:grid-cols-[minmax(0,1fr)_14rem] @3xl:gap-10;
+        @apply grid gap-6 @3xl:grid-cols-[minmax(0,1fr)_15rem] @3xl:gap-10;
     }
 
     .look-stage {
@@ -189,9 +189,12 @@
         @apply flex flex-col items-start gap-1 px-0.5 text-xs font-semibold sm:text-sm @3xl:text-base;
     }
 
-    /* The tag fits the wide column only; the row of five gets a dot. */
+    /*
+     * In the wide column the tag sits on the tile's top edge, on one line;
+     * the row of five gets a dot instead.
+     */
     .design-option-tag {
-        @apply hidden rounded-full bg-brand-muted px-2 py-0.5 text-[0.7rem] font-medium text-foreground @3xl:inline-block;
+        @apply hidden rounded-full bg-brand px-2.5 py-0.5 text-[0.7rem] font-semibold whitespace-nowrap text-brand-foreground @3xl:absolute @3xl:-top-2.5 @3xl:right-3 @3xl:inline-block;
     }
 
     .design-option[data-suggested='true']::after {

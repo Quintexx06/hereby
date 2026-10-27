@@ -72,12 +72,21 @@
     }
 
     /* The plan under the couple's names in the sidebar; a nudge while closed. */
-    .sidebar-plan {
-        @apply mt-2 self-start rounded-full border border-sidebar-border px-2.5 py-0.5 text-xs text-muted-foreground transition-colors duration-150 ease-out hover:text-sidebar-foreground;
+    /* Online or not: a dot, the state, and the way to go online. */
+    .sidebar-status {
+        @apply mt-3 flex items-start gap-2.5 rounded-xl border border-sidebar-border px-3 py-2.5 text-xs text-muted-foreground transition-colors duration-150 ease-out hover:border-sidebar-foreground/30;
     }
 
-    .sidebar-plan[data-published='false'] {
-        @apply border-brand/50 text-brand;
+    .sidebar-status-dot {
+        @apply mt-1 size-2 shrink-0 rounded-full bg-success;
+    }
+
+    .sidebar-status[data-published='false'] .sidebar-status-dot {
+        @apply bg-brand;
+    }
+
+    .sidebar-status[data-published='false'] .sidebar-status-line {
+        @apply text-brand underline decoration-current/40 underline-offset-2;
     }
 }
 
@@ -112,5 +121,14 @@
 
     .locked-preview-chip {
         @apply shrink-0 rounded-full bg-brand/10 px-3 py-1 text-xs font-medium text-brand;
+    }
+
+    /* «Couture anfragen»: the popup's form, not wider than a letter. */
+    .couture-request {
+        @apply gap-5 rounded-[1.5rem] p-7 sm:max-w-md sm:p-8;
+    }
+
+    .couture-request-title {
+        @apply flex items-center gap-2 font-display text-2xl font-semibold tracking-[-0.02em];
     }
 }

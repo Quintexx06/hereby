@@ -275,8 +275,6 @@ export const pricing = {
         couture: 'Alles, und wir gestalten und begleiten es mit euch.',
     },
     start: 'Kostenlos starten',
-    ask: 'Anfragen',
-    askHref: 'mailto:info@hereby.ch?subject=Couture',
     extrasTitle: 'Einzeln dazu',
     extras: [
         { addon: 'newspaper', name: 'Hochzeitszeitung', perYear: false },

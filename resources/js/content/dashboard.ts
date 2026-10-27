@@ -3,6 +3,7 @@ export const start = {
     title: 'Willkommen bei Hereby.',
     lede: 'Sieben kurze Fragen, dann steht eure Hochzeitswebsite. Rund zehn Minuten, und ihr könnt jederzeit pausieren.',
     cta: 'Website einrichten',
+    starting: 'Wird vorbereitet …',
     steps: [
         'Ihr erzählt uns von eurem Tag: Datum, Ort, Ablauf.',
         'Ihr wählt einen Look und seht eure Einladung sofort.',
@@ -96,7 +97,10 @@ export const invitationPanel = {
 export const dashboardPage = { title: 'Übersicht' };
 
 export const sidebarWedding = {
-    linksClosed: 'Links geschlossen · freischalten',
+    /** Before a plan is paid the guests' links stay closed: the site is not online yet. */
+    offline: 'Noch nicht online',
+    goOnline: 'Jetzt online stellen',
+    online: 'Online',
     /** Signature, Atelier and Couture are names, so they get a German frame. */
     plan: (name: string) => `Paket ${name}`,
     fallbackName: 'Eure Hochzeit',

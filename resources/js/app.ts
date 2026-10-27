@@ -54,8 +54,10 @@ void createInertiaApp({
                 ? { viewTransition: true }
                 : {},
     },
+    // The brand's claret, visible on porcelain and on the dark sidebar.
     progress: {
-        color: 'oklch(0.8 0.09 7)',
+        color: 'oklch(0.52 0.16 6)',
+        delay: 120,
     },
 });
 

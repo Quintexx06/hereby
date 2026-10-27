@@ -48,6 +48,23 @@
     .start-step {
         @apply grid grid-cols-[2rem_minmax(0,1fr)] gap-3 border-t py-4 text-muted-foreground;
     }
+
+    /* Welcome: the start on the left, a photo beside it on wide screens. */
+    .dashboard-start {
+        @apply grid items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)] xl:gap-20;
+    }
+
+    .dashboard-start-photo {
+        @apply relative m-0 hidden aspect-[4/5] overflow-hidden rounded-[2rem] shadow-[0_40px_80px_-48px_rgb(20_14_10/0.55)] lg:block;
+    }
+
+    .dashboard-start-photo > picture {
+        @apply absolute inset-0;
+    }
+
+    .start-cta {
+        @apply min-w-60 justify-center;
+    }
 }
 
 /* Account pages (layouts/settings): text tabs on a hairline, no filled pills. */

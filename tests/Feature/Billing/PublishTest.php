@@ -4,6 +4,7 @@ namespace Tests\Feature\Billing;
 
 use App\Enums\Plan;
 use App\Models\Household;
+use App\Models\LogEntry;
 use App\Models\User;
 use App\Models\Wedding;
 use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
@@ -105,6 +106,23 @@ class PublishTest extends TestCase
         $this->assertCount(2, $keys);
         $this->assertNotSame('', $keys[0]);
         $this->assertSame($keys[0], $keys[1]);
+    }
+
+    public function test_a_stripe_refusal_reaches_the_team_log_and_not_the_couple_as_an_error_page(): void
+    {
+        Http::fake(['stripe.test/*' => Http::response(['error' => [
+            'type' => 'invalid_request_error',
+            'message' => 'The payment method type provided: twint is invalid.',
+        ]], 400)]);
+        $wedding = Wedding::factory()->unpaid()->create();
+
+        $this->actingAs($wedding->owner)
+            ->from(route('weddings.publish.show', $wedding))
+            ->post(route('weddings.publish.store', $wedding), ['plan' => 'signature'])
+            ->assertRedirect(route('weddings.publish.show', $wedding));
+
+        $this->assertStringContainsString('twint is invalid', LogEntry::query()->sole()->message);
+        $this->assertNull($wedding->fresh()->paid_at);
     }
 
     public function test_a_plan_already_owned_cannot_be_bought_again_and_couture_is_not_sold_online(): void

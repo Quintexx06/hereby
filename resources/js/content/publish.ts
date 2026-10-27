@@ -11,10 +11,9 @@ export const publishPage = {
     lede: 'Eure Seite ist gebaut. Mit einem Paket werden die persönlichen Links eurer Gäste aktiv, einmal bezahlt, bis ein Jahr nach der Hochzeit.',
     ledePublished:
         'Eure Gäste können antworten. Mit Atelier läuft auch der Abend von selbst, und ihr sammelt ihre Fotos.',
-    buy: (price: number) => `Freischalten · ${chf(price)}`,
+    buy: (price: number) => `Online stellen · ${chf(price)}`,
     upgrade: (price: number) => `Upgrade · ${chf(price)}`,
     owned: 'Gebucht',
-    ask: 'Anfragen',
     from: 'ab',
     soon: 'bald',
     popular: 'Mit Erinnerungen',
@@ -25,6 +24,21 @@ export const publishPage = {
     free: 'Immer gratis: alle fünf Entwürfe, die Vorschau, und für eure Gäste alles.',
     fine: 'Einmalig, per Karte oder TWINT über Stripe. Eure Gäste sehen nie einen Preis.',
     previewLabel: 'Eure Seite',
+};
+
+/** «Anfragen» for Couture: a short form, no mail app needed. */
+export const coutureRequest = {
+    ask: 'Anfragen',
+    title: 'Couture anfragen',
+    lede: 'Erzählt uns kurz von eurer Hochzeit. Wir melden uns innert zwei Arbeitstagen per E-Mail.',
+    email: 'Eure E-Mail-Adresse',
+    message: 'Eure Hochzeit',
+    placeholder:
+        'Wann und wo heiratet ihr, wie viele Gäste kommen, was wünscht ihr euch?',
+    send: 'Anfrage senden',
+    sentTitle: 'Danke, eure Anfrage ist da.',
+    sentLede: 'Wir melden uns innert zwei Arbeitstagen per E-Mail.',
+    prefix: 'Couture-Anfrage: ',
 };
 
 /** What each plan holds; `soon` marks what ships before the season. */
@@ -71,5 +85,5 @@ export const plans: Record<
 export const publishBanner = {
     title: 'Eure Links sind noch geschlossen.',
     text: 'Gäste sehen eure Seite, sobald ihr ein Paket wählt. Ihr selbst könnt jeden Link schon jetzt ausprobieren.',
-    action: 'Einladungen freischalten',
+    action: 'Online stellen',
 };
