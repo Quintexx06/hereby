@@ -72,7 +72,23 @@ class PublishTest extends TestCase
             && $request['metadata']['wedding_id'] == $wedding->id
             && $request['invoice_creation']['enabled'] === 'true'
             && $request['managed_payments']['enabled'] === 'false'
-            && $request['payment_method_types'] === ['card', 'twint']);
+            && $request['allowed_payment_method_types'] === ['card', 'twint']
+            && ! isset($request['payment_method_types']));
+    }
+
+    public function test_an_older_pinned_stripe_version_still_gets_the_old_payment_methods_parameter(): void
+    {
+        Http::fake(['stripe.test/*' => Http::response(['id' => 'cs_1', 'url' => 'https://checkout.stripe.test/cs_1'])]);
+        config(['services.stripe.api_version' => '2026-04-22.dahlia']);
+        $wedding = Wedding::factory()->unpaid()->create();
+
+        $this->actingAs($wedding->owner)
+            ->post(route('weddings.publish.store', $wedding), ['plan' => 'signature'], ['X-Inertia' => 'true'])
+            ->assertStatus(409);
+
+        Http::assertSent(fn (ClientRequest $request): bool => $request['payment_method_types'] === ['card', 'twint']
+            && ! isset($request['allowed_payment_method_types'])
+            && $request->header('Stripe-Version') === ['2026-04-22.dahlia']);
     }
 
     public function test_checkout_bills_the_stripe_product_of_the_plan_when_one_is_configured(): void

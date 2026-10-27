@@ -102,7 +102,7 @@ class StartCheckout
                 'allow_promotion_codes' => 'true',
                 // Hereby is the seller, not Stripe as merchant of record (which has no TWINT).
                 'managed_payments' => ['enabled' => 'false'],
-                'payment_method_types' => self::paymentMethods(),
+                self::methodsParameter() => self::paymentMethods(),
                 'payment_intent_data' => ['description' => "Hereby {$label} · {$wedding->couple_names}"],
                 'cancel_url' => $cancelUrl,
                 'line_items' => [[
@@ -144,6 +144,19 @@ class StartCheckout
         $methods = array_values(array_filter(array_map('trim', explode(',', (string) config('services.stripe.payment_methods')))));
 
         return $methods !== [] ? $methods : ['card', 'twint'];
+    }
+
+    /**
+     * Stripe's 2026-09-30 API renamed the list; an account pinned to an older
+     * version (services.stripe.api_version) still takes the old name.
+     */
+    private static function methodsParameter(): string
+    {
+        $version = (string) config('services.stripe.api_version');
+
+        return $version !== '' && substr($version, 0, 10) < '2026-09-30'
+            ? 'payment_method_types'
+            : 'allowed_payment_method_types';
     }
 
     /**
