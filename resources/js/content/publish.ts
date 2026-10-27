@@ -58,8 +58,10 @@ export const plans: Record<
         line: 'Wir gestalten und begleiten alles mit euch.',
         features: [
             { text: 'Alles aus Atelier' },
-            { text: 'Hochzeitszeitung und «Wir fassen nach»' },
-            { text: 'Eigene Domain und gedrucktes Erinnerungsbuch' },
+            {
+                text: 'Hochzeitszeitung: eure Gäste schreiben, die Trauzeugen drucken',
+            },
+            { text: '«Wir fassen nach» und eigene Domain' },
             { text: 'Einrichtung und Übersetzung durch uns' },
         ],
     },

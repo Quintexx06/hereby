@@ -8,8 +8,12 @@
  */
 @layer components {
     /* Full-bleed track; padding lets the first and last window sit centred. */
+    /*
+     * A sideways scroller clips both axes, so the room below holds the
+     * windows' and phones' shadows; the negative margin gives it back.
+     */
     .studio-track {
-        @apply relative mx-[calc(50%-50vw)] flex snap-x snap-mandatory gap-3 overflow-x-auto px-[max(1rem,calc(50vw-34rem))] pt-2 pb-4 sm:gap-8;
+        @apply relative mx-[calc(50%-50vw)] -mb-16 flex snap-x snap-mandatory gap-3 overflow-x-auto px-[max(1rem,calc(50vw-34rem))] pt-2 pb-20 sm:gap-8;
         scrollbar-width: none;
     }
 
@@ -150,8 +154,9 @@
         }
     }
 
+    /* Above the track's shadow room, so «Live ansehen» stays clickable. */
     .studio-caption {
-        @apply flex min-w-0 flex-col items-center gap-2 text-center;
+        @apply relative z-10 flex min-w-0 flex-col items-center gap-2 text-center;
     }
 
     .studio-name {
