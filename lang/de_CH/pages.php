@@ -267,7 +267,7 @@ return [
         'faq' => [
             ['question' => 'Gibt es ein Abo?', 'answer' => 'Nein. Jedes Paket kostet einmal. Eure Seite bleibt bis nach der Hochzeit online, ohne laufende Kosten.'],
             ['question' => 'Kostet es mehr, wenn wir viele Gäste einladen?', 'answer' => 'Nein. Der Preis ist derselbe für 30 oder 300 Gäste.'],
-            ['question' => 'Wie bezahlen wir?', 'answer' => 'Mit Karte, Apple Pay, Google Pay oder TWINT, in Franken. Ihr erhaltet eine Quittung per Mail.'],
+            ['question' => 'Wie bezahlen wir?', 'answer' => 'Mit Karte, Apple Pay oder Google Pay, in Franken. Ihr erhaltet eine Quittung per Mail.'],
             ['question' => 'Können wir später auf ein grösseres Paket wechseln?', 'answer' => 'Ja. Ihr bezahlt dann nur die Differenz.'],
         ],
         'related' => ['hochzeitswebsite-erstellen', 'hochzeit-rsvp-online', 'fuer-locations'],

@@ -72,7 +72,7 @@ class PublishTest extends TestCase
             && $request['metadata']['wedding_id'] == $wedding->id
             && $request['invoice_creation']['enabled'] === 'true'
             && $request['managed_payments']['enabled'] === 'false'
-            && $request['allowed_payment_method_types'] === ['card', 'twint']
+            && $request['allowed_payment_method_types'] === ['card']
             && ! isset($request['payment_method_types']));
     }
 
@@ -86,7 +86,7 @@ class PublishTest extends TestCase
             ->post(route('weddings.publish.store', $wedding), ['plan' => 'signature'], ['X-Inertia' => 'true'])
             ->assertStatus(409);
 
-        Http::assertSent(fn (ClientRequest $request): bool => $request['payment_method_types'] === ['card', 'twint']
+        Http::assertSent(fn (ClientRequest $request): bool => $request['payment_method_types'] === ['card']
             && ! isset($request['allowed_payment_method_types'])
             && $request->header('Stripe-Version') === ['2026-04-22.dahlia']);
     }

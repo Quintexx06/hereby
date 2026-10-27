@@ -22,7 +22,7 @@ export const publishPage = {
     finishSetup:
         'Schliesst zuerst die Einrichtung ab, dann könnt ihr versenden.',
     free: 'Immer gratis: alle fünf Entwürfe, die Vorschau, und für eure Gäste alles.',
-    fine: 'Einmalig, per Karte oder TWINT über Stripe. Eure Gäste sehen nie einen Preis.',
+    fine: 'Einmalig, per Karte über Stripe. Eure Gäste sehen nie einen Preis.',
     previewLabel: 'Eure Seite',
 };
 

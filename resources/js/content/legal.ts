@@ -37,7 +37,7 @@ export const privacy: LegalPage = {
                 'Partner: Locations, Fotografen und Planer haben ein eigenes Konto (Name, Kontaktangaben, bei Locations Adresse, Beschreibung und Fotos). Fragt jemand über die öffentliche Seite einer Location eine Besichtigung an, speichern wir Name, E-Mail-Adresse, Wunschtermin und Nachricht für diese Location.',
                 'Locations, die wir anfragen: Für eine erste Anfrage nutzen wir die öffentlichen Geschäftsangaben einer Location (Name, Adresse, Ort, E-Mail-Adresse, Website) und zeigen ihr eine Beispielseite, die nur über einen persönlichen Link erreichbar ist und nach 90 Tagen abläuft. Wünscht eine Location keinen Kontakt, genügt eine kurze Antwort.',
                 'Massanfertigung: Wünsche, Farben, Links und Inspirationsbilder, die ein Paar uns für seine Seite schickt. Die Bilder sehen nur das Paar und unser Team; sie werden mit der Hochzeit gelöscht.',
-                'Zahlungen: Paare bezahlen über Stripe. Kartendaten und TWINT-Angaben gehen direkt an Stripe; wir erhalten nur die Bestätigung der Zahlung.',
+                'Zahlungen: Paare bezahlen über Stripe. Zahlungsdaten gehen direkt an Stripe; wir erhalten nur die Bestätigung der Zahlung.',
             ],
         },
         {

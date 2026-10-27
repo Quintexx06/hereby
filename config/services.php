@@ -19,15 +19,16 @@ return [
     |
     */
 
-    // Payments: Stripe Checkout, one-time, in CHF (cards and TWINT).
+    // Payments: Stripe Checkout, one-time, in CHF.
     'stripe' => [
         'secret' => env('STRIPE_SECRET'),
         'webhook_secret' => env('STRIPE_WEBHOOK_SECRET'),
         'api_url' => env('STRIPE_API_URL', 'https://api.stripe.com/v1'),
         // Pin the API version the integration was tested on (empty: the account's default).
         'api_version' => env('STRIPE_API_VERSION'),
-        // Payment methods Checkout offers: cards (with Apple Pay and Google Pay) and TWINT.
-        'payment_methods' => env('STRIPE_PAYMENT_METHODS', 'card,twint'),
+        // Payment methods Checkout offers: cards (with Apple Pay and Google Pay). TWINT
+        // joins as "card,twint" once Stripe has approved it for the account.
+        'payment_methods' => env('STRIPE_PAYMENT_METHODS', 'card'),
         // Catalogue products the plans are billed under (empty: named per payment).
         'products' => [
             'signature' => env('STRIPE_PRODUCT_SIGNATURE'),

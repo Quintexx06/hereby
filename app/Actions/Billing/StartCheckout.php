@@ -17,9 +17,9 @@ use Throwable;
 
 /**
  * Opens a Stripe Checkout page for a plan (or the upgrade to it) or an extra, one-time,
- * in CHF. Only Swiss payment methods are offered (services.stripe.payment_methods:
- * cards, which bring Apple Pay and Google Pay, and TWINT), whatever else the
- * Stripe dashboard has switched on (Klarna, Link, Bancontact and the like).
+ * in CHF. Only the methods in services.stripe.payment_methods are offered (cards,
+ * which bring Apple Pay and Google Pay, and TWINT once Stripe has approved it),
+ * whatever else the Stripe dashboard has switched on (Klarna, Link, Bancontact and the like).
  */
 class StartCheckout
 {
@@ -143,7 +143,7 @@ class StartCheckout
     {
         $methods = array_values(array_filter(array_map('trim', explode(',', (string) config('services.stripe.payment_methods')))));
 
-        return $methods !== [] ? $methods : ['card', 'twint'];
+        return $methods !== [] ? $methods : ['card'];
     }
 
     /**
