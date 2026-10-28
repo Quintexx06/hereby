@@ -122,11 +122,12 @@ export const programme = {
     remove: 'Entfernen',
     time: 'Zeit',
     day: 'Tag',
-    days: {
-        '-1': 'Am Vortag',
-        '0': 'Am Hochzeitstag',
-        '1': 'Am Tag danach',
-    } as Record<string, string>,
+    /* A list, not an object: an object would list «-1» after «0» and «1». */
+    days: [
+        [-1, 'Am Vortag'],
+        [0, 'Am Hochzeitstag'],
+        [1, 'Am Tag danach'],
+    ] as const,
     /** A part off the wedding day says so wherever it is listed with times. */
     dayNote: (offset: number): string | null =>
         offset === -1 ? 'am Vortag' : offset === 1 ? 'am Tag danach' : null,

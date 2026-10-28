@@ -9,6 +9,7 @@ import SetupSceneBand from '@/components/setup/SetupSceneBand.vue';
 import SetupProgress from '@/components/setup/SetupProgress.vue';
 import { steps as stepCopy } from '@/content/setup';
 import { provideSetupForm } from '@/composables/useSetupForm';
+import { revealFirstError } from '@/lib/forms';
 import { pickStepFields } from '@/lib/setup';
 import { complete, update } from '@/routes/weddings/setup';
 import type {
@@ -76,6 +77,8 @@ let savedTimer: ReturnType<typeof setTimeout> | undefined;
 const copy = computed(() => stepCopy[props.step]);
 const isReview = computed(() => props.step === 'uebersicht');
 
+const formElement = ref<HTMLFormElement | null>(null);
+
 function submit(): void {
     if (isReview.value) {
         form.transform(() => ({})).post(complete.url(id));
@@ -92,6 +95,7 @@ function submit(): void {
                 clearTimeout(savedTimer);
                 savedTimer = setTimeout(() => (saved.value = false), 2600);
             },
+            onError: () => revealFirstError(formElement.value),
         },
     );
 }
@@ -108,6 +112,7 @@ function submit(): void {
             <SetupSceneBand :step="step" class="mt-6" />
 
             <form
+                ref="formElement"
                 class="flex flex-1 flex-col"
                 novalidate
                 @submit.prevent="submit"

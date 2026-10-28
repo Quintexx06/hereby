@@ -56,9 +56,9 @@ const row = defineModel<ProgrammeRow>('row', { required: true });
                 class="select-native"
             >
                 <option
-                    v-for="(label, value) in programme.days"
+                    v-for="[value, label] in programme.days"
                     :key="value"
-                    :value="Number(value)"
+                    :value="value"
                 >
                     {{ label }}
                 </option>

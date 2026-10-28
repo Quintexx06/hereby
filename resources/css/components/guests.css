@@ -67,8 +67,9 @@
         @apply grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto] items-end gap-3;
     }
 
+    /* Two lines rather than «Giulia Bernasc…»: the name is the row. */
     .household-name {
-        @apply truncate text-left font-semibold underline-offset-4 after:absolute after:inset-0 hover:underline focus-visible:outline-none;
+        @apply line-clamp-2 text-left font-semibold break-words underline-offset-4 after:absolute after:inset-0 hover:underline focus-visible:outline-none;
     }
 
     .editor-section {

@@ -8,6 +8,7 @@ import { provideSetupForm } from '@/composables/useSetupForm';
 import { dashboardPage } from '@/content/dashboard';
 import { details as copy } from '@/content/details';
 import { steps as stepCopy, templates } from '@/content/setup';
+import { revealFirstError } from '@/lib/forms';
 import { pickStepFields } from '@/lib/setup';
 import { dashboard } from '@/routes';
 import { edit, update } from '@/routes/weddings/details';
@@ -76,10 +77,15 @@ const status = computed(() => {
     return form.isDirty ? copy.unsaved : null;
 });
 
+const formElement = ref<HTMLFormElement | null>(null);
+
 function submit(): void {
     form.transform((data) => pickStepFields(props.step, data)).put(
         update.url([id, props.step]),
-        { preserveScroll: true },
+        {
+            preserveScroll: true,
+            onError: () => revealFirstError(formElement.value),
+        },
     );
 }
 </script>
@@ -104,7 +110,12 @@ function submit(): void {
             </Link>
         </nav>
 
-        <form class="details-form" novalidate @submit.prevent="submit">
+        <form
+            ref="formElement"
+            class="details-form"
+            novalidate
+            @submit.prevent="submit"
+        >
             <p v-if="note" class="details-note">{{ note }}</p>
 
             <SetupStepBody

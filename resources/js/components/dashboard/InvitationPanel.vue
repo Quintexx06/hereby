@@ -10,7 +10,7 @@ import type { LandingPhoto } from '@/content/landing-photos';
 import { previewFromWedding } from '@/lib/preview';
 import { sceneSource } from '@/lib/setupScenes';
 import { preview } from '@/routes/weddings';
-import { show } from '@/routes/weddings/setup';
+import { edit as details } from '@/routes/weddings/details';
 import type { DashboardWedding, OverviewEvent } from '@/types';
 
 const props = defineProps<{
@@ -59,7 +59,7 @@ const photo: LandingPhoto = landingPhotos.tableCandles;
                     >{{ invitationPanel.preview }}</a
                 >
                 <Link
-                    :href="show([wedding.id, 'look'])"
+                    :href="details([wedding.id, 'look'])"
                     class="link-underline hit-area"
                 >
                     {{ invitationPanel.change }}

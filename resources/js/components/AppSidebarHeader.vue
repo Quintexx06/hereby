@@ -20,7 +20,7 @@ const page = usePage();
     <header
         class="flex h-16 shrink-0 items-center gap-2 border-b border-border px-6"
     >
-        <div class="flex items-center gap-2">
+        <div class="flex min-w-0 items-center gap-2">
             <NavToggle />
             <template v-if="breadcrumbs && breadcrumbs.length > 0">
                 <Breadcrumbs :breadcrumbs="breadcrumbs" />
@@ -32,7 +32,7 @@ const page = usePage();
                 page.props.currentWedding?.couple_names &&
                 page.component !== 'Dashboard'
             "
-            class="ml-auto truncate font-display text-lg font-semibold tracking-[-0.02em] sm:hidden"
+            class="app-header-couple"
         >
             {{ page.props.currentWedding.couple_names }}
         </p>

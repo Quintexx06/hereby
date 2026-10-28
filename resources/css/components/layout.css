@@ -44,4 +44,12 @@
     .app-focus-user {
         @apply flex items-center gap-2 rounded-full py-1 pr-3 pl-1 transition-colors duration-150 ease-out hover:bg-muted;
     }
+
+    /*
+     * The couple's names in the phone header keep their room; the
+     * breadcrumbs beside them wrap instead («Lea & Jo…» read as a bug).
+     */
+    .app-header-couple {
+        @apply ml-auto max-w-[55%] shrink-0 truncate font-display text-lg font-semibold tracking-[-0.02em] sm:hidden;
+    }
 }

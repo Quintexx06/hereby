@@ -58,7 +58,7 @@ function submit(): void {
 
 <template>
     <div class="flex min-h-0 flex-1 flex-col">
-        <SheetHeader class="px-6 pt-8 pb-2">
+        <SheetHeader class="border-b px-6 pt-8 pb-4">
             <SheetTitle class="font-display text-2xl">{{
                 household.name
             }}</SheetTitle>
