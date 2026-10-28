@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { Form, Head, setLayoutProps } from '@inertiajs/vue3';
-import { ref } from 'vue';
+import { Form, Head, resetLayoutProps, setLayoutProps } from '@inertiajs/vue3';
+import { onUnmounted, ref } from 'vue';
 import InputError from '@/components/InputError.vue';
 import PasswordInput from '@/components/PasswordInput.vue';
 import { Button } from '@/components/ui/button';
@@ -27,6 +27,8 @@ const props = defineProps<{
 const title = props.welcome ? 'Passwort wählen' : 'Neues Passwort';
 
 if (props.welcome) {
+    // The login after this page shares the layout; it gets its own words back.
+    onUnmounted(resetLayoutProps);
     setLayoutProps({
         title,
         description:
@@ -42,7 +44,7 @@ const inputEmail = ref(props.email);
 
     <Form
         v-bind="update.form()"
-        :transform="(data) => ({ ...data, token, email })"
+        :transform="(data) => ({ ...data, token, email, welcome })"
         :reset-on-success="['password', 'password_confirmation']"
         v-slot="{ errors, processing }"
     >
@@ -70,8 +72,10 @@ const inputEmail = ref(props.email);
                     class="mt-1 block w-full"
                     autofocus
                     placeholder="Neues Passwort"
+                    aria-describedby="password-hint"
                     :passwordrules="passwordRules"
                 />
+                <p id="password-hint" class="caption">Mindestens 12 Zeichen.</p>
                 <InputError :message="errors.password" />
             </div>
 

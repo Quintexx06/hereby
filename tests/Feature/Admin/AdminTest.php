@@ -69,8 +69,11 @@ class AdminTest extends TestCase
             ->assertOk()
             ->assertInertia(fn (Assert $page) => $page->component('auth/ResetPassword')->where('welcome', true));
 
+        // A week later it has run out, and says how to get a new one.
         $this->travel(2)->days();
-        $this->get((string) $link)->assertForbidden();
+        $this->get((string) $link)
+            ->assertRedirect(route('password.request'))
+            ->assertSessionHas('status');
     }
 
     public function test_admin_works_on_a_couples_wedding_with_the_couples_pages(): void

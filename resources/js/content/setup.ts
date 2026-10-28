@@ -163,26 +163,31 @@ export const look = {
 /** The five designs (WeddingTemplate, ADR 0015): finished by us, filled by you. */
 export const templates: Record<
     WeddingTemplate,
-    { name: string; mood: string }
+    { name: string; line: string; mood: string }
 > = {
     garten: {
         name: 'Garten',
+        line: 'romantisch und botanisch.',
         mood: 'Romantisch und botanisch: euer Foto unter einem Bogen, Zweige und fallende Blüten, der Tag an einer Ranke, die Ringe zum Schluss. Für Gärten, Rebberge, Scheunen und Landgüter.',
     },
     salon: {
         name: 'Salon',
+        line: 'ein Grandhotel bei Nacht.',
         mood: 'Ein Grandhotel-Salon bei Nacht: eure Fotos in Goldrahmen an einer bordeauxroten Wand, die Namen in Schreibschrift, Champagnergläser zum Schluss. Für Black Tie, Grandhotel, Zunfthaus und Schloss.',
     },
     raster: {
         name: 'Raster',
+        line: 'das Datum als Architektur.',
         mood: 'Schweizer Raster: das Datum als Architektur, das Programm als Fahrplan mit Piktogrammen, ein Zinnoberrot. Für moderne Orte, Museen und die Stadt.',
     },
     arve: {
         name: 'Arve',
+        line: 'die Alpen auf der Landeskarte.',
         mood: 'Die Alpen auf der Landeskarte: Höhenlinien über eurer Landschaft, das Programm als gelber Wegweiser, eure Geschichte als Aufstieg zum Gipfel. Für Berghotels, Hütten und Bergseen.',
     },
     lido: {
         name: 'Lido',
+        line: 'Sommer in der Badi.',
         mood: 'Sommer in der Badi: Markise, euer Foto als Sonne, die im See versinkt, das Programm in Schwimmbahnen, Buttergelb und Kobalt. Für den See, das Tessin und Feste bei Tag.',
     },
 };

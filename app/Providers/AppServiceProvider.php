@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\User;
+use App\Support\InertiaErrorPage;
 use Carbon\CarbonImmutable;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Database\Eloquent\Model;
@@ -16,6 +17,7 @@ use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
+use Inertia\Inertia;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -32,6 +34,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Inertia::handleExceptionsUsing(new InertiaErrorPage);
+
         // The Hereby team may do anything a couple may, on any wedding (roadmap 1.1).
         Gate::before(fn (User $user): ?bool => $user->is_admin ? true : null);
         Gate::define('admin', fn (User $user): bool => $user->is_admin);
@@ -75,14 +79,11 @@ class AppServiceProvider extends ServiceProvider
             app()->isProduction(),
         );
 
-        Password::defaults(fn (): ?Password => app()->isProduction()
-            ? Password::min(12)
-                ->mixedCase()
-                ->letters()
-                ->numbers()
-                ->symbols()
-                ->uncompromised()
-            : null,
+        // Length and a leak check, no composition rules (NIST SP 800-63B):
+        // the forms say «Mindestens 12 Zeichen», and that is all it takes.
+        Password::defaults(fn (): Password => app()->isProduction()
+            ? Password::min(12)->uncompromised()
+            : Password::min(12),
         );
     }
 }

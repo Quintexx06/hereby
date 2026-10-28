@@ -95,6 +95,19 @@ class EmailVerificationTest extends TestCase
         $this->assertFalse($user->fresh()->hasVerifiedEmail());
     }
 
+    public function test_an_expired_link_says_so_and_offers_a_new_one(): void
+    {
+        $user = User::factory()->unverified()->create();
+        $link = URL::temporarySignedRoute('verification.verify', now()->addMinutes(60), ['id' => $user->id, 'hash' => sha1($user->email)]);
+
+        $this->travel(2)->hours();
+
+        $this->actingAs($user)->get($link)
+            ->assertRedirect(route('verification.notice'))
+            ->assertSessionHas('status', 'link-expired');
+        $this->assertFalse($user->fresh()->hasVerifiedEmail());
+    }
+
     public function test_verified_user_is_redirected_to_dashboard_from_verification_prompt(): void
     {
         $user = User::factory()->create();

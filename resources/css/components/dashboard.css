@@ -62,6 +62,35 @@
         @apply absolute inset-0;
     }
 
+    /* The setup in progress: ticked, current, still to come. */
+    .draft-steps {
+        @apply grid gap-x-8 sm:grid-flow-col sm:grid-cols-2 sm:grid-rows-4;
+    }
+
+    .draft-step {
+        @apply flex items-center gap-3 border-t py-3 text-muted-foreground;
+    }
+
+    .draft-step[data-state='done'] {
+        @apply text-foreground;
+    }
+
+    .draft-step[data-state='current'] {
+        @apply font-semibold text-foreground;
+    }
+
+    .draft-step-mark {
+        @apply grid size-6 shrink-0 place-items-center rounded-full border border-rule;
+    }
+
+    .draft-step[data-state='done'] .draft-step-mark {
+        @apply border-transparent bg-foreground text-background;
+    }
+
+    .draft-step[data-state='current'] .draft-step-mark {
+        @apply border-brand bg-brand/10;
+    }
+
     .start-cta {
         @apply min-w-60 justify-center;
     }

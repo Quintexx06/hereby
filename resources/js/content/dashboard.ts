@@ -12,7 +12,8 @@ export const start = {
 };
 
 export const draft = {
-    title: 'Fast geschafft.',
+    title: (stepsLeft: number) =>
+        stepsLeft <= 2 ? 'Fast geschafft.' : 'Schön, seid ihr zurück.',
     lede: (step: string) =>
         `Ihr seid bei «${step}». Alles bisher ist gespeichert.`,
     cta: 'Weiter einrichten',

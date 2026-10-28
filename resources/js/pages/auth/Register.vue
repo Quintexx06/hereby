@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
 import { login } from '@/routes';
+import { privacy } from '@/routes/legal';
 import { store } from '@/routes/register';
 
 defineProps<{
@@ -72,8 +73,10 @@ defineOptions({
                     autocomplete="new-password"
                     name="password"
                     placeholder="Passwort"
+                    aria-describedby="password-hint"
                     :passwordrules="passwordRules"
                 />
+                <p id="password-hint" class="caption">Mindestens 12 Zeichen.</p>
                 <InputError :message="errors.password" />
             </div>
 
@@ -93,6 +96,7 @@ defineOptions({
 
             <Button
                 type="submit"
+                size="pill"
                 class="mt-2 w-full"
                 tabindex="5"
                 :disabled="processing"
@@ -101,6 +105,12 @@ defineOptions({
                 <Spinner v-if="processing" />
                 Konto erstellen
             </Button>
+            <p class="text-center text-xs text-muted-foreground">
+                Wie wir mit euren Daten umgehen, steht in der
+                <TextLink :href="privacy()" target="_blank"
+                    >Datenschutzerklärung</TextLink
+                >.
+            </p>
         </div>
 
         <div class="text-center text-sm text-muted-foreground">

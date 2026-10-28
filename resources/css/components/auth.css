@@ -131,4 +131,45 @@
             transform: translateX(102%);
         }
     }
+
+    /* The error page inside the app (pages/ErrorPage), like views/errors. */
+    .error-page {
+        @apply grid min-h-svh place-items-center bg-background p-6 text-foreground;
+    }
+
+    .error-page-inner {
+        @apply w-full max-w-[34rem];
+    }
+
+    .error-page-mark {
+        @apply text-2xl font-bold tracking-[-0.03em];
+    }
+
+    .error-page-mark > span {
+        @apply text-brand;
+    }
+
+    .error-page-code {
+        @apply mt-14 mb-3 text-sm text-muted-foreground tabular-nums;
+    }
+
+    .error-page-title {
+        @apply font-display text-[clamp(2rem,7vw,3.25rem)] leading-none font-semibold tracking-[-0.04em] text-balance hyphens-auto;
+    }
+
+    .error-page-body {
+        @apply mt-5 mb-9 text-[1.0625rem] leading-relaxed text-pretty text-muted-foreground;
+    }
+
+    .error-page-actions {
+        @apply flex flex-wrap items-center gap-x-6 gap-y-4;
+    }
+
+    .error-page-home {
+        @apply inline-flex h-12 items-center rounded-full bg-foreground px-6 font-semibold text-background transition-transform duration-150 ease-out active:scale-[0.97];
+    }
+
+    .error-page-reload {
+        @apply cursor-pointer underline decoration-foreground/35 underline-offset-[0.3em] hover:decoration-foreground;
+    }
 }

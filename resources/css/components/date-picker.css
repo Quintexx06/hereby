@@ -48,8 +48,17 @@
         @apply mb-2 flex items-center justify-between gap-2;
     }
 
-    .date-heading {
-        @apply text-sm font-semibold;
+    /* The month heading is a native menu, so phones get their wheel. */
+    .date-month {
+        @apply relative inline-flex items-center rounded-md transition-[background-color] duration-150 ease-out hover:bg-muted;
+    }
+
+    .date-month-select {
+        @apply cursor-pointer appearance-none bg-transparent py-1.5 pr-7 pl-2.5 text-sm font-semibold outline-none focus-visible:rounded-md focus-visible:ring-2 focus-visible:ring-ring;
+    }
+
+    .date-month-icon {
+        @apply pointer-events-none absolute right-2 size-3.5 text-muted-foreground;
     }
 
     .date-nav {

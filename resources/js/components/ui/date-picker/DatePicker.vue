@@ -11,7 +11,6 @@ import {
     CalendarGridRow,
     CalendarHeadCell,
     CalendarHeader,
-    CalendarHeading,
     CalendarNext,
     CalendarPrev,
     CalendarRoot,
@@ -20,7 +19,8 @@ import {
     PopoverRoot,
     PopoverTrigger,
 } from 'reka-ui';
-import { computed, ref } from 'vue';
+import { computed, ref, shallowRef, watch } from 'vue';
+import DateMonthSelect from './DateMonthSelect.vue';
 
 const props = withDefaults(
     defineProps<{
@@ -63,6 +63,17 @@ const value = computed({
     },
 });
 
+/** The month on show: the chosen day's, else the first allowed one, else this one. */
+const shownMonth = shallowRef<DateValue>(today(getLocalTimeZone()));
+watch(open, (isOpen) => {
+    if (isOpen) {
+        const earliest = toDate(props.min);
+        const now = today(getLocalTimeZone());
+        shownMonth.value =
+            value.value ?? (earliest && earliest.compare(now) > 0 ? earliest : now);
+    }
+});
+
 const label = computed(() =>
     value.value
         ? new Intl.DateTimeFormat('de-CH', { dateStyle: 'medium' }).format(
@@ -101,7 +112,7 @@ const label = computed(() =>
                 <CalendarRoot
                     v-slot="{ grid, weekDays }"
                     v-model="value"
-                    :default-placeholder="value ?? today(getLocalTimeZone())"
+                    v-model:placeholder="shownMonth"
                     :min-value="toDate(min)"
                     :max-value="toDate(max)"
                     locale="de-CH"
@@ -114,7 +125,11 @@ const label = computed(() =>
                         <CalendarPrev class="date-nav" aria-label="Vorheriger Monat">
                             <ChevronLeft class="size-4" />
                         </CalendarPrev>
-                        <CalendarHeading class="date-heading" />
+                        <DateMonthSelect
+                            v-model="shownMonth"
+                            :min="toDate(min)"
+                            :max="toDate(max)"
+                        />
                         <CalendarNext class="date-nav" aria-label="Nächster Monat">
                             <ChevronRight class="size-4" />
                         </CalendarNext>

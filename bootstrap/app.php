@@ -8,6 +8,7 @@ use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Exceptions\InvalidSignatureException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -35,4 +36,11 @@ return Application::configure(basePath: dirname(__DIR__))
         $exceptions->shouldRenderJsonWhen(
             fn (Request $request) => $request->is('api/*') || $request->expectsJson(),
         );
+
+        // An old link from a mail: say so, and offer a fresh one instead of a 403.
+        $exceptions->render(fn (InvalidSignatureException $exception, Request $request) => match (true) {
+            $request->routeIs('verification.verify') => to_route('verification.notice')->with('status', 'link-expired'),
+            $request->routeIs('welcome-link') => to_route('password.request')->with('status', 'Der Link aus der Willkommensmail ist abgelaufen. Gebt eure E-Mail-Adresse ein, dann schicken wir euch einen neuen.'),
+            default => null,
+        });
     })->create();

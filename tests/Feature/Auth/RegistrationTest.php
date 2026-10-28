@@ -29,11 +29,23 @@ class RegistrationTest extends TestCase
         $response = $this->post(route('register.store'), [
             'name' => 'Test User',
             'email' => 'test@example.com',
-            'password' => 'password',
-            'password_confirmation' => 'password',
+            'password' => 'nur kleinbuchstaben',
+            'password_confirmation' => 'nur kleinbuchstaben',
         ]);
 
         $this->assertAuthenticated();
         $response->assertRedirect(route('dashboard', absolute: false));
+    }
+
+    public function test_a_password_needs_twelve_characters_and_nothing_more(): void
+    {
+        $this->post(route('register.store'), [
+            'name' => 'Test User',
+            'email' => 'test@example.com',
+            'password' => 'zu-kurz-123',
+            'password_confirmation' => 'zu-kurz-123',
+        ])->assertSessionHasErrors('password');
+
+        $this->assertGuest();
     }
 }

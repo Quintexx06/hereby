@@ -72,8 +72,10 @@ defineOptions({
                     id="password"
                     name="password"
                     autocomplete="new-password"
+                    aria-describedby="password-hint"
                     :passwordrules="props.passwordRules"
                 />
+                <p id="password-hint" class="caption">Mindestens 12 Zeichen.</p>
                 <InputError :message="errors.password" />
             </div>
 

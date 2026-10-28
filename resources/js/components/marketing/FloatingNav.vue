@@ -38,6 +38,7 @@ watch(
     <nav
         class="floating-nav"
         :data-visible="pastHero"
+        :inert="!pastHero"
         aria-label="Seitennavigation"
     >
         <Link

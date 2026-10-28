@@ -19,6 +19,7 @@ defineProps<{
         type_label: string;
         code: string;
         is_showcase: boolean;
+        sees_numbers: boolean;
         page: string | null;
     };
     weddings: CalendarWedding[];
@@ -34,7 +35,10 @@ defineProps<{
     <Head :title="copy.title" />
 
     <div class="app-page gap-10">
-        <PageMasthead :title="copy.title" :lede="copy.lede">
+        <PageMasthead
+            :title="copy.title"
+            :lede="copy.lede(partner.sees_numbers)"
+        >
             <template v-if="partner.page" #actions>
                 <a
                     :href="partner.page"

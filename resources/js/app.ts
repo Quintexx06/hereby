@@ -29,7 +29,8 @@ void createInertiaApp({
                 name.startsWith('legal/') ||
                 name.startsWith('venues/'):
                 return MarketingLayout;
-            case name.startsWith('invitation/') ||
+            case name === 'ErrorPage' ||
+                name.startsWith('invitation/') ||
                 name.startsWith('setup/') ||
                 name.startsWith('witness/'):
                 return null;

@@ -59,8 +59,10 @@ defineOptions({
                 autocomplete="new-password"
                 required
                 v-focus
+                aria-describedby="password-hint"
                 :passwordrules="passwordRules"
             />
+            <p id="password-hint" class="caption">Mindestens 12 Zeichen.</p>
             <InputError :message="errors.password" />
         </div>
 

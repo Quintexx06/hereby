@@ -1,7 +1,11 @@
 /** Copy for partner accounts (spec 2026-10-15-partner-accounts). German only. */
 export const partnerCalendar = {
     title: 'Eure Hochzeiten',
-    lede: 'Jede Hochzeit, deren Paar euch mit eurem Code verbunden hat, nach Datum. Ihr seht Zahlen, Menüs und Allergien pro Tisch, keine Namen.',
+    /** Venues and planners see the numbers; photographers no guest data at all. */
+    lede: (seesNumbers: boolean) =>
+        seesNumbers
+            ? 'Jede Hochzeit, deren Paar euch mit eurem Code verbunden hat, nach Datum. Ihr seht Zahlen, Menüs und Allergien pro Tisch, keine Namen.'
+            : 'Jede Hochzeit, deren Paar euch mit eurem Code verbunden hat, nach Datum, mit dem Link für eure Fotos. Gästedaten seht ihr keine.',
     codeLabel: 'Euer Code für Paare',
     codeHint:
         'Gebt euren Paaren den Code oder schickt ihnen gleich den Link: Er führt zur Anmeldung und verbindet danach mit einem Klick.',

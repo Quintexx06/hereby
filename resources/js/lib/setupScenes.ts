@@ -77,7 +77,7 @@ export function storyLine(step: SetupStepKey, form: SetupForm): string {
                 ? `${estimates[form.guest_estimate]} Gäste, auf ${form.languages.map((locale) => languages[locale]).join(' und ')}.`
                 : 'Wer feiert mit euch?';
         case 'look':
-            return `${templates[form.template].name}: ${templates[form.template].mood}`;
+            return `${templates[form.template].name}: ${templates[form.template].line}`;
         case 'uebersicht':
             return names
                 ? `${names}, der Vorhang kann aufgehen.`
