@@ -8,6 +8,7 @@ import { landingPhotos as photo } from '@/content/landing-photos';
 
 export const nav = [
     { label: 'Vorlagen', href: '/#studio' },
+    { label: 'Nach Mass', href: '/#massanfertigung' },
     { label: 'Für Gäste', href: '/#gaeste' },
     { label: 'Ablauf', href: '/#ablauf' },
     { label: 'Der Tag', href: '/#tag' },
@@ -21,7 +22,7 @@ export const hero = {
     titleYes: 'Ja.',
     statement:
         'Premium-Hochzeitswebsites aus der Schweiz. Gestaltet wie ein Magazin, persönlich für jeden Gast.',
-    lede: 'Fünf fertig gestaltete Entwürfe, gefüllt mit euren Fotos und Texten. Jeder Haushalt bekommt seinen eigenen Link und sagt in unter einer Minute zu.',
+    lede: 'Fünf fertig gestaltete Entwürfe, gefüllt mit euren Fotos und Texten, oder eine Seite, massgeschneidert von uns. Jeder Haushalt bekommt seinen eigenen Link und sagt in unter einer Minute zu.',
     primaryCta: 'Kostenlos starten',
     secondaryCta: 'Vorlagen ansehen',
     /* Ends the lede: «… Gestalten ist gratis, online ab CHF 290, einmalig.» */
@@ -159,6 +160,35 @@ export const studio = {
     url: 'anna-und-luca.hereby.ch',
     shot: (name: string) =>
         `Erste Seite des Entwurfs ${name} mit den Beispielnamen Anna und Luca, am Computer und auf dem Handy`,
+} as const;
+
+/**
+ * Right after the five designs: the Massanfertigung (spec
+ * 2026-10-15-bespoke-and-design-freedom) as an offer of its own, so nobody
+ * leaves thinking five templates are all we make.
+ */
+export const bespokeBand = {
+    titleLead: 'Oder ganz',
+    titleAccent: 'nach Mass.',
+    lede: 'Eure Farben, eure Schrift, ein Aufbau nach euren Ideen: Wir gestalten eure Hochzeitswebsite massgeschneidert und von Hand, über die fünf Entwürfe hinaus.',
+    steps: [
+        {
+            title: 'Ihr erzählt',
+            body: 'Wünsche, Farben, Bilder und Seiten, die euch gefallen.',
+        },
+        {
+            title: 'Wir gestalten',
+            body: 'Innert zwei Arbeitstagen melden wir uns und bauen eure Seite: Look, Texte, Fotos, Ablauf.',
+        },
+        {
+            title: 'Ihr gebt frei',
+            body: 'Ihr seht alles in der Vorschau. Erst wenn es stimmt, geht sie an eure Gäste.',
+        },
+    ],
+    price: (price: string) =>
+        `Ab ${price}, einmalig, zu jedem Paket. In Couture enthalten.`,
+    cta: 'Kostenlos starten',
+    after: 'Euer Briefing schickt ihr nach dem Start unter «Massanfertigung». Fragen vorab:',
 } as const;
 
 /**

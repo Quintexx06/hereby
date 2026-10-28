@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Head } from '@inertiajs/vue3';
 import ActsSection from '@/components/marketing/ActsSection.vue';
+import BespokeSection from '@/components/marketing/BespokeSection.vue';
 import ClosingSection from '@/components/marketing/ClosingSection.vue';
 import FloatingNav from '@/components/marketing/FloatingNav.vue';
 import FaqSection from '@/components/marketing/FaqSection.vue';
@@ -34,6 +35,7 @@ defineProps<{
     <FloatingNav />
     <HeroSection :from="prices.plans.signature" />
     <StudioSection />
+    <BespokeSection :price="prices.addons.bespoke" />
     <IntroSection />
     <GuestSection />
     <StepsSection />

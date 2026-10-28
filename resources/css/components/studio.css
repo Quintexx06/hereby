@@ -208,3 +208,26 @@
         }
     }
 }
+
+/* The Massanfertigung (BespokeSection) under the five designs, on the stage. */
+@layer components {
+    .bespoke-band {
+        @apply grid gap-10 rounded-[2rem] px-7 py-9 sm:px-12 sm:py-12 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:gap-x-16 lg:px-16 lg:py-16;
+    }
+
+    .bespoke-band-steps {
+        @apply grid gap-6 sm:grid-cols-3 lg:grid-cols-1 lg:gap-5;
+    }
+
+    .bespoke-band-step {
+        @apply flex flex-col gap-1 border-t border-foreground/15 pt-4;
+    }
+
+    .bespoke-band-number {
+        @apply font-display text-sm font-semibold text-muted-foreground tabular-nums;
+    }
+
+    .bespoke-band-start {
+        @apply flex flex-col items-start gap-5 border-t border-foreground/15 pt-8 sm:flex-row sm:items-center sm:gap-8 lg:col-span-2;
+    }
+}

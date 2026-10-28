@@ -10,6 +10,7 @@ use App\Support\Chf;
 
 $signature = Chf::price('plans.signature');
 $atelier = Chf::price('plans.atelier');
+$bespoke = Chf::price('addons.bespoke');
 
 return [
     'seo' => [
@@ -42,6 +43,10 @@ return [
         [
             'question' => 'Wie lange dauert es, eine Hochzeitswebsite zu erstellen?',
             'answer' => 'Rund zehn Minuten: Ihr beantwortet sieben kurze Fragen zu Paar, Datum, Ort, Ablauf, Gästen, Sprachen und Look, und eure Seite steht. Texte und Fotos verfeinert ihr danach, wann ihr wollt. Lieber machen lassen? Mit der Massanfertigung bauen wir eure Seite nach euren Wünschen.',
+        ],
+        [
+            'question' => 'Gestaltet ihr auch eine ganz eigene, massgeschneiderte Hochzeitswebsite?',
+            'answer' => "Ja. Mit der Massanfertigung erzählt ihr uns eure Wünsche, Farben, Bilder und Vorbilder, und wir gestalten eure Seite von Hand: eigene Farben, eigene Schrift, eigener Aufbau, über die fünf Entwürfe hinaus. Ihr seht alles in der Vorschau und gebt frei, bevor sie an eure Gäste geht. Ab {$bespoke}, einmalig, im Paket Couture enthalten.",
         ],
         [
             'question' => 'Was kostet eine Hochzeitswebsite bei Hereby?',

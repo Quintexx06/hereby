@@ -137,12 +137,15 @@ are two tinted panels led by their icons; the fine print under the extras
 is gone. The hero copy shows at the latest 0.9 s after load, whatever the
 3D veil does (LCP on slow phones).
 
+**Update 2026-10-28 (founder):** the Massanfertigung had to be said, not hidden in the extras list. The hero lede names it («… oder eine Seite, massgeschneidert von uns.»), the floating nav has «Nach Mass», and right after the studio a night-stage panel *Oder ganz nach Mass.* says what it is (your colours, your type, your layout, by hand), how it goes (Ihr erzählt · Wir gestalten · Ihr gebt frei) and what it costs (ab the bespoke add-on price, in Couture). A FAQ answers «Gestaltet ihr auch eine ganz eigene, massgeschneiderte Hochzeitswebsite?» for the FAQPage data.
+
 ## 5. Message hierarchy and section rationale
 
 | # | Section | Job | UX notes |
 | - | ------- | --- | -------- |
 | 1 | Hero: *Vorhang auf für euer Ja.* | Emotion and the brand moment, then the promise: premium wedding websites, designed like a magazine, personal for every guest | The veil reveal is the memory of the visit. Copy reveals during the opening; skippable; LCP is the photo itself, preloaded. Secondary CTA "Vorlagen ansehen" scrolls to the studio. |
 | 2 | Studio: *Gestaltet, nicht zusammengeklickt.* | "Design is the product", proven live, first | The three templates in their own serifs on their paper (ADR 0014), in browser windows in a carousel; visitors type their names and date; accent chips recolour the accents; «Live ansehen» opens the real site for the sample couple, reply form included. |
+| 2b | Nach Mass: *Oder ganz nach Mass.* | Say we also build a site to measure, before anyone files us under templates | Night-stage panel right under the carousel: three steps, the price, the same primary CTA; the briefing itself lives in the app (pages/bespoke). |
 | 3 | Intro: *Eure Gäste bekommen keine Website. Sie bekommen ihre Einladung.* | Reframe the category | Names the pains of the standard site (wrong events, irrelevant fields, passwords). |
 | 4 | Für Gäste: *Ein Link pro Haushalt. In seiner Sprache.* | Show the mechanism | Live phone preview in DE/FR/IT/EN, real seeded data, labelled as an example. |
 | 5 | Ablauf: *10 Min. · 1 Link · 60 Sek.* | Lower effort anxiety | The durations are the information, so they are the largest type. |

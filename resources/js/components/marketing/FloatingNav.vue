@@ -49,7 +49,8 @@ watch(
             <AppLogoIcon class="size-6" />
         </Link>
 
-        <div class="relative hidden items-center gap-1.5 md:flex">
+        <!-- Seven chapters fit from lg; below, the pill names the one you're in. -->
+        <div class="relative hidden items-center gap-1.5 lg:flex">
             <span
                 class="floating-nav-indicator"
                 :data-visible="indicator.visible"
@@ -70,7 +71,7 @@ watch(
             </a>
         </div>
 
-        <span class="floating-nav-current hidden sm:inline md:hidden">{{
+        <span class="floating-nav-current hidden sm:inline lg:hidden">{{
             current?.label
         }}</span>
 
@@ -79,7 +80,7 @@ watch(
         </Button>
         <template v-else>
             <span
-                class="mx-1 hidden h-5 w-px bg-rule md:block"
+                class="mx-1 hidden h-5 w-px bg-rule lg:block"
                 aria-hidden="true"
             />
             <Link :href="login()" class="floating-nav-link ml-1">Anmelden</Link>
