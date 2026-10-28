@@ -38,7 +38,7 @@ class PlainListParser
                 continue;
             }
 
-            $households[] = new ParsedHousehold($name ?: ParsedHousehold::nameFor($guests), $guests, $email);
+            $households[] = new ParsedHousehold($name ?: ParsedHousehold::nameFor($guests), $guests, $email, plusOne: $this->names->hasCompanion($people));
         }
 
         return $households;

@@ -16,6 +16,9 @@ const deadlineTouched = ref(Boolean(form.rsvp_deadline));
 watch(
     () => form.wedding_date,
     (value) => {
+        // A date chosen answers «Wann ist der grosse Tag?» right away.
+        form.clearErrors('wedding_date');
+
         if (value && !deadlineTouched.value) {
             form.rsvp_deadline = suggestedDeadline(value);
         }
@@ -62,7 +65,10 @@ const summary = computed(() => {
                 v-model="form.rsvp_deadline"
                 :min="today"
                 :max="form.wedding_date"
-                @update:model-value="deadlineTouched = true"
+                @update:model-value="
+                    deadlineTouched = true;
+                    form.clearErrors('rsvp_deadline');
+                "
             />
             <p class="field-hint">{{ date.deadlineHint }}</p>
             <InputError :message="form.errors.rsvp_deadline" />

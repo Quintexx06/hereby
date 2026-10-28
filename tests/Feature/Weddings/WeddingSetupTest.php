@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Weddings;
 
+use App\Enums\Celebration;
 use App\Enums\EventType;
 use App\Enums\SetupStep;
 use App\Enums\WeddingStatus;
@@ -97,6 +98,19 @@ class WeddingSetupTest extends TestCase
             ->assertInertia(fn (Assert $page) => $page
                 ->component('setup/Step')
                 ->where('suggestion.template', WeddingTemplate::Lido->value));
+    }
+
+    public function test_look_step_reads_the_venue_name_before_the_region(): void
+    {
+        $barn = Wedding::factory()->draft(SetupStep::Look)->create(['venue_name' => 'Stallstube Riethof', 'venue_postcode' => '8447', 'venue_town' => 'Dachsen', 'celebration' => Celebration::DayAndEvening]);
+        $castle = Wedding::factory()->draft(SetupStep::Look)->create(['venue_name' => 'Schloss Hünigen', 'venue_postcode' => '3510', 'venue_town' => 'Konolfingen', 'celebration' => Celebration::Day]);
+        $plain = Wedding::factory()->draft(SetupStep::Look)->create(['venue_name' => 'Seehotel Vitznau', 'venue_postcode' => '6354', 'venue_town' => 'Vitznau']);
+
+        foreach ([[$barn, WeddingTemplate::Garten], [$castle, WeddingTemplate::Salon], [$plain, WeddingTemplate::Arve]] as [$wedding, $template]) {
+            $this->actingAs($wedding->owner)
+                ->get(route('weddings.setup.show', [$wedding, SetupStep::Look]))
+                ->assertInertia(fn (Assert $page) => $page->where('suggestion.template', $template->value));
+        }
     }
 
     public function test_look_step_saves_one_of_the_five_designs(): void

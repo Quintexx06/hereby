@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Plus, X } from '@lucide/vue';
+import { nextTick } from 'vue';
 import InputError from '@/components/InputError.vue';
 import { Input } from '@/components/ui/input';
 import SwitchRow from '@/components/rsvp/SwitchRow.vue';
@@ -11,9 +12,12 @@ const menus = defineModel<string[]>('menus', { required: true });
 const keys = defineModel<(string | null)[]>('keys', { required: true });
 const childrenMenu = defineModel<boolean>('childrenMenu', { required: true });
 
-function addMenu(): void {
+/* The new field takes the cursor, so typing right away lands in it. */
+async function addMenu(): Promise<void> {
     menus.value.push('');
     keys.value.push(null);
+    await nextTick();
+    document.getElementById(`menu-${menus.value.length - 1}`)?.focus();
 }
 
 function removeMenu(index: number): void {

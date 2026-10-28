@@ -7,6 +7,7 @@ import {
     estimates,
     eventTypes,
     languages,
+    programme,
     review,
     templates,
 } from '@/content/setup';
@@ -50,7 +51,13 @@ const rows = computed<{ label: string; value: string; step: SetupStepKey }[]>(
         {
             label: review.programme,
             value: form.celebration
-                ? `${celebrations[form.celebration].label}: ${form.events.map((event) => `${event.name || eventTypes[event.type]} ${event.time}`).join(', ')}`
+                ? `${celebrations[form.celebration].label}: ${form.events
+                      .map((event) => {
+                          const day = programme.dayNote(event.day_offset);
+
+                          return `${event.name || eventTypes[event.type]} ${event.time}${day ? ` (${day})` : ''}`;
+                      })
+                      .join(', ')}`
                 : review.open,
             step: 'ablauf',
         },

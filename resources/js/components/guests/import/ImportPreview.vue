@@ -65,6 +65,11 @@ defineEmits<{ toggle: [number]; save: []; reset: [] }>();
                                     >{{ importCopy.duplicate }}</span
                                 >
                             </span>
+                            <span
+                                v-if="household.plus_one_allowed"
+                                class="tag"
+                                >{{ guestsPage.plusOne }}</span
+                            >
                         </span>
                         <span
                             v-if="household.email"

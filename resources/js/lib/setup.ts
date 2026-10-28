@@ -1,4 +1,4 @@
-import { eventTypes, languages } from '@/content/setup';
+import { eventTypes, languages, programme } from '@/content/setup';
 import type { PreviewHousehold } from '@/content/invitation-preview';
 import { formatDate } from '@/lib/format';
 import type { SetupForm, SetupStepKey } from '@/types/setup';
@@ -80,11 +80,20 @@ export function previewFromForm(form: SetupForm): PreviewHousehold {
         heading: 'Eure Einladung',
         events: sortProgramme(form.events)
             .slice(0, 4)
-            .map((event) => ({
-                time: event.time,
-                name: event.name || eventTypes[event.type],
-                place: event.type === 'civil_ceremony' ? '' : place,
-            })),
+            .map((event) => {
+                const day = programme.dayNote(event.day_offset);
+
+                return {
+                    time: event.time,
+                    name: event.name || eventTypes[event.type],
+                    // «Am Vortag» says more than a town for the civil ceremony.
+                    place: day
+                        ? day.charAt(0).toUpperCase() + day.slice(1)
+                        : event.type === 'civil_ceremony'
+                          ? ''
+                          : place,
+                };
+            }),
         action: 'Jetzt antworten',
         deadline: form.rsvp_deadline
             ? `Bitte antwortet bis ${formatDate(form.rsvp_deadline, 'de-CH')}`

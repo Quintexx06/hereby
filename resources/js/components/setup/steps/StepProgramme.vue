@@ -23,6 +23,15 @@ function chooseCelebration(value: Celebration): void {
     }));
 }
 
+/* The server names a row's field as «events.3.time»; each row shows its own. */
+function rowError(index: number): string | undefined {
+    const errors = form.errors as Record<string, string | undefined>;
+
+    return ['time', 'name', 'day_offset', 'type']
+        .map((field) => errors[`events.${index}.${field}`])
+        .find(Boolean);
+}
+
 const missing = computed(() =>
     (Object.keys(eventTypes) as EventType[]).filter(
         (type) =>
@@ -88,6 +97,7 @@ function add(type: EventType): void {
                     :key="`${index}-${row.type}`"
                     v-model:row="form.events[index]"
                     :index="index"
+                    :error="rowError(index)"
                     @remove="form.events.splice(index, 1)"
                 />
             </div>

@@ -57,6 +57,27 @@ class GuestListReaderTest extends TestCase
         ], $this->summary($households));
     }
 
+    public function test_an_unnamed_companion_is_the_households_plus_one_not_a_guest(): void
+    {
+        $households = $this->reader()->fromText(<<<'TXT'
+            Peter Müller + Begleitung
+            Anna Weber +1
+            Marc Dubois avec accompagnant
+            Laura Bianchi con accompagnatrice
+            Heidi + Peter Meier
+            TXT);
+
+        $this->assertSame([
+            ['Peter Müller', ['Peter Müller']],
+            ['Anna Weber', ['Anna Weber']],
+            ['Marc Dubois', ['Marc Dubois']],
+            ['Laura Bianchi', ['Laura Bianchi']],
+            ['Heidi & Peter Meier', ['Heidi Meier', 'Peter Meier']],
+        ], $this->summary($households));
+        $this->assertSame([true, true, true, true, false], array_map(fn (ParsedHousehold $household) => $household->plusOne, $households));
+        $this->assertTrue($households[0]->toArray()['plus_one_allowed']);
+    }
+
     public function test_cells_pasted_from_excel_group_by_household_column(): void
     {
         $households = $this->reader()->fromText(

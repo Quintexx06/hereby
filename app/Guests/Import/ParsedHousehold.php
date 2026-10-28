@@ -17,6 +17,8 @@ final readonly class ParsedHousehold
         public array $guests,
         public ?string $email = null,
         public ?Locale $locale = null,
+        /** «+ Begleitung» in the list: the household may bring someone. */
+        public bool $plusOne = false,
     ) {}
 
     /**
@@ -38,7 +40,7 @@ final readonly class ParsedHousehold
     }
 
     /**
-     * @return array{name: string, email: string|null, locale: string|null, guests: list<array{first_name: string, last_name: string|null, is_child: bool}>}
+     * @return array{name: string, email: string|null, locale: string|null, plus_one_allowed: bool, guests: list<array{first_name: string, last_name: string|null, is_child: bool}>}
      */
     public function toArray(): array
     {
@@ -46,6 +48,7 @@ final readonly class ParsedHousehold
             'name' => $this->name,
             'email' => $this->email,
             'locale' => $this->locale?->value,
+            'plus_one_allowed' => $this->plusOne,
             'guests' => array_map(fn (ParsedGuest $guest) => $guest->toArray(), $this->guests),
         ];
     }

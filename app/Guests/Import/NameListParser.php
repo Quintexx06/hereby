@@ -18,10 +18,25 @@ class NameListParser
     private const string TITLES = '/^(?:(?:prof|dr|med|dipl|ing|lic|dott|dott\.ssa)\.?\s+)+(?=\S)/iu';
 
     /**
+     * An unnamed companion at the end, not a person: "+ Begleitung", "+1",
+     * "(+1)", "plus one", "avec accompagnant", "con accompagnatrice".
+     */
+    private const string COMPANION = '/(?:\s*\(\s*\+\s*1\s*\)|\s*\+\s*1|\s*\bplus[- ]one|\s*(?:\+|&|\bmit\b|\bund\b|\bavec\b|\bcon\b|\bwith\b)\s*(?:(?:einer|une?|a)\s+)?(?:begleitung|begleiter(?:in)?|partner(?:in)?|accompagnante?|accompagnat(?:ore|rice)|guest))\s*$/iu';
+
+    /**
+     * Whether the entry brings an unnamed companion: the household's +1.
+     */
+    public function hasCompanion(string $text): bool
+    {
+        return (bool) preg_match(self::COMPANION, $text);
+    }
+
+    /**
      * @return list<ParsedGuest>
      */
     public function parse(string $text): array
     {
+        $text = preg_replace(self::COMPANION, '', $text) ?? $text;
         $parts = array_values(array_filter(
             array_map(fn (string $part): string => Str::squish($part), preg_split(self::SEPARATORS, $text) ?: []),
             fn (string $part): bool => $part !== '',

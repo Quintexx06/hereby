@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
-import { computed } from 'vue';
+import { computed, nextTick, onMounted, ref } from 'vue';
 import { useTrans } from '@/composables/useTrans';
 import { formatDate } from '@/lib/format';
+import { prefersReducedMotion } from '@/lib/motion';
 import type { Invitation } from '@/types';
 
 const props = defineProps<{ invitation: Invitation; replied: boolean }>();
@@ -13,13 +14,37 @@ const deadline = computed(() =>
         ? formatDate(props.invitation.wedding.rsvpDeadline, localeTag())
         : null,
 );
+
+/*
+ * Right after a reply the page reopens at the top, and the thanks sits
+ * below the hero: bring it into view so the guest sees the answer landed.
+ */
+const summary = ref<HTMLElement | null>(null);
+
+onMounted(async () => {
+    if (!props.replied) {
+        return;
+    }
+
+    await nextTick();
+    summary.value?.scrollIntoView({
+        block: 'center',
+        behavior: prefersReducedMotion() ? 'auto' : 'smooth',
+    });
+    summary.value?.focus({ preventScroll: true });
+});
 </script>
 
 <!-- The way to reply, or what was answered and how to change it. -->
 <template>
     <section class="inv-reply">
         <template v-if="invitation.reply.answered">
-            <div class="reply-summary w-full" role="status">
+            <div
+                ref="summary"
+                class="reply-summary w-full outline-none"
+                role="status"
+                tabindex="-1"
+            >
                 <p v-if="replied" class="title relative">
                     <!-- Once, right after a yes: petals open around the thanks. -->
                     <span

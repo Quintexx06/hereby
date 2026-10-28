@@ -131,6 +131,11 @@
         grid-area: remove;
     }
 
+    /* A row's own error (a missing time, a long name) under the whole card. */
+    .programme-error {
+        grid-column: 1 / -1;
+    }
+
     .programme-add {
         @apply flex flex-wrap items-center gap-2 rounded-xl border border-dashed p-4;
     }

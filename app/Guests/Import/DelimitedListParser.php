@@ -67,10 +67,11 @@ class DelimitedListParser
             }
 
             $key = $cell('household') !== '' ? 'h:'.Str::lower($cell('household')) : 'row:'.$index;
-            $groups[$key] ??= ['name' => $cell('household'), 'guests' => [], 'email' => null, 'language' => null];
+            $groups[$key] ??= ['name' => $cell('household'), 'guests' => [], 'email' => null, 'language' => null, 'plusOne' => false];
             array_push($groups[$key]['guests'], ...$guests);
             $groups[$key]['email'] ??= $cell('email') !== '' ? Str::lower($cell('email')) : null;
             $groups[$key]['language'] ??= $cell('language') !== '' ? $cell('language') : null;
+            $groups[$key]['plusOne'] = $groups[$key]['plusOne'] || $this->names->hasCompanion($cell('name') !== '' ? $cell('name') : $cell('household'));
         }
 
         return array_values(array_map(fn (array $group): ParsedHousehold => new ParsedHousehold(
@@ -78,6 +79,7 @@ class DelimitedListParser
             $group['guests'],
             filter_var($group['email'], FILTER_VALIDATE_EMAIL) ? $group['email'] : null,
             LocaleGuesser::guess($group['language']),
+            $group['plusOne'],
         ), $groups));
     }
 

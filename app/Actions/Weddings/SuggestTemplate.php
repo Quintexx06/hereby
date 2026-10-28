@@ -19,8 +19,19 @@ class SuggestTemplate
     {
         $postcode = (int) $wedding->venue_postcode;
         $town = $wedding->venue_town;
+        $venue = (string) $wedding->venue_name;
 
         return match (true) {
+            // What the venue is says more than where it is: a barn is Garten
+            // even in the city, a castle is Salon even in the mountains.
+            $this->isCountryside($venue) => [
+                'template' => WeddingTemplate::Garten,
+                'reason' => "Passt zu Hof, Scheune und Garten: {$venue}",
+            ],
+            $this->isGrand($venue) => [
+                'template' => WeddingTemplate::Salon,
+                'reason' => "Passt zu Schloss und Salon: {$venue}",
+            ],
             $postcode >= 6500 && $postcode <= 6999 => [
                 'template' => WeddingTemplate::Lido,
                 'reason' => "Passt zum Süden: {$town}",
@@ -42,6 +53,22 @@ class SuggestTemplate
                 'reason' => 'Unser Klassiker, zeitlos am Abend',
             ],
         };
+    }
+
+    /**
+     * Barns, farms, vineyards and gardens: «Stallstube Riethof», «Eventschür».
+     */
+    private function isCountryside(string $venue): bool
+    {
+        return (bool) preg_match('/scheune|sch[uü]+r\b|stall|bauernhof|\bhof\b|weingut|rebberg|landgut|garten/iu', $venue);
+    }
+
+    /**
+     * Castles, grand hotels and guild halls: «Schloss Hünigen», «Zunfthaus».
+     */
+    private function isGrand(string $venue): bool
+    {
+        return (bool) preg_match('/schloss|grandhotel|grand hotel|zunfthaus|palais|palace/iu', $venue);
     }
 
     /**

@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import { X } from '@lucide/vue';
+import InputError from '@/components/InputError.vue';
 import { Input } from '@/components/ui/input';
 import { eventTypes, programme } from '@/content/setup';
 import type { ProgrammeRow } from '@/types/setup';
 
 defineProps<{
     index: number;
+    /** What the server said about this row, if anything. */
+    error?: string;
 }>();
 
 defineEmits<{ remove: [] }>();
@@ -28,6 +31,8 @@ const row = defineModel<ProgrammeRow>('row', { required: true });
                 step="900"
                 class="tabular-nums"
                 required
+                :aria-invalid="Boolean(error) || undefined"
+                :aria-describedby="error ? `event_error_${index}` : undefined"
             />
         </div>
         <div class="programme-what field">
@@ -67,5 +72,11 @@ const row = defineModel<ProgrammeRow>('row', { required: true });
         >
             <X class="size-4" />
         </button>
+        <InputError
+            v-if="error"
+            :id="`event_error_${index}`"
+            class="programme-error"
+            :message="error"
+        />
     </div>
 </template>
