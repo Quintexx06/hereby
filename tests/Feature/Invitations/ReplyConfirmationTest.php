@@ -72,6 +72,28 @@ class ReplyConfirmationTest extends TestCase
         });
     }
 
+    public function test_a_decline_is_thanked_without_cheering_and_without_dates(): void
+    {
+        Mail::fake();
+
+        $this->put(route('invitation.reply.update', $this->household), $this->reply([
+            'answers' => [
+                ['guest_id' => $this->heidi->id, 'event_id' => $this->ceremony->id, 'status' => 'declined'],
+                ['guest_id' => $this->heidi->id, 'event_id' => $this->dinner->id, 'status' => 'declined'],
+            ],
+            'email' => 'heidi@example.ch',
+        ]))->assertRedirect();
+
+        Mail::assertQueued(ReplyConfirmation::class, function (ReplyConfirmation $mail): bool {
+            $mail->assertSeeInHtml('Schade, dass ihr nicht dabei sein könnt.');
+            $mail->assertDontSeeInHtml('freuen sich');
+            $mail->assertDontSeeInHtml('Im Anhang');
+            $this->assertCount(0, $mail->attachments());
+
+            return true;
+        });
+    }
+
     public function test_no_email_means_no_confirmation(): void
     {
         Mail::fake();

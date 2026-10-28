@@ -6,6 +6,7 @@ use App\Enums\ResponseStatus;
 use App\Models\Event;
 use App\Models\Guest;
 use App\Models\Household;
+use App\Support\GuestDate;
 use App\Support\PersonalLink;
 use App\Support\WeddingCalendar;
 use Illuminate\Bus\Queueable;
@@ -46,7 +47,8 @@ class ReplyConfirmation extends Mailable implements ShouldQueue
 
         return new Content(markdown: 'mail.reply-confirmation', with: [
             'couple' => $household->wedding->couple_names,
-            'deadline' => $household->wedding->rsvp_deadline?->copy()->settings(['locale' => $this->locale])->isoFormat('LL'),
+            'attending' => $this->attending(),
+            'deadline' => $household->wedding->rsvp_deadline ? GuestDate::long($household->wedding->rsvp_deadline, $this->locale) : null,
             'link' => PersonalLink::to($household),
             'events' => $household->events->sortBy('starts_at')->map(fn (Event $event): array => [
                 'name' => $event->name ?? __("invitation.event_types.{$event->type->value}"),
@@ -69,13 +71,21 @@ class ReplyConfirmation extends Mailable implements ShouldQueue
     }
 
     /**
+     * The dates for the calendar, when there is something to come to.
+     *
      * @return list<Attachment>
      */
     public function attachments(): array
     {
-        return [
+        return $this->attending() ? [
             Attachment::fromData(fn (): string => WeddingCalendar::for($this->household), 'hochzeit.ics')
                 ->withMime('text/calendar'),
-        ];
+        ] : [];
+    }
+
+    private function attending(): bool
+    {
+        return $this->household->loadMissing('guests.responses')->guests
+            ->contains(fn (Guest $guest): bool => $guest->responses->contains('status', ResponseStatus::Attending));
     }
 }

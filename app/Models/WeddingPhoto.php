@@ -37,6 +37,9 @@ class WeddingPhoto extends Model
 
     public const int TOKEN_LENGTH = 40;
 
+    /** The lighter widths a guest page may ask for (`?w=`). */
+    public const array WIDTHS = [800, 1200];
+
     /** @var list<string> */
     protected $fillable = ['position', 'focus_x', 'focus_y'];
 
@@ -69,6 +72,32 @@ class WeddingPhoto extends Model
         return route('wedding-photos.show', $this->token);
     }
 
+    /**
+     * The web copy and its lighter widths, for `srcset`: a phone loads the
+     * 800 or 1200 pixel WebP instead of the full copy (rule 2). Null for the
+     * stand-ins of samples and demos, which are never stored.
+     */
+    public function srcset(): ?string
+    {
+        if (! $this->exists) {
+            return null;
+        }
+
+        return collect(self::WIDTHS)
+            ->filter(fn (int $width): bool => $width < $this->width)
+            ->map(fn (int $width): string => route('wedding-photos.show', [$this->token, 'w' => $width])." {$width}w")
+            ->push("{$this->url()} {$this->width}w")
+            ->implode(', ');
+    }
+
+    /**
+     * Where the WebP copy of a width is kept, beside the web copy.
+     */
+    public function variantPath(int $width): string
+    {
+        return (string) preg_replace('/\.jpg$/', "-{$width}.webp", $this->path);
+    }
+
     public static function directoryFor(int $weddingId): string
     {
         return GuestPhoto::directoryFor($weddingId).'/couple';
@@ -81,7 +110,10 @@ class WeddingPhoto extends Model
         });
 
         static::deleting(function (WeddingPhoto $photo): void {
-            Storage::disk(self::DISK)->delete($photo->path);
+            Storage::disk(self::DISK)->delete([
+                $photo->path,
+                ...array_map($photo->variantPath(...), self::WIDTHS),
+            ]);
         });
     }
 }

@@ -22,9 +22,10 @@ const { t } = useTrans();
             <span class="lido-lane-number" aria-hidden="true">{{
                 index + 1
             }}</span>
-            <time :datetime="item.event.startsAt" class="lido-lane-time">{{
-                item.time
-            }}</time>
+            <time :datetime="item.event.startsAt" class="lido-lane-time">
+                {{ item.time }}
+                <span v-if="item.day" class="inv-day-date">{{ item.day }}</span>
+            </time>
             <div class="lido-lane-what">
                 <component
                     :is="eventIcons[item.event.type]"

@@ -130,6 +130,33 @@ class CouplePhotosTest extends TestCase
         $this->get(route('wedding-photos.show', str_repeat('x', 40)))->assertNotFound();
     }
 
+    public function test_phones_get_a_lighter_webp_copy_made_once_and_gone_with_the_photo(): void
+    {
+        $wedding = Wedding::factory()->create();
+        $this->actingAs($wedding->owner)
+            ->post(route('weddings.photos.store', $wedding), ['photo' => UploadedFile::fake()->image('wir.jpg', 3000, 4000)]);
+        $photo = $wedding->couplePhotos()->sole();
+        $disk = Storage::disk(WeddingPhoto::DISK);
+
+        // A portrait web copy is 1200 wide: one lighter width below it.
+        $this->assertSame(
+            route('wedding-photos.show', [$photo->token, 'w' => 800]).' 800w, '.route('wedding-photos.show', $photo->token).' 1200w',
+            $photo->srcset(),
+        );
+
+        $this->get(route('wedding-photos.show', [$photo->token, 'w' => 800]))
+            ->assertOk()
+            ->assertHeader('Content-Type', 'image/webp');
+        [$width] = (array) getimagesizefromstring((string) $disk->get($photo->variantPath(800)));
+        $this->assertSame(800, $width);
+
+        // Any other width is the web copy itself.
+        $this->get(route('wedding-photos.show', [$photo->token, 'w' => 333]))->assertHeader('Content-Type', 'image/jpeg');
+
+        $photo->delete();
+        $this->assertSame([], $disk->allFiles("weddings/{$wedding->id}"));
+    }
+
     public function test_guests_and_the_preview_get_the_photos_in_order(): void
     {
         $wedding = Wedding::factory()->create();

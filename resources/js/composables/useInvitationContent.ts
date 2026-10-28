@@ -3,8 +3,10 @@ import { useTrans } from '@/composables/useTrans';
 import { daysUntil } from '@/lib/calendar';
 import {
     formatDate,
+    formatDay,
     formatList,
     formatTime,
+    venueDay,
     VENUE_TIME_ZONE,
 } from '@/lib/format';
 import type {
@@ -19,8 +21,26 @@ export type ProgrammeItem = {
     event: WeddingEvent;
     title: string;
     time: string;
+    /** «Fr., 18. Juni» when the programme spans several days, else null. */
+    day: string | null;
     route: string | null;
 };
+
+/**
+ * Where the day happens: the first place on the wedding day itself, so a
+ * civil ceremony the day before does not stand in the hero.
+ */
+export function placeOfTheDay(
+    events: WeddingEvent[],
+    date: string,
+): string | null {
+    const placed = events.filter((event) => event.locationName);
+    const onTheDay = placed.find(
+        (event) => venueDay(event.startsAt) === date.slice(0, 10),
+    );
+
+    return (onTheDay ?? placed[0])?.locationName ?? null;
+}
 
 /** A plain maps link: nothing is requested until the guest taps it. */
 export function routeTo(...parts: (string | null)[]): string | null {
@@ -71,11 +91,8 @@ export function useInvitationContent(invitation: () => Invitation) {
         };
     });
 
-    /* Where the day happens: the first part with a place. */
-    const place = computed(
-        () =>
-            invitation().events.find((event) => event.locationName)
-                ?.locationName ?? null,
+    const place = computed(() =>
+        placeOfTheDay(invitation().events, wedding.value.date),
     );
 
     const deadline = computed(() =>
@@ -87,9 +104,11 @@ export function useInvitationContent(invitation: () => Invitation) {
     /* «Liebe Sandra und Peter»: the words around the names, the names apart. */
     const greeting = computed(() => {
         const mark = '\u0000';
-        const [before, after = ''] = t('invitation.dear', {
-            names: mark,
-        }).split(mark);
+        const key =
+            invitation().guests.length === 1
+                ? 'invitation.dear_one'
+                : 'invitation.dear';
+        const [before, after = ''] = t(key, { names: mark }).split(mark);
         const guests = formatList(
             invitation().guests.map((guest) => guest.firstName),
             localeTag(),
@@ -98,14 +117,19 @@ export function useInvitationContent(invitation: () => Invitation) {
         return { before, names: guests, after };
     });
 
-    const programme = computed<ProgrammeItem[]>(() =>
-        invitation().events.map((event) => ({
+    const programme = computed<ProgrammeItem[]>(() => {
+        const events = invitation().events;
+        const severalDays =
+            new Set(events.map((event) => venueDay(event.startsAt))).size > 1;
+
+        return events.map((event) => ({
             event,
             title: event.name ?? t(`invitation.event_types.${event.type}`),
             time: formatTime(event.startsAt, localeTag()),
+            day: severalDays ? formatDay(event.startsAt, localeTag()) : null,
             route: routeTo(event.locationName, event.address),
-        })),
-    );
+        }));
+    });
 
     const block = (type: ContentBlockType): InvitationBlock | null =>
         invitation().blocks.find((each) => each.type === type) ?? null;

@@ -7,6 +7,8 @@ return [
     'marry' => 'heiraten',
     'photo_alt' => 'Foto von :couple',
     'dear' => 'Liebe :names',
+    // One guest: no gendered word to get wrong («Liebe Marco»).
+    'dear_one' => 'Für :names',
     'footer_questions' => 'Fragen? Meldet euch bei',
     'footer_privacy' => 'Datenschutz',
     'footer_venue' => 'Ort des Festes: :venue',

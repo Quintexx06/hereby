@@ -50,6 +50,7 @@ return [
     'mail' => [
         'subject' => ':couple: your reply has arrived',
         'heading' => 'Thank you, :couple are delighted.',
+        'heading_declined' => 'Thank you for your reply. What a pity you can’t be there.',
         'intro' => 'This is what you replied:',
         'nobody' => 'Not coming',
         'allergies' => 'Your allergy details are saved and only visible to the couple and the kitchen.',

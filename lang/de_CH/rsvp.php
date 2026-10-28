@@ -50,6 +50,7 @@ return [
     'mail' => [
         'subject' => ':couple: eure Antwort ist da',
         'heading' => 'Danke, :couple freuen sich.',
+        'heading_declined' => 'Danke für eure Antwort. Schade, dass ihr nicht dabei sein könnt.',
         'intro' => 'Das habt ihr geantwortet:',
         'nobody' => 'Leider nicht dabei',
         'allergies' => 'Eure Angaben zu Allergien sind gespeichert und nur für das Brautpaar und die Küche sichtbar.',

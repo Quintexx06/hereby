@@ -25,6 +25,7 @@ class WeddingResource extends JsonResource
             // The couple's own photos, cover first (spec 2026-10-13-couple-photos).
             'photos' => $this->couplePhotos->map(fn (WeddingPhoto $photo): array => [
                 'url' => $photo->url(),
+                'srcset' => $photo->srcset(),
                 'width' => $photo->width,
                 'height' => $photo->height,
                 'focus' => $photo->focus(),

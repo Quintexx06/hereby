@@ -13,6 +13,7 @@ import GartenHero from '@/components/invitation/templates/garten/GartenHero.vue'
 import GartenOrnament from '@/components/invitation/templates/garten/GartenOrnament.vue';
 import GartenTicker from '@/components/invitation/templates/garten/GartenTicker.vue';
 import { useGuestMotion } from '@/composables/motion/useGuestMotion';
+import { placeOfTheDay } from '@/composables/useInvitationContent';
 import { useTrans } from '@/composables/useTrans';
 import { formatDate } from '@/lib/format';
 import { gartenMotion } from '@/lib/guest-motion/garten';
@@ -21,11 +22,8 @@ import type { Invitation } from '@/types';
 const props = defineProps<{ invitation: Invitation; replied: boolean }>();
 const { localeTag } = useTrans();
 
-/* Where the day happens: the first part with a place. */
-const place = computed(
-    () =>
-        props.invitation.events.find((event) => event.locationName)
-            ?.locationName ?? null,
+const place = computed(() =>
+    placeOfTheDay(props.invitation.events, props.invitation.wedding.date),
 );
 
 const root = ref<HTMLElement | null>(null);

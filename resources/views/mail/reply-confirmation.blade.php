@@ -1,5 +1,5 @@
 <x-mail::message :brand="$couple">
-# {{ __('rsvp.mail.heading', ['couple' => $couple]) }}
+# {{ __($attending ? 'rsvp.mail.heading' : 'rsvp.mail.heading_declined', ['couple' => $couple]) }}
 
 {{ __('rsvp.mail.intro') }}
 
@@ -20,7 +20,10 @@
 {{ __('rsvp.change_until', ['date' => $deadline]) }}
 @endif
 
+@if ($attending)
 {{ __('rsvp.mail.calendar') }}
+
+@endif
 
 {{ __('rsvp.mail.signoff', ['couple' => $couple]) }}
 </x-mail::message>

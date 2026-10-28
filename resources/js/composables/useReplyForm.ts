@@ -174,7 +174,10 @@ export function provideReplyForm(
                 ? data.songWish.trim() || null
                 : null,
             email: data.email.trim() || null,
-        })).put(reply.links.reply, { preserveScroll: true });
+        })).put(reply.links.reply, {
+            // Errors keep the guest where they are; the thanks scrolls itself into view.
+            preserveScroll: 'errors',
+        });
     }
 
     const api: ReplyFormApi = {

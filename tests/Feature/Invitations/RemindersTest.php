@@ -90,7 +90,8 @@ class RemindersTest extends TestCase
 
         $signed = URL::signedRoute('invitation.reminders.stop', $household);
 
-        $this->get(route('invitation.reminders.stop', $household))->assertForbidden();
+        // Without a valid signature it stops nothing and leads to the invitation instead.
+        $this->get(route('invitation.reminders.stop', $household))->assertRedirect(route('invitation.show', $household));
 
         // Opening the link only asks: mail scanners open links on their own.
         $this->get($signed)->assertOk()->assertInertia(fn (Assert $page) => $page->where('stopped', false));

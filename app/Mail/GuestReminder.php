@@ -3,6 +3,7 @@
 namespace App\Mail;
 
 use App\Models\Household;
+use App\Support\GuestDate;
 use App\Support\PersonalLink;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -55,8 +56,9 @@ class GuestReminder extends Mailable implements ShouldQueue
 
     private function deadline(): string
     {
-        return (string) $this->household->wedding->rsvp_deadline?->copy()
-            ->settings(['locale' => $this->locale])->isoFormat('LL');
+        $deadline = $this->household->wedding->rsvp_deadline;
+
+        return $deadline ? GuestDate::long($deadline, $this->locale) : '';
     }
 
     private function stopUrl(): string

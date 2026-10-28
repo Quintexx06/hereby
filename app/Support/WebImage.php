@@ -25,6 +25,43 @@ class WebImage
      */
     public static function jpeg(string $bytes, int $edge, int $quality = 82): ?array
     {
+        $image = self::open($bytes, $edge);
+
+        if ($image === null) {
+            return null;
+        }
+
+        ob_start();
+        imagejpeg($image, null, $quality);
+
+        return ['bytes' => (string) ob_get_clean(), 'width' => imagesx($image), 'height' => imagesy($image)];
+    }
+
+    /**
+     * A lighter copy for phones: WebP is about a third smaller than JPEG at
+     * the same look. Null where GD was built without WebP.
+     *
+     * @return array{bytes: string, width: int, height: int}|null
+     */
+    public static function webp(string $bytes, int $edge, int $quality = 74): ?array
+    {
+        $image = function_exists('imagewebp') ? self::open($bytes, $edge) : null;
+
+        if ($image === null) {
+            return null;
+        }
+
+        ob_start();
+        imagewebp($image, null, $quality);
+
+        return ['bytes' => (string) ob_get_clean(), 'width' => imagesx($image), 'height' => imagesy($image)];
+    }
+
+    /**
+     * The photo upright, its longer edge at most $edge; null when it cannot be read.
+     */
+    private static function open(string $bytes, int $edge): ?\GdImage
+    {
         $size = getimagesizefromstring($bytes);
 
         if ($size === false || ! self::fitsInMemory($size[0], $size[1])) {
@@ -39,12 +76,8 @@ class WebImage
         }
 
         $image = imagescale($image, ...self::fit(imagesx($image), imagesy($image), $edge)) ?: $image;
-        $image = $degrees === 0 ? $image : (imagerotate($image, $degrees, 0) ?: $image);
 
-        ob_start();
-        imagejpeg($image, null, $quality);
-
-        return ['bytes' => (string) ob_get_clean(), 'width' => imagesx($image), 'height' => imagesy($image)];
+        return $degrees === 0 ? $image : (imagerotate($image, $degrees, 0) ?: $image);
     }
 
     /**

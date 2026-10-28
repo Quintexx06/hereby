@@ -33,4 +33,11 @@ class ErrorPageTest extends TestCase
             ->assertNotFound()
             ->assertSee('Zur Startseite');
     }
+
+    public function test_a_guest_link_that_no_longer_opens_answers_in_the_browsers_language(): void
+    {
+        $this->get('/i/gibt-es-nicht', ['Accept-Language' => 'fr-CH,fr;q=0.9'])
+            ->assertNotFound()
+            ->assertDontSee('Zur Startseite');
+    }
 }

@@ -5,8 +5,10 @@ return [
     'for' => 'Pour',
     'title' => ':couple se marient',
     'marry' => 'se marient',
-    'photo_alt' => 'Photo de :couple',
+    'photo_alt' => ':couple en photo',
     'dear' => 'Chers :names',
+    // One guest: no gendered word to get wrong («Liebe Marco»).
+    'dear_one' => 'Pour :names',
     'footer_questions' => 'Des questions ? Écrivez à',
     'footer_privacy' => 'Confidentialité',
     'footer_venue' => 'Lieu de la fête : :venue',

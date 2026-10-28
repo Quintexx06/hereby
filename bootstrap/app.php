@@ -41,6 +41,8 @@ return Application::configure(basePath: dirname(__DIR__))
         $exceptions->render(fn (InvalidSignatureException $exception, Request $request) => match (true) {
             $request->routeIs('verification.verify') => to_route('verification.notice')->with('status', 'link-expired'),
             $request->routeIs('welcome-link') => to_route('password.request')->with('status', 'Der Link aus der Willkommensmail ist abgelaufen. Gebt eure E-Mail-Adresse ein, dann schicken wir euch einen neuen.'),
+            // A damaged opt-out link: the invitation itself, where replying still works.
+            $request->routeIs('invitation.reminders.stop') => to_route('invitation.show', ['household' => $request->route()?->originalParameter('household')]),
             default => null,
         });
     })->create();

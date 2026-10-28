@@ -8,7 +8,8 @@ import { useTrans } from '@/composables/useTrans';
  * alone, so it plays from the first paint, before any script, and ends by
  * itself after ~1.4s. It never catches a tap (pointer-events: none). Script
  * only remembers that it was seen and ends it early on a tap or a key.
- * app.blade.php hides it before paint when seen or when motion is reduced.
+ * app.blade.php hides it before paint when seen or when motion is reduced;
+ * after the first time, visits inside the page skip it too.
  */
 defineProps<{ couple: string; date: string }>();
 const { t } = useTrans();
@@ -33,6 +34,9 @@ onMounted(() => {
     } catch {
         /* Private mode: the opening may play again, which is harmless. */
     }
+
+    // Coming back from the reply page is a visit without a page load: no second veil.
+    document.documentElement.dataset.openingSeen = '1';
 
     window.addEventListener('pointerdown', end, { once: true });
     window.addEventListener('keydown', end, { once: true });

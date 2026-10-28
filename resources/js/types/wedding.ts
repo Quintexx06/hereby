@@ -17,6 +17,8 @@ export type EventType =
 /** One of the couple's own photos, cover first (WeddingResource). */
 export type WeddingPhoto = {
     url: string;
+    /** Lighter WebP widths and the web copy, for the browser to choose. */
+    srcset?: string | null;
     width: number;
     height: number;
     /** The spot that must stay in view when cropped: [x, y] in percent. */

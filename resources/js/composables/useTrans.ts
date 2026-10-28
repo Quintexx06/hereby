@@ -65,8 +65,15 @@ export function useTrans() {
         return chosen.replace(/^(\{\d+\}|\[\d+,(\d+|\*)\])\s*/, '');
     }
 
-    /** BCP 47 tag of the current locale, e.g. `de-CH`. */
-    const localeTag = (): string => page.props.locale.replace('_', '-');
+    /**
+     * BCP 47 tag of the current locale, e.g. `de-CH`. English is British:
+     * 19 June 2027 and 22:00, never 06/19/2027 and 10:00 PM.
+     */
+    const localeTag = (): string => {
+        const tag = page.props.locale.replace('_', '-');
+
+        return tag === 'en' ? 'en-GB' : tag;
+    };
 
     return { t, tc, localeTag };
 }

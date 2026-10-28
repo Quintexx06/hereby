@@ -33,8 +33,8 @@ const { t, localeTag } = useTrans();
             />
             <time :datetime="item.event.startsAt" class="inv-day-time">
                 {{ item.time }}
-                <span v-if="days" class="inv-day-date">{{
-                    formatDay(item.event.startsAt, localeTag())
+                <span v-if="days || item.day" class="inv-day-date">{{
+                    item.day ?? formatDay(item.event.startsAt, localeTag())
                 }}</span>
             </time>
             <div class="inv-day-body">

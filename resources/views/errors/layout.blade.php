@@ -4,6 +4,11 @@
     language; everywhere else the platform speaks Swiss German.
 --}}
 @php
+    // A guest link that no longer opens (404) never set the household's language: the browser's.
+    if (request()->is('i/*') && app()->getLocale() === config('app.locale')) {
+        $preferred = request()->getPreferredLanguage(['de', 'fr', 'it', 'en']);
+        app()->setLocale($preferred === 'de' || $preferred === null ? 'de_CH' : $preferred);
+    }
     if (! in_array(app()->getLocale(), ['de_CH', 'fr', 'it', 'en'], true) || (app()->getLocale() === 'en' && ! request()->is('i/*'))) {
         app()->setLocale('de_CH');
     }

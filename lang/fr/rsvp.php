@@ -50,6 +50,7 @@ return [
     'mail' => [
         'subject' => ':couple : votre réponse est bien arrivée',
         'heading' => 'Merci, :couple se réjouissent.',
+        'heading_declined' => 'Merci pour votre réponse. Dommage que vous ne puissiez pas venir.',
         'intro' => 'Voici votre réponse :',
         'nobody' => 'Ne vient pas',
         'allergies' => 'Vos indications d’allergies sont enregistrées et visibles uniquement par les mariés et la cuisine.',
@@ -63,9 +64,9 @@ return [
         'stop_hint' => 'Plus de rappels ?',
         'stop' => 'Se désabonner',
         'stopped_title' => 'Plus de rappels',
-        'stopped_body' => 'Vous ne recevrez plus de rappels de :couple. Vous pouvez toujours répondre à tout moment.',
+        'stopped_body' => 'Vous ne recevrez plus de rappels. Vous pouvez toujours répondre à :couple à tout moment.',
         'stop_title' => 'Plus de rappels ?',
-        'stop_body' => 'Vous ne recevrez alors plus de rappels de :couple. Vous pouvez toujours répondre à tout moment.',
+        'stop_body' => 'Vous ne recevrez alors plus de rappels. Vous pouvez toujours répondre à :couple à tout moment.',
         'stop_confirm' => 'Oui, plus de rappels',
     ],
     'errors' => [

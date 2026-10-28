@@ -30,8 +30,15 @@ const { t } = useTrans();
                 <time :datetime="item.event.startsAt" class="arve-sign-time">{{
                     item.time
                 }}</time>
-                <span v-if="item.event.locationName" class="arve-sign-place">
-                    {{ item.event.locationName }}
+                <span
+                    v-if="item.day || item.event.locationName"
+                    class="arve-sign-place"
+                >
+                    {{
+                        [item.day, item.event.locationName]
+                            .filter(Boolean)
+                            .join(' · ')
+                    }}
                 </span>
                 <span v-if="item.route" class="sr-only">{{
                     t('invitation.route')

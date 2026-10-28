@@ -18,9 +18,11 @@ const names = computed(() =>
 /* «Liebe Sandra»: the greeting as written, the names in the accent's italic. */
 const MARK = '\u0000';
 const greeting = computed(() => {
-    const [before, after = ''] = t('invitation.dear', { names: MARK }).split(
-        MARK,
-    );
+    const key =
+        props.invitation.guests.length === 1
+            ? 'invitation.dear_one'
+            : 'invitation.dear';
+    const [before, after = ''] = t(key, { names: MARK }).split(MARK);
 
     return { before, after };
 });
